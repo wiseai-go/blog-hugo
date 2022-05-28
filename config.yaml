@@ -1,4 +1,4 @@
-baseurl: "https://wiseai.gitee.io/blog-hugo"
+baseurl: "https://blog.wiseai.cn"
 languageCode: "zh-cn"
 title: "wiseai的博客"
 theme: "hugo-tania"
