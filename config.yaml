@@ -63,15 +63,18 @@ params:
 
 menu:
   header:
-    - name: Articles
-      url: "/articles/"
-    - name: Tags 
-      url: "/tags/"
-    - name: Categories
-      url: "/categories/"
+    - name: 文章
+      weight: "1"
+      url: "articles/"
+    - name: 关键字 
+      weight: "3"
+      url: "tags/"
+    - name: 分类
+      url: "categories/"
+      weight: "2"
   footer:
     - name: RSS
-      url: "/index.xml"
+      url: "index.xml"
 
 markup:
   highlight:
