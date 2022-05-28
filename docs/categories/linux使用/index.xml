@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Linux使用 on wiseai的博客</title>
-    <link>https://example.com/categories/linux%E4%BD%BF%E7%94%A8/</link>
+    <link>https://wiseai.gitee.io/blog-hugo/categories/linux%E4%BD%BF%E7%94%A8/</link>
     <description>Recent content in Linux使用 on wiseai的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 27 May 2022 16:22:46 +0800</lastBuildDate><atom:link href="https://example.com/categories/linux%E4%BD%BF%E7%94%A8/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 27 May 2022 16:22:46 +0800</lastBuildDate><atom:link href="https://wiseai.gitee.io/blog-hugo/categories/linux%E4%BD%BF%E7%94%A8/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Firstblog</title>
-      <link>https://example.com/post/firstblog/</link>
+      <link>https://wiseai.gitee.io/blog-hugo/post/firstblog/</link>
       <pubDate>Fri, 27 May 2022 16:22:46 +0800</pubDate>
       
-      <guid>https://example.com/post/firstblog/</guid>
+      <guid>https://wiseai.gitee.io/blog-hugo/post/firstblog/</guid>
       <description> dkjfalskdjf </description>
     </item>
     
