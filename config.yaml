@@ -4,6 +4,8 @@ title: "wiseai的博客"
 theme: "hugo-tania"
 paginate: 10
 
+publishdir: "docs/"
+
 disqusShortname: https-hugo-tania-netlify-app
 
 params:
