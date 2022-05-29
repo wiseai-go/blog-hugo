@@ -2,8 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://blog.wiseai.cn/projects/a_project/</loc>
+    <loc>https://blog.wiseai.cn/projects/tania_theme/</loc>
     <lastmod>2020-11-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/projects/blog_wiseai/</loc>
+    <lastmod>2020-05-29T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wiseai.cn/</loc>
     <lastmod>2021-05-31T00:00:00+00:00</lastmod>
