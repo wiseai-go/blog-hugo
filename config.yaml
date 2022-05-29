@@ -1,6 +1,6 @@
 baseurl: "https://blog.wiseai.cn"
 languageCode: "zh-cn"
-title: "wiseai的博客"
+title: "WiseAI的博客"
 theme: "hugo-tania"
 paginate: 10
 
@@ -72,11 +72,58 @@ menu:
       weight: "3"
       url: "tags/"
     - name: 分类
-      url: "categories/"
       weight: "2"
+      url: "categories/"      
   footer:
     - name: RSS
+      weight: 100
       url: "index.xml"
+    - name: 孤鸟之歌
+      weight: 1
+      url: "https://wiseai.gitee.io/pages/gnzg/index.html"
+    - name: 生成随机字符
+      weight: 1
+      url: "https://wiseai.gitee.io/pages/mm/index.html"
+    - name: MarkDown
+      weight: 2
+      url: "https://wiseai.gitee.io/pages/md/index.html"
+    - name: Gitee
+      weight: 3
+      url: "https://gitee.com/"
+    - name: Github
+      weight: 4
+      url: "https://github.com/"
+    - name: OSCHINA
+      weight: 5
+      url: "https://www.oschina.net/"
+    - name: the way to go
+      weight: 6
+      url: "https://gitee.com/wiseai/the-way-to-go_ZH_CN/blob/master/eBook/directory.md"
+    - name: GoFrame
+      weight: 7
+      url: "https://goframe.org/display/gf"
+    - name: 阿里云盘
+      weight: 8
+      url: "https://www.aliyundrive.com/"
+    - name: bootstrap文档
+      weight: 9
+      url: "https://www.bootstrap.cn/"
+    - name: 千图
+      weight: 10
+      url: "https://www.58pic.com/"
+    - name: 七牛云
+      weight: 11
+      url: "https://marketing.qiniu.com/"
+    - name: 西瓜视频
+      weight: 12
+      url: "https://www.ixigua.com/"
+    - name: 鱼缸计算
+      weight: 13
+      url: "https://wiseai.gitee.io/pages/yugang/index.html"
+    - name: RSS
+      weight: 100
+      url: "index.xml"
+
 
 markup:
   highlight:
