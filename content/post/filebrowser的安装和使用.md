@@ -2,7 +2,7 @@
 author: "wiseai"
 title: "filebrowser的安装和使用"
 date: "2022-05-30"
-description: "轻量的文件管理系统"
+description: "轻量级的文件管理系统"
 tags:
 - filebrowser
 - 文件管理

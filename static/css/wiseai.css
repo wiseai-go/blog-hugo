@@ -8,3 +8,11 @@
 .footer-links {
 
 }
+.terms {
+    line-height: 3rem;
+}
+.terms > a {
+    width: 200px;
+    /*display: block;*/
+    float: left;
+}
