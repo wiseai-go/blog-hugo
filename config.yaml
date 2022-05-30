@@ -1,10 +1,10 @@
-baseurl: "https://blog.wiseai.cn"
+baseurl: "https://blog.wiseai.cn/blog-hugo/"
 languageCode: "zh-cn"
 title: "WiseAI的博客"
 theme: "hugo-tania"
 paginate: 10
 
-publishdir: "docs/"
+publishdir: "docs/blog-hugo/"
 
 disqusShortname: https-hugo-tania-netlify-app
 

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+	<meta name="generator" content="Hugo 0.99.1" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="theme-color" content="dark">
+    <title>WiseAI的博客</title>
+
+    
+    
+    
+    <meta property="og:site_name" content="wiseai的备忘录" />
+    <meta property="og:title" content="WiseAI的博客"/>
+    <meta itemprop="name" content="WiseAI的博客" />
+    <meta name="twitter:title" content="WiseAI的博客" />
+    <meta name="application-name" content="WiseAI的博客" /><meta name="twitter:card" content="summary"/>
+
+    <meta name="description" content="Linux golang" />
+    <meta name="twitter:description" content="Linux golang"/>
+    <meta itemprop="description" content="Linux golang"/>
+    <meta property="og:description" content="Linux golang" />
+
+    
+
+
+    <link rel="shortcut icon" type="image/x-icon" href="/blog-hugo/favicon.ico" />
+    
+    <link rel="stylesheet" href="/blog-hugo/sass/main.min.ab99ff095f832511e24ffb2fba2b51ad473b2f7e9301d674eba2c6c3a6e8bd81.css">
+    <link rel="stylesheet" href="/css/wiseai.css">
+</head>
+    
+    <script>
+        (function() {
+            const colorSchemeKey = 'ThemeColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'ThemeColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.userColorScheme = 'dark';
+        } else {
+            document.documentElement.dataset.userColorScheme = 'light';
+        }
+    })();
+</script>
+
+
+    <body class="dark">
+        <nav class="navbar">
+    <div class="container">
+        <div class="flex">
+            <div>
+                <a class="brand" href="/blog-hugo/">
+                    
+                    <span class="emoji">
+                        ✨
+                    </span>
+                    
+                    
+                    WiseAI的博客
+                    </a>
+            </div>
+            <div class="flex">
+                
+                <a href="/blog-hugo/articles/">文章</a>
+                
+                <a href="/blog-hugo/categories/">分类</a>
+                
+                <a href="/blog-hugo/tags/">关键字</a>
+                
+                
+                    <button id="dark-mode-button">
+                    <svg class="light" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 36 36"><path fill="#FFD983" d="M30.312.776C32 19 20 32 .776 30.312c8.199 7.717 21.091 7.588 29.107-.429C37.9 21.867 38.03 8.975 30.312.776z"/><path d="M30.705 15.915a1.163 1.163 0 1 0 1.643 1.641a1.163 1.163 0 0 0-1.643-1.641zm-16.022 14.38a1.74 1.74 0 0 0 0 2.465a1.742 1.742 0 1 0 0-2.465zm13.968-2.147a2.904 2.904 0 0 1-4.108 0a2.902 2.902 0 0 1 0-4.107a2.902 2.902 0 0 1 4.108 0a2.902 2.902 0 0 1 0 4.107z" fill="#FFCC4D"/><rect x="0" y="0" width="36" height="36" fill="rgba(0, 0, 0, 0)" /></svg>
+                    <svg class="dark" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 36 36"><path fill="#FFD983" d="M16 2s0-2 2-2s2 2 2 2v2s0 2-2 2s-2-2-2-2V2zm18 14s2 0 2 2s-2 2-2 2h-2s-2 0-2-2s2-2 2-2h2zM4 16s2 0 2 2s-2 2-2 2H2s-2 0-2-2s2-2 2-2h2zm5.121-8.707s1.414 1.414 0 2.828s-2.828 0-2.828 0L4.878 8.708s-1.414-1.414 0-2.829c1.415-1.414 2.829 0 2.829 0l1.414 1.414zm21 21s1.414 1.414 0 2.828s-2.828 0-2.828 0l-1.414-1.414s-1.414-1.414 0-2.828s2.828 0 2.828 0l1.414 1.414zm-.413-18.172s-1.414 1.414-2.828 0s0-2.828 0-2.828l1.414-1.414s1.414-1.414 2.828 0s0 2.828 0 2.828l-1.414 1.414zm-21 21s-1.414 1.414-2.828 0s0-2.828 0-2.828l1.414-1.414s1.414-1.414 2.828 0s0 2.828 0 2.828l-1.414 1.414zM16 32s0-2 2-2s2 2 2 2v2s0 2-2 2s-2-2-2-2v-2z"/><circle fill="#FFD983" cx="18" cy="18" r="10"/><rect x="0" y="0" width="36" height="36" fill="rgba(0, 0, 0, 0)" /></svg>
+                    </button>
+                
+            </div>
+            </div>
+    </div>
+</nav>
+
+        <main>
+            
+
+<div class="container">
+    <section class="my">
+        <div class="content">
+            
+            <p><strong>逼出的成功,强迫的辉煌!</strong></p>
+
+            
+            <div class="bio-social">
+                
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+
+
+
+<div class="container">
+    <section>
+        <h2>
+            最新文章
+            
+            <a class="section-button" href="/blog-hugo/articles/">查看所有</a>
+            
+        </h2>
+        <div class="posts">
+            
+            <div class="post">
+                <a href="/blog-hugo/post/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                    <div class="post-row">
+                        <time>2022-05-30</time>
+                        <h3>docker学习笔记</h3>
+                    </div>
+                    
+                </a>
+            </div>
+            
+            <div class="post">
+                <a href="/blog-hugo/post/filebrowser%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/">
+                    <div class="post-row">
+                        <time>2022-05-30</time>
+                        <h3>filebrowser的安装和使用</h3>
+                    </div>
+                    
+                </a>
+            </div>
+            
+            <div class="post">
+                <a href="/blog-hugo/post/ftp%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9E%B6%E8%AE%BEvsftpd/">
+                    <div class="post-row">
+                        <time>2022-05-30</time>
+                        <h3>FTP服务器架设（vsftpd）</h3>
+                    </div>
+                    
+                </a>
+            </div>
+            
+            <div class="post">
+                <a href="/blog-hugo/post/footnote/">
+                    <div class="post-row">
+                        <time>2021-05-31</time>
+                        <h3>Footnote test</h3>
+                    </div>
+                    
+                </a>
+            </div>
+            
+            <div class="post">
+                <a href="/blog-hugo/post/test-katex/">
+                    <div class="post-row">
+                        <time>2021-05-22</time>
+                        <h3>Katex support</h3>
+                    </div>
+                    
+                </a>
+            </div>
+            
+            <div class="post">
+                <a href="/blog-hugo/post/test-mathjax/">
+                    <div class="post-row">
+                        <time>2021-05-22</time>
+                        <h3>MathJax support</h3>
+                    </div>
+                    
+                </a>
+            </div>
+            
+            <div class="post">
+                <a href="/blog-hugo/post/markdown-syntax/">
+                    <div class="post-row">
+                        <time>2019-03-11</time>
+                        <h3>Markdown Syntax Guide</h3>
+                    </div>
+                    
+                </a>
+            </div>
+            
+            <div class="post">
+                <a href="/blog-hugo/post/example-lazy-load-image/">
+                    <div class="post-row">
+                        <time>2019-03-09</time>
+                        <h3>Example Lazy Load Image</h3>
+                    </div>
+                    
+                </a>
+            </div>
+            
+            <div class="post">
+                <a href="/blog-hugo/post/placeholder-text/">
+                    <div class="post-row">
+                        <time>2019-03-09</time>
+                        <h3>Placeholder Text</h3>
+                    </div>
+                    
+                </a>
+            </div>
+            
+            <div class="post">
+                <a href="/blog-hugo/post/emoji-support/">
+                    <div class="post-row">
+                        <time>2019-03-05</time>
+                        <h3>Emoji Support</h3>
+                    </div>
+                    
+                </a>
+            </div>
+            
+        </div>
+    </section>
+    
+    <section>
+        <h2>项目</h2>
+        <div class="projects">
+            
+            <div class="project">
+                <div>
+                    <a href="https://github.com/WingLim/hugo-tania" target="_blank" rel="noreferrer">
+                        <div class="icon">📝</div>
+                        <h3>Hugo Tania Theme</h3>
+                    </a>
+                    <div class="description">Make a blog with hugo tania theme!</div>
+                </div>
+                <div class="flex">
+                    <a href="https://github.com/WingLim/hugo-tania" class="button" target="_blank" rel="noreferrer">Source</a>
+                </div>
+            </div>
+            
+            <div class="project">
+                <div>
+                    <a href="https://github.com/wiseai-go/blog-hugo.git" target="_blank" rel="noreferrer">
+                        <div class="icon">📝</div>
+                        <h3>blog-hugo</h3>
+                    </a>
+                    <div class="description">My blog build with hugo tania theme!</div>
+                </div>
+                <div class="flex">
+                    <a href="https://github.com/wiseai-go/blog-hugo.git" class="button" target="_blank" rel="noreferrer">Source</a>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+    
+</div>
+
+
+        </main>
+        <footer class="footer flex">
+    <section class="container">
+        <nav class="footer-links">
+            
+            <a href="https://wiseai.gitee.io/pages/gnzg/index.html">孤鸟之歌</a>
+            
+            <a href="https://wiseai.gitee.io/pages/mm/index.html">生成随机字符</a>
+            
+            <a href="https://wiseai.gitee.io/pages/md/index.html">MarkDown</a>
+            
+            <a href="https://gitee.com/">Gitee</a>
+            
+            <a href="https://github.com/">Github</a>
+            
+            <a href="https://www.oschina.net/">OSCHINA</a>
+            
+            <a href="https://gitee.com/wiseai/the-way-to-go_ZH_CN/blob/master/eBook/directory.md">the way to go</a>
+            
+            <a href="https://goframe.org/display/gf">GoFrame</a>
+            
+            <a href="https://www.aliyundrive.com/">阿里云盘</a>
+            
+            <a href="https://www.bootstrap.cn/">bootstrap文档</a>
+            
+            <a href="https://www.58pic.com/">千图</a>
+            
+            <a href="https://marketing.qiniu.com/">七牛云</a>
+            
+            <a href="https://www.ixigua.com/">西瓜视频</a>
+            
+            <a href="https://wiseai.gitee.io/pages/yugang/index.html">鱼缸计算</a>
+            
+            <a href="/blog-hugo/index.xml">RSS</a>
+            
+        </nav>
+
+        
+    </section>
+    <script defer src="/blog-hugo/ts/features.2f98c2f5215583b54b0a8bd7bdb10411467f4fee386a61e03ca3ddf376273fc4.js" 
+    data-enable-footnotes="true"
+    ></script>
+</footer>
+
+    </body>
+</html>

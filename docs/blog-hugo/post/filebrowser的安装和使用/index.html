@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="theme-color" content="dark">
+    <title>filebrowser的安装和使用 | WiseAI的博客</title>
+
+    
+    
+    
+    <meta property="og:site_name" content="wiseai的备忘录" />
+    <meta property="og:title" content="filebrowser的安装和使用 | WiseAI的博客"/>
+    <meta itemprop="name" content="filebrowser的安装和使用 | WiseAI的博客" />
+    <meta name="twitter:title" content="filebrowser的安装和使用 | WiseAI的博客" />
+    <meta name="application-name" content="filebrowser的安装和使用 | WiseAI的博客" /><meta name="twitter:card" content="summary"/>
+
+    <meta name="description" content="轻量的文件管理系统" />
+    <meta name="twitter:description" content="轻量的文件管理系统 "/>
+    <meta itemprop="description" content=" 轻量的文件管理系统 "/>
+    <meta property="og:description" content=" 轻量的文件管理系统 " />
+
+    
+
+<meta property="og:type" content="article" />
+<meta property="article:publisher" content="wiseai" />
+<meta property="og:article:published_time" content=2022-05-30T00:00:00Z />
+<meta property="article:published_time" content=2022-05-30T00:00:00Z />
+
+
+  <meta property="og:article:author" content="Wiseai" />
+  <meta property="article:author" content="Wiseai" />
+  <meta name="author" content="Wiseai" />
+
+
+
+
+<script defer type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "headline": "filebrowser的安装和使用",
+    "author": {
+      "@type": "Person",
+      "name": "wiseai"
+    },
+    "datePublished": "2022-05-30",
+    "description": "轻量的文件管理系统",
+    "wordCount":  90 ,
+    "mainEntityOfPage": "True",
+    "dateModified": "2022-05-30",
+    "publisher": {
+      "@type": "Organization",
+      "name": "wiseai",
+      "logo": {
+        "@type": "imageObject",
+        "url": "https:\/\/blog.wiseai.cn\/blog-hugo\/favicon.ico"
+      }
+    }
+  }
+</script>
+
+
+
+    <link rel="shortcut icon" type="image/x-icon" href="/blog-hugo/favicon.ico" />
+    
+    <link rel="stylesheet" href="/blog-hugo/sass/main.min.ab99ff095f832511e24ffb2fba2b51ad473b2f7e9301d674eba2c6c3a6e8bd81.css">
+    <link rel="stylesheet" href="/css/wiseai.css">
+</head>
+    
+    <script>
+        (function() {
+            const colorSchemeKey = 'ThemeColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'ThemeColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.userColorScheme = 'dark';
+        } else {
+            document.documentElement.dataset.userColorScheme = 'light';
+        }
+    })();
+</script>
+
+
+    <body class="dark">
+        <nav class="navbar">
+    <div class="container">
+        <div class="flex">
+            <div>
+                <a class="brand" href="/blog-hugo/">
+                    
+                    <span class="emoji">
+                        ✨
+                    </span>
+                    
+                    
+                    WiseAI的博客
+                    </a>
+            </div>
+            <div class="flex">
+                
+                <a href="/blog-hugo/articles/">文章</a>
+                
+                <a href="/blog-hugo/categories/">分类</a>
+                
+                <a href="/blog-hugo/tags/">关键字</a>
+                
+                
+                    <button id="dark-mode-button">
+                    <svg class="light" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 36 36"><path fill="#FFD983" d="M30.312.776C32 19 20 32 .776 30.312c8.199 7.717 21.091 7.588 29.107-.429C37.9 21.867 38.03 8.975 30.312.776z"/><path d="M30.705 15.915a1.163 1.163 0 1 0 1.643 1.641a1.163 1.163 0 0 0-1.643-1.641zm-16.022 14.38a1.74 1.74 0 0 0 0 2.465a1.742 1.742 0 1 0 0-2.465zm13.968-2.147a2.904 2.904 0 0 1-4.108 0a2.902 2.902 0 0 1 0-4.107a2.902 2.902 0 0 1 4.108 0a2.902 2.902 0 0 1 0 4.107z" fill="#FFCC4D"/><rect x="0" y="0" width="36" height="36" fill="rgba(0, 0, 0, 0)" /></svg>
+                    <svg class="dark" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 36 36"><path fill="#FFD983" d="M16 2s0-2 2-2s2 2 2 2v2s0 2-2 2s-2-2-2-2V2zm18 14s2 0 2 2s-2 2-2 2h-2s-2 0-2-2s2-2 2-2h2zM4 16s2 0 2 2s-2 2-2 2H2s-2 0-2-2s2-2 2-2h2zm5.121-8.707s1.414 1.414 0 2.828s-2.828 0-2.828 0L4.878 8.708s-1.414-1.414 0-2.829c1.415-1.414 2.829 0 2.829 0l1.414 1.414zm21 21s1.414 1.414 0 2.828s-2.828 0-2.828 0l-1.414-1.414s-1.414-1.414 0-2.828s2.828 0 2.828 0l1.414 1.414zm-.413-18.172s-1.414 1.414-2.828 0s0-2.828 0-2.828l1.414-1.414s1.414-1.414 2.828 0s0 2.828 0 2.828l-1.414 1.414zm-21 21s-1.414 1.414-2.828 0s0-2.828 0-2.828l1.414-1.414s1.414-1.414 2.828 0s0 2.828 0 2.828l-1.414 1.414zM16 32s0-2 2-2s2 2 2 2v2s0 2-2 2s-2-2-2-2v-2z"/><circle fill="#FFD983" cx="18" cy="18" r="10"/><rect x="0" y="0" width="36" height="36" fill="rgba(0, 0, 0, 0)" /></svg>
+                    </button>
+                
+            </div>
+            </div>
+    </div>
+</nav>
+
+        <main>
+            
+<div class="container">
+    <article>
+        <header class="article-header">
+            <div class="thumb">
+                <div>
+                    <h1>filebrowser的安装和使用</h1>
+                    <div class="post-meta">
+                        <div>
+                            
+                            
+                            By wiseai | <time>2022-05-30</time>
+                            | 1 minutes
+                        </div>
+                        <div class="tags">
+                            
+                            <a href="/blog-hugo/tags/filebrowser/">filebrowser</a>
+                            
+                            <a href="/blog-hugo/tags/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/">文件管理</a>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </article>
+
+    <div class="article-post">
+    <h2 id="编译安装">
+    <a href="#%e7%bc%96%e8%af%91%e5%ae%89%e8%a3%85" class="anchor">
+        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
+            <path fill-rule="evenodd"
+                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
+            </path>
+        </svg>
+    </a>
+    编译安装
+</h2>
+<p>可以自己编译，必须安装golang v1.16以上和nodejs，最好是最新版本，否则会出现一些问题。</p>
+<pre tabindex="0"><code>$ git clone https://github.com/filebrowser/filebrowser
+</code></pre><p>注：如果有gitee的可以改，速度快</p>
+<pre tabindex="0"><code>$ make help
+</code></pre><p>注：编译帮助</p>
+<pre tabindex="0"><code>$ make build
+</code></pre><p>注：开始编译，完成后在当前目录下filebrowser</p>
+<h2 id="使用简介">
+    <a href="#%e4%bd%bf%e7%94%a8%e7%ae%80%e4%bb%8b" class="anchor">
+        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
+            <path fill-rule="evenodd"
+                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
+            </path>
+        </svg>
+    </a>
+    使用简介：
+</h2>
+<p>直接输入命令：
+<code>./filebrowser</code>
+会在当前目录下生成数据库文件，并开启服务</p>
+<p>关闭服务后，输入以下命令进行设置：</p>
+<p><code>./filebrowser config cat</code>查看配置文件，这个配置是写入数据库里的</p>
+<p><code>./filebrowser config set --address 0.0.0.0</code>打开所有端口</p>
+<p>这里的<code>config set --address</code>可以从配置文件里看，想设置那个就把address换成那个</p>
+<p><code>./filebrowser  config set --port 80</code>设置端口</p>
+<p><code>./filebrowser  config set --locale zh-cn</code>设置语言</p>
+<p><code>./filebrowser  config set --log /your/path/filebrowser.log</code>设置日志</p>
+<p><code>./filebrowser  config set --root /your/path/</code>设置根目录</p>
+<p><code>./filebrowser  users add root password --perm.admin</code>这个是添加用户，其中的root和password分别是用户名和密码</p>
+<p><code>./filebrowser -d /you/path/filebrowser.db config init</code>这里的-d是指定数据库文件，config init是初始化，这个命令应该一开始就执行，但是什么参数都不带的话，会自己生成。</p>
+<p>设置https访问：</p>
+<p><code>./filebrowser  config set --port 443</code>设置https端口</p>
+<p><code>./filebrowser/filebrowser config set -t &quot;/path/to/***.pem&quot;</code>设置证书</p>
+<p><code>./filebrowser/filebrowser config set -k &quot;/path/to/***.key&quot;</code>设置key</p>
+<p>设置系统服务：位置<code>/lib/systemd/system/filebrowser.service</code></p>
+<pre tabindex="0"><code class="language-[Unit]" data-lang="[Unit]">Description=File Browser
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/filebrowser -d /your/path/filebrowser.db
+
+[Install]
+WantedBy=multi-user.target```
+</code></pre>
+    </div>
+</div>
+
+<div class="container">
+    
+    <nav class="flex container suggested">
+        
+        <a rel="prev" href="/blog-hugo/post/ftp%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9E%B6%E8%AE%BEvsftpd/" title="Previous post (older)">
+            <span>Previous</span>
+            FTP服务器架设（vsftpd）
+            </a>
+        
+        
+        
+        <a rel="next" href="/blog-hugo/post/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Next post (newer)">
+            <span>Next</span>
+            docker学习笔记
+            </a> 
+        
+    </nav>
+    
+</div>
+ 
+<div class="container">
+    
+</div>
+
+</main>
+
+
+        </main>
+        <footer class="footer flex">
+    <section class="container">
+        <nav class="footer-links">
+            
+            <a href="https://wiseai.gitee.io/pages/gnzg/index.html">孤鸟之歌</a>
+            
+            <a href="https://wiseai.gitee.io/pages/mm/index.html">生成随机字符</a>
+            
+            <a href="https://wiseai.gitee.io/pages/md/index.html">MarkDown</a>
+            
+            <a href="https://gitee.com/">Gitee</a>
+            
+            <a href="https://github.com/">Github</a>
+            
+            <a href="https://www.oschina.net/">OSCHINA</a>
+            
+            <a href="https://gitee.com/wiseai/the-way-to-go_ZH_CN/blob/master/eBook/directory.md">the way to go</a>
+            
+            <a href="https://goframe.org/display/gf">GoFrame</a>
+            
+            <a href="https://www.aliyundrive.com/">阿里云盘</a>
+            
+            <a href="https://www.bootstrap.cn/">bootstrap文档</a>
+            
+            <a href="https://www.58pic.com/">千图</a>
+            
+            <a href="https://marketing.qiniu.com/">七牛云</a>
+            
+            <a href="https://www.ixigua.com/">西瓜视频</a>
+            
+            <a href="https://wiseai.gitee.io/pages/yugang/index.html">鱼缸计算</a>
+            
+            <a href="/blog-hugo/index.xml">RSS</a>
+            
+        </nav>
+
+        
+    </section>
+    <script defer src="/blog-hugo/ts/features.2f98c2f5215583b54b0a8bd7bdb10411467f4fee386a61e03ca3ddf376273fc4.js" 
+    data-enable-footnotes="true"
+    ></script>
+</footer>
+
+    </body>
+</html>
