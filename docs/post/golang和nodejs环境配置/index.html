@@ -48,7 +48,7 @@
     },
     "datePublished": "2022-05-30",
     "description": "golang和nodejs环境配置",
-    "wordCount":  84 ,
+    "wordCount":  86 ,
     "mainEntityOfPage": "True",
     "dateModified": "2022-05-30",
     "publisher": {
@@ -164,34 +164,48 @@
 </ol>
 <ul>
 <li>下载文件：<a href="https://golang.google.cn/dl/" title="golang官网下载">golang官网下载</a></li>
-<li>解压文件至/usr/local/目录下：
-<code># rm -rf /usr/local/go &amp;&amp; tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz</code>（第一个命令是删除golang的残余文件）</li>
-<li>建立软链接至/usr/bin/目录下：
-<code># ln -s /usr/local/go/bin/go /usr/bin/</code>
-<code># ln -s /usr/local/go/bin/gofmt /usr/bin/</code></li>
-<li>修改为国内源
-<code># go env -w GO111MODULE=auto </code>
-<code># go env -w GOPROXY=https://goproxy.cn,direct</code></li>
-<li>查看配置
-<code># go env</code></li>
+<li>解压文件至/usr/local/目录下：</li>
 </ul>
+<p><code># rm -rf /usr/local/go &amp;&amp; tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz</code></p>
+<p>（第一个命令是删除golang的残余文件）</p>
+<ul>
+<li>建立软链接至/usr/bin/目录下：</li>
+</ul>
+<p><code># ln -s /usr/local/go/bin/go /usr/bin/</code></p>
+<p><code># ln -s /usr/local/go/bin/gofmt /usr/bin/</code></p>
+<ul>
+<li>修改为国内源</li>
+</ul>
+<p><code># go env -w GO111MODULE=auto </code></p>
+<p><code># go env -w GOPROXY=https://goproxy.cn,direct</code></p>
+<ul>
+<li>查看配置</li>
+</ul>
+<p><code># go env</code></p>
 <ol start="2">
 <li>配置nodejs</li>
 </ol>
 <ul>
 <li>下载文件：<a href="https://nodejs.org/zh-cn/" title="nodejs官网">nodejs官网</a></li>
-<li>解压文件至/usr/local/目录下：
-<code># rm -rf /usr/local/go &amp;&amp; tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz</code>（第一个命令是删除nodejs的残余文件）
-<code># npm install yarn</code></li>
-<li>建立软链接至/usr/bin/目录下：
-<code># ln -s /usr/local/node-v16.13.2-linux-arm64/bin/node /usr/bin/</code>
-<code># ln -s /usr/local/node-v16.13.2-linux-arm64/bin/npm /usr/bin/</code>
-<code># ln -s /usr/local/node-v16.13.2-linux-arm64/bin/npx /usr/bin/</code></li>
-<li>修改为国内源
-<code># npm config set registry https://registry.npm.taobao.org</code></li>
-<li>查看配置
-<code># npm config get</code></li>
+<li>解压文件至/usr/local/目录下：</li>
 </ul>
+<p><code># rm -rf /usr/local/go &amp;&amp; tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz</code></p>
+<p>（第一个命令是删除nodejs的残余文件）
+<code># npm install yarn</code></p>
+<ul>
+<li>建立软链接至/usr/bin/目录下：</li>
+</ul>
+<p><code># ln -s /usr/local/node-v16.13.2-linux-arm64/bin/node /usr/bin/</code></p>
+<p><code># ln -s /usr/local/node-v16.13.2-linux-arm64/bin/npm /usr/bin/</code></p>
+<p><code># ln -s /usr/local/node-v16.13.2-linux-arm64/bin/npx /usr/bin/</code></p>
+<ul>
+<li>修改为国内源</li>
+</ul>
+<p><code># npm config set registry https://registry.npm.taobao.org</code></p>
+<ul>
+<li>查看配置</li>
+</ul>
+<p><code># npm config get</code></p>
 
     </div>
 </div>
