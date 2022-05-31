@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on WiseAI的博客</title>
+    <link>https://blog.wiseai.cn/post/</link>
+    <description>Recent content in Posts on WiseAI的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 30 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>adduser&amp;addgroup添加用户&amp;用户组</title>
+      <link>https://blog.wiseai.cn/post/adduseraddgroup%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E7%94%A8%E6%88%B7%E7%BB%84/</link>
+      <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/adduseraddgroup%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E7%94%A8%E6%88%B7%E7%BB%84/</guid>
+      <description> 添加一个普通用户 # adduser [--home 主目录] [--shell SHELL] [--no-create-home] [--uid ID] [--firstuid ID] [--lastuid ID] [--gecos GECOS] [--ingroup 用户组 | --gid ID][--disabled-password] [--disabled-login] [--add_extra_groups] 用户名 添加一个系统用户 # adduser --system [--home 主目录] [--shell SHELL] [--no-create-home] [--uid ID] [--gecos GECOS] [--group | --ingroup 用户组 | --gid ID] [--disabled-password] [--disabled-login] [--add_extra_groups] 用户名 添加一个用户组 # adduser --group [--gid ID] 用户组名 # addgroup [--gid ID] 用户组名 添加一个系统用户组 # addgroup --system [--gid ID] 用户组名 将一个已存在的用户添加至一个已存在的用户组 # adduser 用户名 用户组名 常规设置：  --quiet | -q 不在标准输出中给出进度信息 --force-badname 允许用户名不匹配： NAME_REGEX[_SYSTEM] 配置变量 --help | -h 给出本命令用法 --version | -v 版本号和版权信息 --conf | -c 文件 使用文件中的配置 </description>
+    </item>
+    
+    <item>
+      <title>docker学习笔记</title>
+      <link>https://blog.wiseai.cn/post/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+      <description>现在docker分企业版和社区版，如果自己用的话，还是社区版吧！！！
+   安装：  centos7：
+1.卸载旧版本
+$ yum remove docker \ docker-client \ docker-client-latest \ docker-common \ docker-latest \ docker-latest-logrotate \ docker-logrotate \ docker-selinux \ docker-engine-selinux \ docker-engine 2.安装依赖包：
+$ yum install -y yum-utils device-mapper-persistent-data lvm2
+3.安装docker官方库：
+$ yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+4.安装最新稳定版本docker：
+$ yum install docker-ce
+如果提示接受GPG密钥，请验证指纹是否匹配060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35，如果匹配 ，则接受它。
+ubuntu:
+ $ sudo apt-get update $ sudo apt-get install apt-transport-https ca-certificates curl software-properties-common $ curl -fsSL https://download.</description>
+    </item>
+    
+    <item>
+      <title>efi和grub2相关配置文件及命令</title>
+      <link>https://blog.wiseai.cn/post/efi%E5%92%8Cgrub2%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8F%8A%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/efi%E5%92%8Cgrub2%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8F%8A%E5%91%BD%E4%BB%A4/</guid>
+      <description>一、配置文件目录  /etc/grub2/目录下 /etc/default/grub
+   二、更新引导项目  根据配置文件目录下的顺序更新启动项，命令：
+# grub2-mkconfig -o /boot/grub2/grub.cfg
+-o 选项为输出到那个文件
+efi下的/boot/efi/EFI/centos/grub.cfg文件一般调用/boot/grub2/grub.cfg这个文件
+类debian发行版，一般用这个命令： # update-grub2
+   三、更换默认启动项  命令：
+# grub2-set-default 2
+一般从0开始
+   四、安装  # grub-install --efi-directory=/boot/efi/ --boot-directory=/boot/ --removable /dev/sda 几个需要说明的地方：
+ --efi-directory=/boot/efi/这个位置的问题，如果efi分区是单独挂载的，就直接写这个目录就可以了，不用加efi，它会在这个目录下建立EFI的目录，写入相关文件。 --boot-directory=/boot/这个不用加grub2，它会自己生成grub2目录，写入相关文件 --removable如果是移动设备，一定要加这个选项
+    五、常用命令   启动常用的grub命令  root (hd0,2) #设置某块分区为根目录kernel /vmlinuz #加载linux kernelinitrd /initrd.gz #加载驱动，或者虚拟rootfsboot #启动加载的kernel  查找文件 find --set-root --ignore-floppies --ignore-cd /usr/bin/cp #查找/usr/bin/cp文件，并将分区设为根目录，忽略软盘和cd 加载iso  root (hdx,x) #设置根目录map --mem /xx.</description>
+    </item>
+    
+    <item>
+      <title>filebrowser的安装和使用</title>
+      <link>https://blog.wiseai.cn/post/filebrowser%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/filebrowser%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</guid>
+      <description>编译安装  可以自己编译，必须安装golang v1.16以上和nodejs，最好是最新版本，否则会出现一些问题。
+$ git clone https://github.com/filebrowser/filebrowser 注：如果有gitee的可以改，速度快
+$ make help 注：编译帮助
+$ make build 注：开始编译，完成后在当前目录下filebrowser
+   使用简介：  直接输入命令： ./filebrowser 会在当前目录下生成数据库文件，并开启服务
+关闭服务后，输入以下命令进行设置：
+./filebrowser config cat查看配置文件，这个配置是写入数据库里的
+./filebrowser config set --address 0.0.0.0打开所有端口
+这里的config set --address可以从配置文件里看，想设置那个就把address换成那个
+./filebrowser config set --port 80设置端口
+./filebrowser config set --locale zh-cn设置语言
+./filebrowser config set --log /your/path/filebrowser.log设置日志
+./filebrowser config set --root /your/path/设置根目录
+./filebrowser users add root password --perm.admin这个是添加用户，其中的root和password分别是用户名和密码
+./filebrowser -d /you/path/filebrowser.db config init这里的-d是指定数据库文件，config init是初始化，这个命令应该一开始就执行，但是什么参数都不带的话，会自己生成。</description>
+    </item>
+    
+    <item>
+      <title>FTP服务器架设（vsftpd）</title>
+      <link>https://blog.wiseai.cn/post/ftp%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9E%B6%E8%AE%BEvsftpd/</link>
+      <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/ftp%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9E%B6%E8%AE%BEvsftpd/</guid>
+      <description>安装：  # dnf install vsftpd
+**FTP主动模式：客户端从一个任意的非特权端口N（N&amp;gt;1024）连接到FTP服务器的port 21命令端口。然后客户端开始监听端口N+1，**并发送FTP命令&amp;quot;port N+1&amp;quot;到FTP服务器。接着服务器会从它自己的数据端口（20）连接到客户端指定的数据端口（N+1）。
+**FTP被动模式：客户端从一个任意的非特权端口N（N&amp;gt;1024）连接到FTP服务器的port 21命令端口。然后客户端开始监听端口N+1，**同时客户端提交 PASV命令。服务器会开启一个任意的非特权端口（P &amp;gt;1024），并发送PORT P命令给客户端。然后客户端发起从本地端口N+1到服务器的端口P的连接用来传送数据。
+端口： 主动模式：TCP 21（指令），20（数据）端口
+被动模式：TCP 21（指令），大于1024端口传输数据（可在配置文件中指定范围）
+生成证书：
+# openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout ftp.pem -out ftp.pem
+配置文件：
+/etc/vsftpd/vsftpd.conf
+严格来说,整个 vsftpd 的配置文件就只有这个档案!这个档案的设定是以 bash的变量设定相同的方式来处理的, 也就是『参数=设定值』来设定的,注意, 等号两边不能有空白喔!至于详细的 vsftpd.conf 可以使用 『 man 5 vsftpd.conf 』来详查。
+/etc/pam.d/vsftpd
+这个是 vsftpd 使用 PAM 模块时的相关配置文件。主要用来作为身份认证之用,还有一些用户身份的抵挡功能, 也是透过这个档案来达成的。
+/etc/vsftpd/ftpusers
+与上一个档案有关系,也就是 PAM 模块 (/etc/pam.d/vsftpd) 所指定的那个无法登入的用户配置文件啊! 这个档案的设定很简单,你只要将『不想让他登入FTP 的账号』写入这个档案即可。
+/etc/vsftpd/user_list
+这个档案是否能够生效与 vsftpd.conf 内的两个参数有关,分别是『 userlist_enable, userlist_deny 』。 如果说 /etc/vsftpd/ftpusers 是PAM 模块的抵挡设定项目,那么这个 /etc/vsftpd/user_list 则是 vsftpd 自定义的抵挡项目。事实上这个档案与 /etc/vsftpd/ftpusers 几乎一模一样, 在预设的情况下,你可以将不希望可登入 vsftpd 的账号写入这里。不过这个档案的功能会依据 vsftpd.</description>
+    </item>
+    
+    <item>
+      <title>git的使用</title>
+      <link>https://blog.wiseai.cn/post/git/</link>
+      <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/git/</guid>
+      <description>添加ssh公钥：  查看~/.ssh/id_rsa.pub文件，如果有公钥直接添加，没有的话使用这个命令：
+$ ssh-keygen -t ed25519 -C &amp;#34;xxxxx@xxxxx.com&amp;#34; 三次回车后，再查看~/.ssh/id_rsa.pub文件，添加到gitee设置。
+   创建版本库：  不建议直接生成，可以在gitee网站下建立仓库，之后clone到本地，直接使用下面的命令操作就可以了。
+$ git init 这个命令可以把当前目录变成git管理的仓库。 远程库如果是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。
+   添加远程仓库：  $ git remote add gitee git@gitee.com:wiseai/wiseai.git $ git remote add github git@github.com:wiseai/wiseai.git    查看远程仓库信息：  $ git remote -v    删除远程仓库：  $ git remote rm github    推送到GitHub或Gitee:  $ git push gitee master $ git push github master 该操作在后面内容同步后再推送。</description>
+    </item>
+    
+    <item>
+      <title>golang和nodejs环境配置</title>
+      <link>https://blog.wiseai.cn/post/golang%E5%92%8Cnodejs%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/golang%E5%92%8Cnodejs%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</guid>
+      <description>配置golang   下载文件：golang官网下载 解压文件至/usr/local/目录下： # rm -rf /usr/local/go &amp;amp;&amp;amp; tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz（第一个命令是删除golang的残余文件） 建立软链接至/usr/bin/目录下： # ln -s /usr/local/go/bin/go /usr/bin/ # ln -s /usr/local/go/bin/gofmt /usr/bin/ 修改为国内源 # go env -w GO111MODULE=auto  # go env -w GOPROXY=https://goproxy.cn,direct 查看配置 # go env  配置nodejs   下载文件：nodejs官网 解压文件至/usr/local/目录下： # rm -rf /usr/local/go &amp;amp;&amp;amp; tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz（第一个命令是删除nodejs的残余文件） # npm install yarn 建立软链接至/usr/bin/目录下： # ln -s /usr/local/node-v16.13.2-linux-arm64/bin/node /usr/bin/ # ln -s /usr/local/node-v16.</description>
+    </item>
+    
+    <item>
+      <title>golang的build命令</title>
+      <link>https://blog.wiseai.cn/post/golang%E7%9A%84build%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/golang%E7%9A%84build%E5%91%BD%E4%BB%A4/</guid>
+      <description>go build，是我们非常常用的命令，它可以启动编译，把我们的包和相关的依赖编译成一个可执行的文件。
+usage: go build [-o output] [-i] [build flags] [packages]
+go build的使用比较简洁，所有的参数都可以忽略，直到只有go build，这个时候意味着使用当前目录进行编译，下面的几条命令是等价的：
+go build go build . go build hello.go 以上这三种写法，都是使用当前目录编译的意思。因为我们忽略了packages,所以自然就使用当前目录进行编译了。从这里我们也可以推测出，go build本质上需要的是一个路径，让编译器可以找到哪些需要编译的go文件。packages其实是一个相对路径，是相对于我们定义的GOROOT和GOPATH这两个环境变量的，所以有了packages这个参数后，go build就可以知道哪些需要编译的go文件了。
+go build flysnow.org/tools
+这种方式是指定包的方式，这样会明确地编译我们这个包。当然我们也可以使用通配符
+go build flysnow.org/tools/...
+** 3个点表示匹配所有字符串，这样go build就会编译tools目录下的所有包。**
+讲到go build编译，不能不提跨平台编译，Go提供了编译链工具，可以让我们在任何一个开发平台上，编译出其他平台的可执行文件。
+默认情况下，都是根据我们当前的机器生成的可执行文件，比如你的是Linux 64位，就会生成Linux 64位下的可执行文件，比如我的Mac；可以使用go env查看编译环境,以下截取重要的部分。
+go env GOARCH=&amp;#34;amd64&amp;#34; GOEXE=&amp;#34;&amp;#34; GOHOSTARCH=&amp;#34;amd64&amp;#34; GOHOSTOS=&amp;#34;darwin&amp;#34; GOOS=&amp;#34;darwin&amp;#34; GOROOT=&amp;#34;/usr/local/go&amp;#34; GOTOOLDIR=&amp;#34;/usr/local/go/pkg/tool/darwin_amd64&amp;#34; ** 注意里面两个重要的环境变量GOOS和GOARCH,其中GOOS指的是目标操作系统，它的可用值为：**
+ darwin freebsd linux windows android dragonfly netbsd openbsd plan9 solaris  ** 一共支持10种操作系统。GOARCH指的是目标处理器的架构，目前支持的有：**
+ arm arm64 386 amd64 ppc64 ppc64le mips64 mips64le s390x  一共支持9种处理器的架构</description>
+    </item>
+    
+    <item>
+      <title>GPIO相关知识</title>
+      <link>https://blog.wiseai.cn/post/gpio%E7%9B%B8%E5%85%B3/</link>
+      <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/gpio%E7%9B%B8%E5%85%B3/</guid>
+      <description>linux查看gpio状态  cat /sys/kernel/debug/gpio
+有个blog里有这个方法，去试试：
+mkdir /tmp/debug mount -t debugfs debugfs /tmp/debug cat /tmp/debug/gpio    GPIO操作的一些说明   首先，看看系统中有没有“/sys/class/gpio”这个文件夹。如果没有请在编译内核的时候加入  Device Drivers-&amp;gt; GPIO Support -&amp;gt;/sys/class/gpio/… (sysfs interface)
+ /sys/class/gpio 的使用说明：  gpio_operation 通过/sys/文件接口操作IO端口 GPIO到文件系统的映射
+◇ 控制GPIO的目录位于/sys/class/gpio
+◇ /sys/class/gpio/export文件用于通知系统需要导出控制的GPIO引脚编号
+◇ /sys/class/gpio/unexport 用于通知系统取消导出
+◇ /sys/class/gpio/gpiochipX目录保存系统中GPIO寄存器的信息，包括每个寄存器控制引脚的起始编号base，寄存器名称，引脚总数 导出一个引脚的操作步骤
+◇ 首先计算此引脚编号，引脚编号 = 控制引脚的寄存器基数 + 控制引脚寄存器位数
+◇ 向/sys/class/gpio/export写入此编号，比如12号引脚，在shell中可以通过以下命令实现，echo 12 &amp;gt; export命令成功后生成/sys/class/gpio/gpio12目录，如果没有出现相应的目录，说明此引脚不可导出
+◇ direction文件，定义输入输入方向，可以通过下面命令定义为输出。direction接受的参数：in, out, high, low。high/low同时设置方向为输出，并将value设置为相应的1/0
+◇ value文件是端口的数值，为1或0
+   例子：  进入/sys/class/gpio/文件夹：</description>
+    </item>
+    
+    <item>
+      <title>Linux安装hp打印机驱动</title>
+      <link>https://blog.wiseai.cn/post/linux%E5%AE%89%E8%A3%85hp%E6%89%93%E5%8D%B0%E6%9C%BA%E9%A9%B1%E5%8A%A8/</link>
+      <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/linux%E5%AE%89%E8%A3%85hp%E6%89%93%E5%8D%B0%E6%9C%BA%E9%A9%B1%E5%8A%A8/</guid>
+      <description>一、安装hplip  # dnf install hplip
+或者官网下载
+安装hplip-gui,
+# dnf install hplip-gui
+   二、运行hp-plugin安装插件  或者下载hplip-3.17.10-plugin.run文件，版本和hplip相同，网址为：http://www.openprinting.org/download/printdriver/auxfiles/HP/plugins/
+安装时会验证文件，不用理会，直接安装就行。
+好了！</description>
+    </item>
+    
+    <item>
+      <title>Linux开机启动的方法</title>
+      <link>https://blog.wiseai.cn/post/linux%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E7%9A%84%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/linux%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
+      <description>   一、配置rc.local文件实现开机启动：  首先，建立一个文件：
+$ sudo touch /etc/rc.local
+给予可执行权限：
+$ sudo chmod +x /etc/rc.local
+在文件写入以下内容：
+#!/bin/sh /path/to/gohttpserver -r /path/to/ --port 8080 --upload 以上两个/path/to/，一个是文件所在目录，一个是工作目录，都使用绝对路径。 完成！！！
+   二、第二种方法以后有时间再补充。  </description>
+    </item>
+    
+    <item>
+      <title>Linux更换网卡后网络服务不能启动的问题解决办法</title>
+      <link>https://blog.wiseai.cn/post/linux%E6%9B%B4%E6%8D%A2%E7%BD%91%E5%8D%A1%E5%90%8E%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E4%B8%8D%E8%83%BD%E5%90%AF%E5%8A%A8%E7%9A%84%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
+      <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/linux%E6%9B%B4%E6%8D%A2%E7%BD%91%E5%8D%A1%E5%90%8E%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E4%B8%8D%E8%83%BD%E5%90%AF%E5%8A%A8%E7%9A%84%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
+      <description>1、迁移以后，会存在其中一个网卡无法启动（eth0 or eth1）
+[root@ ~]# ifup eth0
+WARNING: Deprecated config file /etc/modprobe.conf, all config files belong into /etc/modprobe.d/.
+WARNING: Deprecated config file /etc/modprobe.conf, all config files belong into /etc/modprobe.d/.
+Device eth0 does not seem to be present, delaying initialization.
+2、删除文件
+[root@ ~]# mv /etc/udev/rules.d/70-persistent-net.rules /etc/udev/rules.d/70-persistent-net.rules.bak
+3、注释掉文件ifcfg-eth0及ifcfg-eth01中MAC地址（HWADDR）
+[root@ ~]# cat /etc/sysconfig/network-scripts/ifcfg-eth0
+DEVICE=eth0
+BOOTPROTO=static
+#HWADDR=&amp;ldquo;XX:XX:XX:XX:XX:XX&amp;rdquo;
+ONBOOT=yes
+TYPE=Ethernet
+4、重启服务器（重启网卡不好使）</description>
+    </item>
+    
+    <item>
+      <title>通过iptables设置防火墙</title>
+      <link>https://blog.wiseai.cn/post/iptables%E8%AE%BE%E7%BD%AEsh/</link>
+      <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/iptables%E8%AE%BE%E7%BD%AEsh/</guid>
+      <description>#!/bin/bash PATH=/sbin:/bin:/usr/sbin:/usr/bin #设置网卡 wk=&amp;#34;eth1&amp;#34; # 1. 清除规则 iptables -F iptables -X iptables -Z # 2. 设定政策 iptables -P INPUT DROP iptables -P OUTPUT ACCEPT iptables -P FORWARD ACCEPT # 3~5. 制订各项规则 iptables -A INPUT -i lo -j ACCEPT iptables -A INPUT -i $wk -m state --state RELATED,ESTABLISHED -j ACCEPT #samba服务 iptables -A INPUT -i $wk -p tcp --dport 139 -j ACCEPT iptables -A INPUT -i $wk -p tcp --dport 445 -j ACCEPT iptables -A INPUT -i $wk -p udp --dport 137:138 -j ACCEPT #vsftp服务 iptables -A INPUT -i $wk -p tcp --dport 21 -j ACCEPT iptables -A INPUT -i $wk -p tcp --dport 1024:65535 -j ACCEPT #iptables -A INPUT -i $wk -s 192.</description>
+    </item>
+    
+    <item>
+      <title>Footnote test</title>
+      <link>https://blog.wiseai.cn/post/footnote/</link>
+      <pubDate>Mon, 31 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/footnote/</guid>
+      <description>Lorem ipsum dolor sit amet1 consectetur adipisicing elit. Nemo tempora eum cumque neque voluptatum, odit ipsum consequatur animi.
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo tempora eum cumque neque voluptatum, odit ipsum2 consequatur animi.
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo tempora eum cumque neque voluptatum, odit ipsum consequatur animi.
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo tempora eum cumque neque voluptatum, odit ipsum consequatur animi.</description>
+    </item>
+    
+    <item>
+      <title>Katex support</title>
+      <link>https://blog.wiseai.cn/post/test-katex/</link>
+      <pubDate>Sat, 22 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/test-katex/</guid>
+      <description>The following
+$$ \int_{a}^{b} x^2 dx $$
+Is an integral
+$$ \varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } } $$
+Enable Katex in the config file by setting the katex param to true. This will import the necessary Katex CSS/JS.
+See the online reference of supported TeX functions.
+1  Inline math: $\varphi=\dfrac{1+\sqrt5}{2}=1.6180339887… $   Inline math: $ \varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887… $
+1 2 3  Block math: $$\varphi=1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } } $$   Block math:</description>
+    </item>
+    
+    <item>
+      <title>MathJax support</title>
+      <link>https://blog.wiseai.cn/post/test-mathjax/</link>
+      <pubDate>Sat, 22 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/test-mathjax/</guid>
+      <description>The following
+$$ \int_{a}^{b} x^2 dx $$
+Is an integral
+$$ \varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } } $$
+Enable MathJax in the config file by setting the mathjax param to true. This will import the necessary MathJax CSS/JS.
+1  Inline math: $\varphi=\dfrac{1+\sqrt5}{2}=1.6180339887… $   Inline math: $ \varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887… $
+1 2 3  Block math: $$\varphi=1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } } $$   Block math:</description>
+    </item>
+    
+    <item>
+      <title>Markdown Syntax Guide</title>
+      <link>https://blog.wiseai.cn/post/markdown-syntax/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/markdown-syntax/</guid>
+      <description>&lt;p&gt;This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Example Lazy Load Image</title>
+      <link>https://blog.wiseai.cn/post/example-lazy-load-image/</link>
+      <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/example-lazy-load-image/</guid>
+      <description>Nya nya nyan meow meow mama  More napping, more napping all the napping is exhausting stretch out on bed you are a captive audience while sitting on the toilet, pet me slap the dog because cats rule bleghbleghvomit my furball really tie the room together always hungry. Humans,humans, humans oh how much they love us felines we are the center of attention they feed, they clean miaow then turn around and show you my bum.</description>
+    </item>
+    
+    <item>
+      <title>Placeholder Text</title>
+      <link>https://blog.wiseai.cn/post/placeholder-text/</link>
+      <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/placeholder-text/</guid>
+      <description>&lt;p&gt;Lorem est tota propiore conpellat pectoribus de pectora summo.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Emoji Support</title>
+      <link>https://blog.wiseai.cn/post/emoji-support/</link>
+      <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/emoji-support/</guid>
+      <description>&lt;p&gt;Emoji can be enabled in a Hugo project in a number of ways.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

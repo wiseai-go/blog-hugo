@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>惠普 on WiseAI的博客</title>
+    <link>https://blog.wiseai.cn/tags/%E6%83%A0%E6%99%AE/</link>
+    <description>Recent content in 惠普 on WiseAI的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 30 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/tags/%E6%83%A0%E6%99%AE/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux安装hp打印机驱动</title>
+      <link>https://blog.wiseai.cn/post/linux%E5%AE%89%E8%A3%85hp%E6%89%93%E5%8D%B0%E6%9C%BA%E9%A9%B1%E5%8A%A8/</link>
+      <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/linux%E5%AE%89%E8%A3%85hp%E6%89%93%E5%8D%B0%E6%9C%BA%E9%A9%B1%E5%8A%A8/</guid>
+      <description>一、安装hplip  # dnf install hplip
+或者官网下载
+安装hplip-gui,
+# dnf install hplip-gui
+   二、运行hp-plugin安装插件  或者下载hplip-3.17.10-plugin.run文件，版本和hplip相同，网址为：http://www.openprinting.org/download/printdriver/auxfiles/HP/plugins/
+安装时会验证文件，不用理会，直接安装就行。
+好了！</description>
+    </item>
+    
+  </channel>
+</rss>

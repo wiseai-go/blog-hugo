@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux命令 on WiseAI的博客</title>
+    <link>https://blog.wiseai.cn/categories/linux%E5%91%BD%E4%BB%A4/</link>
+    <description>Recent content in Linux命令 on WiseAI的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 30 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/categories/linux%E5%91%BD%E4%BB%A4/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>adduser&amp;addgroup添加用户&amp;用户组</title>
+      <link>https://blog.wiseai.cn/post/adduseraddgroup%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E7%94%A8%E6%88%B7%E7%BB%84/</link>
+      <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/adduseraddgroup%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E7%94%A8%E6%88%B7%E7%BB%84/</guid>
+      <description> 添加一个普通用户 # adduser [--home 主目录] [--shell SHELL] [--no-create-home] [--uid ID] [--firstuid ID] [--lastuid ID] [--gecos GECOS] [--ingroup 用户组 | --gid ID][--disabled-password] [--disabled-login] [--add_extra_groups] 用户名 添加一个系统用户 # adduser --system [--home 主目录] [--shell SHELL] [--no-create-home] [--uid ID] [--gecos GECOS] [--group | --ingroup 用户组 | --gid ID] [--disabled-password] [--disabled-login] [--add_extra_groups] 用户名 添加一个用户组 # adduser --group [--gid ID] 用户组名 # addgroup [--gid ID] 用户组名 添加一个系统用户组 # addgroup --system [--gid ID] 用户组名 将一个已存在的用户添加至一个已存在的用户组 # adduser 用户名 用户组名 常规设置：  --quiet | -q 不在标准输出中给出进度信息 --force-badname 允许用户名不匹配： NAME_REGEX[_SYSTEM] 配置变量 --help | -h 给出本命令用法 --version | -v 版本号和版权信息 --conf | -c 文件 使用文件中的配置 </description>
+    </item>
+    
+  </channel>
+</rss>

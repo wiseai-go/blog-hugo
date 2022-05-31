@@ -5,8 +5,8 @@
 
 <header>
     <div class="container">
-        <h1>{{ .Title }}</h1>
-        <h3>请点击下方选择:</h3>
+        <h1>{{ .Params.subtitle }}</h1>
+        <h3>{{ .Params.description }}</h3>
     </div>
 </header>
 
@@ -19,5 +19,6 @@
         </div>
     </div>
 </section>
+<br>
 
 {{ end }}

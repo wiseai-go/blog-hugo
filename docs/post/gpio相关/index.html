@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="theme-color" content="dark">
+    <title>GPIO相关知识 | WiseAI的博客</title>
+
+    
+    
+    
+    <meta property="og:site_name" content="wiseai的备忘录" />
+    <meta property="og:title" content="GPIO相关知识 | WiseAI的博客"/>
+    <meta itemprop="name" content="GPIO相关知识 | WiseAI的博客" />
+    <meta name="twitter:title" content="GPIO相关知识 | WiseAI的博客" />
+    <meta name="application-name" content="GPIO相关知识 | WiseAI的博客" /><meta name="twitter:card" content="summary"/>
+
+    <meta name="description" content="GPIO的操作" />
+    <meta name="twitter:description" content="GPIO的操作 "/>
+    <meta itemprop="description" content=" GPIO的操作 "/>
+    <meta property="og:description" content=" GPIO的操作 " />
+
+    
+
+<meta property="og:type" content="article" />
+<meta property="article:publisher" content="wiseai" />
+<meta property="og:article:published_time" content=2022-05-30T00:00:00Z />
+<meta property="article:published_time" content=2022-05-30T00:00:00Z />
+
+
+  <meta property="og:article:author" content="Wiseai" />
+  <meta property="article:author" content="Wiseai" />
+  <meta name="author" content="Wiseai" />
+
+
+
+
+<script defer type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "headline": "GPIO相关知识",
+    "author": {
+      "@type": "Person",
+      "name": "wiseai"
+    },
+    "datePublished": "2022-05-30",
+    "description": "GPIO的操作",
+    "wordCount":  113 ,
+    "mainEntityOfPage": "True",
+    "dateModified": "2022-05-30",
+    "publisher": {
+      "@type": "Organization",
+      "name": "wiseai",
+      "logo": {
+        "@type": "imageObject",
+        "url": "https:\/\/blog.wiseai.cn\/favicon.ico"
+      }
+    }
+  }
+</script>
+
+
+
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    
+    <link rel="stylesheet" href="/sass/main.min.ab99ff095f832511e24ffb2fba2b51ad473b2f7e9301d674eba2c6c3a6e8bd81.css">
+    <link rel="stylesheet" href="/css/wiseai.css">
+</head>
+    
+    <script>
+        (function() {
+            const colorSchemeKey = 'ThemeColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'ThemeColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.userColorScheme = 'dark';
+        } else {
+            document.documentElement.dataset.userColorScheme = 'light';
+        }
+    })();
+</script>
+
+
+    <body class="dark">
+        <nav class="navbar">
+    <div class="container">
+        <div class="flex">
+            <div>
+                <a class="brand" href="/">
+                    
+                    <span class="emoji">
+                        ✨
+                    </span>
+                    
+                    
+                    WiseAI的博客
+                    </a>
+            </div>
+            <div class="flex">
+                
+                <a href="/articles/">文章</a>
+                
+                <a href="/categories/">分类</a>
+                
+                <a href="/tags/">关键字</a>
+                
+                
+                    <button id="dark-mode-button">
+                    <svg class="light" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 36 36"><path fill="#FFD983" d="M30.312.776C32 19 20 32 .776 30.312c8.199 7.717 21.091 7.588 29.107-.429C37.9 21.867 38.03 8.975 30.312.776z"/><path d="M30.705 15.915a1.163 1.163 0 1 0 1.643 1.641a1.163 1.163 0 0 0-1.643-1.641zm-16.022 14.38a1.74 1.74 0 0 0 0 2.465a1.742 1.742 0 1 0 0-2.465zm13.968-2.147a2.904 2.904 0 0 1-4.108 0a2.902 2.902 0 0 1 0-4.107a2.902 2.902 0 0 1 4.108 0a2.902 2.902 0 0 1 0 4.107z" fill="#FFCC4D"/><rect x="0" y="0" width="36" height="36" fill="rgba(0, 0, 0, 0)" /></svg>
+                    <svg class="dark" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 36 36"><path fill="#FFD983" d="M16 2s0-2 2-2s2 2 2 2v2s0 2-2 2s-2-2-2-2V2zm18 14s2 0 2 2s-2 2-2 2h-2s-2 0-2-2s2-2 2-2h2zM4 16s2 0 2 2s-2 2-2 2H2s-2 0-2-2s2-2 2-2h2zm5.121-8.707s1.414 1.414 0 2.828s-2.828 0-2.828 0L4.878 8.708s-1.414-1.414 0-2.829c1.415-1.414 2.829 0 2.829 0l1.414 1.414zm21 21s1.414 1.414 0 2.828s-2.828 0-2.828 0l-1.414-1.414s-1.414-1.414 0-2.828s2.828 0 2.828 0l1.414 1.414zm-.413-18.172s-1.414 1.414-2.828 0s0-2.828 0-2.828l1.414-1.414s1.414-1.414 2.828 0s0 2.828 0 2.828l-1.414 1.414zm-21 21s-1.414 1.414-2.828 0s0-2.828 0-2.828l1.414-1.414s1.414-1.414 2.828 0s0 2.828 0 2.828l-1.414 1.414zM16 32s0-2 2-2s2 2 2 2v2s0 2-2 2s-2-2-2-2v-2z"/><circle fill="#FFD983" cx="18" cy="18" r="10"/><rect x="0" y="0" width="36" height="36" fill="rgba(0, 0, 0, 0)" /></svg>
+                    </button>
+                
+            </div>
+            </div>
+    </div>
+</nav>
+
+        <main>
+            
+<div class="container">
+    <article>
+        <header class="article-header">
+            <div class="thumb">
+                <div>
+                    <h1>GPIO相关知识</h1>
+                    <div class="post-meta">
+                        <div>
+                            
+                            
+                            By wiseai | <time>2022-05-30</time>
+                            | 1 minutes
+                        </div>
+                        <div class="tags">
+                            
+                            <a href="/tags/gpio/">gpio</a>
+                            
+                            <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </article>
+
+    <div class="article-post">
+    <h2 id="linux查看gpio状态">
+    <a href="#linux%e6%9f%a5%e7%9c%8bgpio%e7%8a%b6%e6%80%81" class="anchor">
+        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
+            <path fill-rule="evenodd"
+                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
+            </path>
+        </svg>
+    </a>
+    linux查看gpio状态
+</h2>
+<p><code>cat /sys/kernel/debug/gpio</code></p>
+<p>有个blog里有这个方法，去试试：</p>
+<pre tabindex="0"><code>mkdir /tmp/debug
+mount -t debugfs debugfs /tmp/debug
+cat /tmp/debug/gpio
+</code></pre><h2 id="gpio操作的一些说明">
+    <a href="#gpio%e6%93%8d%e4%bd%9c%e7%9a%84%e4%b8%80%e4%ba%9b%e8%af%b4%e6%98%8e" class="anchor">
+        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
+            <path fill-rule="evenodd"
+                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
+            </path>
+        </svg>
+    </a>
+    GPIO操作的一些说明
+</h2>
+<ul>
+<li>首先，看看系统中有没有“/sys/class/gpio”这个文件夹。如果没有请在编译内核的时候加入</li>
+</ul>
+<p>Device Drivers-&gt; GPIO Support -&gt;/sys/class/gpio/… (sysfs interface)</p>
+<ul>
+<li>/sys/class/gpio 的使用说明：</li>
+</ul>
+<p>gpio_operation 通过/sys/文件接口操作IO端口 GPIO到文件系统的映射</p>
+<p>◇  控制GPIO的目录位于/sys/class/gpio</p>
+<p>◇  /sys/class/gpio/export文件用于通知系统需要导出控制的GPIO引脚编号</p>
+<p>◇  /sys/class/gpio/unexport 用于通知系统取消导出</p>
+<p>◇  /sys/class/gpio/gpiochipX目录保存系统中GPIO寄存器的信息，包括每个寄存器控制引脚的起始编号base，寄存器名称，引脚总数 导出一个引脚的操作步骤</p>
+<p>◇  首先计算此引脚编号，引脚编号 = 控制引脚的寄存器基数 + 控制引脚寄存器位数</p>
+<p>◇  向/sys/class/gpio/export写入此编号，比如12号引脚，在shell中可以通过以下命令实现，<code>echo 12 &gt; export</code>命令成功后生成/sys/class/gpio/gpio12目录，如果没有出现相应的目录，说明此引脚不可导出</p>
+<p>◇  direction文件，定义输入输入方向，可以通过下面命令定义为输出。direction接受的参数：in, out, high, low。high/low同时设置方向为输出，并将value设置为相应的1/0</p>
+<p>◇  value文件是端口的数值，为1或0</p>
+<h2 id="例子">
+    <a href="#%e4%be%8b%e5%ad%90" class="anchor">
+        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
+            <path fill-rule="evenodd"
+                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
+            </path>
+        </svg>
+    </a>
+    例子：
+</h2>
+<p>进入/sys/class/gpio/文件夹：</p>
+<ol>
+<li>将gpio7重定向用户定义设备，生成gpio7目录</li>
+</ol>
+<p><code># echo 7 &gt; export</code></p>
+<ol start="2">
+<li>进入gpio7目录并查看文件</li>
+</ol>
+<p><code># cd gpio7</code></p>
+<p><code># ls</code></p>
+<p>direction设置引脚方向，输入还是输出</p>
+<p>value设置引脚状态，高电平还是低电平</p>
+<ol start="3">
+<li>输入状态</li>
+</ol>
+<ul>
+<li>设置引脚状态为输入状态</li>
+</ul>
+<p><code># echo in &gt; direction</code></p>
+<ul>
+<li>查看引脚高低电平</li>
+</ul>
+<p><code># cat value </code></p>
+<ol start="4">
+<li>输出状态</li>
+</ol>
+<ul>
+<li>设置引脚状态为输出状态</li>
+</ul>
+<p><code># echo out &gt; direction</code></p>
+<ul>
+<li>设置输出高电平</li>
+</ul>
+<p><code># echo 1 &gt; value</code></p>
+<ul>
+<li>设置输出低电平</li>
+</ul>
+<p><code># echo 0 &gt; value</code></p>
+<ol start="5">
+<li>注销</li>
+</ol>
+<p>测试完毕之后返回/sys/class/gpio/目录，并将gpio注销</p>
+<p><code># cd /sys/class/gpio/</code></p>
+<p><code># echo 7 &gt; /sys/class/gpio/unexport</code></p>
+<p>这篇博客很不错：https://zhuanlan.zhihu.com/p/66660750
+<a href="https://blog.csdn.net/k1ang/article/details/107117077">https://blog.csdn.net/k1ang/article/details/107117077</a></p>
+
+    </div>
+</div>
+
+<div class="container">
+    
+    <nav class="flex container suggested">
+        
+        <a rel="prev" href="/post/linux%E5%AE%89%E8%A3%85hp%E6%89%93%E5%8D%B0%E6%9C%BA%E9%A9%B1%E5%8A%A8/" title="Previous post (older)">
+            <span>Previous</span>
+            Linux安装hp打印机驱动
+            </a>
+        
+        
+        
+        <a rel="next" href="/post/golang%E7%9A%84build%E5%91%BD%E4%BB%A4/" title="Next post (newer)">
+            <span>Next</span>
+            golang的build命令
+            </a> 
+        
+    </nav>
+    
+</div>
+ 
+<div class="container">
+    
+</div>
+
+</main>
+
+
+        </main>
+        <footer class="footer flex">
+    <section class="container">
+        <nav class="footer-links">
+            
+            <a href="https://wiseai.gitee.io/pages/gnzg/index.html">孤鸟之歌</a>
+            
+            <a href="https://wiseai.gitee.io/pages/mm/index.html">生成随机字符</a>
+            
+            <a href="https://wiseai.gitee.io/pages/md/index.html">MarkDown</a>
+            
+            <a href="https://gitee.com/">Gitee</a>
+            
+            <a href="https://github.com/">Github</a>
+            
+            <a href="https://www.oschina.net/">OSCHINA</a>
+            
+            <a href="https://gitee.com/wiseai/the-way-to-go_ZH_CN/blob/master/eBook/directory.md">the way to go</a>
+            
+            <a href="https://goframe.org/display/gf">GoFrame</a>
+            
+            <a href="https://www.aliyundrive.com/">阿里云盘</a>
+            
+            <a href="https://www.bootstrap.cn/">bootstrap文档</a>
+            
+            <a href="https://www.58pic.com/">千图</a>
+            
+            <a href="https://marketing.qiniu.com/">七牛云</a>
+            
+            <a href="https://www.ixigua.com/">西瓜视频</a>
+            
+            <a href="https://wiseai.gitee.io/pages/yugang/index.html">鱼缸计算</a>
+            
+            <a href="/index.xml">RSS</a>
+            
+        </nav>
+
+        
+    </section>
+    <script defer src="/ts/features.2f98c2f5215583b54b0a8bd7bdb10411467f4fee386a61e03ca3ddf376273fc4.js" 
+    data-enable-footnotes="true"
+    ></script>
+</footer>
+
+    </body>
+</html>
