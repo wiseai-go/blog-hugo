@@ -13,12 +13,12 @@
       <pubDate>Tue, 31 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/linux%E5%B1%8F%E5%BD%95%E8%BD%AF%E4%BB%B6/</guid>
-      <description>   一、SimpleScreenRecorder  可以记录其他的应用程序和你的屏幕上运行的游戏。这是一个简单但功能强大，功能丰富的屏幕记录软件，包括一个易于使用的界面。 只支持Linux系统，包含在rpmfusion中。
+      <description> 一、SimpleScreenRecorder 可以记录其他的应用程序和你的屏幕上运行的游戏。这是一个简单但功能强大，功能丰富的屏幕记录软件，包括一个易于使用的界面。 只支持Linux系统，包含在rpmfusion中。
 # yum install simplescreenrecorder
 # apt install simplescreenrecorder
 其它安装方式：https://www.maartenbaert.be/simplescreenrecorder/
 它的一些显著特点包括:
-基于QT的简单GUI 可以记录整个屏幕或它的一部分	从OpenGL的应用程序直接记录 良好的视频和音频同步 有助于减少慢速机的视频帧速率 支持暂停和恢复功能 显示了了在记录过程期间的统计 支持录制过程中预览 默认设置已经很好，不需要进行过多设置     二、 OBS (Open Broadcaster Software)  OBS 是一个免费、开源和跨平台的视频记录和流媒体应用程序,它可以工作在Linux、Windows和Mac OS X。 Windows需要从官网下载（https://obsproject.com/），Linux系统包含在rpmfusion中。
+基于QT的简单GUI 可以记录整个屏幕或它的一部分	从OpenGL的应用程序直接记录 良好的视频和音频同步 有助于减少慢速机的视频帧速率 支持暂停和恢复功能 显示了了在记录过程期间的统计 支持录制过程中预览 默认设置已经很好，不需要进行过多设置 二、 OBS (Open Broadcaster Software) OBS 是一个免费、开源和跨平台的视频记录和流媒体应用程序,它可以工作在Linux、Windows和Mac OS X。 Windows需要从官网下载（https://obsproject.com/），Linux系统包含在rpmfusion中。
 ＃ yum install obs-studio
 # apt install ffmpeg
 # add-apt-repository ppa:obsproject/obs-studio
@@ -35,7 +35,7 @@
       
       <guid>https://blog.wiseai.cn/post/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
       <description>现在docker分企业版和社区版，如果自己用的话，还是社区版吧！！！
-   安装：  centos7：
+安装： centos7：
 1.卸载旧版本
 $ yum remove docker \ docker-client \ docker-client-latest \ docker-common \ docker-latest \ docker-latest-logrotate \ docker-logrotate \ docker-selinux \ docker-engine-selinux \ docker-engine 2.安装依赖包：
 $ yum install -y yum-utils device-mapper-persistent-data lvm2
@@ -45,7 +45,7 @@ $ yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-
 $ yum install docker-ce
 如果提示接受GPG密钥，请验证指纹是否匹配060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35，如果匹配 ，则接受它。
 ubuntu:
- $ sudo apt-get update $ sudo apt-get install apt-transport-https ca-certificates curl software-properties-common $ curl -fsSL https://download.</description>
+$ sudo apt-get update $ sudo apt-get install apt-transport-https ca-certificates curl software-properties-common $ curl -fsSL https://download.</description>
     </item>
     
     <item>
@@ -54,18 +54,18 @@ ubuntu:
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/efi%E5%92%8Cgrub2%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8F%8A%E5%91%BD%E4%BB%A4/</guid>
-      <description>一、配置文件目录  /etc/grub2/目录下 /etc/default/grub
-   二、更新引导项目  根据配置文件目录下的顺序更新启动项，命令：
+      <description>一、配置文件目录 /etc/grub2/目录下 /etc/default/grub
+二、更新引导项目 根据配置文件目录下的顺序更新启动项，命令：
 # grub2-mkconfig -o /boot/grub2/grub.cfg
 -o 选项为输出到那个文件
 efi下的/boot/efi/EFI/centos/grub.cfg文件一般调用/boot/grub2/grub.cfg这个文件
 类debian发行版，一般用这个命令： # update-grub2
-   三、更换默认启动项  命令：
+三、更换默认启动项 命令：
 # grub2-set-default 2
 一般从0开始
-   四、安装  # grub-install --efi-directory=/boot/efi/ --boot-directory=/boot/ --removable /dev/sda 几个需要说明的地方：
- --efi-directory=/boot/efi/这个位置的问题，如果efi分区是单独挂载的，就直接写这个目录就可以了，不用加efi，它会在这个目录下建立EFI的目录，写入相关文件。 --boot-directory=/boot/这个不用加grub2，它会自己生成grub2目录，写入相关文件 --removable如果是移动设备，一定要加这个选项
-    五、常用命令   启动常用的grub命令  root (hd0,2) #设置某块分区为根目录kernel /vmlinuz #加载linux kernelinitrd /initrd.gz #加载驱动，或者虚拟rootfsboot #启动加载的kernel  查找文件 find --set-root --ignore-floppies --ignore-cd /usr/bin/cp #查找/usr/bin/cp文件，并将分区设为根目录，忽略软盘和cd 加载iso  root (hdx,x) #设置根目录map --mem /xx.</description>
+四、安装 # grub-install --efi-directory=/boot/efi/ --boot-directory=/boot/ --removable /dev/sda 几个需要说明的地方：
+--efi-directory=/boot/efi/这个位置的问题，如果efi分区是单独挂载的，就直接写这个目录就可以了，不用加efi，它会在这个目录下建立EFI的目录，写入相关文件。 --boot-directory=/boot/这个不用加grub2，它会自己生成grub2目录，写入相关文件 --removable如果是移动设备，一定要加这个选项
+五、常用命令 启动常用的grub命令 root (hd0,2) #设置某块分区为根目录kernel /vmlinuz #加载linux kernelinitrd /initrd.gz #加载驱动，或者虚拟rootfsboot #启动加载的kernel 查找文件 find --set-root --ignore-floppies --ignore-cd /usr/bin/cp #查找/usr/bin/cp文件，并将分区设为根目录，忽略软盘和cd 加载iso root (hdx,x) #设置根目录map --mem /xx.iso (0xff) #映射iso文件到模拟cdrom 0xffmap --hook #映射钩子chainloader (0xff) #链接到映射的CDROMboot #启动 grub命名规则，(hd32)为第一仿真cd/dvd设备，等同于0xa0，(hd33)为二仿真cd/dvd设备，0xff为最后一个。grub中将0xa0以上都认做cdrom。 map --mem 用于仿真不连续的存放的iso文件，不加则必须连续存放，碎片整理后再存放iso一般才会连续。 另外grub不支持大的iso，如果iso不支持则提示:inviladorupsupported executableformat。</description>
     </item>
     
     <item>
@@ -74,11 +74,11 @@ efi下的/boot/efi/EFI/centos/grub.cfg文件一般调用/boot/grub2/grub.cfg这�
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/filebrowser%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</guid>
-      <description>编译安装  可以自己编译，必须安装golang v1.16以上和nodejs，最好是最新版本，否则会出现一些问题。
+      <description>编译安装 可以自己编译，必须安装golang v1.16以上和nodejs，最好是最新版本，否则会出现一些问题。
 $ git clone https://github.com/filebrowser/filebrowser 注：如果有gitee的可以改，速度快
 $ make help 注：编译帮助
 $ make build 注：开始编译，完成后在当前目录下filebrowser
-   使用简介：  直接输入命令： ./filebrowser 会在当前目录下生成数据库文件，并开启服务
+使用简介： 直接输入命令： ./filebrowser 会在当前目录下生成数据库文件，并开启服务
 关闭服务后，输入以下命令进行设置：
 ./filebrowser config cat查看配置文件，这个配置是写入数据库里的
 ./filebrowser config set --address 0.0.0.0打开所有端口
@@ -88,7 +88,9 @@ $ make build 注：开始编译，完成后在当前目录下filebrowser
 ./filebrowser config set --log /your/path/filebrowser.log设置日志
 ./filebrowser config set --root /your/path/设置根目录
 ./filebrowser users add root password --perm.admin这个是添加用户，其中的root和password分别是用户名和密码
-./filebrowser -d /you/path/filebrowser.db config init这里的-d是指定数据库文件，config init是初始化，这个命令应该一开始就执行，但是什么参数都不带的话，会自己生成。</description>
+./filebrowser -d /you/path/filebrowser.db config init这里的-d是指定数据库文件，config init是初始化，这个命令应该一开始就执行，但是什么参数都不带的话，会自己生成。
+设置https访问：
+./filebrowser config set --port 443设置https端口</description>
     </item>
     
     <item>
@@ -97,7 +99,7 @@ $ make build 注：开始编译，完成后在当前目录下filebrowser
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/ftp%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9E%B6%E8%AE%BEvsftpd/</guid>
-      <description>安装：  # dnf install vsftpd
+      <description>安装： # dnf install vsftpd
 **FTP主动模式：客户端从一个任意的非特权端口N（N&amp;gt;1024）连接到FTP服务器的port 21命令端口。然后客户端开始监听端口N+1，**并发送FTP命令&amp;quot;port N+1&amp;quot;到FTP服务器。接着服务器会从它自己的数据端口（20）连接到客户端指定的数据端口（N+1）。
 **FTP被动模式：客户端从一个任意的非特权端口N（N&amp;gt;1024）连接到FTP服务器的port 21命令端口。然后客户端开始监听端口N+1，**同时客户端提交 PASV命令。服务器会开启一个任意的非特权端口（P &amp;gt;1024），并发送PORT P命令给客户端。然后客户端发起从本地端口N+1到服务器的端口P的连接用来传送数据。
 端口： 主动模式：TCP 21（指令），20（数据）端口
@@ -121,11 +123,12 @@ $ make build 注：开始编译，完成后在当前目录下filebrowser
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/git/</guid>
-      <description>添加ssh公钥：  查看~/.ssh/id_rsa.pub文件，如果有公钥直接添加，没有的话使用这个命令：
+      <description>添加ssh公钥： 查看~/.ssh/id_rsa.pub文件，如果有公钥直接添加，没有的话使用这个命令：
 $ ssh-keygen -t ed25519 -C &amp;#34;xxxxx@xxxxx.com&amp;#34; 三次回车后，再查看~/.ssh/id_rsa.pub文件，添加到gitee设置。
-   创建版本库：  不建议直接生成，可以在gitee网站下建立仓库，之后clone到本地，直接使用下面的命令操作就可以了。
+创建版本库： 不建议直接生成，可以在gitee网站下建立仓库，之后clone到本地，直接使用下面的命令操作就可以了。
 $ git init 这个命令可以把当前目录变成git管理的仓库。 远程库如果是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。
-   添加远程仓库：  $ git remote add gitee git@gitee.com:wiseai/wiseai.git $ git remote add github git@github.com:wiseai/wiseai.git    查看远程仓库信息：  $ git remote -v    删除远程仓库：  $ git remote rm github    推送到GitHub或Gitee:  $ git push gitee master $ git push github master 该操作在后面内容同步后再推送。</description>
+添加远程仓库： $ git remote add gitee git@gitee.com:wiseai/wiseai.git $ git remote add github git@github.com:wiseai/wiseai.git 查看远程仓库信息： $ git remote -v 删除远程仓库： $ git remote rm github 推送到GitHub或Gitee: $ git push gitee master $ git push github master 该操作在后面内容同步后再推送。
+设置邮件和用户名： $ git config --global user.email &amp;#34;you@example.com&amp;#34; $ git config --global user.name &amp;#34;Your Name&amp;#34; 全局设置使用&amp;ndash;global参数，如果仅在本仓库设置身份标识，则省略 &amp;ndash;global 参数。</description>
     </item>
     
     <item>
@@ -134,11 +137,11 @@ $ git init 这个命令可以把当前目录变成git管理的仓库。 远程�
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/linux%E5%AE%89%E8%A3%85hp%E6%89%93%E5%8D%B0%E6%9C%BA%E9%A9%B1%E5%8A%A8/</guid>
-      <description>一、安装hplip  # dnf install hplip
+      <description>一、安装hplip # dnf install hplip
 或者官网下载
 安装hplip-gui,
 # dnf install hplip-gui
-   二、运行hp-plugin安装插件  或者下载hplip-3.17.10-plugin.run文件，版本和hplip相同，网址为：http://www.openprinting.org/download/printdriver/auxfiles/HP/plugins/
+二、运行hp-plugin安装插件 或者下载hplip-3.17.10-plugin.run文件，版本和hplip相同，网址为：http://www.openprinting.org/download/printdriver/auxfiles/HP/plugins/
 安装时会验证文件，不用理会，直接安装就行。
 好了！</description>
     </item>
@@ -149,13 +152,13 @@ $ git init 这个命令可以把当前目录变成git管理的仓库。 远程�
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/linux%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
-      <description>   一、配置rc.local文件实现开机启动：  首先，建立一个文件：
+      <description> 一、配置rc.local文件实现开机启动： 首先，建立一个文件：
 $ sudo touch /etc/rc.local
 给予可执行权限：
 $ sudo chmod +x /etc/rc.local
 在文件写入以下内容：
 #!/bin/sh /path/to/gohttpserver -r /path/to/ --port 8080 --upload 以上两个/path/to/，一个是文件所在目录，一个是工作目录，都使用绝对路径。 完成！！！
-   二、第二种方法以后有时间再补充。  </description>
+二、第二种方法以后有时间再补充。 </description>
     </item>
     
     <item>

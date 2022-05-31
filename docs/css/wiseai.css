@@ -4,11 +4,19 @@
 .post-row > time {
     margin-top: 0.4rem;
 }
+.post-row > h3 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-left: 10px;
+}
 .footer {
     clear: both;
 }
 .footer-links > a {
-    width: 20%;
+    font-size: 14px;
+    width: 30%;
+    padding: 0;
     text-align: center;
 }
 .terms {
