@@ -5,7 +5,192 @@
     <description>Recent content on WiseAI的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 31 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 01 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+    <title>Linux下合并文件</title>
+    <link>https://blog.wiseai.cn/post/linux%E4%B8%8B%E5%90%88%E5%B9%B6%E6%96%87%E4%BB%B6/</link>
+    <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/linux%E4%B8%8B%E5%90%88%E5%B9%B6%E6%96%87%E4%BB%B6/</guid>
+    <description>
+        &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#!/bin/bash
+
+for ((i=0; i&amp;lt;700; i++))
+do 
+cat $i.ts &amp;gt;&amp;gt; all.ts
+done
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;某视频APP下载位置：手机存储/Android/data/com.tencent.qqlive/files/videos_***/&lt;/p&gt;
+&lt;p&gt;在这个目录下找下载的视频文件(以.hls结束的），找找就好了。&lt;/p&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>Linux中修改limits值</title>
+    <link>https://blog.wiseai.cn/post/linux%E4%B8%AD%E4%BF%AE%E6%94%B9limits%E5%80%BC/</link>
+    <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/linux%E4%B8%AD%E4%BF%AE%E6%94%B9limits%E5%80%BC/</guid>
+    <description>
+        &lt;p&gt;在/etc/security/limits.conf 最后增加:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;* soft nofile 65535&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;* hard nofile 65535&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;修改ulimit值&lt;/p&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>Linux中的搜索</title>
+    <link>https://blog.wiseai.cn/post/linux%E4%B8%AD%E7%9A%84%E6%90%9C%E7%B4%A2/</link>
+    <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/linux%E4%B8%AD%E7%9A%84%E6%90%9C%E7%B4%A2/</guid>
+    <description>
+        &lt;p&gt;一、whereis&lt;/p&gt;
+&lt;p&gt;二、which&lt;/p&gt;
+&lt;p&gt;三、locate&lt;/p&gt;
+&lt;p&gt;安装：mlocate&lt;/p&gt;
+&lt;p&gt;之后更新数据库：updatedb&lt;/p&gt;
+&lt;p&gt;四、find&lt;/p&gt;
+&lt;p&gt;五、catfish&lt;/p&gt;
+&lt;p&gt;一款Linux桌面图形软件，可以在桌面图形化的搜索文件。&lt;/p&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>Linux中缺少运行库的解决办法</title>
+    <link>https://blog.wiseai.cn/post/linux%E4%B8%AD%E7%BC%BA%E5%B0%91%E8%BF%90%E8%A1%8C%E5%BA%93%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
+    <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/linux%E4%B8%AD%E7%BC%BA%E5%B0%91%E8%BF%90%E8%A1%8C%E5%BA%93%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
+    <description>
+        &lt;ol&gt;
+&lt;li&gt;编辑 vi /etc/ld.so.conf&lt;/li&gt;
+&lt;li&gt;root权限执行 /sbin/ldconfig -v命令&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;这样 ldd 才能找到这个库&lt;/p&gt;
+&lt;p&gt;/etc/ld.so.conf:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;这个文件记录了编译时使用的动态链接库的路径。
+默认情况下，编译器只会使用/lib和/usr/lib这两个目录下的库文件
+如果你安装了某些库，没有指定 –prefix=/usr 这样lib库就装到了/usr/local下，而又没有在/etc/ld.so.conf中添加/usr/local/lib，就会报错了
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;ldconfig是个什么东东吧 ：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;它是一个程序，通常它位于/sbin下，是root用户使用的东东。具体作用及用法可以man ldconfig查到
+简单的说，它的作用就是将/etc/ld.so.conf列出的路径下的库文件 缓存到/etc/ld.so.cache 以供使用
+因此当安装完一些库文件，(例如刚安装好glib)，或者修改ld.so.conf增加新的库路径后，需要运行一下/sbin/ldconfig
+使所有的库文件都被缓存到ld.so.cache中，如果没做，即使库文件明明就在/usr/lib下的，也是不会被使用的，结果
+编译过程中抱错，缺少xxx库。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;以上尝试后发现还是不行，添加 /usr/lib/x86_64-linux-gnu 有许多QT库文件&lt;/p&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>mariadb和mysql命令</title>
+    <link>https://blog.wiseai.cn/post/mariadb%E5%92%8Cmysql%E5%91%BD%E4%BB%A4/</link>
+    <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/mariadb%E5%92%8Cmysql%E5%91%BD%E4%BB%A4/</guid>
+    <description>
+        &lt;p&gt;错误：ERROR 1045 (28000): Access denied for user &amp;lsquo;root&amp;rsquo;@&amp;rsquo;localhost&amp;rsquo; (using password: NO)&lt;/p&gt;
+&lt;p&gt;1.首先停掉数据库服务:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# systemctl stop mariadb.service&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;2.使用mysqld_safe来启动mysqld服务器:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# mysqld_safe --user=mysql --skip-grant-tables --skip-networking&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;3.无密码登录:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# mysql -u root mysql&lt;/code&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;命令行登录：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# mysql -h 127.0.0.1 -u root -p -P 3306&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;新建用户：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# create user &#39;newuser&#39;@&#39;localhost&#39; identified by &#39;123456&#39;;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;或&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# insert into mysql.user(user,host,password) values(&#39;newuser&#39;,&#39;localhost&#39;,password(&#39;123456&#39;));&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;删除用户：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# DROP USER &#39;newuser&#39;@&#39;localhost&#39;;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;授权:&lt;/p&gt;
+&lt;p&gt;注：you password获取方法：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# select password(&#39;你的明文密码&#39;);&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;所有权限&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# grant all privileges on *.* to &#39;newuser&#39;@&#39;localhost&#39; identified by password &#39;you password&#39;;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;部分权限&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# grant insert,update,delete,select on *.* to &#39;newuser&#39;@&#39;localhost&#39;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;给予test数据库所有权限：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# grant all on test.* to &#39;newuser&#39;@&#39;localhost&#39;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;**注意：**需要执行 &lt;strong&gt;FLUSH PRIVILEGES&lt;/strong&gt; 语句重新载入授权表。&lt;/p&gt;
+&lt;p&gt;查看队列：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# show processlist;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;或者&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# show full processlist;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;创建数据库：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# CREATE DATABASE IF NOT EXISTS test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;选择数据库：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# USE test;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;修改数据库：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# ALTER DATABASE test DEFAULT CHARACTER SET gb2312 DEFAULT COLLATE gb2312_chinese_ci;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;删除数据库：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# DROP DATABASE IF EXISTS test;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;查看数据库：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# SHOW DATABASES;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;创建表：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE IF EXISTS `blog_users`;（如果存在，删除表再添加）
+CREATE TABLE `blog_users` (
+`ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+`user_login` varchar(60) NOT NULL DEFAULT &#39;&#39;,
+`user_pass` varchar(255) NOT NULL DEFAULT &#39;&#39;,
+`user_nicename` varchar(50) NOT NULL DEFAULT &#39;&#39;,
+`user_email` varchar(100) NOT NULL DEFAULT &#39;&#39;,
+`user_url` varchar(100) NOT NULL DEFAULT &#39;&#39;,
+`user_registered` datetime NOT NULL DEFAULT &#39;0000-00-00 00:00:00&#39;,
+`user_activation_key` varchar(255) NOT NULL DEFAULT &#39;&#39;,
+`user_status` int(11) NOT NULL DEFAULT &#39;0&#39;,
+`display_name` varchar(250) NOT NULL DEFAULT &#39;&#39;,
+PRIMARY KEY (`ID`),
+KEY `user_login_key` (`user_login`),
+KEY `user_nicename` (`user_nicename`),
+KEY `user_email` (`user_email`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;查看表：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# SHOW TABLES;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;查看表结构：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# DESC test；&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;查看表如何创建：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# show create table user \G;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;删除表：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# DROP TABLE test;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;删除表中的所有数据并自增长数据从1开始：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# TRUNCATE TABLE 表名;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;插入数据：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;insert into &#39;blog_users&#39; (&#39;ID&#39;, &#39;user_login&#39;, &#39;user_pass&#39;) values (&#39;1&#39;,&#39;admin&#39;,&#39;$P$BnOWIsBwuIA7Hf3gZh9fVuY6sWkKmt1&#39;); &lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;或：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# INSERT INTO test set title = &#39;这个是title&#39;;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;删除数据：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# DELETE FROM test where title = &#39;这个是title&#39;;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;修改数据或更新数据：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# UPDATE test set title = &#39;这个是title&#39;;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;查询：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# SELECT id, title FROM test where title = &#39;这个是title&#39;;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;备份数据库：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# mysqldump -uroot -p123456 数据库 &amp;gt; /tmp/数据库.sql&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;恢复数据库：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# mysql -uroot -p123456 数据库 &amp;lt; /tmp/数据库.sql&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;备份表：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# mysqldump -uroot -p 数据库 表 &amp;gt; /tmp/表.sql&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;恢复表：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# mysql -uroot -p 数据库 &amp;lt; /tmp/表.sql&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;备份所有库：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# mysqldump -uroot -p -A &amp;gt; /tmp/123.sql&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;只备份表结构：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# mysqldump -uroot -p -d 数据库 &amp;gt; /tmp/数据库.sql&lt;/code&gt;&lt;/p&gt;
+
+    </description>
+    </item>
+    
     <item>
     <title>Linux屏录软件</title>
     <link>https://blog.wiseai.cn/post/linux%E5%B1%8F%E5%BD%95%E8%BD%AF%E4%BB%B6/</link>

@@ -6,19 +6,97 @@
     <description>Recent content in Posts on WiseAI的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 31 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 01 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux下合并文件</title>
+      <link>https://blog.wiseai.cn/post/linux%E4%B8%8B%E5%90%88%E5%B9%B6%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/linux%E4%B8%8B%E5%90%88%E5%B9%B6%E6%96%87%E4%BB%B6/</guid>
+      <description>#!/bin/bashfor ((i=0; i&amp;lt;700; i++))do cat $i.ts &amp;gt;&amp;gt; all.tsdone 某视频APP下载位置：手机存储/Android/data/com.tencent.qqlive/files/videos_***/
+在这个目录下找下载的视频文件(以.hls结束的），找找就好了。</description>
+    </item>
+    
+    <item>
+      <title>Linux中修改limits值</title>
+      <link>https://blog.wiseai.cn/post/linux%E4%B8%AD%E4%BF%AE%E6%94%B9limits%E5%80%BC/</link>
+      <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/linux%E4%B8%AD%E4%BF%AE%E6%94%B9limits%E5%80%BC/</guid>
+      <description>在/etc/security/limits.conf 最后增加:
+* soft nofile 65535
+* hard nofile 65535
+修改ulimit值</description>
+    </item>
+    
+    <item>
+      <title>Linux中的搜索</title>
+      <link>https://blog.wiseai.cn/post/linux%E4%B8%AD%E7%9A%84%E6%90%9C%E7%B4%A2/</link>
+      <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/linux%E4%B8%AD%E7%9A%84%E6%90%9C%E7%B4%A2/</guid>
+      <description>一、whereis
+二、which
+三、locate
+安装：mlocate
+之后更新数据库：updatedb
+四、find
+五、catfish
+一款Linux桌面图形软件，可以在桌面图形化的搜索文件。</description>
+    </item>
+    
+    <item>
+      <title>Linux中缺少运行库的解决办法</title>
+      <link>https://blog.wiseai.cn/post/linux%E4%B8%AD%E7%BC%BA%E5%B0%91%E8%BF%90%E8%A1%8C%E5%BA%93%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
+      <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/linux%E4%B8%AD%E7%BC%BA%E5%B0%91%E8%BF%90%E8%A1%8C%E5%BA%93%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
+      <description>编辑 vi /etc/ld.so.conf root权限执行 /sbin/ldconfig -v命令  这样 ldd 才能找到这个库
+/etc/ld.so.conf:
+这个文件记录了编译时使用的动态链接库的路径。 默认情况下，编译器只会使用/lib和/usr/lib这两个目录下的库文件 如果你安装了某些库，没有指定 –prefix=/usr 这样lib库就装到了/usr/local下，而又没有在/etc/ld.so.conf中添加/usr/local/lib，就会报错了  ldconfig是个什么东东吧 ：
+它是一个程序，通常它位于/sbin下，是root用户使用的东东。具体作用及用法可以man ldconfig查到 简单的说，它的作用就是将/etc/ld.so.conf列出的路径下的库文件 缓存到/etc/ld.so.cache 以供使用 因此当安装完一些库文件，(例如刚安装好glib)，或者修改ld.so.conf增加新的库路径后，需要运行一下/sbin/ldconfig 使所有的库文件都被缓存到ld.so.cache中，如果没做，即使库文件明明就在/usr/lib下的，也是不会被使用的，结果 编译过程中抱错，缺少xxx库。  以上尝试后发现还是不行，添加 /usr/lib/x86_64-linux-gnu 有许多QT库文件</description>
+    </item>
+    
+    <item>
+      <title>mariadb和mysql命令</title>
+      <link>https://blog.wiseai.cn/post/mariadb%E5%92%8Cmysql%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/mariadb%E5%92%8Cmysql%E5%91%BD%E4%BB%A4/</guid>
+      <description>错误：ERROR 1045 (28000): Access denied for user &amp;lsquo;root&amp;rsquo;@&amp;rsquo;localhost&amp;rsquo; (using password: NO)
+1.首先停掉数据库服务:
+# systemctl stop mariadb.service
+2.使用mysqld_safe来启动mysqld服务器:
+# mysqld_safe --user=mysql --skip-grant-tables --skip-networking
+3.无密码登录:
+# mysql -u root mysql
+ 命令行登录：
+# mysql -h 127.0.0.1 -u root -p -P 3306
+新建用户：
+# create user &#39;newuser&#39;@&#39;localhost&#39; identified by &#39;123456&#39;;
+或
+# insert into mysql.user(user,host,password) values(&#39;newuser&#39;,&#39;localhost&#39;,password(&#39;123456&#39;));
+删除用户：
+# DROP USER &#39;newuser&#39;@&#39;localhost&#39;;
+授权:
+注：you password获取方法：
+# select password(&#39;你的明文密码&#39;);
+所有权限
+# grant all privileges on *.</description>
+    </item>
+    
     <item>
       <title>Linux屏录软件</title>
       <link>https://blog.wiseai.cn/post/linux%E5%B1%8F%E5%BD%95%E8%BD%AF%E4%BB%B6/</link>
       <pubDate>Tue, 31 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/linux%E5%B1%8F%E5%BD%95%E8%BD%AF%E4%BB%B6/</guid>
-      <description> 一、SimpleScreenRecorder 可以记录其他的应用程序和你的屏幕上运行的游戏。这是一个简单但功能强大，功能丰富的屏幕记录软件，包括一个易于使用的界面。 只支持Linux系统，包含在rpmfusion中。
+      <description>   一、SimpleScreenRecorder  可以记录其他的应用程序和你的屏幕上运行的游戏。这是一个简单但功能强大，功能丰富的屏幕记录软件，包括一个易于使用的界面。 只支持Linux系统，包含在rpmfusion中。
 # yum install simplescreenrecorder
 # apt install simplescreenrecorder
 其它安装方式：https://www.maartenbaert.be/simplescreenrecorder/
 它的一些显著特点包括:
-基于QT的简单GUI 可以记录整个屏幕或它的一部分	从OpenGL的应用程序直接记录 良好的视频和音频同步 有助于减少慢速机的视频帧速率 支持暂停和恢复功能 显示了了在记录过程期间的统计 支持录制过程中预览 默认设置已经很好，不需要进行过多设置 二、 OBS (Open Broadcaster Software) OBS 是一个免费、开源和跨平台的视频记录和流媒体应用程序,它可以工作在Linux、Windows和Mac OS X。 Windows需要从官网下载（https://obsproject.com/），Linux系统包含在rpmfusion中。
+基于QT的简单GUI 可以记录整个屏幕或它的一部分	从OpenGL的应用程序直接记录 良好的视频和音频同步 有助于减少慢速机的视频帧速率 支持暂停和恢复功能 显示了了在记录过程期间的统计 支持录制过程中预览 默认设置已经很好，不需要进行过多设置     二、 OBS (Open Broadcaster Software)  OBS 是一个免费、开源和跨平台的视频记录和流媒体应用程序,它可以工作在Linux、Windows和Mac OS X。 Windows需要从官网下载（https://obsproject.com/），Linux系统包含在rpmfusion中。
 ＃ yum install obs-studio
 # apt install ffmpeg
 # add-apt-repository ppa:obsproject/obs-studio
@@ -34,11 +112,10 @@
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/adduseraddgroup%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E7%94%A8%E6%88%B7%E7%BB%84/</guid>
-      <description>添加一个普通用户 # adduser [--home 主目录] [--shell SHELL] [--no-create-home] [--uid ID] [--firstuid ID] [--lastuid ID] [--gecos GECOS] [--ingroup 用户组 | --gid ID][--disabled-password] [--disabled-login] [--add_extra_groups] 用户名
-添加一个系统用户 # adduser --system [--home 主目录] [--shell SHELL] [--no-create-home] [--uid ID] [--gecos GECOS] [--group | --ingroup 用户组 | --gid ID] [--disabled-password] [--disabled-login] [--add_extra_groups] 用户名
-添加一个用户组 # adduser --group [--gid ID] 用户组名 # addgroup [--gid ID] 用户组名
-添加一个系统用户组 # addgroup --system [--gid ID] 用户组名
-将一个已存在的用户添加至一个已存在的用户组 # adduser 用户名 用户组名</description>
+      <description>添加一个普通用户  # adduser [--home 主目录] [--shell SHELL] [--no-create-home] [--uid ID] [--firstuid ID] [--lastuid ID] [--gecos GECOS] [--ingroup 用户组 | --gid ID][--disabled-password] [--disabled-login] [--add_extra_groups] 用户名
+ 添加一个系统用户  # adduser --system [--home 主目录] [--shell SHELL] [--no-create-home] [--uid ID] [--gecos GECOS] [--group | --ingroup 用户组 | --gid ID] [--disabled-password] [--disabled-login] [--add_extra_groups] 用户名
+ 添加一个用户组  # adduser --group [--gid ID] 用户组名 # addgroup [--gid ID] 用户组名
+ 添加一个系统用户组  # addgroup --system [--gid ID] 用户组名</description>
     </item>
     
     <item>
@@ -48,7 +125,7 @@
       
       <guid>https://blog.wiseai.cn/post/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
       <description>现在docker分企业版和社区版，如果自己用的话，还是社区版吧！！！
-安装： centos7：
+   安装：  centos7：
 1.卸载旧版本
 $ yum remove docker \ docker-client \ docker-client-latest \ docker-common \ docker-latest \ docker-latest-logrotate \ docker-logrotate \ docker-selinux \ docker-engine-selinux \ docker-engine 2.安装依赖包：
 $ yum install -y yum-utils device-mapper-persistent-data lvm2
@@ -58,7 +135,7 @@ $ yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-
 $ yum install docker-ce
 如果提示接受GPG密钥，请验证指纹是否匹配060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35，如果匹配 ，则接受它。
 ubuntu:
-$ sudo apt-get update $ sudo apt-get install apt-transport-https ca-certificates curl software-properties-common $ curl -fsSL https://download.</description>
+ $ sudo apt-get update $ sudo apt-get install apt-transport-https ca-certificates curl software-properties-common $ curl -fsSL https://download.</description>
     </item>
     
     <item>
@@ -67,18 +144,18 @@ $ sudo apt-get update $ sudo apt-get install apt-transport-https ca-certificates
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/efi%E5%92%8Cgrub2%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8F%8A%E5%91%BD%E4%BB%A4/</guid>
-      <description>一、配置文件目录 /etc/grub2/目录下 /etc/default/grub
-二、更新引导项目 根据配置文件目录下的顺序更新启动项，命令：
+      <description>一、配置文件目录  /etc/grub2/目录下 /etc/default/grub
+   二、更新引导项目  根据配置文件目录下的顺序更新启动项，命令：
 # grub2-mkconfig -o /boot/grub2/grub.cfg
 -o 选项为输出到那个文件
 efi下的/boot/efi/EFI/centos/grub.cfg文件一般调用/boot/grub2/grub.cfg这个文件
 类debian发行版，一般用这个命令： # update-grub2
-三、更换默认启动项 命令：
+   三、更换默认启动项  命令：
 # grub2-set-default 2
 一般从0开始
-四、安装 # grub-install --efi-directory=/boot/efi/ --boot-directory=/boot/ --removable /dev/sda 几个需要说明的地方：
---efi-directory=/boot/efi/这个位置的问题，如果efi分区是单独挂载的，就直接写这个目录就可以了，不用加efi，它会在这个目录下建立EFI的目录，写入相关文件。 --boot-directory=/boot/这个不用加grub2，它会自己生成grub2目录，写入相关文件 --removable如果是移动设备，一定要加这个选项
-五、常用命令 启动常用的grub命令 root (hd0,2) #设置某块分区为根目录kernel /vmlinuz #加载linux kernelinitrd /initrd.gz #加载驱动，或者虚拟rootfsboot #启动加载的kernel 查找文件 find --set-root --ignore-floppies --ignore-cd /usr/bin/cp #查找/usr/bin/cp文件，并将分区设为根目录，忽略软盘和cd 加载iso root (hdx,x) #设置根目录map --mem /xx.iso (0xff) #映射iso文件到模拟cdrom 0xffmap --hook #映射钩子chainloader (0xff) #链接到映射的CDROMboot #启动 grub命名规则，(hd32)为第一仿真cd/dvd设备，等同于0xa0，(hd33)为二仿真cd/dvd设备，0xff为最后一个。grub中将0xa0以上都认做cdrom。 map --mem 用于仿真不连续的存放的iso文件，不加则必须连续存放，碎片整理后再存放iso一般才会连续。 另外grub不支持大的iso，如果iso不支持则提示:inviladorupsupported executableformat。</description>
+   四、安装  # grub-install --efi-directory=/boot/efi/ --boot-directory=/boot/ --removable /dev/sda 几个需要说明的地方：
+ --efi-directory=/boot/efi/这个位置的问题，如果efi分区是单独挂载的，就直接写这个目录就可以了，不用加efi，它会在这个目录下建立EFI的目录，写入相关文件。 --boot-directory=/boot/这个不用加grub2，它会自己生成grub2目录，写入相关文件 --removable如果是移动设备，一定要加这个选项
+    五、常用命令   启动常用的grub命令  root (hd0,2) #设置某块分区为根目录kernel /vmlinuz #加载linux kernelinitrd /initrd.gz #加载驱动，或者虚拟rootfsboot #启动加载的kernel  查找文件 find --set-root --ignore-floppies --ignore-cd /usr/bin/cp #查找/usr/bin/cp文件，并将分区设为根目录，忽略软盘和cd 加载iso  root (hdx,x) #设置根目录map --mem /xx.</description>
     </item>
     
     <item>
@@ -87,11 +164,11 @@ efi下的/boot/efi/EFI/centos/grub.cfg文件一般调用/boot/grub2/grub.cfg这�
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/filebrowser%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</guid>
-      <description>编译安装 可以自己编译，必须安装golang v1.16以上和nodejs，最好是最新版本，否则会出现一些问题。
+      <description>编译安装  可以自己编译，必须安装golang v1.16以上和nodejs，最好是最新版本，否则会出现一些问题。
 $ git clone https://github.com/filebrowser/filebrowser 注：如果有gitee的可以改，速度快
 $ make help 注：编译帮助
 $ make build 注：开始编译，完成后在当前目录下filebrowser
-使用简介： 直接输入命令： ./filebrowser 会在当前目录下生成数据库文件，并开启服务
+   使用简介：  直接输入命令： ./filebrowser 会在当前目录下生成数据库文件，并开启服务
 关闭服务后，输入以下命令进行设置：
 ./filebrowser config cat查看配置文件，这个配置是写入数据库里的
 ./filebrowser config set --address 0.0.0.0打开所有端口
@@ -101,9 +178,7 @@ $ make build 注：开始编译，完成后在当前目录下filebrowser
 ./filebrowser config set --log /your/path/filebrowser.log设置日志
 ./filebrowser config set --root /your/path/设置根目录
 ./filebrowser users add root password --perm.admin这个是添加用户，其中的root和password分别是用户名和密码
-./filebrowser -d /you/path/filebrowser.db config init这里的-d是指定数据库文件，config init是初始化，这个命令应该一开始就执行，但是什么参数都不带的话，会自己生成。
-设置https访问：
-./filebrowser config set --port 443设置https端口</description>
+./filebrowser -d /you/path/filebrowser.db config init这里的-d是指定数据库文件，config init是初始化，这个命令应该一开始就执行，但是什么参数都不带的话，会自己生成。</description>
     </item>
     
     <item>
@@ -112,7 +187,7 @@ $ make build 注：开始编译，完成后在当前目录下filebrowser
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/ftp%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9E%B6%E8%AE%BEvsftpd/</guid>
-      <description>安装： # dnf install vsftpd
+      <description>安装：  # dnf install vsftpd
 **FTP主动模式：客户端从一个任意的非特权端口N（N&amp;gt;1024）连接到FTP服务器的port 21命令端口。然后客户端开始监听端口N+1，**并发送FTP命令&amp;quot;port N+1&amp;quot;到FTP服务器。接着服务器会从它自己的数据端口（20）连接到客户端指定的数据端口（N+1）。
 **FTP被动模式：客户端从一个任意的非特权端口N（N&amp;gt;1024）连接到FTP服务器的port 21命令端口。然后客户端开始监听端口N+1，**同时客户端提交 PASV命令。服务器会开启一个任意的非特权端口（P &amp;gt;1024），并发送PORT P命令给客户端。然后客户端发起从本地端口N+1到服务器的端口P的连接用来传送数据。
 端口： 主动模式：TCP 21（指令），20（数据）端口
@@ -136,12 +211,11 @@ $ make build 注：开始编译，完成后在当前目录下filebrowser
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/git/</guid>
-      <description>添加ssh公钥： 查看~/.ssh/id_rsa.pub文件，如果有公钥直接添加，没有的话使用这个命令：
+      <description>添加ssh公钥：  查看~/.ssh/id_rsa.pub文件，如果有公钥直接添加，没有的话使用这个命令：
 $ ssh-keygen -t ed25519 -C &amp;#34;xxxxx@xxxxx.com&amp;#34; 三次回车后，再查看~/.ssh/id_rsa.pub文件，添加到gitee设置。
-创建版本库： 不建议直接生成，可以在gitee网站下建立仓库，之后clone到本地，直接使用下面的命令操作就可以了。
+   创建版本库：  不建议直接生成，可以在gitee网站下建立仓库，之后clone到本地，直接使用下面的命令操作就可以了。
 $ git init 这个命令可以把当前目录变成git管理的仓库。 远程库如果是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。
-添加远程仓库： $ git remote add gitee git@gitee.com:wiseai/wiseai.git $ git remote add github git@github.com:wiseai/wiseai.git 查看远程仓库信息： $ git remote -v 删除远程仓库： $ git remote rm github 推送到GitHub或Gitee: $ git push gitee master $ git push github master 该操作在后面内容同步后再推送。
-设置邮件和用户名： $ git config --global user.email &amp;#34;you@example.com&amp;#34; $ git config --global user.name &amp;#34;Your Name&amp;#34; 全局设置使用&amp;ndash;global参数，如果仅在本仓库设置身份标识，则省略 &amp;ndash;global 参数。</description>
+   添加远程仓库：  $ git remote add gitee git@gitee.com:wiseai/wiseai.git $ git remote add github git@github.com:wiseai/wiseai.git    查看远程仓库信息：  $ git remote -v    删除远程仓库：  $ git remote rm github    推送到GitHub或Gitee:  $ git push gitee master $ git push github master 该操作在后面内容同步后再推送。</description>
     </item>
     
     <item>
@@ -150,16 +224,15 @@ $ git init 这个命令可以把当前目录变成git管理的仓库。 远程�
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/golang%E5%92%8Cnodejs%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</guid>
-      <description>配置golang 下载文件：golang官网下载 解压文件至/usr/local/目录下： # rm -rf /usr/local/go &amp;amp;&amp;amp; tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz
+      <description>配置golang   下载文件：golang官网下载 解压文件至/usr/local/目录下：  # rm -rf /usr/local/go &amp;amp;&amp;amp; tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz
 （第一个命令是删除golang的残余文件）
-建立软链接至/usr/bin/目录下： # ln -s /usr/local/go/bin/go /usr/bin/
+ 建立软链接至/usr/bin/目录下：  # ln -s /usr/local/go/bin/go /usr/bin/
 # ln -s /usr/local/go/bin/gofmt /usr/bin/
-修改为国内源 # go env -w GO111MODULE=auto # go env -w GOPROXY=https://goproxy.cn,direct
-查看配置 # go env
-配置nodejs 下载文件：nodejs官网 解压文件至/usr/local/目录下： # rm -rf /usr/local/go &amp;amp;&amp;amp; tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz
-（第一个命令是删除nodejs的残余文件） # npm install yarn
-建立软链接至/usr/bin/目录下： # ln -s /usr/local/node-v16.13.2-linux-arm64/bin/node /usr/bin/
-# ln -s /usr/local/node-v16.13.2-linux-arm64/bin/npm /usr/bin/</description>
+ 修改为国内源  # go env -w GO111MODULE=auto 
+# go env -w GOPROXY=https://goproxy.cn,direct
+ 查看配置  # go env
+配置nodejs   下载文件：nodejs官网 解压文件至/usr/local/目录下：  # rm -rf /usr/local/go &amp;amp;&amp;amp; tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz
+（第一个命令是删除nodejs的残余文件） # npm install yarn</description>
     </item>
     
     <item>
@@ -179,8 +252,8 @@ go build flysnow.org/tools/...
 讲到go build编译，不能不提跨平台编译，Go提供了编译链工具，可以让我们在任何一个开发平台上，编译出其他平台的可执行文件。
 默认情况下，都是根据我们当前的机器生成的可执行文件，比如你的是Linux 64位，就会生成Linux 64位下的可执行文件，比如我的Mac；可以使用go env查看编译环境,以下截取重要的部分。
 go env GOARCH=&amp;#34;amd64&amp;#34; GOEXE=&amp;#34;&amp;#34; GOHOSTARCH=&amp;#34;amd64&amp;#34; GOHOSTOS=&amp;#34;darwin&amp;#34; GOOS=&amp;#34;darwin&amp;#34; GOROOT=&amp;#34;/usr/local/go&amp;#34; GOTOOLDIR=&amp;#34;/usr/local/go/pkg/tool/darwin_amd64&amp;#34; ** 注意里面两个重要的环境变量GOOS和GOARCH,其中GOOS指的是目标操作系统，它的可用值为：**
-darwin freebsd linux windows android dragonfly netbsd openbsd plan9 solaris ** 一共支持10种操作系统。GOARCH指的是目标处理器的架构，目前支持的有：**
-arm arm64 386 amd64 ppc64 ppc64le mips64 mips64le s390x 一共支持9种处理器的架构</description>
+ darwin freebsd linux windows android dragonfly netbsd openbsd plan9 solaris  ** 一共支持10种操作系统。GOARCH指的是目标处理器的架构，目前支持的有：**
+ arm arm64 386 amd64 ppc64 ppc64le mips64 mips64le s390x  一共支持9种处理器的架构</description>
     </item>
     
     <item>
@@ -189,10 +262,10 @@ arm arm64 386 amd64 ppc64 ppc64le mips64 mips64le s390x 一共支持9种处理�
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/gpio%E7%9B%B8%E5%85%B3/</guid>
-      <description>linux查看gpio状态 cat /sys/kernel/debug/gpio
+      <description>linux查看gpio状态  cat /sys/kernel/debug/gpio
 有个blog里有这个方法，去试试：
-mkdir /tmp/debug mount -t debugfs debugfs /tmp/debug cat /tmp/debug/gpio GPIO操作的一些说明 首先，看看系统中有没有“/sys/class/gpio”这个文件夹。如果没有请在编译内核的时候加入 Device Drivers-&amp;gt; GPIO Support -&amp;gt;/sys/class/gpio/… (sysfs interface)
-/sys/class/gpio 的使用说明： gpio_operation 通过/sys/文件接口操作IO端口 GPIO到文件系统的映射
+mkdir /tmp/debug mount -t debugfs debugfs /tmp/debug cat /tmp/debug/gpio    GPIO操作的一些说明   首先，看看系统中有没有“/sys/class/gpio”这个文件夹。如果没有请在编译内核的时候加入  Device Drivers-&amp;gt; GPIO Support -&amp;gt;/sys/class/gpio/… (sysfs interface)
+ /sys/class/gpio 的使用说明：  gpio_operation 通过/sys/文件接口操作IO端口 GPIO到文件系统的映射
 ◇ 控制GPIO的目录位于/sys/class/gpio
 ◇ /sys/class/gpio/export文件用于通知系统需要导出控制的GPIO引脚编号
 ◇ /sys/class/gpio/unexport 用于通知系统取消导出
@@ -201,10 +274,7 @@ mkdir /tmp/debug mount -t debugfs debugfs /tmp/debug cat /tmp/debug/gpio GPIO操
 ◇ 向/sys/class/gpio/export写入此编号，比如12号引脚，在shell中可以通过以下命令实现，echo 12 &amp;gt; export命令成功后生成/sys/class/gpio/gpio12目录，如果没有出现相应的目录，说明此引脚不可导出
 ◇ direction文件，定义输入输入方向，可以通过下面命令定义为输出。direction接受的参数：in, out, high, low。high/low同时设置方向为输出，并将value设置为相应的1/0
 ◇ value文件是端口的数值，为1或0
-例子： 进入/sys/class/gpio/文件夹：
-将gpio7重定向用户定义设备，生成gpio7目录 # echo 7 &amp;gt; export
-进入gpio7目录并查看文件 # cd gpio7
-# ls</description>
+   例子：  进入/sys/class/gpio/文件夹：</description>
     </item>
     
     <item>
@@ -213,11 +283,11 @@ mkdir /tmp/debug mount -t debugfs debugfs /tmp/debug cat /tmp/debug/gpio GPIO操
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/linux%E5%AE%89%E8%A3%85hp%E6%89%93%E5%8D%B0%E6%9C%BA%E9%A9%B1%E5%8A%A8/</guid>
-      <description>一、安装hplip # dnf install hplip
+      <description>一、安装hplip  # dnf install hplip
 或者官网下载
 安装hplip-gui,
 # dnf install hplip-gui
-二、运行hp-plugin安装插件 或者下载hplip-3.17.10-plugin.run文件，版本和hplip相同，网址为：http://www.openprinting.org/download/printdriver/auxfiles/HP/plugins/
+   二、运行hp-plugin安装插件  或者下载hplip-3.17.10-plugin.run文件，版本和hplip相同，网址为：http://www.openprinting.org/download/printdriver/auxfiles/HP/plugins/
 安装时会验证文件，不用理会，直接安装就行。
 好了！</description>
     </item>
@@ -228,13 +298,13 @@ mkdir /tmp/debug mount -t debugfs debugfs /tmp/debug cat /tmp/debug/gpio GPIO操
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/linux%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
-      <description> 一、配置rc.local文件实现开机启动： 首先，建立一个文件：
+      <description>   一、配置rc.local文件实现开机启动：  首先，建立一个文件：
 $ sudo touch /etc/rc.local
 给予可执行权限：
 $ sudo chmod +x /etc/rc.local
 在文件写入以下内容：
 #!/bin/sh /path/to/gohttpserver -r /path/to/ --port 8080 --upload 以上两个/path/to/，一个是文件所在目录，一个是工作目录，都使用绝对路径。 完成！！！
-二、第二种方法以后有时间再补充。 </description>
+   二、第二种方法以后有时间再补充。  </description>
     </item>
     
     <item>
@@ -293,8 +363,8 @@ Is an integral
 $$ \varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } } $$
 Enable Katex in the config file by setting the katex param to true. This will import the necessary Katex CSS/JS.
 See the online reference of supported TeX functions.
-1 Inline math: $ \varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887… $ Inline math: $ \varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887… $
-1 2 3 Block math: $$ \varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } } $$ Block math:</description>
+1  Inline math: $\varphi=\dfrac{1+\sqrt5}{2}=1.6180339887… $   Inline math: $ \varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887… $
+1 2 3  Block math: $$\varphi=1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } } $$   Block math:</description>
     </item>
     
     <item>
@@ -308,8 +378,8 @@ $$ \int_{a}^{b} x^2 dx $$
 Is an integral
 $$ \varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } } $$
 Enable MathJax in the config file by setting the mathjax param to true. This will import the necessary MathJax CSS/JS.
-1 Inline math: $ \varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887… $ Inline math: $ \varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887… $
-1 2 3 Block math: $$ \varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } } $$ Block math:</description>
+1  Inline math: $\varphi=\dfrac{1+\sqrt5}{2}=1.6180339887… $   Inline math: $ \varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887… $
+1 2 3  Block math: $$\varphi=1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } } $$   Block math:</description>
     </item>
     
     <item>
@@ -327,7 +397,7 @@ Enable MathJax in the config file by setting the mathjax param to true. This wil
       <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/example-lazy-load-image/</guid>
-      <description>Nya nya nyan meow meow mama More napping, more napping all the napping is exhausting stretch out on bed you are a captive audience while sitting on the toilet, pet me slap the dog because cats rule bleghbleghvomit my furball really tie the room together always hungry. Humans,humans, humans oh how much they love us felines we are the center of attention they feed, they clean miaow then turn around and show you my bum.</description>
+      <description>Nya nya nyan meow meow mama  More napping, more napping all the napping is exhausting stretch out on bed you are a captive audience while sitting on the toilet, pet me slap the dog because cats rule bleghbleghvomit my furball really tie the room together always hungry. Humans,humans, humans oh how much they love us felines we are the center of attention they feed, they clean miaow then turn around and show you my bum.</description>
     </item>
     
     <item>

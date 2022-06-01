@@ -1,5 +1,16 @@
-Linux下合并文件
-==
+---
+author: "wiseai"
+title: "Linux下合并文件"
+date: "2022-06-01"
+description: "Linux下合并文件"
+tags:
+- 合并
+- sh
+categories:
+- Linux学习
+draft: false
+---
+
 ```
 #!/bin/bash
 

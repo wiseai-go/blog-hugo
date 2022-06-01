@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>合并 on WiseAI的博客</title>
+    <link>https://blog.wiseai.cn/tags/%E5%90%88%E5%B9%B6/</link>
+    <description>Recent content in 合并 on WiseAI的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 01 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/tags/%E5%90%88%E5%B9%B6/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux下合并文件</title>
+      <link>https://blog.wiseai.cn/post/linux%E4%B8%8B%E5%90%88%E5%B9%B6%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/linux%E4%B8%8B%E5%90%88%E5%B9%B6%E6%96%87%E4%BB%B6/</guid>
+      <description>#!/bin/bashfor ((i=0; i&amp;lt;700; i++))do cat $i.ts &amp;gt;&amp;gt; all.tsdone 某视频APP下载位置：手机存储/Android/data/com.tencent.qqlive/files/videos_***/
+在这个目录下找下载的视频文件(以.hls结束的），找找就好了。</description>
+    </item>
+    
+  </channel>
+</rss>

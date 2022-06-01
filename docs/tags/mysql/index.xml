@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>mysql on WiseAI的博客</title>
+    <link>https://blog.wiseai.cn/tags/mysql/</link>
+    <description>Recent content in mysql on WiseAI的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 01 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>mariadb和mysql命令</title>
+      <link>https://blog.wiseai.cn/post/mariadb%E5%92%8Cmysql%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/mariadb%E5%92%8Cmysql%E5%91%BD%E4%BB%A4/</guid>
+      <description>错误：ERROR 1045 (28000): Access denied for user &amp;lsquo;root&amp;rsquo;@&amp;rsquo;localhost&amp;rsquo; (using password: NO)
+1.首先停掉数据库服务:
+# systemctl stop mariadb.service
+2.使用mysqld_safe来启动mysqld服务器:
+# mysqld_safe --user=mysql --skip-grant-tables --skip-networking
+3.无密码登录:
+# mysql -u root mysql
+ 命令行登录：
+# mysql -h 127.0.0.1 -u root -p -P 3306
+新建用户：
+# create user &#39;newuser&#39;@&#39;localhost&#39; identified by &#39;123456&#39;;
+或
+# insert into mysql.user(user,host,password) values(&#39;newuser&#39;,&#39;localhost&#39;,password(&#39;123456&#39;));
+删除用户：
+# DROP USER &#39;newuser&#39;@&#39;localhost&#39;;
+授权:
+注：you password获取方法：
+# select password(&#39;你的明文密码&#39;);
+所有权限
+# grant all privileges on *.</description>
+    </item>
+    
+  </channel>
+</rss>

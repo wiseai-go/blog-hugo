@@ -1,5 +1,15 @@
-Linux中的搜索
-==
+---
+author: "wiseai"
+title: "Linux中的搜索"
+date: "2022-06-01"
+description: "Linux中搜索文件"
+tags:
+- 搜索
+- 文件
+categories:
+- Linux学习
+draft: false
+---
 
 一、whereis
 
