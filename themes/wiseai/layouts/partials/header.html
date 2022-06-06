@@ -1,0 +1,30 @@
+<div class="container-fluid">    
+    <ul class="nav justify-content-center">
+        <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="{{ relURL "/" }}">{{ .Site.Title }}</a>
+        </li>  
+        {{ range .Site.Menus.header }}
+        <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="{{ .URL | relURL }}"{{ if eq .URL $.RelPermalink }} aria-current="page"{{ end }}>{{ .Pre }}{{ .Name }}{{ .Post }}</a>
+        </li>   
+        {{ end }}     
+    </ul>
+</div>
+
+<nav class="navbar">
+    <div class="container">
+        <div class="flex">
+            <div>
+                <a class="brand" href="">
+                    
+                    </a>
+            </div>
+            <div class="flex">
+                {{ range .Site.Menus.header }}
+                <a href="{{ .URL | relURL }}"{{ if eq .URL $.RelPermalink }} aria-current="page"{{ end }}>{{ .Pre }}{{ .Name }}{{ .Post }}</a>
+                {{ end }}
+ 
+            </div>
+            </div>
+    </div>
+</nav>

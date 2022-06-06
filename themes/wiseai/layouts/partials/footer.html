@@ -1,0 +1,11 @@
+<footer class="footer flex">
+    <section class="container">
+        <nav class="footer-links">
+            {{ range .Site.Menus.footer }}
+            <a href="{{ .URL | relURL }}">{{ .Name }}</a>
+            {{ end }}
+        </nav>
+    </section> 
+
+    <script async src="http://qn.wiseai.cn/bootstrap/bootstrap.bundle.min.js"></script>
+</footer>

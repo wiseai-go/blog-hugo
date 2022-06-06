@@ -133,5 +133,5 @@ markup:
     renderer:
       unsafe: true
 
-outputs:
-  home: ["HTML", "RSS", "JSON"]
+# outputs:
+#   home: ["HTML", "RSS", "JSON"]
