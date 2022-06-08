@@ -1,0 +1,66 @@
+{{ define "main" }}
+<div class="container archive">
+        <h1>{{ .Title }}</h1>
+        <p class="subtitle">{{ .Params.subtitle }}</p>
+        {{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
+        {{ $maxCategoryToShow := $.Site.Params.maxCategoryToShow | default 5 }}
+        <div class="row">
+            {{ range .Site.Taxonomies.categories.TaxonomyArray | first $maxCategoryToShow }}
+            <div class="d-grid gap-2 col">
+                <button type="button" class="btn btn-primary">
+                    {{ .Page.Title }}<span class="badge bg-secondary">{{ .Count }}</span>
+                    <span class="visually-hidden">{{ .Page.Title }}</span>
+                </button>
+            </div>        
+            {{ end }}
+        </div>
+
+</div>
+
+
+
+
+{{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
+
+<section>
+    <div class="container">
+        <div class="filter-container">
+          {{ $maxCategoryToShow := $.Site.Params.maxCategoryToShow | default 5 }}
+          {{ range .Site.Taxonomies.categories.TaxonomyArray | first $maxCategoryToShow }}
+            <div class="filter-item" data-value="{{ .Page.Title }}" data-type="categories">
+              {{ .Page.Title }}<sup>{{ .Count }}</sup>
+            </div>
+          {{ end }}
+        </div>
+
+
+        
+        <div id="search-results">
+        </div>
+        <section id="articles-list">
+            {{ range $pages.GroupByDate "2006" }}
+            <section>
+                <h2>{{ .Key }}</h2>
+                <div class="posts">
+                    {{ range .Pages }}
+                    <div class="post">
+                        <a href="{{ .RelPermalink }}">
+                            <div class="post-row">
+                                <time>{{ .Date.Format "01-02" }}</time>
+                                <h3>{{ .Title }}</h3>
+                            </div>
+                        </a>
+                    </div>
+                    {{ end }}
+                </div>
+            </section>
+            {{ end }}
+        </section>
+    </div>
+</section>
+
+{{- $opts := dict "minify" hugo.IsProduction -}}
+
+
+
+{{ end }}

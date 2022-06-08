@@ -1,29 +1,19 @@
 {{ define "main" }}
-
-<div class="container">
-    <section class="my">
-        <div class="content">
-            {{ with .Content }}
-            {{ . }}
-            {{ end }}
-            <div class="bio-social">
-                {{ range $name, $path := $.Param "socialOptions" }}
-                {{ if (and $path (ne $name "email")) }}
-                <a href="{{ $path | safeURL }}" target="_blank" rel="noreferrer" title="{{ $name }}"
-                    aria-label="{{ $name }}">
-                    {{ partial (print "svgs/social/" $name ".svg") (dict "width" 25 "height" 25) }}
-                </a>
-                {{ end }}
-                {{ if (and $path (eq $name "email")) }}
-                <a href="mailto:{{ $path | safeURL }}" target="_blank" rel="noreferrer" title="{{ $path }}"
-                    aria-label="{{ $name }}">
-                    {{ partial (print "svgs/social/" $name ".svg") (dict "width" 25 "height" 25) }}
-                </a>
-                {{ end }}
+<div class="container-fluid">
+    <div id="carouselIndexSlides" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner text-center">
+            <div class="carousel-item active">
+                {{ with .Content }}
+                {{ . }}
                 {{ end }}
             </div>
+            {{ range .Site.Params.Text }}
+            <div class="carousel-item">
+                <p><strong>{{ .content }}</strong></p>
+            </div>
+            {{ end }}
         </div>
-    </section>
+    </div>
 </div>
 
 {{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
@@ -32,48 +22,36 @@
 {{ $archivesPage := first 1 (where .Site.RegularPages "Layout" "eq" "archives") }}
 
 <div class="container">
-    <section>
-        <h2>
-            最新文章
-            {{ range $archivesPage }}
-            <a class="section-button" href="{{ .RelPermalink }}">查看所有</a>
-            {{ end }}
-        </h2>
-        <div class="posts">
-            {{ range $pages.Pages }}
-            <div class="post">
-                <a href="{{ .RelPermalink }}">
-                    <div class="post-row">
-                        <time>{{ .Date.Format "2006-01-02" }}</time>
-                        <h3>{{ .Title }}</h3>
-                    </div>
-                    <!--<div class="new-post">New!</div>-->
-                </a>
-            </div>
-            {{ end }}
+    <h2>最新文章<span class="badge bg-light">
+        {{ range $archivesPage }}
+        <a class="link-dark links" href="{{ .RelPermalink }}">查看所有</a>
+        {{ end }}
+    </span><hr></h2>
+    <div class="row">
+        {{ range $pages.Pages }}        
+        <div class="col-12 post">
+            <a class="link-dark links" href="{{ .RelPermalink }}"><time>{{ .Date.Format "2006-01-02" }}</time>{{ .Title }}</a>
         </div>
-    </section>
-    {{ if gt (len $projects) 0}}
-    <section>
-        <h2>项目</h2>
-        <div class="projects">
-            {{ range $projects.ByWeight }}
-            <div class="project">
-                <div>
-                    <a href="{{ .Params.link }}" target="_blank" rel="noreferrer">
-                        <div class="icon">{{ .Params.icon }}</div>
-                        <h3>{{ .Title }}</h3>
-                    </a>
-                    <div class="description">{{ .Params.description }}</div>
-                </div>
-                <div class="flex">
-                    <a href="{{ .Params.repo }}" class="button" target="_blank" rel="noreferrer">Source</a>
-                </div>
-            </div>
-            {{ end }}
+        {{ end }}
+    </div>
+</div>
+
+{{ if gt (len $projects) 0}}
+<div class="container">
+    <h2>项目</h2><hr>
+    {{ range $projects.ByWeight }}
+    <div class="card xm">
+        <div class="card-header">
+            {{ .Title }}
         </div>
-    </section>
+        <div class="card-body">
+            <!-- <h5 class="card-title">Special title treatment</h5> -->
+            <p class="card-text">{{ .Params.description }}</p>
+            <a href="{{ .Params.repo }}" class="btn btn-primary">Source</a>
+        </div>
+    </div>
     {{ end }}
 </div>
+{{ end }}
 
 {{ end }}

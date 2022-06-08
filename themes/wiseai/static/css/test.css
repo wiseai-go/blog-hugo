@@ -1,0 +1,44 @@
+.links {
+	text-decoration:none;
+}
+
+.post {
+	height: 60px;
+	font-size: 1.3rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-left: 10px;
+}
+
+time {
+	margin-right: 20px;
+	font-size: 0.85rem;
+	line-height: 1.3rem;
+}
+
+.xm {
+	margin-bottom: 10px;
+}
+
+#content {
+/*	background: greenyellow;*/
+	margin-top: 56px;
+}
+#carouselIndexSlides {
+	width: 100%;
+	height: 60px;
+	line-height: 60px;
+}
+
+.copyright {
+	margin-bottom: 20px;
+}
+
+.archive {
+	margin-top: 76px;
+}
+
+.archive .row .btn {
+	margin-bottom: 10px;
+}
