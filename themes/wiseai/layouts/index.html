@@ -9,7 +9,7 @@
             </div>
             {{ range .Site.Params.Text }}
             <div class="carousel-item">
-                <p><strong>{{ .content }}</strong></p>
+                <p>{{ .content }}</p>
             </div>
             {{ end }}
         </div>
@@ -29,7 +29,7 @@
     </span><hr></h2>
     <div class="row">
         {{ range $pages.Pages }}        
-        <div class="col-12 post">
+        <div class="col-12 post text-truncate">
             <a class="link-dark links" href="{{ .RelPermalink }}"><time>{{ .Date.Format "2006-01-02" }}</time>{{ .Title }}</a>
         </div>
         {{ end }}

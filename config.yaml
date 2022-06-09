@@ -38,7 +38,7 @@ params:
 
   # Limit how many categories filter show above search input.
   # Default to 5
-  maxCategoryToShow: 10
+  maxCategoryToShow: 100
 
   # Show your socail information with icon on index bio with `_index.md` content.
   socialOptions:
