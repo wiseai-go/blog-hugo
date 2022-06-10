@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>构建系统 on WiseAI的博客</title>
+    <link>https://blog.wiseai.cn/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/</link>
+    <description>Recent content in 构建系统 on WiseAI的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>陇ICP备15000157号</copyright>
+    <lastBuildDate>Fri, 10 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>玩玩LFS-从源码构建Linux系统</title>
+      <link>https://blog.wiseai.cn/post/%E7%8E%A9%E7%8E%A9lfs-%E4%BB%8E%E6%BA%90%E7%A0%81%E6%9E%84%E5%BB%BAlinux%E7%B3%BB%E7%BB%9F/</link>
+      <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/%E7%8E%A9%E7%8E%A9lfs-%E4%BB%8E%E6%BA%90%E7%A0%81%E6%9E%84%E5%BB%BAlinux%E7%B3%BB%E7%BB%9F/</guid>
+      <description>官方网站：http://www.linuxfromscratch.org/
+LFS Book 翻译项目:https://github.com/LCTT/LFS-BOOK
+Linux From Scratch （简体中文版） Version 8.3-systemd
+LFS：Linux From Scratch是主要书籍，是从中衍生所有其他项目的基础。
+BLFS：Beyond Linux From Scratch可帮助您将已完成的LFS安装扩展到更加个性化和可用的系统。
+ALFS：Automated Linux From Scratch提供了自动化和管理LFS和BLFS构建的工具。</description>
+    </item>
+    
+  </channel>
+</rss>

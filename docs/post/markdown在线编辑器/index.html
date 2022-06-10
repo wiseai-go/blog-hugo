@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-cn"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+
+    <title>MarkDown在线编辑器 | WiseAI的博客</title>
+</head><body><nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <img src="/favicon.ico" alt="" width="30" height="24" class="d-inline-block align-text-top">
+            WiseAI的博客
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                
+                <li class="nav-item">
+                    <a  class="nav-link"   href="/articles/">文章</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a  class="nav-link"   href="/categories/">分类</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a  class="nav-link"   href="/tags/">关键字</a>
+                </li>
+                
+            </ul>
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav><div id="content">
+<div class="container article">
+	<h1>MarkDown在线编辑器</h1>
+	<div class="post-meta">
+		<div>
+			
+			
+			By wiseai | 2022-06-10 | 1 minutes
+		</div>
+		<div class="tags">
+			
+			<a class="btn btn-light links btn-sm" href="/tags/markdown/">markdown</a>
+			
+			<a class="btn btn-light links btn-sm" href="/tags/%E6%A0%BC%E5%BC%8F/">格式</a>
+			
+		</div>
+	</div>
+	<div>
+		<div class="article-post">
+			<p>使用开源项目<a href="https://github.com/pandao/editor.md.git" title="editor.md">editor.md</a>我的gitee仓库下也有。</p>
+<h2 id="安装">安装</h2>
+<p><code># npm install editor.md</code></p>
+<h2 id="使用">使用</h2>
+<pre tabindex="0"><code>    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset=&#34;utf-8&#34;&gt;
+        &lt;link rel=&#34;stylesheet&#34; href=&#34;editor.md/css/editormd.min.css&#34; /&gt;
+        &lt;title&gt;Markdown 编辑在线器&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+    &lt;div id=&#34;text&#34; style=&#34;width: 100%;&#34;&gt;
+        &lt;div id=&#34;editor&#34; style=&#34;height: 100%;&#34;&gt;
+            &lt;!-- Tips: Editor.md can auto append a `&lt;textarea&gt;` tag --&gt;
+            &lt;textarea style=&#34;display:none;&#34; placeholder=&#34;欢迎使用&#34;&gt;&lt;/textarea&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;script src=&#34;jquery.min.js&#34;&gt;&lt;/script&gt;
+    &lt;script src=&#34;editor.md/editormd.min.js&#34;&gt;&lt;/script&gt;
+    &lt;script type=&#34;text/javascript&#34;&gt;
+        // 设置div与窗口高度一致
+        window.onload = function () {
+            var h = window.innerHeight - 25 ; //获取当前窗口的高度; 
+            document.getElementById(&#34;text&#34;).style.height = h + &#34;px&#34;; //设置div的高度
+        }
+        // 设置textarea参数
+        $(function() {
+            var h = window.innerHeight - 25
+            var editor = editormd(&#34;editor&#34;, {
+                // width: &#34;100%&#34;,
+                height: h,
+                saveHTMLToTextarea   : true,
+                // markdown: &#34;xxxx&#34;,     // dynamic set Markdown text
+                path : &#34;editor.md/lib/&#34;  // Autoload modules mode, codemirror, marked... dependents libs path
+            });
+        });
+    &lt;/script&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+</code></pre>
+		</div>
+	</div>
+</div>
+
+
+<div class="container">
+    
+    <div class="row">
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-end dh" href="/post/nginx%E5%87%BA%E7%8E%B0%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">
+                <h5>前一篇</h5><br>
+                Nginx出现问题的解决办法
+            </a>            
+        </div>
+        
+        <div class="col-2">
+        </div>
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-start dh" href="">
+                <h5>没有了</h5><br>
+            </a>            
+        </div>
+        
+    </div>
+    
+</div>
+
+        </div><br><br>
+<footer class="container">
+    <h2>友情链接</h2>
+    <hr>
+    <nav class="nav nav-pills flex-column flex-sm-row">
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/gnzg/index.html" target="_blank">孤鸟之歌</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/mm/index.html" target="_blank">生成随机字符</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/md/index.html" target="_blank">MarkDown</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://gitee.com/" target="_blank">Gitee</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://github.com/" target="_blank">Github</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.oschina.net/" target="_blank">OSCHINA</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://gitee.com/wiseai/the-way-to-go_ZH_CN/blob/master/eBook/directory.md" target="_blank">the way to go</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://goframe.org/display/gf" target="_blank">GoFrame</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.aliyundrive.com/" target="_blank">阿里云盘</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.bootstrap.cn/" target="_blank">bootstrap文档</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.58pic.com/" target="_blank">千图</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://marketing.qiniu.com/" target="_blank">七牛云</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.ixigua.com/" target="_blank">西瓜视频</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/yugang/index.html" target="_blank">鱼缸计算</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="/index.xml" target="_blank">RSS</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://mp.weixin.qq.com/s/K2Dpw7yg8Y5Z_P4Jm6f8Tw" target="_blank">参考文章</a>
+        
+    </nav>
+
+    <div class="copyright text-center">
+      <span class="power-by">
+        Powered by <a class="links" href="https://gohugo.io">Hugo</a>
+    </span>
+    <span>|</span>
+    <span>
+        Theme - <a class="links" href="https://github.com/wiseai-go/blog-hugo">WiseAI</a>
+    </span>
+    <br>
+    <span class="copyright-year">
+        &copy;
+        
+        2017 -
+        2022<span>
+            陇ICP备15000157号
+            
+        </span></span>
+
+</div>
+</footer>
+<script async src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

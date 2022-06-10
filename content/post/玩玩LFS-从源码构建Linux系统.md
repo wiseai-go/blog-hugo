@@ -1,5 +1,16 @@
-玩玩LFS-从源码构建Linux系统
-==
+---
+author: "wiseai"
+title: "玩玩LFS-从源码构建Linux系统"
+date: "2022-06-10"
+description: "从0构建Linux系统"
+tags:
+- Linux系统
+- 构建系统
+categories:
+- Linux使用
+draft: false
+---
+
 官方网站：http://www.linuxfromscratch.org/
 
 LFS Book 翻译项目:https://github.com/LCTT/LFS-BOOK

@@ -6,7 +6,377 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Wed, 01 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 10 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+    <title>MarkDown在线编辑器</title>
+    <link>https://blog.wiseai.cn/post/markdown%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91%E5%99%A8/</link>
+    <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/markdown%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91%E5%99%A8/</guid>
+    <description>
+        &lt;p&gt;使用开源项目&lt;a href=&#34;https://github.com/pandao/editor.md.git&#34; title=&#34;editor.md&#34;&gt;editor.md&lt;/a&gt;我的gitee仓库下也有。&lt;/p&gt;
+&lt;h2 id=&#34;安装&#34;&gt;安装&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;# npm install editor.md&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;使用&#34;&gt;使用&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;    &amp;lt;!DOCTYPE html&amp;gt;
+    &amp;lt;html&amp;gt;
+    &amp;lt;head&amp;gt;
+        &amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt;
+        &amp;lt;link rel=&amp;#34;stylesheet&amp;#34; href=&amp;#34;editor.md/css/editormd.min.css&amp;#34; /&amp;gt;
+        &amp;lt;title&amp;gt;Markdown 编辑在线器&amp;lt;/title&amp;gt;
+    &amp;lt;/head&amp;gt;
+    &amp;lt;body&amp;gt;
+    &amp;lt;div id=&amp;#34;text&amp;#34; style=&amp;#34;width: 100%;&amp;#34;&amp;gt;
+        &amp;lt;div id=&amp;#34;editor&amp;#34; style=&amp;#34;height: 100%;&amp;#34;&amp;gt;
+            &amp;lt;!-- Tips: Editor.md can auto append a `&amp;lt;textarea&amp;gt;` tag --&amp;gt;
+            &amp;lt;textarea style=&amp;#34;display:none;&amp;#34; placeholder=&amp;#34;欢迎使用&amp;#34;&amp;gt;&amp;lt;/textarea&amp;gt;
+        &amp;lt;/div&amp;gt;
+    &amp;lt;/div&amp;gt;
+    &amp;lt;script src=&amp;#34;jquery.min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;#34;editor.md/editormd.min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt;
+        // 设置div与窗口高度一致
+        window.onload = function () {
+            var h = window.innerHeight - 25 ; //获取当前窗口的高度; 
+            document.getElementById(&amp;#34;text&amp;#34;).style.height = h + &amp;#34;px&amp;#34;; //设置div的高度
+        }
+        // 设置textarea参数
+        $(function() {
+            var h = window.innerHeight - 25
+            var editor = editormd(&amp;#34;editor&amp;#34;, {
+                // width: &amp;#34;100%&amp;#34;,
+                height: h,
+                saveHTMLToTextarea   : true,
+                // markdown: &amp;#34;xxxx&amp;#34;,     // dynamic set Markdown text
+                path : &amp;#34;editor.md/lib/&amp;#34;  // Autoload modules mode, codemirror, marked... dependents libs path
+            });
+        });
+    &amp;lt;/script&amp;gt;
+    &amp;lt;/body&amp;gt;
+    &amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+    </description>
+    </item>
+    
+    <item>
+    <title>Nginx出现问题的解决办法</title>
+    <link>https://blog.wiseai.cn/post/nginx%E5%87%BA%E7%8E%B0%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
+    <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/nginx%E5%87%BA%E7%8E%B0%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
+    <description>
+        &lt;p&gt;最近遇到Permission denied这个问题，经过排查，是目录权限的问题，server的root目录必须要有写权限才行，只有读权限还是会出现Permission denied的问题，并且要给nginx的执行用户，比如默认的www-data用户。
+待续&lt;/p&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>sublime使用</title>
+    <link>https://blog.wiseai.cn/post/sublime%E4%BD%BF%E7%94%A8/</link>
+    <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/sublime%E4%BD%BF%E7%94%A8/</guid>
+    <description>
+        &lt;h2 id=&#34;安装package-control&#34;&gt;安装Package Control&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Tools-&amp;gt;Install Package Control  选项，即可调出 Package Control&lt;/li&gt;
+&lt;li&gt;“Tools-&amp;gt;Command Palette&amp;hellip;”选项，快捷键Ctrl+Shift +P&lt;/li&gt;
+&lt;li&gt;输入 ipc ,点击 Install Package Control，即可调出 Package Control&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;设置中文&#34;&gt;设置中文&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Preferences-&amp;gt;Package Control，快捷键Ctrl+Shift +P&lt;/li&gt;
+&lt;li&gt;选项弹出命令行输入框，输入ip，点击“install Package”&lt;/li&gt;
+&lt;li&gt;弹出命令行输入框，输入clz，点击“ChineseLocalizations”&lt;/li&gt;
+&lt;li&gt;“帮助-&amp;gt;Language ”切换语言。&lt;/li&gt;
+&lt;/ol&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>systemd的服务管理程序systemctl</title>
+    <link>https://blog.wiseai.cn/post/systemd%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemctl/</link>
+    <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/systemd%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemctl/</guid>
+    <description>
+        &lt;p&gt;systemctl融合service和chkconfig的功能于一体,可以使用它永久性或只在当前会话中启用/禁用服务。&lt;/p&gt;
+&lt;h2 id=&#34;一启动关闭启用禁用服务&#34;&gt;一、启动/关闭、启用/禁用服务&lt;/h2&gt;
+&lt;p&gt;运行一个服务：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;#systemctl start firewalld&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;关闭一个服务：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;#systemctl stop firewalld&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;重启一个服务:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;#systemctl restart firewalld&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;显示一个服务（无论运行与否）的状态:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;#systemctl status firewalld&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;在开机时启用一个服务：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;#systemctl enable firewalld&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;在开机时禁用一个服务:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;#systemctl disable firewalld&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;检查一个服务是否是开机启用：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;#systemctl is-enabled firewalld&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;二改变运行级别&#34;&gt;二、改变运行级别&lt;/h2&gt;
+&lt;p&gt;切换到运行级别3或者5：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;#systemctl isolate multi-user.target&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;#systemctl isolate graphical.target&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;改变默认运行级别3或者5：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;#ln -sf /lib/systemd/system/multi-user.target /etc/systemd/system/default.target或#systemctl set-default multi-user.target&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;#ln -sf /lib/systemd/system/graphical.target /etc/systemd/system/default.target或#systemctl set-default graphical.target&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;查看当下运行级别:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;#systemctl list-units --type=target&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;三改变默认-getty-数目&#34;&gt;三、改变默认 getty 数目&lt;/h2&gt;
+&lt;p&gt;添加一个新的 getty ：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#ln -sf /lib/systemd/system/getty@.service /etc/systemd/system/getty.target.wants/getty@tty9.service
+#systemctl daemon-reload
+#systemctl start getty@tty9.service`
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;删除一个 getty ：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#rm /etc/systemd/system/getty.target.wants/getty@tty9.service
+#systemctl daemon-reload
+#systemctl stop getty@tty9.service
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;四读懂配置文件&#34;&gt;四、读懂配置文件&lt;/h2&gt;
+&lt;p&gt;一个服务怎么启动，完全由它的配置文件决定。下面就来看，配置文件有些什么内容。&lt;/p&gt;
+&lt;p&gt;前面说过，配置文件主要放在&lt;code&gt;/usr/lib/systemd/system&lt;/code&gt;目录，也可能在&lt;code&gt;/etc/systemd/system&lt;/code&gt;目录。找到配置文件以后，使用文本编辑器打开即可。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;systemctl cat&lt;/code&gt;命令可以用来查看配置文件，下面以&lt;code&gt;sshd.service&lt;/code&gt;文件为例，它的作用是启动一个 SSH 服务器，供其他用户以 SSH 方式登录。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;$ systemctl cat sshd.service&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[Unit]
+Description=OpenSSH server daemon
+Documentation=man:sshd(8) man:sshd_config(5)
+After=network.target sshd-keygen.service
+Wants=sshd-keygen.service
+
+[Service]
+EnvironmentFile=/etc/sysconfig/sshd
+ExecStart=/usr/sbin/sshd -D &amp;lt;span class=&amp;quot;hljs-variable&amp;quot;&amp;gt;$OPTIONS
+ExecReload=/bin/kill -HUP &amp;lt;span class=&amp;quot;hljs-variable&amp;quot;&amp;gt;$MAINPID
+Type=simple
+KillMode=process
+Restart=on-failure
+RestartSec=42s
+
+[Install]
+WantedBy=multi-user.target
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;可以看到，配置文件分成几个区块，每个区块包含若干条键值对。&lt;/p&gt;
+&lt;p&gt;下面依次解释每个区块的内容。&lt;/p&gt;
+&lt;h2 id=&#34;五-unit-区块启动顺序与依赖关系&#34;&gt;五、 [Unit] 区块：启动顺序与依赖关系。&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;Unit&lt;/code&gt;区块的&lt;code&gt;Description&lt;/code&gt;字段给出当前服务的简单描述，&lt;code&gt;Documentation&lt;/code&gt;字段给出文档位置。&lt;/p&gt;
+&lt;p&gt;接下来的设置是启动顺序和依赖关系，这个比较重要。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;After&lt;/code&gt;字段：表示如果&lt;code&gt;network.target&lt;/code&gt;或&lt;code&gt;sshd-keygen.service&lt;/code&gt;需要启动，那么&lt;code&gt;sshd.service&lt;/code&gt;应该在它们之后启动。
+相应地，还有一个&lt;code&gt;Before&lt;/code&gt;字段，定义&lt;code&gt;sshd.service&lt;/code&gt;应该在哪些服务之前启动。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;注意，&lt;code&gt;After&lt;/code&gt;和&lt;code&gt;Before&lt;/code&gt;字段只涉及启动顺序，不涉及依赖关系。&lt;/p&gt;
+&lt;p&gt;举例来说，某 Web 应用需要 postgresql 数据库储存数据。在配置文件中，它只定义要在 postgresql 之后启动，而没有定义依赖 postgresql 。上线后，由于某种原因，postgresql 需要重新启动，在停止服务期间，该 Web 应用就会无法建立数据库连接。&lt;/p&gt;
+&lt;p&gt;设置依赖关系，需要使用&lt;code&gt;Wants&lt;/code&gt;字段和&lt;code&gt;Requires&lt;/code&gt;字段。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;Wants&lt;/code&gt;字段：表示&lt;code&gt;sshd.service&lt;/code&gt;与&lt;code&gt;sshd-keygen.service&lt;/code&gt;之间存在&amp;quot;弱依赖&amp;quot;关系，即如果&amp;quot;sshd-keygen.service&amp;quot;启动失败或停止运行，不影响&lt;code&gt;sshd.service&lt;/code&gt;继续执行。
+&lt;code&gt;Requires&lt;/code&gt;字段则表示&amp;quot;强依赖&amp;quot;关系，即如果该服务启动失败或异常退出，那么&lt;code&gt;sshd.service&lt;/code&gt;也必须退出。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;注意，&lt;code&gt;Wants&lt;/code&gt;字段与&lt;code&gt;Requires&lt;/code&gt;字段只涉及依赖关系，与启动顺序无关，默认情况下是同时启动的。&lt;/p&gt;
+&lt;h2 id=&#34;六service-区块启动行为&#34;&gt;六、[Service] 区块：启动行为&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;Service&lt;/code&gt;区块定义如何启动当前服务。&lt;/p&gt;
+&lt;h3 id=&#34;61-启动命令&#34;&gt;6.1 启动命令&lt;/h3&gt;
+&lt;p&gt;许多软件都有自己的环境参数文件，该文件可以用&lt;code&gt;EnvironmentFile&lt;/code&gt;字段读取。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;EnvironmentFile&lt;/code&gt;字段：指定当前服务的环境参数文件。该文件内部的&lt;code&gt;key=value&lt;/code&gt;键值对，可以用&lt;code&gt;$key&lt;/code&gt;的形式，在当前配置文件中获取。
+上面的例子中，sshd 的环境参数文件是&lt;code&gt;/etc/sysconfig/sshd&lt;/code&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;配置文件里面最重要的字段是&lt;code&gt;ExecStart&lt;/code&gt;。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;ExecStart&lt;/code&gt;字段：定义启动进程时执行的命令。
+上面的例子中，启动&lt;code&gt;sshd&lt;/code&gt;，执行的命令是&lt;code&gt;/usr/sbin/sshd -D $OPTIONS&lt;/code&gt;，其中的变量&lt;code&gt;$OPTIONS&lt;/code&gt;就来自&lt;code&gt;EnvironmentFile&lt;/code&gt;字段指定的环境参数文件。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;与之作用相似的，还有如下这些字段。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;ExecReload&lt;/code&gt;字段：重启服务时执行的命令&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ExecStop&lt;/code&gt;字段：停止服务时执行的命令&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ExecStartPre&lt;/code&gt;字段：启动服务之前执行的命令&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ExecStartPost&lt;/code&gt;字段：启动服务之后执行的命令&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ExecStopPost&lt;/code&gt;字段：停止服务之后执行的命令
+请看下面的例子。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;pre&gt;&lt;code&gt;[Service]
+ExecStart=/bin/echo execstart1
+ExecStart=
+ExecStart=/bin/echo execstart2
+ExecStartPost=/bin/echo post1
+ExecStartPost=/bin/echo post2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;上面这个配置文件，第二行&lt;code&gt;ExecStart&lt;/code&gt;设为空值，等于取消了第一行的设置，运行结果如下。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;span class=&#34;hljs-attribute&#34;&gt;execstart2
+post1
+post2
+所有的启动设置之前，都可以加上一个连词号（&lt;code&gt;-&lt;/code&gt;），表示&amp;quot;抑制错误&amp;quot;，即发生错误的时候，不影响其他命令的执行。比如，&lt;code&gt;EnvironmentFile=-/etc/sysconfig/sshd&lt;/code&gt;（注意等号后面的那个连词号），就表示即使&lt;code&gt;/etc/sysconfig/sshd&lt;/code&gt;文件不存在，也不会抛出错误。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;62-启动类型&#34;&gt;6.2 启动类型&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;Type&lt;/code&gt;字段定义启动类型。它可以设置的值如下。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;simple（默认值）：&lt;code&gt;ExecStart&lt;/code&gt;字段启动的进程为主进程&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;forking：&lt;code&gt;ExecStart&lt;/code&gt;字段将以&lt;code&gt;fork()&lt;/code&gt;方式启动，此时父进程将会退出，子进程将成为主进程&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;oneshot：类似于&lt;code&gt;simple&lt;/code&gt;，但只执行一次，Systemd 会等它执行完，才启动其他服务&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;dbus：类似于&lt;code&gt;simple&lt;/code&gt;，但会等待 D-Bus 信号后启动&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;notify：类似于&lt;code&gt;simple&lt;/code&gt;，启动结束后会发出通知信号，然后 Systemd 再启动其他服务&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;idle：类似于&lt;code&gt;simple&lt;/code&gt;，但是要等到其他任务都执行完，才会启动该服务。一种使用场合是为让该服务的输出，不与其他服务的输出相混合
+下面是一个&lt;code&gt;oneshot&lt;/code&gt;的例子，笔记本电脑启动时，要把触摸板关掉，配置文件可以这样写。&lt;/p&gt;
+&lt;p&gt;[Unit]
+Description=Switch-off Touchpad&lt;/p&gt;
+&lt;p&gt;[Service]
+Type=oneshot
+ExecStart=/usr/bin/touchpad-off&lt;/p&gt;
+&lt;p&gt;[Install]
+WantedBy=multi-user.target
+上面的配置文件，启动类型设为&lt;code&gt;oneshot&lt;/code&gt;，就表明这个服务只要运行一次就够了，不需要长期运行。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;如果关闭以后，将来某个时候还想打开，配置文件修改如下。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;pre&gt;&lt;code&gt;[Unit]
+Description=Switch-off Touchpad
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/touchpad-off start
+ExecStop=/usr/bin/touchpad-off stop
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;上面配置文件中，&lt;code&gt;RemainAfterExit&lt;/code&gt;字段设为&lt;code&gt;yes&lt;/code&gt;，表示进程退出以后，服务仍然保持执行。这样的话，一旦使用&lt;code&gt;systemctl stop&lt;/code&gt;命令停止服务，&lt;code&gt;ExecStop&lt;/code&gt;指定的命令就会执行，从而重新开启触摸板。&lt;/p&gt;
+&lt;h3 id=&#34;63-重启行为&#34;&gt;6.3 重启行为&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;Service&lt;/code&gt;区块有一些字段，定义了重启行为。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;KillMode&lt;/code&gt;字段：定义 Systemd 如何停止 sshd 服务。
+上面这个例子中，将&lt;code&gt;KillMode&lt;/code&gt;设为&lt;code&gt;process&lt;/code&gt;，表示只停止主进程，不停止任何sshd 子进程，即子进程打开的 SSH session 仍然保持连接。这个设置不太常见，但对 sshd 很重要，否则你停止服务的时候，会连自己打开的 SSH session 一起杀掉。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;KillMode&lt;/code&gt;字段可以设置的值如下。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;control-group（默认值）：当前控制组里面的所有子进程，都会被杀掉&lt;/li&gt;
+&lt;li&gt;process：只杀主进程&lt;/li&gt;
+&lt;li&gt;mixed：主进程将收到 SIGTERM 信号，子进程收到 SIGKILL 信号&lt;/li&gt;
+&lt;li&gt;none：没有进程会被杀掉，只是执行服务的 stop 命令。
+接下来是&lt;code&gt;Restart&lt;/code&gt;字段。
+&lt;code&gt;Restart&lt;/code&gt;字段：定义了 sshd 退出后，Systemd 的重启方式。
+上面的例子中，&lt;code&gt;Restart&lt;/code&gt;设为&lt;code&gt;on-failure&lt;/code&gt;，表示任何意外的失败，就将重启sshd。如果 sshd 正常停止（比如执行&lt;code&gt;systemctl stop&lt;/code&gt;命令），它就不会重启。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;Restart&lt;/code&gt;字段可以设置的值如下。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;no（默认值）：退出后不会重启&lt;/li&gt;
+&lt;li&gt;on-success：只有正常退出时（退出状态码为0），才会重启&lt;/li&gt;
+&lt;li&gt;on-failure：非正常退出时（退出状态码非0），包括被信号终止和超时，才会重启&lt;/li&gt;
+&lt;li&gt;on-abnormal：只有被信号终止和超时，才会重启&lt;/li&gt;
+&lt;li&gt;on-abort：只有在收到没有捕捉到的信号终止时，才会重启&lt;/li&gt;
+&lt;li&gt;on-watchdog：超时退出，才会重启&lt;/li&gt;
+&lt;li&gt;always：不管是什么退出原因，总是重启
+对于守护进程，推荐设为&lt;code&gt;on-failure&lt;/code&gt;。对于那些允许发生错误退出的服务，可以设为&lt;code&gt;on-abnormal&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;最后是&lt;code&gt;RestartSec&lt;/code&gt;字段。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;RestartSec&lt;/code&gt;字段：表示 Systemd 重启服务之前，需要等待的秒数。上面的例子设为等待42秒。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;七install-区块&#34;&gt;七、[Install] 区块&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;Install&lt;/code&gt;区块，定义如何安装这个配置文件，即怎样做到开机启动。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;WantedBy&lt;/code&gt;字段：表示该服务所在的 Target。
+&lt;code&gt;Target&lt;/code&gt;的含义是服务组，表示一组服务。&lt;code&gt;WantedBy=multi-user.target&lt;/code&gt;指的是，sshd 所在的 Target 是&lt;code&gt;multi-user.target&lt;/code&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这个设置非常重要，因为执行&lt;code&gt;systemctl enable sshd.service&lt;/code&gt;命令时，&lt;code&gt;sshd.service&lt;/code&gt;的一个符号链接，就会放在&lt;code&gt;/etc/systemd/system&lt;/code&gt;目录下面的&lt;code&gt;multi-user.target.wants&lt;/code&gt;子目录之中。&lt;/p&gt;
+&lt;p&gt;Systemd 有默认的启动 Target。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;$ systemctl get-default
+multi-user.target
+上面的结果表示，默认的启动 Target 是&lt;code&gt;multi-user.target&lt;/code&gt;。在这个组里的所有服务，都将开机启动。这就是为什么&lt;code&gt;systemctl enable&lt;/code&gt;命令能设置开机启动的原因。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;使用 Target 的时候，&lt;code&gt;systemctl list-dependencies&lt;/code&gt;命令和&lt;code&gt;systemctl isolate&lt;/code&gt;命令也很有用。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;h3 id=&#34;查看-multi-usertarget-包含的所有服务&#34;&gt;查看 multi-user.target 包含的所有服务&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;$ systemctl list-dependencies multi-user.target
+
+# 切换到另一个 target
+# shutdown.target 就是关机状态
+$ sudo systemctl isolate shutdown.target
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;一般来说，常用的 Target 有两个：一个是&lt;code&gt;multi-user.target&lt;/code&gt;，表示多用户命令行状态；另一个是&lt;code&gt;graphical.target&lt;/code&gt;，表示图形用户状态，它依赖于&lt;code&gt;multi-user.target&lt;/code&gt;。官方文档有一张非常清晰的 &lt;a href=&#34;https://www.freedesktop.org/software/systemd/man/bootup.html#System%20Manager%20Bootup&#34;&gt;Target 依赖关系图&lt;/a&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;八target-的配置文件&#34;&gt;八、Target 的配置文件&lt;/h2&gt;
+&lt;p&gt;Target 也有自己的配置文件。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;$ systemctl cat multi-user.target&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[Unit]
+Description=Multi-User System
+Documentation=man:systemd.special(7)
+Requires=basic.target
+Conflicts=rescue.service rescue.target
+After=basic.target rescue.service rescue.target
+AllowIsolate=yes
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;注意，Target 配置文件里面没有启动命令。&lt;/p&gt;
+&lt;p&gt;上面输出结果中，主要字段含义如下。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;Requires&lt;/code&gt;字段：要求&lt;code&gt;basic.target&lt;/code&gt;一起运行。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Conflicts&lt;/code&gt;字段：冲突字段。如果&lt;code&gt;rescue.service&lt;/code&gt;或&lt;code&gt;rescue.target&lt;/code&gt;正在运行，&lt;code&gt;multi-user.target&lt;/code&gt;就不能运行，反之亦然。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;After&lt;/code&gt;：表示&lt;code&gt;multi-user.target&lt;/code&gt;在&lt;code&gt;basic.target&lt;/code&gt; 、 &lt;code&gt;rescue.service&lt;/code&gt;、 &lt;code&gt;rescue.target&lt;/code&gt;之后启动，如果它们有启动的话。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;AllowIsolate&lt;/code&gt;：允许使用&lt;code&gt;systemctl isolate&lt;/code&gt;命令切换到&lt;code&gt;multi-user.target&lt;/code&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;九修改配置文件后重启&#34;&gt;九、修改配置文件后重启&lt;/h2&gt;
+&lt;p&gt;修改配置文件以后，需要重新加载配置文件，然后重新启动相关服务。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;h1 id=&#34;重新加载配置文件&#34;&gt;重新加载配置文件&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;$ sudo systemctl daemon-reload&amp;gt; 
+# 重启相关服务
+$ sudo systemctl restart foobar
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/blockquote&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>玩玩LFS-从源码构建Linux系统</title>
+    <link>https://blog.wiseai.cn/post/%E7%8E%A9%E7%8E%A9lfs-%E4%BB%8E%E6%BA%90%E7%A0%81%E6%9E%84%E5%BB%BAlinux%E7%B3%BB%E7%BB%9F/</link>
+    <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/%E7%8E%A9%E7%8E%A9lfs-%E4%BB%8E%E6%BA%90%E7%A0%81%E6%9E%84%E5%BB%BAlinux%E7%B3%BB%E7%BB%9F/</guid>
+    <description>
+        &lt;p&gt;官方网站：http://www.linuxfromscratch.org/&lt;/p&gt;
+&lt;p&gt;LFS Book 翻译项目:https://github.com/LCTT/LFS-BOOK&lt;/p&gt;
+&lt;p&gt;Linux From Scratch （简体中文版） Version 8.3-systemd&lt;/p&gt;
+&lt;p&gt;LFS：Linux From Scratch是主要书籍，是从中衍生所有其他项目的基础。&lt;/p&gt;
+&lt;p&gt;BLFS：Beyond Linux From Scratch可帮助您将已完成的LFS安装扩展到更加个性化和可用的系统。&lt;/p&gt;
+&lt;p&gt;ALFS：Automated Linux From Scratch提供了自动化和管理LFS和BLFS构建的工具。&lt;/p&gt;
+
+    </description>
+    </item>
+    
     <item>
     <title>Linux下合并文件</title>
     <link>https://blog.wiseai.cn/post/linux%E4%B8%8B%E5%90%88%E5%B9%B6%E6%96%87%E4%BB%B6/</link>

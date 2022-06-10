@@ -1,5 +1,16 @@
-sublime使用
-==
+---
+author: "wiseai"
+title: "sublime使用"
+date: "2022-06-10"
+description: "sublime的配置"
+tags:
+- 代码编辑器
+- 配置
+categories:
+- Linux使用
+draft: false
+---
+
 安装Package Control
 --
 1. Tools->Install Package Control  选项，即可调出 Package Control

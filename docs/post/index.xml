@@ -7,7 +7,83 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Wed, 01 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 10 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MarkDown在线编辑器</title>
+      <link>https://blog.wiseai.cn/post/markdown%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91%E5%99%A8/</link>
+      <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/markdown%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91%E5%99%A8/</guid>
+      <description>使用开源项目editor.md我的gitee仓库下也有。
+安装 # npm install editor.md
+使用  &amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;&amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt;&amp;lt;link rel=&amp;#34;stylesheet&amp;#34; href=&amp;#34;editor.md/css/editormd.min.css&amp;#34; /&amp;gt;&amp;lt;title&amp;gt;Markdown 编辑在线器&amp;lt;/title&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;body&amp;gt;&amp;lt;div id=&amp;#34;text&amp;#34; style=&amp;#34;width: 100%;&amp;#34;&amp;gt;&amp;lt;div id=&amp;#34;editor&amp;#34; style=&amp;#34;height: 100%;&amp;#34;&amp;gt;&amp;lt;!-- Tips: Editor.md can auto append a `&amp;lt;textarea&amp;gt;` tag --&amp;gt;&amp;lt;textarea style=&amp;#34;display:none;&amp;#34; placeholder=&amp;#34;欢迎使用&amp;#34;&amp;gt;&amp;lt;/textarea&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;script src=&amp;#34;jquery.min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt;&amp;lt;script src=&amp;#34;editor.md/editormd.min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt;&amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt;// 设置div与窗口高度一致window.onload = function () {var h = window.innerHeight - 25 ; //获取当前窗口的高度; document.getElementById(&amp;#34;text&amp;#34;).style.height = h + &amp;#34;px&amp;#34;; //设置div的高度}// 设置textarea参数$(function() {var h = window.</description>
+    </item>
+    
+    <item>
+      <title>Nginx出现问题的解决办法</title>
+      <link>https://blog.wiseai.cn/post/nginx%E5%87%BA%E7%8E%B0%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
+      <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/nginx%E5%87%BA%E7%8E%B0%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
+      <description>最近遇到Permission denied这个问题，经过排查，是目录权限的问题，server的root目录必须要有写权限才行，只有读权限还是会出现Permission denied的问题，并且要给nginx的执行用户，比如默认的www-data用户。 待续</description>
+    </item>
+    
+    <item>
+      <title>sublime使用</title>
+      <link>https://blog.wiseai.cn/post/sublime%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/sublime%E4%BD%BF%E7%94%A8/</guid>
+      <description>安装Package Control  Tools-&amp;gt;Install Package Control 选项，即可调出 Package Control “Tools-&amp;gt;Command Palette&amp;hellip;”选项，快捷键Ctrl+Shift +P 输入 ipc ,点击 Install Package Control，即可调出 Package Control  设置中文  Preferences-&amp;gt;Package Control，快捷键Ctrl+Shift +P 选项弹出命令行输入框，输入ip，点击“install Package” 弹出命令行输入框，输入clz，点击“ChineseLocalizations” “帮助-&amp;gt;Language ”切换语言。  </description>
+    </item>
+    
+    <item>
+      <title>systemd的服务管理程序systemctl</title>
+      <link>https://blog.wiseai.cn/post/systemd%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemctl/</link>
+      <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/systemd%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemctl/</guid>
+      <description>systemctl融合service和chkconfig的功能于一体,可以使用它永久性或只在当前会话中启用/禁用服务。
+一、启动/关闭、启用/禁用服务 运行一个服务：
+#systemctl start firewalld
+关闭一个服务：
+#systemctl stop firewalld
+重启一个服务:
+#systemctl restart firewalld
+显示一个服务（无论运行与否）的状态:
+#systemctl status firewalld
+在开机时启用一个服务：
+#systemctl enable firewalld
+在开机时禁用一个服务:
+#systemctl disable firewalld
+检查一个服务是否是开机启用：
+#systemctl is-enabled firewalld
+二、改变运行级别 切换到运行级别3或者5：
+#systemctl isolate multi-user.target
+#systemctl isolate graphical.target
+改变默认运行级别3或者5：
+#ln -sf /lib/systemd/system/multi-user.target /etc/systemd/system/default.target或#systemctl set-default multi-user.target
+#ln -sf /lib/systemd/system/graphical.target /etc/systemd/system/default.target或#systemctl set-default graphical.target
+查看当下运行级别:
+#systemctl list-units --type=target
+三、改变默认 getty 数目 添加一个新的 getty ：
+#ln -sf /lib/systemd/system/getty@.service /etc/systemd/system/getty.target.wants/getty@tty9.service #systemctl daemon-reload #systemctl start getty@tty9.service` 删除一个 getty ：</description>
+    </item>
+    
+    <item>
+      <title>玩玩LFS-从源码构建Linux系统</title>
+      <link>https://blog.wiseai.cn/post/%E7%8E%A9%E7%8E%A9lfs-%E4%BB%8E%E6%BA%90%E7%A0%81%E6%9E%84%E5%BB%BAlinux%E7%B3%BB%E7%BB%9F/</link>
+      <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/%E7%8E%A9%E7%8E%A9lfs-%E4%BB%8E%E6%BA%90%E7%A0%81%E6%9E%84%E5%BB%BAlinux%E7%B3%BB%E7%BB%9F/</guid>
+      <description>官方网站：http://www.linuxfromscratch.org/
+LFS Book 翻译项目:https://github.com/LCTT/LFS-BOOK
+Linux From Scratch （简体中文版） Version 8.3-systemd
+LFS：Linux From Scratch是主要书籍，是从中衍生所有其他项目的基础。
+BLFS：Beyond Linux From Scratch可帮助您将已完成的LFS安装扩展到更加个性化和可用的系统。
+ALFS：Automated Linux From Scratch提供了自动化和管理LFS和BLFS构建的工具。</description>
+    </item>
+    
     <item>
       <title>Linux下合并文件</title>
       <link>https://blog.wiseai.cn/post/linux%E4%B8%8B%E5%90%88%E5%B9%B6%E6%96%87%E4%BB%B6/</link>

@@ -1,34 +1,64 @@
-systemd的服务管理程序systemctl
-==
+---
+author: "wiseai"
+title: "systemd的服务管理程序systemctl"
+date: "2022-06-10"
+description: "服务管理程序"
+tags:
+- 服务
+- 管理
+categories:
+- Linux使用
+draft: false
+---
 
 systemctl融合service和chkconfig的功能于一体,可以使用它永久性或只在当前会话中启用/禁用服务。
 
 ## 一、启动/关闭、启用/禁用服务
 
 运行一个服务：
+
 `#systemctl start firewalld`
+
 关闭一个服务：
+
 `#systemctl stop firewalld`
+
 重启一个服务:
+
 `#systemctl restart firewalld`
+
 显示一个服务（无论运行与否）的状态:
+
 `#systemctl status firewalld`
+
 在开机时启用一个服务：
+
 `#systemctl enable firewalld`
+
 在开机时禁用一个服务:
+
 `#systemctl disable firewalld`
+
 检查一个服务是否是开机启用：
+
 `#systemctl is-enabled firewalld`
 
 ## 二、改变运行级别
 
 切换到运行级别3或者5：
+
 `#systemctl isolate multi-user.target`
+
 `#systemctl isolate graphical.target`
+
 改变默认运行级别3或者5：
+
 `#ln -sf /lib/systemd/system/multi-user.target /etc/systemd/system/default.target或#systemctl set-default multi-user.target`
+
 `#ln -sf /lib/systemd/system/graphical.target /etc/systemd/system/default.target或#systemctl set-default graphical.target`
+
 查看当下运行级别:
+
 `#systemctl list-units --type=target`
 
 ## 三、改变默认 getty 数目

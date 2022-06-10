@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>管理 on WiseAI的博客</title>
+    <link>https://blog.wiseai.cn/tags/%E7%AE%A1%E7%90%86/</link>
+    <description>Recent content in 管理 on WiseAI的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>陇ICP备15000157号</copyright>
+    <lastBuildDate>Fri, 10 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/tags/%E7%AE%A1%E7%90%86/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>systemd的服务管理程序systemctl</title>
+      <link>https://blog.wiseai.cn/post/systemd%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemctl/</link>
+      <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/systemd%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemctl/</guid>
+      <description>systemctl融合service和chkconfig的功能于一体,可以使用它永久性或只在当前会话中启用/禁用服务。
+一、启动/关闭、启用/禁用服务 运行一个服务：
+#systemctl start firewalld
+关闭一个服务：
+#systemctl stop firewalld
+重启一个服务:
+#systemctl restart firewalld
+显示一个服务（无论运行与否）的状态:
+#systemctl status firewalld
+在开机时启用一个服务：
+#systemctl enable firewalld
+在开机时禁用一个服务:
+#systemctl disable firewalld
+检查一个服务是否是开机启用：
+#systemctl is-enabled firewalld
+二、改变运行级别 切换到运行级别3或者5：
+#systemctl isolate multi-user.target
+#systemctl isolate graphical.target
+改变默认运行级别3或者5：
+#ln -sf /lib/systemd/system/multi-user.target /etc/systemd/system/default.target或#systemctl set-default multi-user.target
+#ln -sf /lib/systemd/system/graphical.target /etc/systemd/system/default.target或#systemctl set-default graphical.target
+查看当下运行级别:
+#systemctl list-units --type=target
+三、改变默认 getty 数目 添加一个新的 getty ：
+#ln -sf /lib/systemd/system/getty@.service /etc/systemd/system/getty.target.wants/getty@tty9.service #systemctl daemon-reload #systemctl start getty@tty9.service` 删除一个 getty ：</description>
+    </item>
+    
+  </channel>
+</rss>
