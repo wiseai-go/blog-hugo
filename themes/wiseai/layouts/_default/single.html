@@ -29,8 +29,14 @@
         {{ with .PrevInSection }}
         <div class="col-5">
             <a class="page-link link-dark text-end dh" href="{{ .RelPermalink }}">
-                <h5><--Previous</h5><br>
+                <h5>前一篇</h5><br>
                 {{ .Title }}
+            </a>            
+        </div>
+        {{ else }}
+        <div class="col-5">
+            <a class="page-link link-dark text-end dh" href="">
+                <h5>没有了</h5>
             </a>            
         </div>
         {{  end }}
@@ -39,8 +45,14 @@
         {{ with .NextInSection }}
         <div class="col-5">
             <a class="page-link link-dark text-start dh" href="{{ .RelPermalink }}">
-                <h5>Next--></h5><br>
+                <h5>后一篇</h5><br>
                 {{ .Title }}
+            </a>            
+        </div>
+        {{ else }}
+        <div class="col-5">
+            <a class="page-link link-dark text-start dh" href="">
+                <h5>没有了</h5><br>
             </a>            
         </div>
         {{ end }}

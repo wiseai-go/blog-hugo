@@ -1,19 +1,33 @@
 {{ define "main" }}
 <div class="container archive">
-        <h1>{{ .Title }}</h1>
-        <p class="subtitle">{{ .Params.subtitle }}</p>
-        {{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
-        {{ $maxCategoryToShow := $.Site.Params.maxCategoryToShow | default 5 }}
-        <div class="row">
-            {{ range .Site.Taxonomies.categories.TaxonomyArray | first $maxCategoryToShow }}
-            <div class="d-grid gap-2 col">
-                <button type="button" class="btn btn-light">
-                    {{ .Page.Title }}<span class="badge bg-secondary">{{ .Count }}</span>
-                    <span class="visually-hidden">{{ .Page.Title }}</span>
+    <h1>{{ .Title }}</h1>
+
+    {{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
+    {{ $maxCategoryToShow := $.Site.Params.maxCategoryToShow | default 5 }}
+
+    <div class="accordion accordion-flush" id="accordion1">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    {{ .Params.subtitle }}
                 </button>
-            </div>        
-            {{ end }}
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordion1">
+                <div class="accordion-body">
+                    <div class="row">
+                        {{ range .Site.Taxonomies.categories.TaxonomyArray | first $maxCategoryToShow }}
+                        <div class="d-grid gap-2 col-md-2">
+                            <a class="btn btn-light" href="{{ .Page.RelPermalink }}">
+                                {{ .Page.Title }}<span class="badge bg-secondary">{{ .Count }}</span>
+                                <span class="visually-hidden">{{ .Page.Title }}</span>
+                            </a>
+                        </div>        
+                        {{ end }}
+                    </div>                
+                </div>
+            </div>
         </div>
+    </div>       
 </div>
 
 <div class="container" id="articles-list">

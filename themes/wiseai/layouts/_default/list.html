@@ -1,3 +1,69 @@
 {{ define "main" }}
-<p>正在开发,请稍后再试！</p>
+
+{{ $pages := .Pages }}
+{{ $pages = (.Paginate $pages).Pages }}
+
+
+<div class="container archive">
+	<h1>{{ .Title }}</h1>
+	<p class="subtitle">
+		发布了<span class="count">{{ len .Pages }}</span> 篇文章.
+	</p>
+</div>
+
+<div class="container" id="articles-list">
+    {{ range $pages.GroupByDate "2006" }}
+    <div class="row">
+        <h2>{{ .Key }}</h2><hr>
+        {{ range $pages }}
+        <div class="col-12 post text-truncate">
+            <a class="link-dark links" href="{{ .RelPermalink }}"><time>{{ .Date.Format "01-02" }}</time>{{ .Title }}</a>
+        </div>
+        {{ end }}
+
+    </div>
+    {{ end }}
+</div>
+
+{{- $scope := .Site }}
+{{- $paginator := .Paginate (where $scope.RegularPages ".Params.type" "!=" "page") }}
+
+{{- if gt $paginator.TotalPages 1}}
+
+<div class="container">
+    <div class="row">
+        {{- if $paginator.HasPrev}}
+        <div class="col-5">
+            <a class="page-link link-dark text-end dh" href="{{ $paginator.Prev.URL }}">
+                <h5>前一页</h5>
+            </a>            
+        </div>
+        {{ else }}
+        <div class="col-5">
+            <a class="page-link link-dark text-end dh" href="">
+                <h5>没有了</h5>
+            </a>            
+        </div>
+        {{  end }}
+
+        <div class="col-2">
+        </div>
+        {{- if $paginator.HasNext}}
+        <div class="col-5">
+            <a class="page-link link-dark text-start dh" href="{{ $paginator.Next.URL }}">
+                <h5>后一页</h5>
+            </a>            
+        </div>
+        {{ else }}
+        <div class="col-5">
+            <a class="page-link link-dark text-start dh" href="">
+                <h5>没有了</h5>
+            </a>            
+        </div>
+        {{ end }}
+    </div>
+</div>
+
+{{ end }}
+
 {{ end }}

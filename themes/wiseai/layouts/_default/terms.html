@@ -1,0 +1,19 @@
+{{ define "main" }}
+
+{{ $pages := .Pages }}
+{{ $pages = (.Paginate $pages).Pages }}
+
+
+<div class="container archive">
+    <h1>{{ .Params.subtitle }}</h1>
+    <p class="subtitle">{{ .Params.description }}</p>
+    <div class="row">
+        {{ range (index .Site.Taxonomies (.Title | lower)) }}
+        <div class="d-grid gap-2 col-md-2">
+            <a class="btn btn-light" href="{{ .Page.RelPermalink }}">{{ .Page.Title }} <span class="badge bg-secondary">{{ .Count }}</span><span class="visually-hidden">{{ .Page.Title }}</span></a>
+        </div>
+        {{ end }}
+    </div>
+</div>
+
+{{ end }}

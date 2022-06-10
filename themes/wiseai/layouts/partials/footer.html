@@ -1,8 +1,10 @@
-<hr>
+<br><br>
 <footer class="container">
+    <h2>友情链接</h2>
+    <hr>
     <nav class="nav nav-pills flex-column flex-sm-row">
         {{ range .Site.Menus.footer.ByWeight }}
-        <a class="flex-sm-fill text-sm-center nav-link" href="{{ .URL | relURL }}" target="_blank">{{ .Name }}</a>
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="{{ .URL | relURL }}" target="_blank">{{ .Name }}</a>
         {{ end }}
     </nav>
 
