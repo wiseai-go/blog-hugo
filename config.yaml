@@ -1,7 +1,7 @@
 baseurl: "https://blog.wiseai.cn/"
 languageCode: "zh-cn"
 title: "WiseAI的博客"
-theme: "hugo-tania"
+theme: "wiseai"
 paginate: 10
 
 publishdir: "docs/"
