@@ -6,6 +6,7 @@
     <description>Recent content in 网络 on WiseAI的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
+    <copyright>陇ICP备15000157号</copyright>
     <lastBuildDate>Mon, 30 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/tags/%E7%BD%91%E7%BB%9C/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Linux更换网卡后网络服务不能启动的问题解决办法</title>

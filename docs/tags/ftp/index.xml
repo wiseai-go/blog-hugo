@@ -6,6 +6,7 @@
     <description>Recent content in ftp on WiseAI的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
+    <copyright>陇ICP备15000157号</copyright>
     <lastBuildDate>Mon, 30 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/tags/ftp/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>FTP服务器架设（vsftpd）</title>
@@ -13,7 +14,7 @@
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/ftp%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9E%B6%E8%AE%BEvsftpd/</guid>
-      <description>安装：  # dnf install vsftpd
+      <description>安装： # dnf install vsftpd
 **FTP主动模式：客户端从一个任意的非特权端口N（N&amp;gt;1024）连接到FTP服务器的port 21命令端口。然后客户端开始监听端口N+1，**并发送FTP命令&amp;quot;port N+1&amp;quot;到FTP服务器。接着服务器会从它自己的数据端口（20）连接到客户端指定的数据端口（N+1）。
 **FTP被动模式：客户端从一个任意的非特权端口N（N&amp;gt;1024）连接到FTP服务器的port 21命令端口。然后客户端开始监听端口N+1，**同时客户端提交 PASV命令。服务器会开启一个任意的非特权端口（P &amp;gt;1024），并发送PORT P命令给客户端。然后客户端发起从本地端口N+1到服务器的端口P的连接用来传送数据。
 端口： 主动模式：TCP 21（指令），20（数据）端口

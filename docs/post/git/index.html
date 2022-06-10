@@ -1,355 +1,114 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
-    
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="theme-color" content="dark">
-    <title>git的使用 | WiseAI的博客</title>
+<html lang="zh-cn"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     
-    
-    
-    <meta property="og:site_name" content="wiseai的备忘录" />
-    <meta property="og:title" content="git的使用 | WiseAI的博客"/>
-    <meta itemprop="name" content="git的使用 | WiseAI的博客" />
-    <meta name="twitter:title" content="git的使用 | WiseAI的博客" />
-    <meta name="application-name" content="git的使用 | WiseAI的博客" /><meta name="twitter:card" content="summary"/>
-
-    <meta name="description" content="github、gitee等代码托管系统的使用命令" />
-    <meta name="twitter:description" content="github、gitee等代码托管系统的使用命令 "/>
-    <meta itemprop="description" content=" github、gitee等代码托管系统的使用命令 "/>
-    <meta property="og:description" content=" github、gitee等代码托管系统的使用命令 " />
-
-    
-
-<meta property="og:type" content="article" />
-<meta property="article:publisher" content="wiseai" />
-<meta property="og:article:published_time" content=2022-05-30T00:00:00Z />
-<meta property="article:published_time" content=2022-05-30T00:00:00Z />
-
-
-  <meta property="og:article:author" content="Wiseai" />
-  <meta property="article:author" content="Wiseai" />
-  <meta name="author" content="Wiseai" />
-
-
-
-
-<script defer type="application/ld+json">
-  {
-    "@context": "http://schema.org",
-    "@type": "Article",
-    "headline": "git的使用",
-    "author": {
-      "@type": "Person",
-      "name": "wiseai"
-    },
-    "datePublished": "2022-05-30",
-    "description": "github、gitee等代码托管系统的使用命令",
-    "wordCount":  699 ,
-    "mainEntityOfPage": "True",
-    "dateModified": "2022-05-30",
-    "publisher": {
-      "@type": "Organization",
-      "name": "wiseai",
-      "logo": {
-        "@type": "imageObject",
-        "url": "https:\/\/blog.wiseai.cn\/favicon.ico"
-      }
-    }
-  }
-</script>
-
-
+    <link href="http://qn.wiseai.cn/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
 
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-    
-    <link rel="stylesheet" href="/sass/main.min.ab99ff095f832511e24ffb2fba2b51ad473b2f7e9301d674eba2c6c3a6e8bd81.css">
-    <link rel="stylesheet" href="/css/wiseai.css">
-</head>
-    
-    <script>
-        (function() {
-            const colorSchemeKey = 'ThemeColorScheme';
-            if(!localStorage.getItem(colorSchemeKey)){
-                localStorage.setItem(colorSchemeKey, "auto");
-            }
-        })();
-    </script><script>
-    (function() {
-        const colorSchemeKey = 'ThemeColorScheme';
-        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
-        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
 
-        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
-            
-
-            document.documentElement.dataset.userColorScheme = 'dark';
-        } else {
-            document.documentElement.dataset.userColorScheme = 'light';
-        }
-    })();
-</script>
-
-
-    <body class="dark">
-        <nav class="navbar">
-    <div class="container">
-        <div class="flex">
-            <div>
-                <a class="brand" href="/">
-                    
-                    <span class="emoji">
-                        ✨
-                    </span>
-                    
-                    
-                    WiseAI的博客
-                    </a>
-            </div>
-            <div class="flex">
+    <title>git的使用 | WiseAI的博客</title>
+</head><body><nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <img src="/favicon.ico" alt="" width="30" height="24" class="d-inline-block align-text-top">
+            WiseAI的博客
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 
-                <a href="/articles/">文章</a>
+                <li class="nav-item">
+                    <a  class="nav-link"   href="/articles/">文章</a>
+                </li>
                 
-                <a href="/categories/">分类</a>
+                <li class="nav-item">
+                    <a  class="nav-link"   href="/categories/">分类</a>
+                </li>
                 
-                <a href="/tags/">关键字</a>
+                <li class="nav-item">
+                    <a  class="nav-link"   href="/tags/">关键字</a>
+                </li>
                 
-                
-                    <button id="dark-mode-button">
-                    <svg class="light" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 36 36"><path fill="#FFD983" d="M30.312.776C32 19 20 32 .776 30.312c8.199 7.717 21.091 7.588 29.107-.429C37.9 21.867 38.03 8.975 30.312.776z"/><path d="M30.705 15.915a1.163 1.163 0 1 0 1.643 1.641a1.163 1.163 0 0 0-1.643-1.641zm-16.022 14.38a1.74 1.74 0 0 0 0 2.465a1.742 1.742 0 1 0 0-2.465zm13.968-2.147a2.904 2.904 0 0 1-4.108 0a2.902 2.902 0 0 1 0-4.107a2.902 2.902 0 0 1 4.108 0a2.902 2.902 0 0 1 0 4.107z" fill="#FFCC4D"/><rect x="0" y="0" width="36" height="36" fill="rgba(0, 0, 0, 0)" /></svg>
-                    <svg class="dark" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 36 36"><path fill="#FFD983" d="M16 2s0-2 2-2s2 2 2 2v2s0 2-2 2s-2-2-2-2V2zm18 14s2 0 2 2s-2 2-2 2h-2s-2 0-2-2s2-2 2-2h2zM4 16s2 0 2 2s-2 2-2 2H2s-2 0-2-2s2-2 2-2h2zm5.121-8.707s1.414 1.414 0 2.828s-2.828 0-2.828 0L4.878 8.708s-1.414-1.414 0-2.829c1.415-1.414 2.829 0 2.829 0l1.414 1.414zm21 21s1.414 1.414 0 2.828s-2.828 0-2.828 0l-1.414-1.414s-1.414-1.414 0-2.828s2.828 0 2.828 0l1.414 1.414zm-.413-18.172s-1.414 1.414-2.828 0s0-2.828 0-2.828l1.414-1.414s1.414-1.414 2.828 0s0 2.828 0 2.828l-1.414 1.414zm-21 21s-1.414 1.414-2.828 0s0-2.828 0-2.828l1.414-1.414s1.414-1.414 2.828 0s0 2.828 0 2.828l-1.414 1.414zM16 32s0-2 2-2s2 2 2 2v2s0 2-2 2s-2-2-2-2v-2z"/><circle fill="#FFD983" cx="18" cy="18" r="10"/><rect x="0" y="0" width="36" height="36" fill="rgba(0, 0, 0, 0)" /></svg>
-                    </button>
-                
-            </div>
-            </div>
+            </ul>
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
     </div>
-</nav>
-
-        <main>
-            
-<div class="container">
-    <article>
-        <header class="article-header">
-            <div class="thumb">
-                <div>
-                    <h1>git的使用</h1>
-                    <div class="post-meta">
-                        <div>
-                            
-                            
-                            By wiseai | <time>2022-05-30</time>
-                            | 4 minutes
-                        </div>
-                        <div class="tags">
-                            
-                            <a href="/tags/github/">github</a>
-                            
-                            <a href="/tags/gitee/">gitee</a>
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-    </article>
-
-    <div class="article-post">
-    <h2 id="添加ssh公钥">
-    <a href="#%e6%b7%bb%e5%8a%a0ssh%e5%85%ac%e9%92%a5" class="anchor">
-        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
-            <path fill-rule="evenodd"
-                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-            </path>
-        </svg>
-    </a>
-    添加ssh公钥：
-</h2>
+</nav><div id="content">
+<div class="container article">
+	<h1>git的使用</h1>
+	<div class="post-meta">
+		<div>
+			
+			
+			By wiseai | 2022-05-30 | 4 minutes
+		</div>
+		<div class="tags">
+			
+			<a class="btn btn-light links btn-sm" href="/tags/github/">github</a>
+			
+			<a class="btn btn-light links btn-sm" href="/tags/gitee/">gitee</a>
+			
+		</div>
+	</div>
+	<div>
+		<div class="article-post">
+			<h2 id="添加ssh公钥">添加ssh公钥：</h2>
 <p>查看~/.ssh/id_rsa.pub文件，如果有公钥直接添加，没有的话使用这个命令：</p>
 <pre tabindex="0"><code>$ ssh-keygen -t ed25519 -C &#34;xxxxx@xxxxx.com&#34;
 </code></pre><p>三次回车后，再查看~/.ssh/id_rsa.pub文件，添加到gitee设置。</p>
-<h2 id="创建版本库">
-    <a href="#%e5%88%9b%e5%bb%ba%e7%89%88%e6%9c%ac%e5%ba%93" class="anchor">
-        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
-            <path fill-rule="evenodd"
-                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-            </path>
-        </svg>
-    </a>
-    创建版本库：
-</h2>
+<h2 id="创建版本库">创建版本库：</h2>
 <p>不建议直接生成，可以在gitee网站下建立仓库，之后clone到本地，直接使用下面的命令操作就可以了。</p>
 <pre tabindex="0"><code>$ git init
 </code></pre><p>这个命令可以把当前目录变成git管理的仓库。
 远程库如果是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。</p>
-<h2 id="添加远程仓库">
-    <a href="#%e6%b7%bb%e5%8a%a0%e8%bf%9c%e7%a8%8b%e4%bb%93%e5%ba%93" class="anchor">
-        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
-            <path fill-rule="evenodd"
-                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-            </path>
-        </svg>
-    </a>
-    添加远程仓库：
-</h2>
+<h2 id="添加远程仓库">添加远程仓库：</h2>
 <pre tabindex="0"><code>$ git remote add gitee git@gitee.com:wiseai/wiseai.git
 $ git remote add github git@github.com:wiseai/wiseai.git
-</code></pre><h2 id="查看远程仓库信息">
-    <a href="#%e6%9f%a5%e7%9c%8b%e8%bf%9c%e7%a8%8b%e4%bb%93%e5%ba%93%e4%bf%a1%e6%81%af" class="anchor">
-        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
-            <path fill-rule="evenodd"
-                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-            </path>
-        </svg>
-    </a>
-    查看远程仓库信息：
-</h2>
+</code></pre><h2 id="查看远程仓库信息">查看远程仓库信息：</h2>
 <pre tabindex="0"><code>$ git remote -v
-</code></pre><h2 id="删除远程仓库">
-    <a href="#%e5%88%a0%e9%99%a4%e8%bf%9c%e7%a8%8b%e4%bb%93%e5%ba%93" class="anchor">
-        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
-            <path fill-rule="evenodd"
-                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-            </path>
-        </svg>
-    </a>
-    删除远程仓库：
-</h2>
+</code></pre><h2 id="删除远程仓库">删除远程仓库：</h2>
 <pre tabindex="0"><code>$ git remote rm github
-</code></pre><h2 id="推送到github或gitee">
-    <a href="#%e6%8e%a8%e9%80%81%e5%88%b0github%e6%88%96gitee" class="anchor">
-        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
-            <path fill-rule="evenodd"
-                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-            </path>
-        </svg>
-    </a>
-    推送到GitHub或Gitee:
-</h2>
+</code></pre><h2 id="推送到github或gitee">推送到GitHub或Gitee:</h2>
 <pre tabindex="0"><code>$ git push gitee master
 $ git push github master
 </code></pre><p>该操作在后面内容同步后再推送。</p>
-<h2 id="设置邮件和用户名">
-    <a href="#%e8%ae%be%e7%bd%ae%e9%82%ae%e4%bb%b6%e5%92%8c%e7%94%a8%e6%88%b7%e5%90%8d" class="anchor">
-        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
-            <path fill-rule="evenodd"
-                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-            </path>
-        </svg>
-    </a>
-    设置邮件和用户名：
-</h2>
+<h2 id="设置邮件和用户名">设置邮件和用户名：</h2>
 <pre tabindex="0"><code>$ git config --global user.email &#34;you@example.com&#34;
 $ git config --global user.name &#34;Your Name&#34;
 </code></pre><p>全局设置使用&ndash;global参数，如果仅在本仓库设置身份标识，则省略 &ndash;global 参数。</p>
-<h2 id="查看git的修改状态">
-    <a href="#%e6%9f%a5%e7%9c%8bgit%e7%9a%84%e4%bf%ae%e6%94%b9%e7%8a%b6%e6%80%81" class="anchor">
-        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
-            <path fill-rule="evenodd"
-                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-            </path>
-        </svg>
-    </a>
-    查看git的修改状态：
-</h2>
+<h2 id="查看git的修改状态">查看git的修改状态：</h2>
 <pre tabindex="0"><code>$ git status
-</code></pre><h2 id="查看具体修改内容">
-    <a href="#%e6%9f%a5%e7%9c%8b%e5%85%b7%e4%bd%93%e4%bf%ae%e6%94%b9%e5%86%85%e5%ae%b9" class="anchor">
-        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
-            <path fill-rule="evenodd"
-                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-            </path>
-        </svg>
-    </a>
-    查看具体修改内容：
-</h2>
+</code></pre><h2 id="查看具体修改内容">查看具体修改内容：</h2>
 <pre tabindex="0"><code>$ git diff readme.txt
-</code></pre><h2 id="添加修改文件">
-    <a href="#%e6%b7%bb%e5%8a%a0%e4%bf%ae%e6%94%b9%e6%96%87%e4%bb%b6" class="anchor">
-        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
-            <path fill-rule="evenodd"
-                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-            </path>
-        </svg>
-    </a>
-    添加修改文件：
-</h2>
+</code></pre><h2 id="添加修改文件">添加修改文件：</h2>
 <pre tabindex="0"><code>$ git add readme.txt
 </code></pre><p>也可以提交文件，但是空目录不显示</p>
-<h2 id="提交文件修改">
-    <a href="#%e6%8f%90%e4%ba%a4%e6%96%87%e4%bb%b6%e4%bf%ae%e6%94%b9" class="anchor">
-        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
-            <path fill-rule="evenodd"
-                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-            </path>
-        </svg>
-    </a>
-    提交文件修改：
-</h2>
+<h2 id="提交文件修改">提交文件修改：</h2>
 <pre tabindex="0"><code>$ git commit -m &#34;修改说明&#34;
 </code></pre><p>该操作提交所有add的文件和目录</p>
-<h2 id="丢弃没有add的修改">
-    <a href="#%e4%b8%a2%e5%bc%83%e6%b2%a1%e6%9c%89add%e7%9a%84%e4%bf%ae%e6%94%b9" class="anchor">
-        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
-            <path fill-rule="evenodd"
-                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-            </path>
-        </svg>
-    </a>
-    丢弃没有add的修改：
-</h2>
+<h2 id="丢弃没有add的修改">丢弃没有add的修改：</h2>
 <pre tabindex="0"><code>$ git checkout -- readme.txt
-</code></pre><h2 id="丢弃已经add文件的修改">
-    <a href="#%e4%b8%a2%e5%bc%83%e5%b7%b2%e7%bb%8fadd%e6%96%87%e4%bb%b6%e7%9a%84%e4%bf%ae%e6%94%b9" class="anchor">
-        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
-            <path fill-rule="evenodd"
-                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-            </path>
-        </svg>
-    </a>
-    丢弃已经add文件的修改：
-</h2>
+</code></pre><h2 id="丢弃已经add文件的修改">丢弃已经add文件的修改：</h2>
 <pre tabindex="0"><code>$ git reset HEAD readme.txt
-</code></pre><h2 id="删除文件">
-    <a href="#%e5%88%a0%e9%99%a4%e6%96%87%e4%bb%b6" class="anchor">
-        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
-            <path fill-rule="evenodd"
-                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-            </path>
-        </svg>
-    </a>
-    删除文件：
-</h2>
+</code></pre><h2 id="删除文件">删除文件：</h2>
 <p>先从本地删除文件，之后</p>
 <pre tabindex="0"><code>$ git rm test.txt
 $ git commit -m &#34;修改说明&#34;
 </code></pre><p>文件已删除。恢复使用：</p>
 <pre tabindex="0"><code>$ git checkout -- test.txt
-</code></pre><h2 id="将远程仓库克隆到本地">
-    <a href="#%e5%b0%86%e8%bf%9c%e7%a8%8b%e4%bb%93%e5%ba%93%e5%85%8b%e9%9a%86%e5%88%b0%e6%9c%ac%e5%9c%b0" class="anchor">
-        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
-            <path fill-rule="evenodd"
-                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-            </path>
-        </svg>
-    </a>
-    将远程仓库克隆到本地：
-</h2>
+</code></pre><h2 id="将远程仓库克隆到本地">将远程仓库克隆到本地：</h2>
 <pre tabindex="0"><code>$ git clone git@gitee.com:wiseai/wiseai.git
 </code></pre><p>克隆可以使用Https或者ssh等，具体可以看网站。
 使用ssh必有添加公钥才行。</p>
-<h2 id="仓库">
-    <a href="#%e4%bb%93%e5%ba%93" class="anchor">
-        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
-            <path fill-rule="evenodd"
-                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-            </path>
-        </svg>
-    </a>
-    仓库
-</h2>
+<h2 id="仓库">仓库</h2>
 <pre><code># 在当前目录新建一个Git代码库
 $ git init
 
@@ -359,16 +118,7 @@ $ git init [project-name]
 # 下载一个项目和它的整个代码历史
 $ git clone [url]
 </code></pre>
-<h2 id="配置">
-    <a href="#%e9%85%8d%e7%bd%ae" class="anchor">
-        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
-            <path fill-rule="evenodd"
-                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-            </path>
-        </svg>
-    </a>
-    配置
-</h2>
+<h2 id="配置">配置</h2>
 <pre><code># 显示当前的Git配置
 $ git config --list
 
@@ -379,16 +129,7 @@ $ git config -e [--global]
 $ git config [--global] user.name &quot;[name]&quot;
 $ git config [--global] user.email &quot;[email address]&quot;
 </code></pre>
-<h2 id="增加删除文件">
-    <a href="#%e5%a2%9e%e5%8a%a0%e5%88%a0%e9%99%a4%e6%96%87%e4%bb%b6" class="anchor">
-        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
-            <path fill-rule="evenodd"
-                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-            </path>
-        </svg>
-    </a>
-    增加/删除文件
-</h2>
+<h2 id="增加删除文件">增加/删除文件</h2>
 <pre><code># 添加指定文件到暂存区
 $ git add [file1] [file2] ...
 
@@ -411,16 +152,7 @@ $ git rm --cached [file]
 # 改名文件，并且将这个改名放入暂存区
 $ git mv [file-original] [file-renamed]
 </code></pre>
-<h2 id="代码提交">
-    <a href="#%e4%bb%a3%e7%a0%81%e6%8f%90%e4%ba%a4" class="anchor">
-        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
-            <path fill-rule="evenodd"
-                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-            </path>
-        </svg>
-    </a>
-    代码提交
-</h2>
+<h2 id="代码提交">代码提交</h2>
 <pre><code># 提交暂存区到仓库区
 $ git commit -m [message]
 
@@ -440,16 +172,7 @@ $ git commit --amend -m [message]
 # 重做上一次commit，并包括指定文件的新变化
 $ git commit --amend [file1] [file2] ...
 </code></pre>
-<h2 id="分支">
-    <a href="#%e5%88%86%e6%94%af" class="anchor">
-        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
-            <path fill-rule="evenodd"
-                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-            </path>
-        </svg>
-    </a>
-    分支
-</h2>
+<h2 id="分支">分支</h2>
 <pre><code># 列出所有本地分支
 $ git branch
 
@@ -493,16 +216,7 @@ $ git branch -d [branch-name]
 $ git push origin --delete [branch-name]
 $ git branch -dr [remote/branch]
 </code></pre>
-<h2 id="标签">
-    <a href="#%e6%a0%87%e7%ad%be" class="anchor">
-        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
-            <path fill-rule="evenodd"
-                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-            </path>
-        </svg>
-    </a>
-    标签
-</h2>
+<h2 id="标签">标签</h2>
 <pre><code># 列出所有tag
 $ git tag
 
@@ -530,16 +244,7 @@ $ git push [remote] --tags
 # 新建一个分支，指向某个tag
 $ git checkout -b [branch] [tag]
 </code></pre>
-<h2 id="查看信息">
-    <a href="#%e6%9f%a5%e7%9c%8b%e4%bf%a1%e6%81%af" class="anchor">
-        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
-            <path fill-rule="evenodd"
-                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-            </path>
-        </svg>
-    </a>
-    查看信息
-</h2>
+<h2 id="查看信息">查看信息</h2>
 <pre><code># 显示有变更的文件
 $ git status
 
@@ -601,16 +306,7 @@ $ git show [commit]:[filename]
 # 显示当前分支的最近几次提交
 $ git reflog
 </code></pre>
-<h2 id="远程同步">
-    <a href="#%e8%bf%9c%e7%a8%8b%e5%90%8c%e6%ad%a5" class="anchor">
-        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
-            <path fill-rule="evenodd"
-                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-            </path>
-        </svg>
-    </a>
-    远程同步
-</h2>
+<h2 id="远程同步">远程同步</h2>
 <pre><code># 下载远程仓库的所有变动
 $ git fetch [remote]
 
@@ -635,16 +331,7 @@ $ git push [remote] --force
 # 推送所有分支到远程仓库
 $ git push [remote] --all
 </code></pre>
-<h2 id="撤销">
-    <a href="#%e6%92%a4%e9%94%80" class="anchor">
-        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
-            <path fill-rule="evenodd"
-                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-            </path>
-        </svg>
-    </a>
-    撤销
-</h2>
+<h2 id="撤销">撤销</h2>
 <pre><code># 恢复暂存区的指定文件到工作区
 $ git checkout [file]
 
@@ -677,93 +364,101 @@ $ git revert [commit]
 $ git stash
 $ git stash pop
 </code></pre>
-<h2 id="其他">
-    <a href="#%e5%85%b6%e4%bb%96" class="anchor">
-        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
-            <path fill-rule="evenodd"
-                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-            </path>
-        </svg>
-    </a>
-    其他
-</h2>
+<h2 id="其他">其他</h2>
 <pre><code># 生成一个可供发布的压缩包
 $ git archive
 </code></pre>
 
-    </div>
+		</div>
+	</div>
 </div>
+
 
 <div class="container">
     
-    <nav class="flex container suggested">
+    <div class="row">
         
-        <a rel="prev" href="/post/golang%E5%92%8Cnodejs%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" title="Previous post (older)">
-            <span>Previous</span>
-            golang和nodejs环境配置
-            </a>
+        <div class="col-5">
+            <a class="page-link link-dark text-end dh" href="/post/golang%E5%92%8Cnodejs%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">
+                <h5>前一篇</h5><br>
+                golang和nodejs环境配置
+            </a>            
+        </div>
         
+        <div class="col-2">
+        </div>
         
+        <div class="col-5">
+            <a class="page-link link-dark text-start dh" href="/post/ftp%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9E%B6%E8%AE%BEvsftpd/">
+                <h5>后一篇</h5><br>
+                FTP服务器架设（vsftpd）
+            </a>            
+        </div>
         
-        <a rel="next" href="/post/ftp%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9E%B6%E8%AE%BEvsftpd/" title="Next post (newer)">
-            <span>Next</span>
-            FTP服务器架设（vsftpd）
-            </a> 
+    </div>
+    
+</div>
+
+        </div><br><br>
+<footer class="container">
+    <h2>友情链接</h2>
+    <hr>
+    <nav class="nav nav-pills flex-column flex-sm-row">
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/gnzg/index.html" target="_blank">孤鸟之歌</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/mm/index.html" target="_blank">生成随机字符</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/md/index.html" target="_blank">MarkDown</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://gitee.com/" target="_blank">Gitee</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://github.com/" target="_blank">Github</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.oschina.net/" target="_blank">OSCHINA</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://gitee.com/wiseai/the-way-to-go_ZH_CN/blob/master/eBook/directory.md" target="_blank">the way to go</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://goframe.org/display/gf" target="_blank">GoFrame</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.aliyundrive.com/" target="_blank">阿里云盘</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.bootstrap.cn/" target="_blank">bootstrap文档</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.58pic.com/" target="_blank">千图</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://marketing.qiniu.com/" target="_blank">七牛云</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.ixigua.com/" target="_blank">西瓜视频</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/yugang/index.html" target="_blank">鱼缸计算</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="/index.xml" target="_blank">RSS</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://mp.weixin.qq.com/s/K2Dpw7yg8Y5Z_P4Jm6f8Tw" target="_blank">参考文章</a>
         
     </nav>
-    
-</div>
- 
-<div class="container">
-    
-</div>
 
-</main>
-
-
-        </main>
-        <footer class="footer flex">
-    <section class="container">
-        <nav class="footer-links">
-            
-            <a href="https://wiseai.gitee.io/pages/gnzg/index.html">孤鸟之歌</a>
-            
-            <a href="https://wiseai.gitee.io/pages/mm/index.html">生成随机字符</a>
-            
-            <a href="https://wiseai.gitee.io/pages/md/index.html">MarkDown</a>
-            
-            <a href="https://gitee.com/">Gitee</a>
-            
-            <a href="https://github.com/">Github</a>
-            
-            <a href="https://www.oschina.net/">OSCHINA</a>
-            
-            <a href="https://gitee.com/wiseai/the-way-to-go_ZH_CN/blob/master/eBook/directory.md">the way to go</a>
-            
-            <a href="https://goframe.org/display/gf">GoFrame</a>
-            
-            <a href="https://www.aliyundrive.com/">阿里云盘</a>
-            
-            <a href="https://www.bootstrap.cn/">bootstrap文档</a>
-            
-            <a href="https://www.58pic.com/">千图</a>
-            
-            <a href="https://marketing.qiniu.com/">七牛云</a>
-            
-            <a href="https://www.ixigua.com/">西瓜视频</a>
-            
-            <a href="https://wiseai.gitee.io/pages/yugang/index.html">鱼缸计算</a>
-            
-            <a href="/index.xml">RSS</a>
-            
-        </nav>
-
+    <div class="copyright text-center">
+      <span class="power-by">
+        Powered by <a class="links" href="https://gohugo.io">Hugo</a>
+    </span>
+    <span>|</span>
+    <span>
+        Theme - <a class="links" href="https://github.com/wiseai-go/blog-hugo">WiseAI</a>
+    </span>
+    <br>
+    <span class="copyright-year">
+        &copy;
         
-    </section>
-    <script defer src="/ts/features.2f98c2f5215583b54b0a8bd7bdb10411467f4fee386a61e03ca3ddf376273fc4.js" 
-    data-enable-footnotes="true"
-    ></script>
-</footer>
+        2017 -
+        2022<span>
+            陇ICP备15000157号
+            
+        </span></span>
 
-    </body>
+</div>
+</footer>
+<script async src="http://qn.wiseai.cn/bootstrap/bootstrap.bundle.min.js"></script>
+</body>
 </html>

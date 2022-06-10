@@ -1,110 +1,84 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
-    
-<head>
+<html lang="zh-cn"><head>
 	<meta name="generator" content="Hugo 0.99.1" />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="theme-color" content="dark">
-    <title>WiseAI的博客</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     
-    
-    
-    <meta property="og:site_name" content="wiseai的备忘录" />
-    <meta property="og:title" content="WiseAI的博客"/>
-    <meta itemprop="name" content="WiseAI的博客" />
-    <meta name="twitter:title" content="WiseAI的博客" />
-    <meta name="application-name" content="WiseAI的博客" /><meta name="twitter:card" content="summary"/>
-
-    <meta name="description" content="Linux golang" />
-    <meta name="twitter:description" content="Linux golang"/>
-    <meta itemprop="description" content="Linux golang"/>
-    <meta property="og:description" content="Linux golang" />
-
-    
-
+    <link href="http://qn.wiseai.cn/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
 
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-    
-    <link rel="stylesheet" href="/sass/main.min.ab99ff095f832511e24ffb2fba2b51ad473b2f7e9301d674eba2c6c3a6e8bd81.css">
-    <link rel="stylesheet" href="/css/wiseai.css">
-</head>
-    
-    <script>
-        (function() {
-            const colorSchemeKey = 'ThemeColorScheme';
-            if(!localStorage.getItem(colorSchemeKey)){
-                localStorage.setItem(colorSchemeKey, "auto");
-            }
-        })();
-    </script><script>
-    (function() {
-        const colorSchemeKey = 'ThemeColorScheme';
-        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
-        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
 
-        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
-            
-
-            document.documentElement.dataset.userColorScheme = 'dark';
-        } else {
-            document.documentElement.dataset.userColorScheme = 'light';
-        }
-    })();
-</script>
-
-
-    <body class="dark">
-        <nav class="navbar">
-    <div class="container">
-        <div class="flex">
-            <div>
-                <a class="brand" href="/">
-                    
-                    <span class="emoji">
-                        ✨
-                    </span>
-                    
-                    
-                    WiseAI的博客
-                    </a>
-            </div>
-            <div class="flex">
+    <title>WiseAI的博客</title>
+</head><body><nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <img src="/favicon.ico" alt="" width="30" height="24" class="d-inline-block align-text-top">
+            WiseAI的博客
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 
-                <a href="/articles/">文章</a>
+                <li class="nav-item">
+                    <a  class="nav-link"   href="/articles/">文章</a>
+                </li>
                 
-                <a href="/categories/">分类</a>
+                <li class="nav-item">
+                    <a  class="nav-link"   href="/categories/">分类</a>
+                </li>
                 
-                <a href="/tags/">关键字</a>
+                <li class="nav-item">
+                    <a  class="nav-link"   href="/tags/">关键字</a>
+                </li>
                 
-                
-                    <button id="dark-mode-button">
-                    <svg class="light" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 36 36"><path fill="#FFD983" d="M30.312.776C32 19 20 32 .776 30.312c8.199 7.717 21.091 7.588 29.107-.429C37.9 21.867 38.03 8.975 30.312.776z"/><path d="M30.705 15.915a1.163 1.163 0 1 0 1.643 1.641a1.163 1.163 0 0 0-1.643-1.641zm-16.022 14.38a1.74 1.74 0 0 0 0 2.465a1.742 1.742 0 1 0 0-2.465zm13.968-2.147a2.904 2.904 0 0 1-4.108 0a2.902 2.902 0 0 1 0-4.107a2.902 2.902 0 0 1 4.108 0a2.902 2.902 0 0 1 0 4.107z" fill="#FFCC4D"/><rect x="0" y="0" width="36" height="36" fill="rgba(0, 0, 0, 0)" /></svg>
-                    <svg class="dark" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 36 36"><path fill="#FFD983" d="M16 2s0-2 2-2s2 2 2 2v2s0 2-2 2s-2-2-2-2V2zm18 14s2 0 2 2s-2 2-2 2h-2s-2 0-2-2s2-2 2-2h2zM4 16s2 0 2 2s-2 2-2 2H2s-2 0-2-2s2-2 2-2h2zm5.121-8.707s1.414 1.414 0 2.828s-2.828 0-2.828 0L4.878 8.708s-1.414-1.414 0-2.829c1.415-1.414 2.829 0 2.829 0l1.414 1.414zm21 21s1.414 1.414 0 2.828s-2.828 0-2.828 0l-1.414-1.414s-1.414-1.414 0-2.828s2.828 0 2.828 0l1.414 1.414zm-.413-18.172s-1.414 1.414-2.828 0s0-2.828 0-2.828l1.414-1.414s1.414-1.414 2.828 0s0 2.828 0 2.828l-1.414 1.414zm-21 21s-1.414 1.414-2.828 0s0-2.828 0-2.828l1.414-1.414s1.414-1.414 2.828 0s0 2.828 0 2.828l-1.414 1.414zM16 32s0-2 2-2s2 2 2 2v2s0 2-2 2s-2-2-2-2v-2z"/><circle fill="#FFD983" cx="18" cy="18" r="10"/><rect x="0" y="0" width="36" height="36" fill="rgba(0, 0, 0, 0)" /></svg>
-                    </button>
-                
-            </div>
-            </div>
+            </ul>
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
     </div>
-</nav>
+</nav><div id="content">
+<div class="container-fluid">
+    <div id="carouselIndexSlides" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner text-center">
+            <div class="carousel-item active">
+                
+                <p>逼出的成功，强迫的辉煌!</p>
 
-        <main>
-            
-
-<div class="container">
-    <section class="my">
-        <div class="content">
-            
-            <p><strong>逼出的成功,强迫的辉煌!</strong></p>
-
-            
-            <div class="bio-social">
                 
             </div>
+            
+            <div class="carousel-item">
+                <p>不经他人苦，莫劝他人善。</p>
+            </div>
+            
+            <div class="carousel-item">
+                <p>内心强大到混蛋，比什么都好！</p>
+            </div>
+            
+            <div class="carousel-item">
+                <p>规范流程比制定制度更重要！</p>
+            </div>
+            
+            <div class="carousel-item">
+                <p>祁连卧北雪，大漠壮雄关。</p>
+            </div>
+            
+            <div class="carousel-item">
+                <p>要么忙于生存，要么赶紧去死！</p>
+            </div>
+            
+            <div class="carousel-item">
+                <p>成功和不成功之间，只差一次坚持！</p>
+            </div>
+            
         </div>
-    </section>
+    </div>
 </div>
 
 
@@ -113,157 +87,130 @@
 
 
 <div class="container">
-    <section>
-        <h2>
-            最新文章
-            
-            <a class="section-button" href="/articles/">查看所有</a>
-            
-        </h2>
-        <div class="posts">
-            
-            <div class="post">
-                <a href="/post/test-katex/">
-                    <div class="post-row">
-                        <time>2021-05-22</time>
-                        <h3>Katex support</h3>
-                    </div>
-                    
-                </a>
-            </div>
-            
-            <div class="post">
-                <a href="/post/test-mathjax/">
-                    <div class="post-row">
-                        <time>2021-05-22</time>
-                        <h3>MathJax support</h3>
-                    </div>
-                    
-                </a>
-            </div>
-            
-            <div class="post">
-                <a href="/post/markdown-syntax/">
-                    <div class="post-row">
-                        <time>2019-03-11</time>
-                        <h3>Markdown Syntax Guide</h3>
-                    </div>
-                    
-                </a>
-            </div>
-            
-            <div class="post">
-                <a href="/post/example-lazy-load-image/">
-                    <div class="post-row">
-                        <time>2019-03-09</time>
-                        <h3>Example Lazy Load Image</h3>
-                    </div>
-                    
-                </a>
-            </div>
-            
-            <div class="post">
-                <a href="/post/placeholder-text/">
-                    <div class="post-row">
-                        <time>2019-03-09</time>
-                        <h3>Placeholder Text</h3>
-                    </div>
-                    
-                </a>
-            </div>
-            
-            <div class="post">
-                <a href="/post/emoji-support/">
-                    <div class="post-row">
-                        <time>2019-03-05</time>
-                        <h3>Emoji Support</h3>
-                    </div>
-                    
-                </a>
-            </div>
-            
+    <h2>最新文章<span class="badge bg-light">
+        
+        <a class="link-dark links" href="/articles/">查看所有</a>
+        
+    </span><hr></h2>
+    <div class="row">
+                
+        <div class="col-12 post text-truncate">
+            <a class="link-dark links" href="/post/test-katex/"><time>2021-05-22</time>Katex support</a>
         </div>
-    </section>
+                
+        <div class="col-12 post text-truncate">
+            <a class="link-dark links" href="/post/test-mathjax/"><time>2021-05-22</time>MathJax support</a>
+        </div>
+                
+        <div class="col-12 post text-truncate">
+            <a class="link-dark links" href="/post/markdown-syntax/"><time>2019-03-11</time>Markdown Syntax Guide</a>
+        </div>
+                
+        <div class="col-12 post text-truncate">
+            <a class="link-dark links" href="/post/example-lazy-load-image/"><time>2019-03-09</time>Example Lazy Load Image</a>
+        </div>
+                
+        <div class="col-12 post text-truncate">
+            <a class="link-dark links" href="/post/placeholder-text/"><time>2019-03-09</time>Placeholder Text</a>
+        </div>
+                
+        <div class="col-12 post text-truncate">
+            <a class="link-dark links" href="/post/emoji-support/"><time>2019-03-05</time>Emoji Support</a>
+        </div>
+        
+    </div>
+</div>
+
+
+<div class="container">
+    <h2>项目</h2><hr>
     
-    <section>
-        <h2>项目</h2>
-        <div class="projects">
-            
-            <div class="project">
-                <div>
-                    <a href="https://github.com/WingLim/hugo-tania" target="_blank" rel="noreferrer">
-                        <div class="icon">📝</div>
-                        <h3>Hugo Tania Theme</h3>
-                    </a>
-                    <div class="description">Make a blog with hugo tania theme!</div>
-                </div>
-                <div class="flex">
-                    <a href="https://github.com/WingLim/hugo-tania" class="button" target="_blank" rel="noreferrer">Source</a>
-                </div>
-            </div>
-            
-            <div class="project">
-                <div>
-                    <a href="https://github.com/wiseai-go/blog-hugo.git" target="_blank" rel="noreferrer">
-                        <div class="icon">📝</div>
-                        <h3>blog-hugo</h3>
-                    </a>
-                    <div class="description">My blog build with hugo tania theme!</div>
-                </div>
-                <div class="flex">
-                    <a href="https://github.com/wiseai-go/blog-hugo.git" class="button" target="_blank" rel="noreferrer">Source</a>
-                </div>
-            </div>
-            
+    <div class="card xm">
+        <div class="card-header">
+            Hugo Tania Theme
         </div>
-    </section>
+        <div class="card-body">
+            
+            <p class="card-text">Make a blog with hugo tania theme!</p>
+            <a href="https://github.com/WingLim/hugo-tania" class="btn btn-primary">Source</a>
+        </div>
+    </div>
+    
+    <div class="card xm">
+        <div class="card-header">
+            blog-hugo
+        </div>
+        <div class="card-body">
+            
+            <p class="card-text">My blog build with hugo tania theme!</p>
+            <a href="https://github.com/wiseai-go/blog-hugo.git" class="btn btn-primary">Source</a>
+        </div>
+    </div>
     
 </div>
 
 
-        </main>
-        <footer class="footer flex">
-    <section class="container">
-        <nav class="footer-links">
-            
-            <a href="https://wiseai.gitee.io/pages/gnzg/index.html">孤鸟之歌</a>
-            
-            <a href="https://wiseai.gitee.io/pages/mm/index.html">生成随机字符</a>
-            
-            <a href="https://wiseai.gitee.io/pages/md/index.html">MarkDown</a>
-            
-            <a href="https://gitee.com/">Gitee</a>
-            
-            <a href="https://github.com/">Github</a>
-            
-            <a href="https://www.oschina.net/">OSCHINA</a>
-            
-            <a href="https://gitee.com/wiseai/the-way-to-go_ZH_CN/blob/master/eBook/directory.md">the way to go</a>
-            
-            <a href="https://goframe.org/display/gf">GoFrame</a>
-            
-            <a href="https://www.aliyundrive.com/">阿里云盘</a>
-            
-            <a href="https://www.bootstrap.cn/">bootstrap文档</a>
-            
-            <a href="https://www.58pic.com/">千图</a>
-            
-            <a href="https://marketing.qiniu.com/">七牛云</a>
-            
-            <a href="https://www.ixigua.com/">西瓜视频</a>
-            
-            <a href="https://wiseai.gitee.io/pages/yugang/index.html">鱼缸计算</a>
-            
-            <a href="/index.xml">RSS</a>
-            
-        </nav>
 
+        </div><br><br>
+<footer class="container">
+    <h2>友情链接</h2>
+    <hr>
+    <nav class="nav nav-pills flex-column flex-sm-row">
         
-    </section>
-    <script defer src="/ts/features.2f98c2f5215583b54b0a8bd7bdb10411467f4fee386a61e03ca3ddf376273fc4.js" 
-    data-enable-footnotes="true"
-    ></script>
-</footer>
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/gnzg/index.html" target="_blank">孤鸟之歌</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/mm/index.html" target="_blank">生成随机字符</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/md/index.html" target="_blank">MarkDown</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://gitee.com/" target="_blank">Gitee</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://github.com/" target="_blank">Github</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.oschina.net/" target="_blank">OSCHINA</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://gitee.com/wiseai/the-way-to-go_ZH_CN/blob/master/eBook/directory.md" target="_blank">the way to go</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://goframe.org/display/gf" target="_blank">GoFrame</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.aliyundrive.com/" target="_blank">阿里云盘</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.bootstrap.cn/" target="_blank">bootstrap文档</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.58pic.com/" target="_blank">千图</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://marketing.qiniu.com/" target="_blank">七牛云</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.ixigua.com/" target="_blank">西瓜视频</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/yugang/index.html" target="_blank">鱼缸计算</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="/index.xml" target="_blank">RSS</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://mp.weixin.qq.com/s/K2Dpw7yg8Y5Z_P4Jm6f8Tw" target="_blank">参考文章</a>
+        
+    </nav>
 
-    </body>
+    <div class="copyright text-center">
+      <span class="power-by">
+        Powered by <a class="links" href="https://gohugo.io">Hugo</a>
+    </span>
+    <span>|</span>
+    <span>
+        Theme - <a class="links" href="https://github.com/wiseai-go/blog-hugo">WiseAI</a>
+    </span>
+    <br>
+    <span class="copyright-year">
+        &copy;
+        
+        2017 -
+        2022<span>
+            陇ICP备15000157号
+            
+        </span></span>
+
+</div>
+</footer>
+<script async src="http://qn.wiseai.cn/bootstrap/bootstrap.bundle.min.js"></script>
+</body>
 </html>

@@ -1,213 +1,80 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
-    
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="theme-color" content="dark">
-    <title>efi和grub2相关配置文件及命令 | WiseAI的博客</title>
+<html lang="zh-cn"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     
-    
-    
-    <meta property="og:site_name" content="wiseai的备忘录" />
-    <meta property="og:title" content="efi和grub2相关配置文件及命令 | WiseAI的博客"/>
-    <meta itemprop="name" content="efi和grub2相关配置文件及命令 | WiseAI的博客" />
-    <meta name="twitter:title" content="efi和grub2相关配置文件及命令 | WiseAI的博客" />
-    <meta name="application-name" content="efi和grub2相关配置文件及命令 | WiseAI的博客" /><meta name="twitter:card" content="summary"/>
-
-    <meta name="description" content="系统引导相关命令" />
-    <meta name="twitter:description" content="系统引导相关命令 "/>
-    <meta itemprop="description" content=" 系统引导相关命令 "/>
-    <meta property="og:description" content=" 系统引导相关命令 " />
-
-    
-
-<meta property="og:type" content="article" />
-<meta property="article:publisher" content="wiseai" />
-<meta property="og:article:published_time" content=2022-05-30T00:00:00Z />
-<meta property="article:published_time" content=2022-05-30T00:00:00Z />
-
-
-  <meta property="og:article:author" content="Wiseai" />
-  <meta property="article:author" content="Wiseai" />
-  <meta name="author" content="Wiseai" />
-
-
-
-
-<script defer type="application/ld+json">
-  {
-    "@context": "http://schema.org",
-    "@type": "Article",
-    "headline": "efi和grub2相关配置文件及命令",
-    "author": {
-      "@type": "Person",
-      "name": "wiseai"
-    },
-    "datePublished": "2022-05-30",
-    "description": "系统引导相关命令",
-    "wordCount":  113 ,
-    "mainEntityOfPage": "True",
-    "dateModified": "2022-05-30",
-    "publisher": {
-      "@type": "Organization",
-      "name": "wiseai",
-      "logo": {
-        "@type": "imageObject",
-        "url": "https:\/\/blog.wiseai.cn\/favicon.ico"
-      }
-    }
-  }
-</script>
-
-
+    <link href="http://qn.wiseai.cn/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
 
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-    
-    <link rel="stylesheet" href="/sass/main.min.ab99ff095f832511e24ffb2fba2b51ad473b2f7e9301d674eba2c6c3a6e8bd81.css">
-    <link rel="stylesheet" href="/css/wiseai.css">
-</head>
-    
-    <script>
-        (function() {
-            const colorSchemeKey = 'ThemeColorScheme';
-            if(!localStorage.getItem(colorSchemeKey)){
-                localStorage.setItem(colorSchemeKey, "auto");
-            }
-        })();
-    </script><script>
-    (function() {
-        const colorSchemeKey = 'ThemeColorScheme';
-        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
-        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
 
-        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
-            
-
-            document.documentElement.dataset.userColorScheme = 'dark';
-        } else {
-            document.documentElement.dataset.userColorScheme = 'light';
-        }
-    })();
-</script>
-
-
-    <body class="dark">
-        <nav class="navbar">
-    <div class="container">
-        <div class="flex">
-            <div>
-                <a class="brand" href="/">
-                    
-                    <span class="emoji">
-                        ✨
-                    </span>
-                    
-                    
-                    WiseAI的博客
-                    </a>
-            </div>
-            <div class="flex">
+    <title>efi和grub2相关配置文件及命令 | WiseAI的博客</title>
+</head><body><nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <img src="/favicon.ico" alt="" width="30" height="24" class="d-inline-block align-text-top">
+            WiseAI的博客
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 
-                <a href="/articles/">文章</a>
+                <li class="nav-item">
+                    <a  class="nav-link"   href="/articles/">文章</a>
+                </li>
                 
-                <a href="/categories/">分类</a>
+                <li class="nav-item">
+                    <a  class="nav-link"   href="/categories/">分类</a>
+                </li>
                 
-                <a href="/tags/">关键字</a>
+                <li class="nav-item">
+                    <a  class="nav-link"   href="/tags/">关键字</a>
+                </li>
                 
-                
-                    <button id="dark-mode-button">
-                    <svg class="light" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 36 36"><path fill="#FFD983" d="M30.312.776C32 19 20 32 .776 30.312c8.199 7.717 21.091 7.588 29.107-.429C37.9 21.867 38.03 8.975 30.312.776z"/><path d="M30.705 15.915a1.163 1.163 0 1 0 1.643 1.641a1.163 1.163 0 0 0-1.643-1.641zm-16.022 14.38a1.74 1.74 0 0 0 0 2.465a1.742 1.742 0 1 0 0-2.465zm13.968-2.147a2.904 2.904 0 0 1-4.108 0a2.902 2.902 0 0 1 0-4.107a2.902 2.902 0 0 1 4.108 0a2.902 2.902 0 0 1 0 4.107z" fill="#FFCC4D"/><rect x="0" y="0" width="36" height="36" fill="rgba(0, 0, 0, 0)" /></svg>
-                    <svg class="dark" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="1em" height="1em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 36 36"><path fill="#FFD983" d="M16 2s0-2 2-2s2 2 2 2v2s0 2-2 2s-2-2-2-2V2zm18 14s2 0 2 2s-2 2-2 2h-2s-2 0-2-2s2-2 2-2h2zM4 16s2 0 2 2s-2 2-2 2H2s-2 0-2-2s2-2 2-2h2zm5.121-8.707s1.414 1.414 0 2.828s-2.828 0-2.828 0L4.878 8.708s-1.414-1.414 0-2.829c1.415-1.414 2.829 0 2.829 0l1.414 1.414zm21 21s1.414 1.414 0 2.828s-2.828 0-2.828 0l-1.414-1.414s-1.414-1.414 0-2.828s2.828 0 2.828 0l1.414 1.414zm-.413-18.172s-1.414 1.414-2.828 0s0-2.828 0-2.828l1.414-1.414s1.414-1.414 2.828 0s0 2.828 0 2.828l-1.414 1.414zm-21 21s-1.414 1.414-2.828 0s0-2.828 0-2.828l1.414-1.414s1.414-1.414 2.828 0s0 2.828 0 2.828l-1.414 1.414zM16 32s0-2 2-2s2 2 2 2v2s0 2-2 2s-2-2-2-2v-2z"/><circle fill="#FFD983" cx="18" cy="18" r="10"/><rect x="0" y="0" width="36" height="36" fill="rgba(0, 0, 0, 0)" /></svg>
-                    </button>
-                
-            </div>
-            </div>
+            </ul>
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
     </div>
-</nav>
-
-        <main>
-            
-<div class="container">
-    <article>
-        <header class="article-header">
-            <div class="thumb">
-                <div>
-                    <h1>efi和grub2相关配置文件及命令</h1>
-                    <div class="post-meta">
-                        <div>
-                            
-                            
-                            By wiseai | <time>2022-05-30</time>
-                            | 1 minutes
-                        </div>
-                        <div class="tags">
-                            
-                            <a href="/tags/%E7%B3%BB%E7%BB%9F%E5%BC%95%E5%AF%BC/">系统引导</a>
-                            
-                            <a href="/tags/%E5%90%AF%E5%8A%A8/">启动</a>
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-    </article>
-
-    <div class="article-post">
-    <h3 id="一配置文件目录">
-    <a href="#%e4%b8%80%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6%e7%9b%ae%e5%bd%95" class="anchor">
-        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
-            <path fill-rule="evenodd"
-                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-            </path>
-        </svg>
-    </a>
-    一、配置文件目录
-</h3>
+</nav><div id="content">
+<div class="container article">
+	<h1>efi和grub2相关配置文件及命令</h1>
+	<div class="post-meta">
+		<div>
+			
+			
+			By wiseai | 2022-05-30 | 1 minutes
+		</div>
+		<div class="tags">
+			
+			<a class="btn btn-light links btn-sm" href="/tags/%E7%B3%BB%E7%BB%9F%E5%BC%95%E5%AF%BC/">系统引导</a>
+			
+			<a class="btn btn-light links btn-sm" href="/tags/%E5%90%AF%E5%8A%A8/">启动</a>
+			
+		</div>
+	</div>
+	<div>
+		<div class="article-post">
+			<h3 id="一配置文件目录">一、配置文件目录</h3>
 <p>/etc/grub2/目录下
 /etc/default/grub</p>
-<h3 id="二更新引导项目">
-    <a href="#%e4%ba%8c%e6%9b%b4%e6%96%b0%e5%bc%95%e5%af%bc%e9%a1%b9%e7%9b%ae" class="anchor">
-        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
-            <path fill-rule="evenodd"
-                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-            </path>
-        </svg>
-    </a>
-    二、更新引导项目
-</h3>
+<h3 id="二更新引导项目">二、更新引导项目</h3>
 <p>根据配置文件目录下的顺序更新启动项，命令：</p>
 <p><code># grub2-mkconfig -o /boot/grub2/grub.cfg</code></p>
 <p>-o 选项为输出到那个文件</p>
 <p>efi下的/boot/efi/EFI/centos/grub.cfg文件一般调用/boot/grub2/grub.cfg这个文件</p>
 <p>类debian发行版，一般用这个命令：
 <code># update-grub2</code></p>
-<h3 id="三更换默认启动项">
-    <a href="#%e4%b8%89%e6%9b%b4%e6%8d%a2%e9%bb%98%e8%ae%a4%e5%90%af%e5%8a%a8%e9%a1%b9" class="anchor">
-        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
-            <path fill-rule="evenodd"
-                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-            </path>
-        </svg>
-    </a>
-    三、更换默认启动项
-</h3>
+<h3 id="三更换默认启动项">三、更换默认启动项</h3>
 <p>命令：</p>
 <p><code># grub2-set-default 2</code></p>
 <p>一般从0开始</p>
-<h3 id="四安装">
-    <a href="#%e5%9b%9b%e5%ae%89%e8%a3%85" class="anchor">
-        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
-            <path fill-rule="evenodd"
-                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-            </path>
-        </svg>
-    </a>
-    四、安装
-</h3>
+<h3 id="四安装">四、安装</h3>
 <p><code># grub-install --efi-directory=/boot/efi/ --boot-directory=/boot/ --removable /dev/sda</code>
 几个需要说明的地方：</p>
 <blockquote>
@@ -215,16 +82,7 @@
 <code>--boot-directory=/boot/</code>这个不用加grub2，它会自己生成grub2目录，写入相关文件
 <code>--removable</code>如果是移动设备，一定要加这个选项</p>
 </blockquote>
-<h3 id="五常用命令">
-    <a href="#%e4%ba%94%e5%b8%b8%e7%94%a8%e5%91%bd%e4%bb%a4" class="anchor">
-        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
-            <path fill-rule="evenodd"
-                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-            </path>
-        </svg>
-    </a>
-    五、常用命令
-</h3>
+<h3 id="五常用命令">五、常用命令</h3>
 <ul>
 <li>启动常用的grub命令</li>
 </ul>
@@ -245,16 +103,7 @@ boot                            #启动
 </code></pre><p>grub命名规则，(hd32)为第一仿真cd/dvd设备，等同于0xa0，(hd33)为二仿真cd/dvd设备，0xff为最后一个。grub中将0xa0以上都认做cdrom。
 <code>map --mem</code> 用于仿真不连续的存放的iso文件，不加则必须连续存放，碎片整理后再存放iso一般才会连续。
 另外grub不支持大的iso，如果iso不支持则提示:inviladorupsupported executableformat。</p>
-<h3 id="六添加efi启动项">
-    <a href="#%e5%85%ad%e6%b7%bb%e5%8a%a0efi%e5%90%af%e5%8a%a8%e9%a1%b9" class="anchor">
-        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
-            <path fill-rule="evenodd"
-                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-            </path>
-        </svg>
-    </a>
-    六、添加efi启动项
-</h3>
+<h3 id="六添加efi启动项">六、添加efi启动项</h3>
 <p>在安装程序不完善的时候，有时候会存在没有启动项的问题，这个时候就要用efibootmgr管理UEFI启动项。
 <code># efibootmgr</code>
 这个命令会显示所有已经添加的启动项，BootOrder后会显示启动顺序。
@@ -269,91 +118,99 @@ BootOptionName是你启动项的名字，修改为自己的
 <code># efibootmgr -o 0012,0010,000f</code>
 修改启动顺序。
 这个命令没有认真研究，有空再说吧。</p>
-<h3 id="七需要注意的地方">
-    <a href="#%e4%b8%83%e9%9c%80%e8%a6%81%e6%b3%a8%e6%84%8f%e7%9a%84%e5%9c%b0%e6%96%b9" class="anchor">
-        <svg class="icon" aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16">
-            <path fill-rule="evenodd"
-                d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z">
-            </path>
-        </svg>
-    </a>
-    七、需要注意的地方
-</h3>
+<h3 id="七需要注意的地方">七、需要注意的地方</h3>
 <pre><code>grub背景图片的问题，最近用gimp做了个图片设为grub2启动背景图片，grub2提示错误，最后发现是图片的问题。</code></pre>
 
-    </div>
+		</div>
+	</div>
 </div>
+
 
 <div class="container">
     
-    <nav class="flex container suggested">
+    <div class="row">
         
-        <a rel="prev" href="/post/filebrowser%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/" title="Previous post (older)">
-            <span>Previous</span>
-            filebrowser的安装和使用
-            </a>
+        <div class="col-5">
+            <a class="page-link link-dark text-end dh" href="/post/filebrowser%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/">
+                <h5>前一篇</h5><br>
+                filebrowser的安装和使用
+            </a>            
+        </div>
         
+        <div class="col-2">
+        </div>
         
+        <div class="col-5">
+            <a class="page-link link-dark text-start dh" href="/post/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                <h5>后一篇</h5><br>
+                docker学习笔记
+            </a>            
+        </div>
         
-        <a rel="next" href="/post/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Next post (newer)">
-            <span>Next</span>
-            docker学习笔记
-            </a> 
+    </div>
+    
+</div>
+
+        </div><br><br>
+<footer class="container">
+    <h2>友情链接</h2>
+    <hr>
+    <nav class="nav nav-pills flex-column flex-sm-row">
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/gnzg/index.html" target="_blank">孤鸟之歌</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/mm/index.html" target="_blank">生成随机字符</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/md/index.html" target="_blank">MarkDown</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://gitee.com/" target="_blank">Gitee</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://github.com/" target="_blank">Github</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.oschina.net/" target="_blank">OSCHINA</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://gitee.com/wiseai/the-way-to-go_ZH_CN/blob/master/eBook/directory.md" target="_blank">the way to go</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://goframe.org/display/gf" target="_blank">GoFrame</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.aliyundrive.com/" target="_blank">阿里云盘</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.bootstrap.cn/" target="_blank">bootstrap文档</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.58pic.com/" target="_blank">千图</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://marketing.qiniu.com/" target="_blank">七牛云</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.ixigua.com/" target="_blank">西瓜视频</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/yugang/index.html" target="_blank">鱼缸计算</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="/index.xml" target="_blank">RSS</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://mp.weixin.qq.com/s/K2Dpw7yg8Y5Z_P4Jm6f8Tw" target="_blank">参考文章</a>
         
     </nav>
-    
-</div>
- 
-<div class="container">
-    
-</div>
 
-</main>
-
-
-        </main>
-        <footer class="footer flex">
-    <section class="container">
-        <nav class="footer-links">
-            
-            <a href="https://wiseai.gitee.io/pages/gnzg/index.html">孤鸟之歌</a>
-            
-            <a href="https://wiseai.gitee.io/pages/mm/index.html">生成随机字符</a>
-            
-            <a href="https://wiseai.gitee.io/pages/md/index.html">MarkDown</a>
-            
-            <a href="https://gitee.com/">Gitee</a>
-            
-            <a href="https://github.com/">Github</a>
-            
-            <a href="https://www.oschina.net/">OSCHINA</a>
-            
-            <a href="https://gitee.com/wiseai/the-way-to-go_ZH_CN/blob/master/eBook/directory.md">the way to go</a>
-            
-            <a href="https://goframe.org/display/gf">GoFrame</a>
-            
-            <a href="https://www.aliyundrive.com/">阿里云盘</a>
-            
-            <a href="https://www.bootstrap.cn/">bootstrap文档</a>
-            
-            <a href="https://www.58pic.com/">千图</a>
-            
-            <a href="https://marketing.qiniu.com/">七牛云</a>
-            
-            <a href="https://www.ixigua.com/">西瓜视频</a>
-            
-            <a href="https://wiseai.gitee.io/pages/yugang/index.html">鱼缸计算</a>
-            
-            <a href="/index.xml">RSS</a>
-            
-        </nav>
-
+    <div class="copyright text-center">
+      <span class="power-by">
+        Powered by <a class="links" href="https://gohugo.io">Hugo</a>
+    </span>
+    <span>|</span>
+    <span>
+        Theme - <a class="links" href="https://github.com/wiseai-go/blog-hugo">WiseAI</a>
+    </span>
+    <br>
+    <span class="copyright-year">
+        &copy;
         
-    </section>
-    <script defer src="/ts/features.2f98c2f5215583b54b0a8bd7bdb10411467f4fee386a61e03ca3ddf376273fc4.js" 
-    data-enable-footnotes="true"
-    ></script>
-</footer>
+        2017 -
+        2022<span>
+            陇ICP备15000157号
+            
+        </span></span>
 
-    </body>
+</div>
+</footer>
+<script async src="http://qn.wiseai.cn/bootstrap/bootstrap.bundle.min.js"></script>
+</body>
 </html>

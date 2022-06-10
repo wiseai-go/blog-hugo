@@ -6,6 +6,7 @@
     <description>Recent content in 树莓派 on WiseAI的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
+    <copyright>陇ICP备15000157号</copyright>
     <lastBuildDate>Mon, 30 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>GPIO相关知识</title>
@@ -13,9 +14,9 @@
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/gpio%E7%9B%B8%E5%85%B3/</guid>
-      <description>linux查看gpio状态  cat /sys/kernel/debug/gpio
+      <description>linux查看gpio状态 cat /sys/kernel/debug/gpio
 有个blog里有这个方法，去试试：
-mkdir /tmp/debug mount -t debugfs debugfs /tmp/debug cat /tmp/debug/gpio    GPIO操作的一些说明   首先，看看系统中有没有“/sys/class/gpio”这个文件夹。如果没有请在编译内核的时候加入  Device Drivers-&amp;gt; GPIO Support -&amp;gt;/sys/class/gpio/… (sysfs interface)
+mkdir /tmp/debug mount -t debugfs debugfs /tmp/debug cat /tmp/debug/gpio GPIO操作的一些说明  首先，看看系统中有没有“/sys/class/gpio”这个文件夹。如果没有请在编译内核的时候加入  Device Drivers-&amp;gt; GPIO Support -&amp;gt;/sys/class/gpio/… (sysfs interface)
  /sys/class/gpio 的使用说明：  gpio_operation 通过/sys/文件接口操作IO端口 GPIO到文件系统的映射
 ◇ 控制GPIO的目录位于/sys/class/gpio
 ◇ /sys/class/gpio/export文件用于通知系统需要导出控制的GPIO引脚编号
@@ -25,7 +26,9 @@ mkdir /tmp/debug mount -t debugfs debugfs /tmp/debug cat /tmp/debug/gpio    GPIO
 ◇ 向/sys/class/gpio/export写入此编号，比如12号引脚，在shell中可以通过以下命令实现，echo 12 &amp;gt; export命令成功后生成/sys/class/gpio/gpio12目录，如果没有出现相应的目录，说明此引脚不可导出
 ◇ direction文件，定义输入输入方向，可以通过下面命令定义为输出。direction接受的参数：in, out, high, low。high/low同时设置方向为输出，并将value设置为相应的1/0
 ◇ value文件是端口的数值，为1或0
-   例子：  进入/sys/class/gpio/文件夹：</description>
+例子： 进入/sys/class/gpio/文件夹：
+ 将gpio7重定向用户定义设备，生成gpio7目录  # echo 7 &amp;gt; export
+进入gpio7目录并查看文件  # cd gpio7</description>
     </item>
     
   </channel>
