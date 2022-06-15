@@ -86,7 +86,7 @@ menu:
       url: "tags/"
     - name: 分类
       weight: "2"
-      url: "categories/"      
+      url: "categories/"
   footer:
     - name: 孤鸟之歌
       weight: 1
@@ -133,9 +133,9 @@ menu:
     - name: RSS
       weight: 100
       url: "index.xml"
-    - name: 参考文章
+    - name: 参考资料
       weight: 100
-      url: "https://mp.weixin.qq.com/s/K2Dpw7yg8Y5Z_P4Jm6f8Tw"
+      url: "https://www.kancloud.cn/idcpj/python/418553"
 
 markup:
   highlight:
