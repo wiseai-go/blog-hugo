@@ -14,7 +14,7 @@
       <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/sublime%E4%BD%BF%E7%94%A8/</guid>
-      <description>安装Package Control  Tools-&amp;gt;Install Package Control 选项，即可调出 Package Control “Tools-&amp;gt;Command Palette&amp;hellip;”选项，快捷键Ctrl+Shift +P 输入 ipc ,点击 Install Package Control，即可调出 Package Control  设置中文  Preferences-&amp;gt;Package Control，快捷键Ctrl+Shift +P 选项弹出命令行输入框，输入ip，点击“install Package” 弹出命令行输入框，输入clz，点击“ChineseLocalizations” “帮助-&amp;gt;Language ”切换语言。  </description>
+      <description>安装Package Control Tools-&amp;gt;Install Package Control 选项，即可调出 Package Control “Tools-&amp;gt;Command Palette&amp;hellip;”选项，快捷键Ctrl+Shift +P 输入 ipc ,点击 Install Package Control，即可调出 Package Control 设置中文 Preferences-&amp;gt;Package Control，快捷键Ctrl+Shift +P 选项弹出命令行输入框，输入ip，点击“install Package” 弹出命令行输入框，输入clz，点击“ChineseLocalizations” “帮助-&amp;gt;Language ”切换语言。 </description>
     </item>
     
   </channel>

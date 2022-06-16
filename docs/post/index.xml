@@ -16,7 +16,7 @@
       <guid>https://blog.wiseai.cn/post/markdown%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91%E5%99%A8/</guid>
       <description>使用开源项目editor.md我的gitee仓库下也有。
 安装 # npm install editor.md
-使用  &amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;&amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt;&amp;lt;link rel=&amp;#34;stylesheet&amp;#34; href=&amp;#34;editor.md/css/editormd.min.css&amp;#34; /&amp;gt;&amp;lt;title&amp;gt;Markdown 编辑在线器&amp;lt;/title&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;body&amp;gt;&amp;lt;div id=&amp;#34;text&amp;#34; style=&amp;#34;width: 100%;&amp;#34;&amp;gt;&amp;lt;div id=&amp;#34;editor&amp;#34; style=&amp;#34;height: 100%;&amp;#34;&amp;gt;&amp;lt;!-- Tips: Editor.md can auto append a `&amp;lt;textarea&amp;gt;` tag --&amp;gt;&amp;lt;textarea style=&amp;#34;display:none;&amp;#34; placeholder=&amp;#34;欢迎使用&amp;#34;&amp;gt;&amp;lt;/textarea&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;script src=&amp;#34;jquery.min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt;&amp;lt;script src=&amp;#34;editor.md/editormd.min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt;&amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt;// 设置div与窗口高度一致window.onload = function () {var h = window.innerHeight - 25 ; //获取当前窗口的高度; document.getElementById(&amp;#34;text&amp;#34;).style.height = h + &amp;#34;px&amp;#34;; //设置div的高度}// 设置textarea参数$(function() {var h = window.</description>
+使用 &amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;&amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt;&amp;lt;link rel=&amp;#34;stylesheet&amp;#34; href=&amp;#34;editor.md/css/editormd.min.css&amp;#34; /&amp;gt;&amp;lt;title&amp;gt;Markdown 编辑在线器&amp;lt;/title&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;body&amp;gt;&amp;lt;div id=&amp;#34;text&amp;#34; style=&amp;#34;width: 100%;&amp;#34;&amp;gt;&amp;lt;div id=&amp;#34;editor&amp;#34; style=&amp;#34;height: 100%;&amp;#34;&amp;gt;&amp;lt;!-- Tips: Editor.md can auto append a `&amp;lt;textarea&amp;gt;` tag --&amp;gt;&amp;lt;textarea style=&amp;#34;display:none;&amp;#34; placeholder=&amp;#34;欢迎使用&amp;#34;&amp;gt;&amp;lt;/textarea&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;script src=&amp;#34;jquery.min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt;&amp;lt;script src=&amp;#34;editor.md/editormd.min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt;&amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt;// 设置div与窗口高度一致window.onload = function () {var h = window.innerHeight - 25 ; //获取当前窗口的高度; document.getElementById(&amp;#34;text&amp;#34;).style.height = h + &amp;#34;px&amp;#34;; //设置div的高度}// 设置textarea参数$(function() {var h = window.</description>
     </item>
     
     <item>
@@ -34,7 +34,7 @@
       <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/sublime%E4%BD%BF%E7%94%A8/</guid>
-      <description>安装Package Control  Tools-&amp;gt;Install Package Control 选项，即可调出 Package Control “Tools-&amp;gt;Command Palette&amp;hellip;”选项，快捷键Ctrl+Shift +P 输入 ipc ,点击 Install Package Control，即可调出 Package Control  设置中文  Preferences-&amp;gt;Package Control，快捷键Ctrl+Shift +P 选项弹出命令行输入框，输入ip，点击“install Package” 弹出命令行输入框，输入clz，点击“ChineseLocalizations” “帮助-&amp;gt;Language ”切换语言。  </description>
+      <description>安装Package Control Tools-&amp;gt;Install Package Control 选项，即可调出 Package Control “Tools-&amp;gt;Command Palette&amp;hellip;”选项，快捷键Ctrl+Shift +P 输入 ipc ,点击 Install Package Control，即可调出 Package Control 设置中文 Preferences-&amp;gt;Package Control，快捷键Ctrl+Shift +P 选项弹出命令行输入框，输入ip，点击“install Package” 弹出命令行输入框，输入clz，点击“ChineseLocalizations” “帮助-&amp;gt;Language ”切换语言。 </description>
     </item>
     
     <item>
@@ -128,10 +128,10 @@ ALFS：Automated Linux From Scratch提供了自动化和管理LFS和BLFS构建�
       <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/linux%E4%B8%AD%E7%BC%BA%E5%B0%91%E8%BF%90%E8%A1%8C%E5%BA%93%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
-      <description>编辑 vi /etc/ld.so.conf root权限执行 /sbin/ldconfig -v命令  这样 ldd 才能找到这个库
+      <description>编辑 vi /etc/ld.so.conf root权限执行 /sbin/ldconfig -v命令 这样 ldd 才能找到这个库
 /etc/ld.so.conf:
-这个文件记录了编译时使用的动态链接库的路径。 默认情况下，编译器只会使用/lib和/usr/lib这两个目录下的库文件 如果你安装了某些库，没有指定 –prefix=/usr 这样lib库就装到了/usr/local下，而又没有在/etc/ld.so.conf中添加/usr/local/lib，就会报错了  ldconfig是个什么东东吧 ：
-它是一个程序，通常它位于/sbin下，是root用户使用的东东。具体作用及用法可以man ldconfig查到 简单的说，它的作用就是将/etc/ld.so.conf列出的路径下的库文件 缓存到/etc/ld.so.cache 以供使用 因此当安装完一些库文件，(例如刚安装好glib)，或者修改ld.so.conf增加新的库路径后，需要运行一下/sbin/ldconfig 使所有的库文件都被缓存到ld.so.cache中，如果没做，即使库文件明明就在/usr/lib下的，也是不会被使用的，结果 编译过程中抱错，缺少xxx库。  以上尝试后发现还是不行，添加 /usr/lib/x86_64-linux-gnu 有许多QT库文件</description>
+这个文件记录了编译时使用的动态链接库的路径。 默认情况下，编译器只会使用/lib和/usr/lib这两个目录下的库文件 如果你安装了某些库，没有指定 –prefix=/usr 这样lib库就装到了/usr/local下，而又没有在/etc/ld.so.conf中添加/usr/local/lib，就会报错了 ldconfig是个什么东东吧 ：
+它是一个程序，通常它位于/sbin下，是root用户使用的东东。具体作用及用法可以man ldconfig查到 简单的说，它的作用就是将/etc/ld.so.conf列出的路径下的库文件 缓存到/etc/ld.so.cache 以供使用 因此当安装完一些库文件，(例如刚安装好glib)，或者修改ld.so.conf增加新的库路径后，需要运行一下/sbin/ldconfig 使所有的库文件都被缓存到ld.so.cache中，如果没做，即使库文件明明就在/usr/lib下的，也是不会被使用的，结果 编译过程中抱错，缺少xxx库。 以上尝试后发现还是不行，添加 /usr/lib/x86_64-linux-gnu 有许多QT库文件</description>
     </item>
     
     <item>
@@ -147,7 +147,7 @@ ALFS：Automated Linux From Scratch提供了自动化和管理LFS和BLFS构建�
 # mysqld_safe --user=mysql --skip-grant-tables --skip-networking
 3.无密码登录:
 # mysql -u root mysql
- 命令行登录：
+命令行登录：
 # mysql -h 127.0.0.1 -u root -p -P 3306
 新建用户：
 # create user &#39;newuser&#39;@&#39;localhost&#39; identified by &#39;123456&#39;;
@@ -159,7 +159,7 @@ ALFS：Automated Linux From Scratch提供了自动化和管理LFS和BLFS构建�
 注：you password获取方法：
 # select password(&#39;你的明文密码&#39;);
 所有权限
-# grant all privileges on *.</description>
+# grant all privileges on *.* to &#39;newuser&#39;@&#39;localhost&#39; identified by password &#39;you password&#39;;</description>
     </item>
     
     <item>
@@ -173,7 +173,7 @@ ALFS：Automated Linux From Scratch提供了自动化和管理LFS和BLFS构建�
 # apt install simplescreenrecorder
 其它安装方式：https://www.maartenbaert.be/simplescreenrecorder/
 它的一些显著特点包括:
-基于QT的简单GUI 可以记录整个屏幕或它的一部分	从OpenGL的应用程序直接记录 良好的视频和音频同步 有助于减少慢速机的视频帧速率 支持暂停和恢复功能 显示了了在记录过程期间的统计 支持录制过程中预览 默认设置已经很好，不需要进行过多设置  二、 OBS (Open Broadcaster Software) OBS 是一个免费、开源和跨平台的视频记录和流媒体应用程序,它可以工作在Linux、Windows和Mac OS X。 Windows需要从官网下载（https://obsproject.com/），Linux系统包含在rpmfusion中。
+基于QT的简单GUI 可以记录整个屏幕或它的一部分	从OpenGL的应用程序直接记录 良好的视频和音频同步 有助于减少慢速机的视频帧速率 支持暂停和恢复功能 显示了了在记录过程期间的统计 支持录制过程中预览 默认设置已经很好，不需要进行过多设置 二、 OBS (Open Broadcaster Software) OBS 是一个免费、开源和跨平台的视频记录和流媒体应用程序,它可以工作在Linux、Windows和Mac OS X。 Windows需要从官网下载（https://obsproject.com/），Linux系统包含在rpmfusion中。
 ＃ yum install obs-studio
 # apt install ffmpeg
 # add-apt-repository ppa:obsproject/obs-studio
@@ -189,10 +189,11 @@ ALFS：Automated Linux From Scratch提供了自动化和管理LFS和BLFS构建�
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/adduseraddgroup%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E7%94%A8%E6%88%B7%E7%BB%84/</guid>
-      <description>添加一个普通用户  # adduser [--home 主目录] [--shell SHELL] [--no-create-home] [--uid ID] [--firstuid ID] [--lastuid ID] [--gecos GECOS] [--ingroup 用户组 | --gid ID][--disabled-password] [--disabled-login] [--add_extra_groups] 用户名
- 添加一个系统用户  # adduser --system [--home 主目录] [--shell SHELL] [--no-create-home] [--uid ID] [--gecos GECOS] [--group | --ingroup 用户组 | --gid ID] [--disabled-password] [--disabled-login] [--add_extra_groups] 用户名
- 添加一个用户组  # adduser --group [--gid ID] 用户组名 # addgroup [--gid ID] 用户组名
- 添加一个系统用户组  # addgroup --system [--gid ID] 用户组名</description>
+      <description>添加一个普通用户 # adduser [--home 主目录] [--shell SHELL] [--no-create-home] [--uid ID] [--firstuid ID] [--lastuid ID] [--gecos GECOS] [--ingroup 用户组 | --gid ID][--disabled-password] [--disabled-login] [--add_extra_groups] 用户名
+添加一个系统用户 # adduser --system [--home 主目录] [--shell SHELL] [--no-create-home] [--uid ID] [--gecos GECOS] [--group | --ingroup 用户组 | --gid ID] [--disabled-password] [--disabled-login] [--add_extra_groups] 用户名
+添加一个用户组 # adduser --group [--gid ID] 用户组名 # addgroup [--gid ID] 用户组名
+添加一个系统用户组 # addgroup --system [--gid ID] 用户组名
+将一个已存在的用户添加至一个已存在的用户组 # adduser 用户名 用户组名</description>
     </item>
     
     <item>
@@ -212,7 +213,7 @@ $ yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-
 $ yum install docker-ce
 如果提示接受GPG密钥，请验证指纹是否匹配060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35，如果匹配 ，则接受它。
 ubuntu:
- $ sudo apt-get update $ sudo apt-get install apt-transport-https ca-certificates curl software-properties-common $ curl -fsSL https://download.</description>
+$ sudo apt-get update $ sudo apt-get install apt-transport-https ca-certificates curl software-properties-common $ curl -fsSL https://download.</description>
     </item>
     
     <item>
@@ -231,8 +232,8 @@ efi下的/boot/efi/EFI/centos/grub.cfg文件一般调用/boot/grub2/grub.cfg这�
 # grub2-set-default 2
 一般从0开始
 四、安装 # grub-install --efi-directory=/boot/efi/ --boot-directory=/boot/ --removable /dev/sda 几个需要说明的地方：
- --efi-directory=/boot/efi/这个位置的问题，如果efi分区是单独挂载的，就直接写这个目录就可以了，不用加efi，它会在这个目录下建立EFI的目录，写入相关文件。 --boot-directory=/boot/这个不用加grub2，它会自己生成grub2目录，写入相关文件 --removable如果是移动设备，一定要加这个选项
- 五、常用命令  启动常用的grub命令  root (hd0,2) #设置某块分区为根目录kernel /vmlinuz #加载linux kernelinitrd /initrd.gz #加载驱动，或者虚拟rootfsboot #启动加载的kernel  查找文件 find --set-root --ignore-floppies --ignore-cd /usr/bin/cp #查找/usr/bin/cp文件，并将分区设为根目录，忽略软盘和cd 加载iso  root (hdx,x) #设置根目录map --mem /xx.iso (0xff) #映射iso文件到模拟cdrom 0xffmap --hook #映射钩子chainloader (0xff) #链接到映射的CDROMboot #启动 grub命名规则，(hd32)为第一仿真cd/dvd设备，等同于0xa0，(hd33)为二仿真cd/dvd设备，0xff为最后一个。grub中将0xa0以上都认做cdrom。 map --mem 用于仿真不连续的存放的iso文件，不加则必须连续存放，碎片整理后再存放iso一般才会连续。 另外grub不支持大的iso，如果iso不支持则提示:inviladorupsupported executableformat。</description>
+--efi-directory=/boot/efi/这个位置的问题，如果efi分区是单独挂载的，就直接写这个目录就可以了，不用加efi，它会在这个目录下建立EFI的目录，写入相关文件。 --boot-directory=/boot/这个不用加grub2，它会自己生成grub2目录，写入相关文件 --removable如果是移动设备，一定要加这个选项
+五、常用命令 启动常用的grub命令 root (hd0,2) #设置某块分区为根目录kernel /vmlinuz #加载linux kernelinitrd /initrd.gz #加载驱动，或者虚拟rootfsboot #启动加载的kernel 查找文件 find --set-root --ignore-floppies --ignore-cd /usr/bin/cp #查找/usr/bin/cp文件，并将分区设为根目录，忽略软盘和cd 加载iso root (hdx,x) #设置根目录map --mem /xx.iso (0xff) #映射iso文件到模拟cdrom 0xffmap --hook #映射钩子chainloader (0xff) #链接到映射的CDROMboot #启动 grub命名规则，(hd32)为第一仿真cd/dvd设备，等同于0xa0，(hd33)为二仿真cd/dvd设备，0xff为最后一个。grub中将0xa0以上都认做cdrom。 map --mem 用于仿真不连续的存放的iso文件，不加则必须连续存放，碎片整理后再存放iso一般才会连续。 另外grub不支持大的iso，如果iso不支持则提示:inviladorupsupported executableformat。</description>
     </item>
     
     <item>
@@ -305,15 +306,16 @@ $ git init 这个命令可以把当前目录变成git管理的仓库。 远程�
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/golang%E5%92%8Cnodejs%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</guid>
-      <description>配置golang   下载文件：golang官网下载 解压文件至/usr/local/目录下：  # rm -rf /usr/local/go &amp;amp;&amp;amp; tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz
+      <description>配置golang 下载文件：golang官网下载 解压文件至/usr/local/目录下： # rm -rf /usr/local/go &amp;amp;&amp;amp; tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz
 （第一个命令是删除golang的残余文件）
- 建立软链接至/usr/bin/目录下：  # ln -s /usr/local/go/bin/go /usr/bin/
+建立软链接至/usr/bin/目录下： # ln -s /usr/local/go/bin/go /usr/bin/
 # ln -s /usr/local/go/bin/gofmt /usr/bin/
- 修改为国内源  # go env -w GO111MODULE=auto 
-# go env -w GOPROXY=https://goproxy.cn,direct
- 查看配置  # go env
-配置nodejs   下载文件：nodejs官网 解压文件至/usr/local/目录下：  # rm -rf /usr/local/go &amp;amp;&amp;amp; tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz
-（第一个命令是删除nodejs的残余文件） # npm install yarn</description>
+修改为国内源 # go env -w GO111MODULE=auto # go env -w GOPROXY=https://goproxy.cn,direct
+查看配置 # go env
+配置nodejs 下载文件：nodejs官网 解压文件至/usr/local/目录下： # rm -rf /usr/local/go &amp;amp;&amp;amp; tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz
+（第一个命令是删除nodejs的残余文件） # npm install yarn
+建立软链接至/usr/bin/目录下： # ln -s /usr/local/node-v16.13.2-linux-arm64/bin/node /usr/bin/
+# ln -s /usr/local/node-v16.13.2-linux-arm64/bin/npm /usr/bin/</description>
     </item>
     
     <item>
@@ -333,8 +335,8 @@ go build flysnow.org/tools/...
 讲到go build编译，不能不提跨平台编译，Go提供了编译链工具，可以让我们在任何一个开发平台上，编译出其他平台的可执行文件。
 默认情况下，都是根据我们当前的机器生成的可执行文件，比如你的是Linux 64位，就会生成Linux 64位下的可执行文件，比如我的Mac；可以使用go env查看编译环境,以下截取重要的部分。
 go env GOARCH=&amp;#34;amd64&amp;#34; GOEXE=&amp;#34;&amp;#34; GOHOSTARCH=&amp;#34;amd64&amp;#34; GOHOSTOS=&amp;#34;darwin&amp;#34; GOOS=&amp;#34;darwin&amp;#34; GOROOT=&amp;#34;/usr/local/go&amp;#34; GOTOOLDIR=&amp;#34;/usr/local/go/pkg/tool/darwin_amd64&amp;#34; ** 注意里面两个重要的环境变量GOOS和GOARCH,其中GOOS指的是目标操作系统，它的可用值为：**
- darwin freebsd linux windows android dragonfly netbsd openbsd plan9 solaris  ** 一共支持10种操作系统。GOARCH指的是目标处理器的架构，目前支持的有：**
- arm arm64 386 amd64 ppc64 ppc64le mips64 mips64le s390x  一共支持9种处理器的架构</description>
+darwin freebsd linux windows android dragonfly netbsd openbsd plan9 solaris ** 一共支持10种操作系统。GOARCH指的是目标处理器的架构，目前支持的有：**
+arm arm64 386 amd64 ppc64 ppc64le mips64 mips64le s390x 一共支持9种处理器的架构</description>
     </item>
     
     <item>
@@ -345,8 +347,8 @@ go env GOARCH=&amp;#34;amd64&amp;#34; GOEXE=&amp;#34;&amp;#34; GOHOSTARCH=&amp;#
       <guid>https://blog.wiseai.cn/post/gpio%E7%9B%B8%E5%85%B3/</guid>
       <description>linux查看gpio状态 cat /sys/kernel/debug/gpio
 有个blog里有这个方法，去试试：
-mkdir /tmp/debug mount -t debugfs debugfs /tmp/debug cat /tmp/debug/gpio GPIO操作的一些说明  首先，看看系统中有没有“/sys/class/gpio”这个文件夹。如果没有请在编译内核的时候加入  Device Drivers-&amp;gt; GPIO Support -&amp;gt;/sys/class/gpio/… (sysfs interface)
- /sys/class/gpio 的使用说明：  gpio_operation 通过/sys/文件接口操作IO端口 GPIO到文件系统的映射
+mkdir /tmp/debug mount -t debugfs debugfs /tmp/debug cat /tmp/debug/gpio GPIO操作的一些说明 首先，看看系统中有没有“/sys/class/gpio”这个文件夹。如果没有请在编译内核的时候加入 Device Drivers-&amp;gt; GPIO Support -&amp;gt;/sys/class/gpio/… (sysfs interface)
+/sys/class/gpio 的使用说明： gpio_operation 通过/sys/文件接口操作IO端口 GPIO到文件系统的映射
 ◇ 控制GPIO的目录位于/sys/class/gpio
 ◇ /sys/class/gpio/export文件用于通知系统需要导出控制的GPIO引脚编号
 ◇ /sys/class/gpio/unexport 用于通知系统取消导出
@@ -356,8 +358,10 @@ mkdir /tmp/debug mount -t debugfs debugfs /tmp/debug cat /tmp/debug/gpio GPIO操
 ◇ direction文件，定义输入输入方向，可以通过下面命令定义为输出。direction接受的参数：in, out, high, low。high/low同时设置方向为输出，并将value设置为相应的1/0
 ◇ value文件是端口的数值，为1或0
 例子： 进入/sys/class/gpio/文件夹：
- 将gpio7重定向用户定义设备，生成gpio7目录  # echo 7 &amp;gt; export
-进入gpio7目录并查看文件  # cd gpio7</description>
+将gpio7重定向用户定义设备，生成gpio7目录 # echo 7 &amp;gt; export
+进入gpio7目录并查看文件 # cd gpio7
+# ls
+direction设置引脚方向，输入还是输出</description>
     </item>
     
     <item>
@@ -446,8 +450,8 @@ Is an integral
 $$ \varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } } $$
 Enable Katex in the config file by setting the katex param to true. This will import the necessary Katex CSS/JS.
 See the online reference of supported TeX functions.
-1  Inline math: $\varphi=\dfrac{1+\sqrt5}{2}=1.6180339887… $   Inline math: $ \varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887… $
-1 2 3  Block math: $$\varphi=1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } } $$   Block math:</description>
+1 Inline math: $ \varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887… $ Inline math: $ \varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887… $
+1 2 3 Block math: $$ \varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } } $$ Block math:</description>
     </item>
     
     <item>
@@ -461,8 +465,8 @@ $$ \int_{a}^{b} x^2 dx $$
 Is an integral
 $$ \varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } } $$
 Enable MathJax in the config file by setting the mathjax param to true. This will import the necessary MathJax CSS/JS.
-1  Inline math: $\varphi=\dfrac{1+\sqrt5}{2}=1.6180339887… $   Inline math: $ \varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887… $
-1 2 3  Block math: $$\varphi=1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } } $$   Block math:</description>
+1 Inline math: $ \varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887… $ Inline math: $ \varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887… $
+1 2 3 Block math: $$ \varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } } $$ Block math:</description>
     </item>
     
     <item>
