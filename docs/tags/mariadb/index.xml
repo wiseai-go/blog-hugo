@@ -21,7 +21,7 @@
 # mysqld_safe --user=mysql --skip-grant-tables --skip-networking
 3.无密码登录:
 # mysql -u root mysql
- 命令行登录：
+命令行登录：
 # mysql -h 127.0.0.1 -u root -p -P 3306
 新建用户：
 # create user &#39;newuser&#39;@&#39;localhost&#39; identified by &#39;123456&#39;;
@@ -33,7 +33,7 @@
 注：you password获取方法：
 # select password(&#39;你的明文密码&#39;);
 所有权限
-# grant all privileges on *.</description>
+# grant all privileges on *.* to &#39;newuser&#39;@&#39;localhost&#39; identified by password &#39;you password&#39;;</description>
     </item>
     
   </channel>

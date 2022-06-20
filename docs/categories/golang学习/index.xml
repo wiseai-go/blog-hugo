@@ -14,15 +14,16 @@
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/golang%E5%92%8Cnodejs%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</guid>
-      <description>配置golang   下载文件：golang官网下载 解压文件至/usr/local/目录下：  # rm -rf /usr/local/go &amp;amp;&amp;amp; tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz
+      <description>配置golang 下载文件：golang官网下载 解压文件至/usr/local/目录下： # rm -rf /usr/local/go &amp;amp;&amp;amp; tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz
 （第一个命令是删除golang的残余文件）
- 建立软链接至/usr/bin/目录下：  # ln -s /usr/local/go/bin/go /usr/bin/
+建立软链接至/usr/bin/目录下： # ln -s /usr/local/go/bin/go /usr/bin/
 # ln -s /usr/local/go/bin/gofmt /usr/bin/
- 修改为国内源  # go env -w GO111MODULE=auto 
-# go env -w GOPROXY=https://goproxy.cn,direct
- 查看配置  # go env
-配置nodejs   下载文件：nodejs官网 解压文件至/usr/local/目录下：  # rm -rf /usr/local/go &amp;amp;&amp;amp; tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz
-（第一个命令是删除nodejs的残余文件） # npm install yarn</description>
+修改为国内源 # go env -w GO111MODULE=auto # go env -w GOPROXY=https://goproxy.cn,direct
+查看配置 # go env
+配置nodejs 下载文件：nodejs官网 解压文件至/usr/local/目录下： # rm -rf /usr/local/go &amp;amp;&amp;amp; tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz
+（第一个命令是删除nodejs的残余文件） # npm install yarn
+建立软链接至/usr/bin/目录下： # ln -s /usr/local/node-v16.13.2-linux-arm64/bin/node /usr/bin/
+# ln -s /usr/local/node-v16.13.2-linux-arm64/bin/npm /usr/bin/</description>
     </item>
     
     <item>
@@ -42,8 +43,8 @@ go build flysnow.org/tools/...
 讲到go build编译，不能不提跨平台编译，Go提供了编译链工具，可以让我们在任何一个开发平台上，编译出其他平台的可执行文件。
 默认情况下，都是根据我们当前的机器生成的可执行文件，比如你的是Linux 64位，就会生成Linux 64位下的可执行文件，比如我的Mac；可以使用go env查看编译环境,以下截取重要的部分。
 go env GOARCH=&amp;#34;amd64&amp;#34; GOEXE=&amp;#34;&amp;#34; GOHOSTARCH=&amp;#34;amd64&amp;#34; GOHOSTOS=&amp;#34;darwin&amp;#34; GOOS=&amp;#34;darwin&amp;#34; GOROOT=&amp;#34;/usr/local/go&amp;#34; GOTOOLDIR=&amp;#34;/usr/local/go/pkg/tool/darwin_amd64&amp;#34; ** 注意里面两个重要的环境变量GOOS和GOARCH,其中GOOS指的是目标操作系统，它的可用值为：**
- darwin freebsd linux windows android dragonfly netbsd openbsd plan9 solaris  ** 一共支持10种操作系统。GOARCH指的是目标处理器的架构，目前支持的有：**
- arm arm64 386 amd64 ppc64 ppc64le mips64 mips64le s390x  一共支持9种处理器的架构</description>
+darwin freebsd linux windows android dragonfly netbsd openbsd plan9 solaris ** 一共支持10种操作系统。GOARCH指的是目标处理器的架构，目前支持的有：**
+arm arm64 386 amd64 ppc64 ppc64le mips64 mips64le s390x 一共支持9种处理器的架构</description>
     </item>
     
   </channel>
