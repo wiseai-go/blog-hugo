@@ -7,7 +7,242 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Fri, 10 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 20 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux中firefox支持flash</title>
+      <link>https://blog.wiseai.cn/post/linux%E4%B8%ADfirefox%E6%94%AF%E6%8C%81flash/</link>
+      <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/linux%E4%B8%ADfirefox%E6%94%AF%E6%8C%81flash/</guid>
+      <description>这个有点旧了，参考下   进入adobe中下载flash
+  解压文件
+  cp ./libflashplayer.so /home/wiseai/.mozilla/plugins/
+  chmod 755 /home/wiseai/.mozilla/plugins/libflashplayer.so
+  搞定</description>
+    </item>
+    
+    <item>
+      <title>Linux远程连接软件</title>
+      <link>https://blog.wiseai.cn/post/linux%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E8%BD%AF%E4%BB%B6/</link>
+      <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/linux%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E8%BD%AF%E4%BB%B6/</guid>
+      <description>远程桌面客户端:Remmina Remote Desktop Client
+安装：apt install remmina</description>
+    </item>
+    
+    <item>
+      <title>NetworkManager网络管理相关问题</title>
+      <link>https://blog.wiseai.cn/post/networkmanager%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/networkmanager%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</guid>
+      <description>相关配置文件位置   /etc/dbus-1/system.d/NetworkManager.conf /etc/dbus-1/system.d/nm-avahi-autoipd.conf /etc/dbus-1/system.d/nm-dhcp-client.conf /etc/dbus-1/system.d/nm-dispatcher.conf /etc/dbus-1/system.d/nm-system-settings.conf /etc/rc.d/init.d/NetworkManager
+ /etc/dbus-1/system.d/nm-applet.conf
+ 不使用Network Manager 管理某些网络设备 默认情况下，NetworkManager 管理除 lo（环回）设备以外的所有网络设备，因为一些情况需要将设备设置为 unmanaged，也就是不使用NetworkManager管理这些设备。  查看设备状态 # nmcli device status 在 /etc/NetworkManager/NetworkManager.conf 配置文件的[main] 层级下启用插件 keyfile。    [main] plugins=keyfile 这个一般都启用了。 - 创建 /etc/NetworkManager/conf.d/unmanaged-devices.conf 配置文件（这个文件名没有要求，自己容易识别就可以了），包含以下内容：
+[keyfile] unmanaged-devices=interface-name:wlan*   以分号隔开； 可以使用通配符来匹配接口； interface-name:eth*,except:interface-name:eth0;表示：除了 eth0，其他以 eth 开头的接口全部 unmanaged； 可以通过 mac 地址来排除接口，mac:66:77:88:99:00:aa   - 重启服务  # systemctl restart network-manager.service</description>
+    </item>
+    
+    <item>
+      <title>php5-fpm.sock failed</title>
+      <link>https://blog.wiseai.cn/post/php5-fpm.sock-failed/</link>
+      <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/php5-fpm.sock-failed/</guid>
+      <description>/etc/php5/fpm/pool.d/www.conf
+里面找到这样一段代码：
+listen = 127.0.0.1:9000
+在这上面代码的下面添加一行：
+listen = /var/run/php5-fpm.sock
+保存后启动php5-fpm
+/etc/init.d/php5-fpm restart
+这时就可以正常访问了</description>
+    </item>
+    
+    <item>
+      <title>php截取中文字符串乱码问题</title>
+      <link>https://blog.wiseai.cn/post/php%E6%88%AA%E5%8F%96%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/php%E6%88%AA%E5%8F%96%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</guid>
+      <description>php截取字符串有两个函数:
+一个是substr()，这个用来截取全字母的字符串，截取UTF-8的汉字就会出错；
+另一个是mb_substr()，这个用来截取汉字，但一定要注明编码方式：mb_substr(&amp;lsquo;我的祖国是中国&amp;rsquo;, 0, 4, &amp;lsquo;utf-8&amp;rsquo;);</description>
+    </item>
+    
+    <item>
+      <title>samba服务器配置和使用</title>
+      <link>https://blog.wiseai.cn/post/samba%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/samba%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/</guid>
+      <description>安装：
+#dnf install samba
+端口：
+管理工作组：UDP137，138
+共享数据：TCP139，445（不一定存在）
+启动服务：
+#systemctl start smb
+#systemctl enable smb
+配置文件（/etc/samba/smb.conf）:
+1.先设定好服务器整体环境方面的参数
+[global]
+config file = /etc/samba/conf/smb.conf.%m
+说明：config file可以让你使用另一个配置文件来覆盖缺省的配置文件。如果文件 不存在，则该项无效。这个参数很有用，可以使得samba配置更灵活，可以让一台samba服务器模拟多台不同配置的服务器。比如，你想让PC1（主机 名）这台电脑在访问Samba Server时使用它自己的配置文件，那么先在/etc/samba/host/下为PC1配置一个名为smb.conf.pc1的文件，然后在 smb.conf中加入：config file = /etc/samba/conf/smb.conf.%m。这样当PC1请求连接Samba Server时，smb.conf.%m就被替换成smb.conf.pc1。这样，对于PC1来说，它所使用的Samba服务就是由 smb.conf.pc1定义的，而其他机器访问Samba Server则还是应用smb.conf。
+#用户组 workgroup = mygroup #欢迎信息 server string = Samba Server Version %v #加密 security = user #使用TDB 数据库格式 passdb backend = tdbsam #不加载打印机 load printers = no #共享名 [homes] #说明 comment = Home Directories #除了使用者自己外,不可被其他人浏览 browseable = no #挂载后可擦写此分享 writable = yes #建立档案的权限为 664 create mode = 0664 #建立目录的权限为 775 directory mode = 0775 #指定允许访问该共享资源的用户&amp;amp;&amp;amp;多个用户或者组中间用逗号隔开，如果要加入一个组就用&amp;#34;@组名&amp;#34;表示,%s表示代替前一个[]里的内容 valid users = %S valid users = MYDOMAIN\%S [share] comment = Public Stuff #实际的 Linux 上面的目录位置 path = /home/samba #用来指定该共享的管理员（对该共享具有完全控制权限） admin users = admin #指定允许访问该共享资源的用户或者组 valid users = share,@share #指定不允许访问该共享资源的用户 invalid users = guest #除了使用者自己外,不可被其他人浏览 browseable = no #指定可以在该共享下写入文件的用户 write list = share,@share #指定该共享是否允许guest账户访问 public = no #指定该共享路径是否可写 writable = yes #可以在该共享下写入文件的用户和组 write list = share,@share 用 testparm 查阅 smb.</description>
+    </item>
+    
+    <item>
+      <title>ssh加密算法的启用禁用方法</title>
+      <link>https://blog.wiseai.cn/post/ssh%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E7%9A%84%E5%90%AF%E7%94%A8%E7%A6%81%E7%94%A8%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/ssh%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E7%9A%84%E5%90%AF%E7%94%A8%E7%A6%81%E7%94%A8%E6%96%B9%E6%B3%95/</guid>
+      <description>“手机ES文件浏览器”不能连接sftp的问题解决方法 首先，说说为什么学习这个东西，在使用“手机ES文件浏览器”这个软件的时候，出现了不能连接的情况，在网上查询后发现是KexAlgorithms 密钥交换算法的问题，在/etc/ssh/sshd_config后添加: KexAlgorithms +diffie-hellman-group14-sha1 后问题解决。 出现no matching host key type found.Their offer: ssh-rsa,ssh-dss这个问题时,在/etc/ssh/sshd_config后添加： HostKeyAlgorithms ssh-rsa  配置位置：/etc/ssh/sshd_config   Ciphers Ciphers 指定 ssh 使用的加密算法。多个加密算法之间使用逗号分隔。当 Ciphers 的值以 + 字符开始时，指定的加密算法将附加到默认集合，不影响默认集合中的其它算法。当 Ciphers 的值以 ‘-’ 字符开始时，指定的加密算法将会从默认集合中移除，不影响默认集合中的其它项目。 比如，在 sshd_config 文件的最后添加如下行： Ciphers +3des-cbc,aes128-cbc 这样就添加了两个加密算法。 Ciphers -3des-cbc,aes128-cbc 这样就删除了两个加密算法。
+  MACs MACs 选项指定可用的 MAC（消息认证代码）算法，用于数据完整性保护。配置方法与 Ciphers 一致。
+  KexAlgorithms KexAlgorithms 选项指定可用的密钥交换算法。配置方法与 Ciphers 一致。
+  PubkeyAcceptedKeyTypes PubkeyAcceptedKeyTypes 指定公钥认证允许的密钥类型。配置方法与 Ciphers 一致。
+  查看 ssh 支持的不同类别的加密算法 Ciphers: ssh -Q cipher MACs: ssh -Q mac KexAlgorithms: ssh -Q kex PubkeyAcceptedKeyTypes: ssh -Q key</description>
+    </item>
+    
+    <item>
+      <title>vi和vim使用</title>
+      <link>https://blog.wiseai.cn/post/vi%E5%92%8Cvim%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/vi%E5%92%8Cvim%E4%BD%BF%E7%94%A8/</guid>
+      <description>三种模式，分别是『一般指令模式』、『编辑模式』与『指令列命令模式』。 一般指令模式(command mode) 以vi 打开一个档案就直接进入一般指令模式了(这是预设的模式，也简称为一般模式)。在这个模式中， 你可以使用『上下左右』按键来移动游标，你可以使用『删除字元』或『删除整列』来处理档案内容， 也可以使用『复制、贴上』来处理你的文件资料。 编辑模式(insert mode) 在一般指令模式中可以进行删除、复制、贴上等等的动作，但是却无法编辑文件内容的！要等到你按下『i, I, o, O, a, A, r, R』等任何一个字母之后才会进入编辑模式。注意了！通常在Linux中，按下这些按键时，在画面的左下方会出现『INSERT或REPLACE』的字样，此时才可以进行编辑。而如果要回到一般指令模式时，则必须要按下『Esc』这个按键即可退出编辑模式。 指令列命令模式(command-line mode) 在一般模式当中，输入『 : / ?』三个中的任何一个按钮，就可以将游标移动到最底下那一列。在这个模式当中，可以提供你『搜寻资料』的动作，而读取、存档、大量取代字元、离开vi 、显示行号等等的动作则是在此模式中达成的！  按键说明 一般指令模式可用的按键说明，游标移动、复制贴上、搜寻取代等 屏幕『向下』移动半页: [Ctrl] + [d] 屏幕『向上』移动半页: [Ctrl] + [u] 游标向右移动这一列的n个字符: n空格键 移动到这个档案的第n行#: nG 游标向下移动n行#:n回车键 搜寻与取代 在第n1与n2列之间寻找word1这个字串，并将该字串取代为word2 #:n1,n2s/word1/word2/g 从第一列到最后一列寻找word1字串，并将该字串取代为word2 #:1,$s/word1/word2/g 从第一列到最后一列寻找word1字串，并将该字串取代为word2,且在取代前显示提示字元给使用者确认(confirm)是否需要取代 #:1,$s/word1/word2/gc 删除、复制与粘贴 删除游标所在到第一行的所有资料#:d1G 删除游标所在到最后一列的所有资料#:dG 删除游标所在处，到该行的最后一个字符#:d$ 删除游标所在处，到该行的最前面一个字符#:d0 将游标所在行与下一行的资料结合成同一列#:J 复原前一个动作#:u 重做上一个动作#:[Ctrl]+r 重复前一个动作#:. 区块选择的按键意义 用长方形的方式选择区块#:[Ctrl]+v  多档案编辑
+vim /etc/hosts /etc/resolv.conf 编辑下一个档案::n 编辑上一个档案::N 列出目前这个vim的开启的所有档案::files 多视窗功能 在指令列模式输入『:sp {filename}』 『[ctrl]+w+↑』[ctrl]+w+j及『[ctrl]+w+↓』[ctrl]+w+k在两个视窗之间移动 </description>
+    </item>
+    
+    <item>
+      <title>下载命令wget</title>
+      <link>https://blog.wiseai.cn/post/%E4%B8%8B%E8%BD%BD%E5%91%BD%E4%BB%A4wget/</link>
+      <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/%E4%B8%8B%E8%BD%BD%E5%91%BD%E4%BB%A4wget/</guid>
+      <description>选项:
+-b 后台下载 -O 文件名为***（大写o） -i 下载文件中的URL -t 设置重试次数（0为无限次） -c 断点续传  其它参数：wget –help</description>
+    </item>
+    
+    <item>
+      <title>使用caddy搭建webdav服务器</title>
+      <link>https://blog.wiseai.cn/post/%E4%BD%BF%E7%94%A8caddy%E6%90%AD%E5%BB%BAwebdav%E6%9C%8D%E5%8A%A1%E5%99%A8/</link>
+      <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/%E4%BD%BF%E7%94%A8caddy%E6%90%AD%E5%BB%BAwebdav%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid>
+      <description>首先下载或者编译包含Webdav插件的Caddy 生成密码（设置123456789的密码）  # caddy hash-password --plaintext 123456789
+JDJhJDE0JHpGUDNaL1Q5UEV2dWZxd1BCYWdGUS56WkdZbHJDZG8ybURERWYyRzlzLzd0TTM2akYxNFVh
+编辑Caddyfile   { http_port 80 https_port 443 order webdav before file_server } :6666 { root * /home/xjc/software/caddy/ encode zstd gzip basicauth { #用户名 上面命令生成的密码 admin JDJhJDE0JHpGUDNaL1Q5UEV2dWZxd1BCYWdGUS56WkdZbHJDZG8ybURERWYyRzlzLzd0TTM2akYxNFVh } route { rewrite /webdav /webdav/ webdav /webdav/* { prefix /webdav } } } 运行服务  # caddy run -config Caddyfile -watch
+或者
+# caddy start后台运行服务
+# caddy stop停止服务
+挂载webdav网盘  # sudo mount.</description>
+    </item>
+    
+    <item>
+      <title>使用OpenSSL生成证书</title>
+      <link>https://blog.wiseai.cn/post/%E4%BD%BF%E7%94%A8openssl%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6/</link>
+      <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/%E4%BD%BF%E7%94%A8openssl%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6/</guid>
+      <description>下载安装OpenSSL，进入/bin/下面，执行命令（把ssl目录下的openssl.cnf 拷贝到bin目录下）
+1.首先要生成服务器端的私钥(key文件):
+ openssl genrsa -des3 -out server.key 1024 [root@airwaySSL openssl]# cd ssl/ [root@airwaySSL ssl]# pwd /home/openssl/ssl [root@airwaySSL ssl]# ls certs man misc openssl.cnf private server.csr server.key 运行时会提示输入密码,此密码用于加密key文件(参数des3便是指加密算法,当然也可以选用其他你认为安全的算法.),以后每当需读取此文件(通过openssl提供的命令或API)都需输入口令.如果觉得不方便,也可以去除这个口令,但一定要采取其他的保护措施!
+去除key文件口令的命令:
+ openssl rsa -in server.key -out server.key 2.openssl req -new -key server.key -out server.csr -config openssl.cnf
+ [root@airwaySSL bin]# openssl req -new -key server.key -out server.csr -config openssl.cnf Enter pass phrase for server.key:12345 You are about to be asked to enter information that will be incorporated into your certificate request.</description>
+    </item>
+    
+    <item>
+      <title>Raspberry Pi 4 boot EEPROM</title>
+      <link>https://blog.wiseai.cn/post/raspberry-pi-4-boot-eeprom/</link>
+      <pubDate>Sun, 19 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/raspberry-pi-4-boot-eeprom/</guid>
+      <description>Raspberry Pi 4 boot EEPROM 官方文档：https://www.raspberrypi.org/documentation/hardware/raspberrypi/booteeprom.md
+升级 Updating from Raspberry Pi OS Bootloader updates are instigated during a normal apt update, apt full-upgrade cycle, this means you will get new features and bug fixes during your normal updates.
+Bootloader updates are performed by rpi-eeprom-update service provided by the rpi-eeprom package. This service runs at boot and updates the bootloader at the next reboot if a new production release is available. The service automatically migrates the current boot settings to the new bootloader release.</description>
+    </item>
+    
+    <item>
+      <title>更改ubuntu源</title>
+      <link>https://blog.wiseai.cn/post/%E6%9B%B4%E6%94%B9ubuntu%E6%BA%90/</link>
+      <pubDate>Sun, 19 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/%E6%9B%B4%E6%94%B9ubuntu%E6%BA%90/</guid>
+      <description>sed -i &#39;s#http://archive.ubuntu.com/ubuntu/#mirror://mirrors.ubuntu.com/mirrors.txt#&#39; /etc/apt/sources.list</description>
+    </item>
+    
+    <item>
+      <title>locate命令</title>
+      <link>https://blog.wiseai.cn/post/locate%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Sat, 18 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/locate%E5%91%BD%E4%BB%A4/</guid>
+      <description>locate命令用于查找符合条件的文档，他会去保存文档和目录名称的数据库内，查找合乎范本样式条件的文档或目录。 # locate [-d ][--help][--version][查找内容文本]
+参数：
+-b, --basename 仅匹配路径名的基本名称，**也就是说文件名包含的才显示，目录不显示**。 -c, --count 只输出找到的数量 -d, --database DBPATH 使用 DBPATH 指定的数据库，而不是默认数据库 /var/lib/mlocate/mlocate.db -e, --existing 仅打印当前现有文件的条目 -1 如果是 1则启动安全模式。在安全模式下，使用者不会看到权限无法看到的档案。这会始速度减慢，因为 locate 必须至实际的档案系统中取得档案的权限资料。 -0, --null 在输出上带有NUL的单独条目 -S, --statistics 不搜索条目，打印有关每个数据库的统计信息 -P, --nofollow, -H 检查文件存在时不要遵循尾随的符号链接 -l, --limit, -n LIMIT 将输出（或计数）限制为LIMIT个条目 -n 至多显示 n个输出。 -m, --mmap 被忽略，为了向后兼容 -r, --regexp REGEXP 使用基本正则表达式 --regex 使用扩展正则表达式 -q, --quiet 安静模式，不会显示任何错误讯息 -s, --stdio 被忽略，为了向后兼容 -o 指定资料库存的名称。 -h, --help 显示帮助 -i, --ignore-case 忽略大小写 -V, --version 显示版本信息  locate 的数据库在 /var/lib/slocate/slocate.</description>
+    </item>
+    
+    <item>
+      <title>整站或网页下载软件httrack</title>
+      <link>https://blog.wiseai.cn/post/%E6%95%B4%E7%AB%99%E6%88%96%E7%BD%91%E9%A1%B5%E4%B8%8B%E8%BD%BD%E8%BD%AF%E4%BB%B6httrack/</link>
+      <pubDate>Fri, 17 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/%E6%95%B4%E7%AB%99%E6%88%96%E7%BD%91%E9%A1%B5%E4%B8%8B%E8%BD%BD%E8%BD%AF%E4%BB%B6httrack/</guid>
+      <description>首先安装httrack:
+＃dnf install httrack
+使用说明：
+＃httrack
+输入项目名
+输入保存目录
+输入需要保存的网站URL或者网页URL
+其它的默认就好</description>
+    </item>
+    
+    <item>
+      <title>搭建apt本地源</title>
+      <link>https://blog.wiseai.cn/post/%E6%90%AD%E5%BB%BAapt%E6%9C%AC%E5%9C%B0%E6%BA%90/</link>
+      <pubDate>Thu, 16 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/%E6%90%AD%E5%BB%BAapt%E6%9C%AC%E5%9C%B0%E6%BA%90/</guid>
+      <description>一、安装apt-mirror命令 # apt install apt-mirror
+二、 修改apt-mirror配置文件 首先， 确定自己系统的版本 ，root权限执行：
+# lsb_release -a
+我的系统是ubuntu的bionic，从阿里云下载源，一般有5个目录，前三个常用，后两个是预发布软件，不常用，我一般用前三个
+deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse 然后，编辑apt-mirror的配置文件/etc/apt/mirror.list
+配置镜像下载目录 set base_path /var/spool/apt-mirror
+架构配置，i386/amd64，默认的话会下载跟本机相同的架构的源 set defaultarch amd64
+下载线程数 set nthreads 20 set _tilde 0
+阿里云的源（这里没有添加deb-src的源码源） deb http://mirrors.aliyun.com/ubuntu/ xenial main restricted universe multiverse deb http://mirrors.</description>
+    </item>
+    
+    <item>
+      <title>yum时出现error的解决办法</title>
+      <link>https://blog.wiseai.cn/post/yum%E6%97%B6%E5%87%BA%E7%8E%B0error%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
+      <pubDate>Wed, 15 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/yum%E6%97%B6%E5%87%BA%E7%8E%B0error%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
+      <description>错误内容： Unable to detect release version (use ‘–releasever’ to specify release version) error: rpmdb: damaged header #173 retrieved — skipping. error: rpmdbNextIterator: skipping h# 173 blob size(55540): BAD, 8 + 16 * il(78) + dl(54284) 解决办法： 首先：删除/var/lib/下的rpm文件夹
+之后：执行命令rpm --rebuilddb
+最后：安装一个提供版本号的包yum --releasever 8 install centos-release
+其中--releasever 8是指定版本号，我的是centos8，所以这么写。</description>
+    </item>
+    
+    <item>
+      <title>树莓派蓝牙相关问题</title>
+      <link>https://blog.wiseai.cn/post/%E6%A0%91%E8%8E%93%E6%B4%BE%E8%93%9D%E7%89%99%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Wed, 15 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/%E6%A0%91%E8%8E%93%E6%B4%BE%E8%93%9D%E7%89%99%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</guid>
+      <description>因系统更新快，这里的操作仅供参考!!
+ 升级安装蓝牙相关软件包  # sudo apt-get install pi-bluetooth bluez bluez-firmware blueman
+添加pi用户到蓝牙组  # sudo usermod -G bluetooth -a pi
+重启  # sudo reboot
+使用命令打开蓝牙  pi@raspberrypi:/ $ sudo bluetoothctl [bluetooth]#list Controller B8:27:EB:3D:15:E9 raspberrypi [default] [bluetooth]# scan on Discovery started [CHG] Device 5F:FC:4E:B0:EA:59 RSSI: -97 [NEW] Device 42:29:9A:3B:75:E6 42-29-9A-3B-75-E6 [bluetooth]# devices Device 30:21:4F:54:4D:8E Newmine Device 72:D7:02:62:CE:A0 72-D7-02-62-CE-A0 Device 5F:FC:4E:B0:EA:59 5F-FC-4E-B0-EA-59 Device E4:A7:C5:C8:55:F5 HUAWEI Mate 10 Pro Device 42:29:9A:3B:75:E6 42-29-9A-3B-75-E6 [bluetooth]# pair 30:21:4F:54:4D:8E Attempting to pair with 30:21:4F:54:4D:8E Failed to pair: org.</description>
+    </item>
+    
     <item>
       <title>MarkDown在线编辑器</title>
       <link>https://blog.wiseai.cn/post/markdown%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91%E5%99%A8/</link>
@@ -16,7 +251,7 @@
       <guid>https://blog.wiseai.cn/post/markdown%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91%E5%99%A8/</guid>
       <description>使用开源项目editor.md我的gitee仓库下也有。
 安装 # npm install editor.md
-使用 &amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;&amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt;&amp;lt;link rel=&amp;#34;stylesheet&amp;#34; href=&amp;#34;editor.md/css/editormd.min.css&amp;#34; /&amp;gt;&amp;lt;title&amp;gt;Markdown 编辑在线器&amp;lt;/title&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;body&amp;gt;&amp;lt;div id=&amp;#34;text&amp;#34; style=&amp;#34;width: 100%;&amp;#34;&amp;gt;&amp;lt;div id=&amp;#34;editor&amp;#34; style=&amp;#34;height: 100%;&amp;#34;&amp;gt;&amp;lt;!-- Tips: Editor.md can auto append a `&amp;lt;textarea&amp;gt;` tag --&amp;gt;&amp;lt;textarea style=&amp;#34;display:none;&amp;#34; placeholder=&amp;#34;欢迎使用&amp;#34;&amp;gt;&amp;lt;/textarea&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;script src=&amp;#34;jquery.min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt;&amp;lt;script src=&amp;#34;editor.md/editormd.min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt;&amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt;// 设置div与窗口高度一致window.onload = function () {var h = window.innerHeight - 25 ; //获取当前窗口的高度; document.getElementById(&amp;#34;text&amp;#34;).style.height = h + &amp;#34;px&amp;#34;; //设置div的高度}// 设置textarea参数$(function() {var h = window.</description>
+使用  &amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;&amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt;&amp;lt;link rel=&amp;#34;stylesheet&amp;#34; href=&amp;#34;editor.md/css/editormd.min.css&amp;#34; /&amp;gt;&amp;lt;title&amp;gt;Markdown 编辑在线器&amp;lt;/title&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;body&amp;gt;&amp;lt;div id=&amp;#34;text&amp;#34; style=&amp;#34;width: 100%;&amp;#34;&amp;gt;&amp;lt;div id=&amp;#34;editor&amp;#34; style=&amp;#34;height: 100%;&amp;#34;&amp;gt;&amp;lt;!-- Tips: Editor.md can auto append a `&amp;lt;textarea&amp;gt;` tag --&amp;gt;&amp;lt;textarea style=&amp;#34;display:none;&amp;#34; placeholder=&amp;#34;欢迎使用&amp;#34;&amp;gt;&amp;lt;/textarea&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;script src=&amp;#34;jquery.min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt;&amp;lt;script src=&amp;#34;editor.md/editormd.min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt;&amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt;// 设置div与窗口高度一致window.onload = function () {var h = window.innerHeight - 25 ; //获取当前窗口的高度; document.getElementById(&amp;#34;text&amp;#34;).style.height = h + &amp;#34;px&amp;#34;; //设置div的高度}// 设置textarea参数$(function() {var h = window.</description>
     </item>
     
     <item>
@@ -34,7 +269,7 @@
       <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/sublime%E4%BD%BF%E7%94%A8/</guid>
-      <description>安装Package Control Tools-&amp;gt;Install Package Control 选项，即可调出 Package Control “Tools-&amp;gt;Command Palette&amp;hellip;”选项，快捷键Ctrl+Shift +P 输入 ipc ,点击 Install Package Control，即可调出 Package Control 设置中文 Preferences-&amp;gt;Package Control，快捷键Ctrl+Shift +P 选项弹出命令行输入框，输入ip，点击“install Package” 弹出命令行输入框，输入clz，点击“ChineseLocalizations” “帮助-&amp;gt;Language ”切换语言。 </description>
+      <description>安装Package Control  Tools-&amp;gt;Install Package Control 选项，即可调出 Package Control “Tools-&amp;gt;Command Palette&amp;hellip;”选项，快捷键Ctrl+Shift +P 输入 ipc ,点击 Install Package Control，即可调出 Package Control  设置中文  Preferences-&amp;gt;Package Control，快捷键Ctrl+Shift +P 选项弹出命令行输入框，输入ip，点击“install Package” 弹出命令行输入框，输入clz，点击“ChineseLocalizations” “帮助-&amp;gt;Language ”切换语言。  </description>
     </item>
     
     <item>
@@ -128,10 +363,10 @@ ALFS：Automated Linux From Scratch提供了自动化和管理LFS和BLFS构建�
       <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/linux%E4%B8%AD%E7%BC%BA%E5%B0%91%E8%BF%90%E8%A1%8C%E5%BA%93%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
-      <description>编辑 vi /etc/ld.so.conf root权限执行 /sbin/ldconfig -v命令 这样 ldd 才能找到这个库
+      <description>编辑 vi /etc/ld.so.conf root权限执行 /sbin/ldconfig -v命令  这样 ldd 才能找到这个库
 /etc/ld.so.conf:
-这个文件记录了编译时使用的动态链接库的路径。 默认情况下，编译器只会使用/lib和/usr/lib这两个目录下的库文件 如果你安装了某些库，没有指定 –prefix=/usr 这样lib库就装到了/usr/local下，而又没有在/etc/ld.so.conf中添加/usr/local/lib，就会报错了 ldconfig是个什么东东吧 ：
-它是一个程序，通常它位于/sbin下，是root用户使用的东东。具体作用及用法可以man ldconfig查到 简单的说，它的作用就是将/etc/ld.so.conf列出的路径下的库文件 缓存到/etc/ld.so.cache 以供使用 因此当安装完一些库文件，(例如刚安装好glib)，或者修改ld.so.conf增加新的库路径后，需要运行一下/sbin/ldconfig 使所有的库文件都被缓存到ld.so.cache中，如果没做，即使库文件明明就在/usr/lib下的，也是不会被使用的，结果 编译过程中抱错，缺少xxx库。 以上尝试后发现还是不行，添加 /usr/lib/x86_64-linux-gnu 有许多QT库文件</description>
+这个文件记录了编译时使用的动态链接库的路径。 默认情况下，编译器只会使用/lib和/usr/lib这两个目录下的库文件 如果你安装了某些库，没有指定 –prefix=/usr 这样lib库就装到了/usr/local下，而又没有在/etc/ld.so.conf中添加/usr/local/lib，就会报错了  ldconfig是个什么东东吧 ：
+它是一个程序，通常它位于/sbin下，是root用户使用的东东。具体作用及用法可以man ldconfig查到 简单的说，它的作用就是将/etc/ld.so.conf列出的路径下的库文件 缓存到/etc/ld.so.cache 以供使用 因此当安装完一些库文件，(例如刚安装好glib)，或者修改ld.so.conf增加新的库路径后，需要运行一下/sbin/ldconfig 使所有的库文件都被缓存到ld.so.cache中，如果没做，即使库文件明明就在/usr/lib下的，也是不会被使用的，结果 编译过程中抱错，缺少xxx库。  以上尝试后发现还是不行，添加 /usr/lib/x86_64-linux-gnu 有许多QT库文件</description>
     </item>
     
     <item>
@@ -147,7 +382,7 @@ ALFS：Automated Linux From Scratch提供了自动化和管理LFS和BLFS构建�
 # mysqld_safe --user=mysql --skip-grant-tables --skip-networking
 3.无密码登录:
 # mysql -u root mysql
-命令行登录：
+ 命令行登录：
 # mysql -h 127.0.0.1 -u root -p -P 3306
 新建用户：
 # create user &#39;newuser&#39;@&#39;localhost&#39; identified by &#39;123456&#39;;
@@ -159,7 +394,7 @@ ALFS：Automated Linux From Scratch提供了自动化和管理LFS和BLFS构建�
 注：you password获取方法：
 # select password(&#39;你的明文密码&#39;);
 所有权限
-# grant all privileges on *.* to &#39;newuser&#39;@&#39;localhost&#39; identified by password &#39;you password&#39;;</description>
+# grant all privileges on *.</description>
     </item>
     
     <item>
@@ -173,7 +408,7 @@ ALFS：Automated Linux From Scratch提供了自动化和管理LFS和BLFS构建�
 # apt install simplescreenrecorder
 其它安装方式：https://www.maartenbaert.be/simplescreenrecorder/
 它的一些显著特点包括:
-基于QT的简单GUI 可以记录整个屏幕或它的一部分	从OpenGL的应用程序直接记录 良好的视频和音频同步 有助于减少慢速机的视频帧速率 支持暂停和恢复功能 显示了了在记录过程期间的统计 支持录制过程中预览 默认设置已经很好，不需要进行过多设置 二、 OBS (Open Broadcaster Software) OBS 是一个免费、开源和跨平台的视频记录和流媒体应用程序,它可以工作在Linux、Windows和Mac OS X。 Windows需要从官网下载（https://obsproject.com/），Linux系统包含在rpmfusion中。
+基于QT的简单GUI 可以记录整个屏幕或它的一部分	从OpenGL的应用程序直接记录 良好的视频和音频同步 有助于减少慢速机的视频帧速率 支持暂停和恢复功能 显示了了在记录过程期间的统计 支持录制过程中预览 默认设置已经很好，不需要进行过多设置  二、 OBS (Open Broadcaster Software) OBS 是一个免费、开源和跨平台的视频记录和流媒体应用程序,它可以工作在Linux、Windows和Mac OS X。 Windows需要从官网下载（https://obsproject.com/），Linux系统包含在rpmfusion中。
 ＃ yum install obs-studio
 # apt install ffmpeg
 # add-apt-repository ppa:obsproject/obs-studio
@@ -189,11 +424,10 @@ ALFS：Automated Linux From Scratch提供了自动化和管理LFS和BLFS构建�
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/adduseraddgroup%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E7%94%A8%E6%88%B7%E7%BB%84/</guid>
-      <description>添加一个普通用户 # adduser [--home 主目录] [--shell SHELL] [--no-create-home] [--uid ID] [--firstuid ID] [--lastuid ID] [--gecos GECOS] [--ingroup 用户组 | --gid ID][--disabled-password] [--disabled-login] [--add_extra_groups] 用户名
-添加一个系统用户 # adduser --system [--home 主目录] [--shell SHELL] [--no-create-home] [--uid ID] [--gecos GECOS] [--group | --ingroup 用户组 | --gid ID] [--disabled-password] [--disabled-login] [--add_extra_groups] 用户名
-添加一个用户组 # adduser --group [--gid ID] 用户组名 # addgroup [--gid ID] 用户组名
-添加一个系统用户组 # addgroup --system [--gid ID] 用户组名
-将一个已存在的用户添加至一个已存在的用户组 # adduser 用户名 用户组名</description>
+      <description>添加一个普通用户  # adduser [--home 主目录] [--shell SHELL] [--no-create-home] [--uid ID] [--firstuid ID] [--lastuid ID] [--gecos GECOS] [--ingroup 用户组 | --gid ID][--disabled-password] [--disabled-login] [--add_extra_groups] 用户名
+ 添加一个系统用户  # adduser --system [--home 主目录] [--shell SHELL] [--no-create-home] [--uid ID] [--gecos GECOS] [--group | --ingroup 用户组 | --gid ID] [--disabled-password] [--disabled-login] [--add_extra_groups] 用户名
+ 添加一个用户组  # adduser --group [--gid ID] 用户组名 # addgroup [--gid ID] 用户组名
+ 添加一个系统用户组  # addgroup --system [--gid ID] 用户组名</description>
     </item>
     
     <item>
@@ -213,7 +447,7 @@ $ yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-
 $ yum install docker-ce
 如果提示接受GPG密钥，请验证指纹是否匹配060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35，如果匹配 ，则接受它。
 ubuntu:
-$ sudo apt-get update $ sudo apt-get install apt-transport-https ca-certificates curl software-properties-common $ curl -fsSL https://download.</description>
+ $ sudo apt-get update $ sudo apt-get install apt-transport-https ca-certificates curl software-properties-common $ curl -fsSL https://download.</description>
     </item>
     
     <item>
@@ -232,8 +466,8 @@ efi下的/boot/efi/EFI/centos/grub.cfg文件一般调用/boot/grub2/grub.cfg这�
 # grub2-set-default 2
 一般从0开始
 四、安装 # grub-install --efi-directory=/boot/efi/ --boot-directory=/boot/ --removable /dev/sda 几个需要说明的地方：
---efi-directory=/boot/efi/这个位置的问题，如果efi分区是单独挂载的，就直接写这个目录就可以了，不用加efi，它会在这个目录下建立EFI的目录，写入相关文件。 --boot-directory=/boot/这个不用加grub2，它会自己生成grub2目录，写入相关文件 --removable如果是移动设备，一定要加这个选项
-五、常用命令 启动常用的grub命令 root (hd0,2) #设置某块分区为根目录kernel /vmlinuz #加载linux kernelinitrd /initrd.gz #加载驱动，或者虚拟rootfsboot #启动加载的kernel 查找文件 find --set-root --ignore-floppies --ignore-cd /usr/bin/cp #查找/usr/bin/cp文件，并将分区设为根目录，忽略软盘和cd 加载iso root (hdx,x) #设置根目录map --mem /xx.iso (0xff) #映射iso文件到模拟cdrom 0xffmap --hook #映射钩子chainloader (0xff) #链接到映射的CDROMboot #启动 grub命名规则，(hd32)为第一仿真cd/dvd设备，等同于0xa0，(hd33)为二仿真cd/dvd设备，0xff为最后一个。grub中将0xa0以上都认做cdrom。 map --mem 用于仿真不连续的存放的iso文件，不加则必须连续存放，碎片整理后再存放iso一般才会连续。 另外grub不支持大的iso，如果iso不支持则提示:inviladorupsupported executableformat。</description>
+ --efi-directory=/boot/efi/这个位置的问题，如果efi分区是单独挂载的，就直接写这个目录就可以了，不用加efi，它会在这个目录下建立EFI的目录，写入相关文件。 --boot-directory=/boot/这个不用加grub2，它会自己生成grub2目录，写入相关文件 --removable如果是移动设备，一定要加这个选项
+ 五、常用命令  启动常用的grub命令  root (hd0,2) #设置某块分区为根目录kernel /vmlinuz #加载linux kernelinitrd /initrd.gz #加载驱动，或者虚拟rootfsboot #启动加载的kernel  查找文件 find --set-root --ignore-floppies --ignore-cd /usr/bin/cp #查找/usr/bin/cp文件，并将分区设为根目录，忽略软盘和cd 加载iso  root (hdx,x) #设置根目录map --mem /xx.iso (0xff) #映射iso文件到模拟cdrom 0xffmap --hook #映射钩子chainloader (0xff) #链接到映射的CDROMboot #启动 grub命名规则，(hd32)为第一仿真cd/dvd设备，等同于0xa0，(hd33)为二仿真cd/dvd设备，0xff为最后一个。grub中将0xa0以上都认做cdrom。 map --mem 用于仿真不连续的存放的iso文件，不加则必须连续存放，碎片整理后再存放iso一般才会连续。 另外grub不支持大的iso，如果iso不支持则提示:inviladorupsupported executableformat。</description>
     </item>
     
     <item>
@@ -306,16 +540,15 @@ $ git init 这个命令可以把当前目录变成git管理的仓库。 远程�
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/golang%E5%92%8Cnodejs%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</guid>
-      <description>配置golang 下载文件：golang官网下载 解压文件至/usr/local/目录下： # rm -rf /usr/local/go &amp;amp;&amp;amp; tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz
+      <description>配置golang   下载文件：golang官网下载 解压文件至/usr/local/目录下：  # rm -rf /usr/local/go &amp;amp;&amp;amp; tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz
 （第一个命令是删除golang的残余文件）
-建立软链接至/usr/bin/目录下： # ln -s /usr/local/go/bin/go /usr/bin/
+ 建立软链接至/usr/bin/目录下：  # ln -s /usr/local/go/bin/go /usr/bin/
 # ln -s /usr/local/go/bin/gofmt /usr/bin/
-修改为国内源 # go env -w GO111MODULE=auto # go env -w GOPROXY=https://goproxy.cn,direct
-查看配置 # go env
-配置nodejs 下载文件：nodejs官网 解压文件至/usr/local/目录下： # rm -rf /usr/local/go &amp;amp;&amp;amp; tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz
-（第一个命令是删除nodejs的残余文件） # npm install yarn
-建立软链接至/usr/bin/目录下： # ln -s /usr/local/node-v16.13.2-linux-arm64/bin/node /usr/bin/
-# ln -s /usr/local/node-v16.13.2-linux-arm64/bin/npm /usr/bin/</description>
+ 修改为国内源  # go env -w GO111MODULE=auto 
+# go env -w GOPROXY=https://goproxy.cn,direct
+ 查看配置  # go env
+配置nodejs   下载文件：nodejs官网 解压文件至/usr/local/目录下：  # rm -rf /usr/local/go &amp;amp;&amp;amp; tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz
+（第一个命令是删除nodejs的残余文件） # npm install yarn</description>
     </item>
     
     <item>
@@ -335,8 +568,8 @@ go build flysnow.org/tools/...
 讲到go build编译，不能不提跨平台编译，Go提供了编译链工具，可以让我们在任何一个开发平台上，编译出其他平台的可执行文件。
 默认情况下，都是根据我们当前的机器生成的可执行文件，比如你的是Linux 64位，就会生成Linux 64位下的可执行文件，比如我的Mac；可以使用go env查看编译环境,以下截取重要的部分。
 go env GOARCH=&amp;#34;amd64&amp;#34; GOEXE=&amp;#34;&amp;#34; GOHOSTARCH=&amp;#34;amd64&amp;#34; GOHOSTOS=&amp;#34;darwin&amp;#34; GOOS=&amp;#34;darwin&amp;#34; GOROOT=&amp;#34;/usr/local/go&amp;#34; GOTOOLDIR=&amp;#34;/usr/local/go/pkg/tool/darwin_amd64&amp;#34; ** 注意里面两个重要的环境变量GOOS和GOARCH,其中GOOS指的是目标操作系统，它的可用值为：**
-darwin freebsd linux windows android dragonfly netbsd openbsd plan9 solaris ** 一共支持10种操作系统。GOARCH指的是目标处理器的架构，目前支持的有：**
-arm arm64 386 amd64 ppc64 ppc64le mips64 mips64le s390x 一共支持9种处理器的架构</description>
+ darwin freebsd linux windows android dragonfly netbsd openbsd plan9 solaris  ** 一共支持10种操作系统。GOARCH指的是目标处理器的架构，目前支持的有：**
+ arm arm64 386 amd64 ppc64 ppc64le mips64 mips64le s390x  一共支持9种处理器的架构</description>
     </item>
     
     <item>
@@ -347,8 +580,8 @@ arm arm64 386 amd64 ppc64 ppc64le mips64 mips64le s390x 一共支持9种处理�
       <guid>https://blog.wiseai.cn/post/gpio%E7%9B%B8%E5%85%B3/</guid>
       <description>linux查看gpio状态 cat /sys/kernel/debug/gpio
 有个blog里有这个方法，去试试：
-mkdir /tmp/debug mount -t debugfs debugfs /tmp/debug cat /tmp/debug/gpio GPIO操作的一些说明 首先，看看系统中有没有“/sys/class/gpio”这个文件夹。如果没有请在编译内核的时候加入 Device Drivers-&amp;gt; GPIO Support -&amp;gt;/sys/class/gpio/… (sysfs interface)
-/sys/class/gpio 的使用说明： gpio_operation 通过/sys/文件接口操作IO端口 GPIO到文件系统的映射
+mkdir /tmp/debug mount -t debugfs debugfs /tmp/debug cat /tmp/debug/gpio GPIO操作的一些说明  首先，看看系统中有没有“/sys/class/gpio”这个文件夹。如果没有请在编译内核的时候加入  Device Drivers-&amp;gt; GPIO Support -&amp;gt;/sys/class/gpio/… (sysfs interface)
+ /sys/class/gpio 的使用说明：  gpio_operation 通过/sys/文件接口操作IO端口 GPIO到文件系统的映射
 ◇ 控制GPIO的目录位于/sys/class/gpio
 ◇ /sys/class/gpio/export文件用于通知系统需要导出控制的GPIO引脚编号
 ◇ /sys/class/gpio/unexport 用于通知系统取消导出
@@ -358,10 +591,8 @@ mkdir /tmp/debug mount -t debugfs debugfs /tmp/debug cat /tmp/debug/gpio GPIO操
 ◇ direction文件，定义输入输入方向，可以通过下面命令定义为输出。direction接受的参数：in, out, high, low。high/low同时设置方向为输出，并将value设置为相应的1/0
 ◇ value文件是端口的数值，为1或0
 例子： 进入/sys/class/gpio/文件夹：
-将gpio7重定向用户定义设备，生成gpio7目录 # echo 7 &amp;gt; export
-进入gpio7目录并查看文件 # cd gpio7
-# ls
-direction设置引脚方向，输入还是输出</description>
+ 将gpio7重定向用户定义设备，生成gpio7目录  # echo 7 &amp;gt; export
+进入gpio7目录并查看文件  # cd gpio7</description>
     </item>
     
     <item>
@@ -450,8 +681,8 @@ Is an integral
 $$ \varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } } $$
 Enable Katex in the config file by setting the katex param to true. This will import the necessary Katex CSS/JS.
 See the online reference of supported TeX functions.
-1 Inline math: $ \varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887… $ Inline math: $ \varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887… $
-1 2 3 Block math: $$ \varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } } $$ Block math:</description>
+1  Inline math: $\varphi=\dfrac{1+\sqrt5}{2}=1.6180339887… $   Inline math: $ \varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887… $
+1 2 3  Block math: $$\varphi=1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } } $$   Block math:</description>
     </item>
     
     <item>
@@ -465,8 +696,8 @@ $$ \int_{a}^{b} x^2 dx $$
 Is an integral
 $$ \varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } } $$
 Enable MathJax in the config file by setting the mathjax param to true. This will import the necessary MathJax CSS/JS.
-1 Inline math: $ \varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887… $ Inline math: $ \varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887… $
-1 2 3 Block math: $$ \varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } } $$ Block math:</description>
+1  Inline math: $\varphi=\dfrac{1+\sqrt5}{2}=1.6180339887… $   Inline math: $ \varphi = \dfrac{1+\sqrt5}{2}= 1.6180339887… $
+1 2 3  Block math: $$\varphi=1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } } $$   Block math:</description>
     </item>
     
     <item>

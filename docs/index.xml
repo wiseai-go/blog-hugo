@@ -6,7 +6,875 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Fri, 10 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 20 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+    <title>Linux中firefox支持flash</title>
+    <link>https://blog.wiseai.cn/post/linux%E4%B8%ADfirefox%E6%94%AF%E6%8C%81flash/</link>
+    <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/linux%E4%B8%ADfirefox%E6%94%AF%E6%8C%81flash/</guid>
+    <description>
+        &lt;h2 id=&#34;这个有点旧了参考下&#34;&gt;这个有点旧了，参考下&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;进入adobe中下载flash&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;解压文件&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;cp ./libflashplayer.so /home/wiseai/.mozilla/plugins/&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;chmod 755 /home/wiseai/.mozilla/plugins/libflashplayer.so&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;搞定&lt;/p&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>Linux远程连接软件</title>
+    <link>https://blog.wiseai.cn/post/linux%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E8%BD%AF%E4%BB%B6/</link>
+    <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/linux%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E8%BD%AF%E4%BB%B6/</guid>
+    <description>
+        &lt;p&gt;远程桌面客户端:Remmina Remote Desktop Client&lt;/p&gt;
+&lt;p&gt;安装：apt install remmina&lt;/p&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>NetworkManager网络管理相关问题</title>
+    <link>https://blog.wiseai.cn/post/networkmanager%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</link>
+    <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/networkmanager%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</guid>
+    <description>
+        &lt;ol&gt;
+&lt;li&gt;相关配置文件位置&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;/etc/dbus-1/system.d/NetworkManager.conf
+/etc/dbus-1/system.d/nm-avahi-autoipd.conf
+/etc/dbus-1/system.d/nm-dhcp-client.conf
+/etc/dbus-1/system.d/nm-dispatcher.conf
+/etc/dbus-1/system.d/nm-system-settings.conf
+/etc/rc.d/init.d/NetworkManager&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;/etc/dbus-1/system.d/nm-applet.conf&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;不使用Network Manager 管理某些网络设备
+默认情况下，NetworkManager 管理除 lo（环回）设备以外的所有网络设备，因为一些情况需要将设备设置为 unmanaged，也就是不使用NetworkManager管理这些设备。
+&lt;ul&gt;
+&lt;li&gt;查看设备状态
+&lt;code&gt;# nmcli device status&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;在 /etc/NetworkManager/NetworkManager.conf 配置文件的[main] 层级下启用插件 keyfile。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[main]
+plugins=keyfile
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这个一般都启用了。
+- 创建 /etc/NetworkManager/conf.d/unmanaged-devices.conf 配置文件（这个文件名没有要求，自己容易识别就可以了），包含以下内容：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[keyfile]
+unmanaged-devices=interface-name:wlan*
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;以分号隔开；&lt;/li&gt;
+&lt;li&gt;可以使用通配符来匹配接口；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;interface-name:eth*,except:interface-name:eth0;&lt;/code&gt;表示：除了 eth0，其他以 eth 开头的接口全部 unmanaged；&lt;/li&gt;
+&lt;li&gt;可以通过 mac 地址来排除接口，&lt;code&gt;mac:66:77:88:99:00:aa&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;- 重启服务
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;# systemctl restart network-manager.service&lt;/code&gt;&lt;/p&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>php5-fpm.sock failed</title>
+    <link>https://blog.wiseai.cn/post/php5-fpm.sock-failed/</link>
+    <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/php5-fpm.sock-failed/</guid>
+    <description>
+        &lt;p&gt;/etc/php5/fpm/pool.d/www.conf&lt;/p&gt;
+&lt;p&gt;里面找到这样一段代码：&lt;/p&gt;
+&lt;p&gt;listen = 127.0.0.1:9000&lt;/p&gt;
+&lt;p&gt;在这上面代码的下面添加一行：&lt;/p&gt;
+&lt;p&gt;listen = /var/run/php5-fpm.sock&lt;/p&gt;
+&lt;p&gt;保存后启动php5-fpm&lt;/p&gt;
+&lt;p&gt;/etc/init.d/php5-fpm restart&lt;/p&gt;
+&lt;p&gt;这时就可以正常访问了&lt;/p&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>php截取中文字符串乱码问题</title>
+    <link>https://blog.wiseai.cn/post/php%E6%88%AA%E5%8F%96%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</link>
+    <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/php%E6%88%AA%E5%8F%96%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</guid>
+    <description>
+        &lt;p&gt;php截取字符串有两个函数:&lt;/p&gt;
+&lt;p&gt;一个是substr()，这个用来截取全字母的字符串，截取UTF-8的汉字就会出错；&lt;/p&gt;
+&lt;p&gt;另一个是mb_substr()，这个用来截取汉字，但一定要注明编码方式：mb_substr(&amp;lsquo;我的祖国是中国&amp;rsquo;, 0, 4, &amp;lsquo;utf-8&amp;rsquo;);&lt;/p&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>samba服务器配置和使用</title>
+    <link>https://blog.wiseai.cn/post/samba%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/</link>
+    <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/samba%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/</guid>
+    <description>
+        &lt;p&gt;安装：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;#dnf install samba&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;端口：&lt;/p&gt;
+&lt;p&gt;管理工作组：UDP137，138&lt;/p&gt;
+&lt;p&gt;共享数据：TCP139，445（不一定存在）&lt;/p&gt;
+&lt;p&gt;启动服务：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;#systemctl start  smb&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;#systemctl enable smb&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;配置文件（/etc/samba/smb.conf）:&lt;/p&gt;
+&lt;p&gt;1.先设定好服务器整体环境方面的参数&lt;/p&gt;
+&lt;p&gt;[global]&lt;/p&gt;
+&lt;p&gt;config file = /etc/samba/conf/smb.conf.%m&lt;/p&gt;
+&lt;p&gt;说明：config file可以让你使用另一个配置文件来覆盖缺省的配置文件。如果文件 不存在，则该项无效。这个参数很有用，可以使得samba配置更灵活，可以让一台samba服务器模拟多台不同配置的服务器。比如，你想让PC1（主机 名）这台电脑在访问Samba Server时使用它自己的配置文件，那么先在/etc/samba/host/下为PC1配置一个名为smb.conf.pc1的文件，然后在 smb.conf中加入：config file = /etc/samba/conf/smb.conf.%m。这样当PC1请求连接Samba Server时，smb.conf.%m就被替换成smb.conf.pc1。这样，对于PC1来说，它所使用的Samba服务就是由 smb.conf.pc1定义的，而其他机器访问Samba Server则还是应用smb.conf。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#用户组
+
+workgroup = mygroup
+
+#欢迎信息
+
+server string = Samba Server Version %v
+
+#加密
+
+security = user
+
+#使用TDB 数据库格式
+
+passdb backend = tdbsam
+
+#不加载打印机
+
+load printers = no
+
+#共享名
+
+[homes]
+
+#说明
+
+comment = Home Directories
+
+#除了使用者自己外,不可被其他人浏览
+
+browseable = no
+
+#挂载后可擦写此分享
+
+writable = yes
+
+#建立档案的权限为 664
+
+create mode = 0664
+
+#建立目录的权限为 775
+
+directory mode = 0775
+
+#指定允许访问该共享资源的用户&amp;amp;&amp;amp;多个用户或者组中间用逗号隔开，如果要加入一个组就用&amp;#34;@组名&amp;#34;表示,%s表示代替前一个[]里的内容
+
+valid users = %S
+
+valid users = MYDOMAIN\%S
+
+[share]
+
+comment = Public Stuff
+
+#实际的 Linux 上面的目录位置
+
+path = /home/samba
+
+#用来指定该共享的管理员（对该共享具有完全控制权限）
+
+admin users = admin
+
+#指定允许访问该共享资源的用户或者组
+
+valid users = share,@share
+
+#指定不允许访问该共享资源的用户
+
+invalid users = guest
+
+#除了使用者自己外,不可被其他人浏览
+
+browseable = no
+
+#指定可以在该共享下写入文件的用户
+
+write list = share,@share
+
+#指定该共享是否允许guest账户访问
+
+public = no
+
+#指定该共享路径是否可写
+
+writable = yes
+
+#可以在该共享下写入文件的用户和组
+
+write list = share,@share
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;用 testparm 查阅 smb.conf 的语法设定正确性&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;3.建立目录&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;#mkdir /home/project&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;#chmod 2770 /home/project&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;最后改变目录用户或者组属性&lt;/p&gt;
+&lt;p&gt;4.设定可使用 Samba 的用户账号与密码&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;#useradd -M -s /sbin/nologin -d /dev/null -G user1 share&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;使用 pdbedit 指令功能&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# pdbedit -L [-vw]        &amp;lt;==单纯的察看帐户信息&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# pdbedit -a&#39;-r&#39;-x -u 账号       &amp;lt;==新增/修改/删除账号&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# pdbedit -a -m -u 机器账号       &amp;lt;==与 PDC 有关的机器码&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;选项与参数:&lt;/p&gt;
+&lt;p&gt;-L :列出目前在数据库当中的账号与 UID 等相关信息;&lt;/p&gt;
+&lt;p&gt;-v :需要搭配 -L 来执行,可列出更多的讯息,包括家目录等数据;&lt;/p&gt;
+&lt;p&gt;-w :需要搭配 -L 来执行,使用旧版的 smbpasswd 格式来显示数据;&lt;/p&gt;
+&lt;p&gt;-a :新增一个可使用 Samba 的账号,后面的账号需要在 /etc/passwd 内存在者;&lt;/p&gt;
+&lt;p&gt;-r :修改一个账号的相关信息,需搭配很多特殊参数,请 man pdbedit;&lt;/p&gt;
+&lt;p&gt;-x :删除一个可使用 Samba 的账号,可先用 -L 找到账号后再删除;&lt;/p&gt;
+&lt;p&gt;-m :后面接的是机器的代码 (machine account),与 domain model 有关!&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# pdbedit -a -u share&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;修改密码:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;#smbpasswd share&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;5.查看分享资源&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;#smbclient -L [//主机或 IP] [-U 使用者账号]&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;6.挂载&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;#mount -t cifs //127.0.0.1/share /mnt -o username=share,password=123456&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;7.smbstatus:观察 SAMBA 的状态&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# smbstatus [-pS] [-u username]&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;选项与参数:&lt;/p&gt;
+&lt;p&gt;-p :列出已经使用 SAMBA 联机的程序 PID ;&lt;/p&gt;
+&lt;p&gt;-S :列出已经被使用的资源共享状态;&lt;/p&gt;
+&lt;p&gt;-u :只列出某个用户相关的分享数据&lt;/p&gt;
+&lt;p&gt;8.SELinux设置&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;#允许共享Home目录&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;setsebool -P samba_enable_home_dirs on&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;#更改SELinux用户&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;chcon -t samba_share_t /path/to/directory&lt;/code&gt;&lt;/p&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>ssh加密算法的启用禁用方法</title>
+    <link>https://blog.wiseai.cn/post/ssh%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E7%9A%84%E5%90%AF%E7%94%A8%E7%A6%81%E7%94%A8%E6%96%B9%E6%B3%95/</link>
+    <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/ssh%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E7%9A%84%E5%90%AF%E7%94%A8%E7%A6%81%E7%94%A8%E6%96%B9%E6%B3%95/</guid>
+    <description>
+        &lt;ul&gt;
+&lt;li&gt;“手机ES文件浏览器”不能连接sftp的问题解决方法
+首先，说说为什么学习这个东西，在使用“手机ES文件浏览器”这个软件的时候，出现了不能连接的情况，在网上查询后发现是KexAlgorithms 密钥交换算法的问题，在/etc/ssh/sshd_config后添加:
+&lt;code&gt;KexAlgorithms +diffie-hellman-group14-sha1&lt;/code&gt;
+后问题解决。&lt;/li&gt;
+&lt;li&gt;出现no matching host key type found.Their offer: ssh-rsa,ssh-dss这个问题时,在/etc/ssh/sshd_config后添加：
+&lt;code&gt;HostKeyAlgorithms ssh-rsa&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;配置位置etcsshsshd_config&#34;&gt;配置位置：/etc/ssh/sshd_config&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Ciphers
+Ciphers 指定 ssh 使用的加密算法。多个加密算法之间使用逗号分隔。当 Ciphers 的值以 + 字符开始时，指定的加密算法将附加到默认集合，不影响默认集合中的其它算法。当 Ciphers 的值以 ‘-’ 字符开始时，指定的加密算法将会从默认集合中移除，不影响默认集合中的其它项目。
+比如，在 sshd_config 文件的最后添加如下行：
+&lt;code&gt;Ciphers +3des-cbc,aes128-cbc&lt;/code&gt;
+这样就添加了两个加密算法。
+&lt;code&gt;Ciphers -3des-cbc,aes128-cbc&lt;/code&gt;
+这样就删除了两个加密算法。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;MACs
+MACs 选项指定可用的 MAC（消息认证代码）算法，用于数据完整性保护。配置方法与 Ciphers 一致。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;KexAlgorithms
+KexAlgorithms 选项指定可用的密钥交换算法。配置方法与 Ciphers 一致。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;PubkeyAcceptedKeyTypes
+PubkeyAcceptedKeyTypes 指定公钥认证允许的密钥类型。配置方法与 Ciphers 一致。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;查看 ssh 支持的不同类别的加密算法
+Ciphers:&lt;code&gt; ssh -Q cipher&lt;/code&gt;
+MACs:&lt;code&gt; ssh -Q mac&lt;/code&gt;
+KexAlgorithms:&lt;code&gt; ssh -Q kex&lt;/code&gt;
+PubkeyAcceptedKeyTypes:&lt;code&gt; ssh -Q key&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>vi和vim使用</title>
+    <link>https://blog.wiseai.cn/post/vi%E5%92%8Cvim%E4%BD%BF%E7%94%A8/</link>
+    <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/vi%E5%92%8Cvim%E4%BD%BF%E7%94%A8/</guid>
+    <description>
+        &lt;h4 id=&#34;三种模式分别是一般指令模式编辑模式与指令列命令模式&#34;&gt;三种模式，分别是『一般指令模式』、『编辑模式』与『指令列命令模式』。&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;一般指令模式(command mode)
+以vi 打开一个档案就直接进入一般指令模式了(这是预设的模式，也简称为一般模式)。在这个模式中， 你可以使用『上下左右』按键来移动游标，你可以使用『删除字元』或『删除整列』来处理档案内容， 也可以使用『复制、贴上』来处理你的文件资料。
+编辑模式(insert mode)
+在一般指令模式中可以进行删除、复制、贴上等等的动作，但是却无法编辑文件内容的！要等到你按下『i, I, o, O, a, A, r, R』等任何一个字母之后才会进入编辑模式。注意了！通常在Linux中，按下这些按键时，在画面的左下方会出现『INSERT或REPLACE』的字样，此时才可以进行编辑。而如果要回到一般指令模式时，则必须要按下『Esc』这个按键即可退出编辑模式。
+指令列命令模式(command-line mode)
+在一般模式当中，输入『 : / ?』三个中的任何一个按钮，就可以将游标移动到最底下那一列。在这个模式当中，可以提供你『搜寻资料』的动作，而读取、存档、大量取代字元、离开vi 、显示行号等等的动作则是在此模式中达成的！
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;按键说明&#34;&gt;按键说明&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;一般指令模式可用的按键说明，游标移动、复制贴上、搜寻取代等
+屏幕『向下』移动半页: [Ctrl] + [d]
+屏幕『向上』移动半页: [Ctrl] + [u]
+游标向右移动这一列的n个字符: n空格键
+移动到这个档案的第n行#: nG
+游标向下移动n行#:n回车键
+搜寻与取代
+在第n1与n2列之间寻找word1这个字串，并将该字串取代为word2
+#:n1,n2s/word1/word2/g
+从第一列到最后一列寻找word1字串，并将该字串取代为word2
+#:1,$s/word1/word2/g
+从第一列到最后一列寻找word1字串，并将该字串取代为word2,且在取代前显示提示字元给使用者确认(confirm)是否需要取代
+#:1,$s/word1/word2/gc
+删除、复制与粘贴
+删除游标所在到第一行的所有资料#:d1G
+删除游标所在到最后一列的所有资料#:dG
+删除游标所在处，到该行的最后一个字符#:d$
+删除游标所在处，到该行的最前面一个字符#:d0
+将游标所在行与下一行的资料结合成同一列#:J
+复原前一个动作#:u
+重做上一个动作#:[Ctrl]+r
+重复前一个动作#:.
+区块选择的按键意义
+用长方形的方式选择区块#:[Ctrl]+v
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;多档案编辑&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;vim /etc/hosts /etc/resolv.conf
+编辑下一个档案::n
+编辑上一个档案::N
+列出目前这个vim的开启的所有档案::files
+多视窗功能
+
+在指令列模式输入『:sp {filename}』  
+『[ctrl]+w+↑』[ctrl]+w+j及『[ctrl]+w+↓』[ctrl]+w+k在两个视窗之间移动&lt;/code&gt;&lt;/pre&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>下载命令wget</title>
+    <link>https://blog.wiseai.cn/post/%E4%B8%8B%E8%BD%BD%E5%91%BD%E4%BB%A4wget/</link>
+    <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/%E4%B8%8B%E8%BD%BD%E5%91%BD%E4%BB%A4wget/</guid>
+    <description>
+        &lt;p&gt;选项:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;-b 后台下载
+-O 文件名为***（大写o）
+-i 下载文件中的URL
+-t 设置重试次数（0为无限次）
+-c 断点续传
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;其它参数：wget –help&lt;/p&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>使用caddy搭建webdav服务器</title>
+    <link>https://blog.wiseai.cn/post/%E4%BD%BF%E7%94%A8caddy%E6%90%AD%E5%BB%BAwebdav%E6%9C%8D%E5%8A%A1%E5%99%A8/</link>
+    <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/%E4%BD%BF%E7%94%A8caddy%E6%90%AD%E5%BB%BAwebdav%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid>
+    <description>
+        &lt;ol&gt;
+&lt;li&gt;首先下载或者编译包含Webdav插件的Caddy&lt;/li&gt;
+&lt;li&gt;生成密码（设置123456789的密码）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;# caddy hash-password --plaintext 123456789&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;JDJhJDE0JHpGUDNaL1Q5UEV2dWZxd1BCYWdGUS56WkdZbHJDZG8ybURERWYyRzlzLzd0TTM2akYxNFVh&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;编辑Caddyfile&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;    {
+            http_port 80
+            https_port 443
+            order webdav before file_server
+    }
+    
+    :6666 {
+            root * /home/xjc/software/caddy/
+            encode zstd gzip
+            basicauth {
+	           #用户名   上面命令生成的密码
+                    admin JDJhJDE0JHpGUDNaL1Q5UEV2dWZxd1BCYWdGUS56WkdZbHJDZG8ybURERWYyRzlzLzd0TTM2akYxNFVh
+            }
+            route {
+                    rewrite /webdav /webdav/
+                    webdav /webdav/* {
+                            prefix /webdav
+                    }
+            }
+    }
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;运行服务&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;# caddy run -config Caddyfile -watch&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;或者&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# caddy start&lt;/code&gt;后台运行服务&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# caddy stop&lt;/code&gt;停止服务&lt;/p&gt;
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;挂载webdav网盘&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;# sudo mount.davfs http://127.0.0.1:6666/webdav /file/to/path/ -o uid=uos,gid=uos&lt;/code&gt;&lt;/p&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>使用OpenSSL生成证书</title>
+    <link>https://blog.wiseai.cn/post/%E4%BD%BF%E7%94%A8openssl%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6/</link>
+    <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/%E4%BD%BF%E7%94%A8openssl%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6/</guid>
+    <description>
+        &lt;p&gt;下载安装OpenSSL，进入/bin/下面，执行命令（把ssl目录下的openssl.cnf 拷贝到bin目录下）&lt;/p&gt;
+&lt;p&gt;1.首先要生成服务器端的私钥(key文件):&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+openssl genrsa -des3 -out server.key 1024
+
+[root@airwaySSL openssl]# cd ssl/
+
+[root@airwaySSL ssl]# pwd
+
+/home/openssl/ssl
+
+[root@airwaySSL ssl]# ls
+
+certs  man  misc  openssl.cnf  private  server.csr  server.key
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;运行时会提示输入密码,此密码用于加密key文件(参数des3便是指加密算法,当然也可以选用其他你认为安全的算法.),以后每当需读取此文件(通过openssl提供的命令或API)都需输入口令.如果觉得不方便,也可以去除这个口令,但一定要采取其他的保护措施!&lt;/p&gt;
+&lt;p&gt;去除key文件口令的命令:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+openssl rsa -in server.key -out server.key
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;2.openssl req -new -key server.key -out server.csr -config openssl.cnf&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+[root@airwaySSL bin]# openssl req -new -key server.key -out server.csr -config openssl.cnf
+
+Enter pass phrase for server.key:12345
+
+You are about to be asked to enter information that will be incorporated
+
+into your certificate request.
+
+What you are about to enter is what is called a Distinguished Name or a DN.
+
+There are quite a few fields but you can leave some blank
+
+For some fields there will be a default value,
+
+If you enter &amp;#39;.&amp;#39;, the field will be left blank.
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+Country Name (2 letter code) [AU]:CN
+
+State or Province Name (full name) [Some-State]:china
+
+Locality Name (eg, city) []:wuhan
+
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:airway
+
+Organizational Unit Name (eg, section) []:airway
+
+Common Name (eg, YOUR name) []:airway
+
+Email Address []:
+
+Please enter the following &amp;#39;extra&amp;#39; attributes
+
+to be sent with your certificate request
+
+A challenge password []:
+
+An optional company name []:
+
+生成Certificate Signing Request（CSR）,生成的csr文件交给CA签名后形成服务端自己的证书.屏幕上将有提示,依照其指示一步一步输入要求的个人信息即可.
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;3.对客户端也作同样的命令生成key及csr文件:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+openssl genrsa -des3 -out client.key 1024
+
+Generating RSA private key, 1024 bit long modulus
+
+...........++++++
+
+..++++++
+
+e is 65537 (0x10001)
+
+Enter pass phrase for client.key:12345
+
+Verifying - Enter pass phrase for client.key:12345
+
+openssl req -new -key client.key -out client.csr -config openssl.cnf
+
+[root@airwaySSL bin]# openssl req -new -key client.key -out client.csr -config openssl.cnf
+
+Enter pass phrase for client.key:12345
+
+You are about to be asked to enter information that will be incorporated
+
+into your certificate request.
+
+What you are about to enter is what is called a Distinguished Name or a DN.
+
+There are quite a few fields but you can leave some blank
+
+For some fields there will be a default value,
+
+If you enter &amp;#39;.&amp;#39;, the field will be left blank.
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+Country Name (2 letter code) [AU]:cn
+
+State or Province Name (full name) [Some-State]:china
+
+Locality Name (eg, city) []:wuhan
+
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:airway
+
+Organizational Unit Name (eg, section) []:airway
+
+Common Name (eg, YOUR name) []:airway
+
+Email Address []:
+
+Please enter the following &amp;#39;extra&amp;#39; attributes
+
+to be sent with your certificate request
+
+A challenge password []:
+
+An optional company name []:
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;4.CSR文件必须有CA的签名才可形成证书.可将此文件发送到verisign等地方由它验证,要交一大笔钱,何不自己做CA呢.&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+openssl req -new -x509 -keyout ca.key -out ca.crt -config openssl.cnf
+
+[root@airwaySSL bin]# openssl req -new -x509 -keyout ca.key -out ca.crt -config openssl.cnf
+
+Generating a 1024 bit RSA private key
+
+...++++++
+
+...................++++++
+
+writing new private key to &amp;#39;ca.key&amp;#39;
+
+Enter PEM pass phrase:12345
+
+Verifying - Enter PEM pass phrase:
+
+-----
+
+You are about to be asked to enter information that will be incorporated
+
+into your certificate request.
+
+What you are about to enter is what is called a Distinguished Name or a DN.
+
+There are quite a few fields but you can leave some blank
+
+For some fields there will be a default value,
+
+If you enter &amp;#39;.&amp;#39;, the field will be left blank.
+
+-----
+
+Country Name (2 letter code) [AU]:CN
+
+State or Province Name (full name) [Some-State]:china
+
+Locality Name (eg, city) []:wuhan
+
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:airway
+
+Organizational Unit Name (eg, section) []:airway
+
+Common Name (eg, YOUR name) []:airway
+
+Email Address []:
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;在继续下面操作前，将openssl.conf文件打开，查看其dir路径将其修改为dir = /home/openssl/bin/demoCA /，否则下面的步骤会提示路径无法找到。&lt;/p&gt;
+&lt;p&gt;自己手动创建一个CA目录结构：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;
+[weigw@TEST bin]$ mkdir ./demoCA
+
+[weigw@TEST bin]$ mkdir
+&lt;/code&gt;&lt;/pre&gt;
+    </description>
+    </item>
+    
+    <item>
+    <title>Raspberry Pi 4 boot EEPROM</title>
+    <link>https://blog.wiseai.cn/post/raspberry-pi-4-boot-eeprom/</link>
+    <pubDate>Sun, 19 Jun 2022 00:00:00 +0000</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/raspberry-pi-4-boot-eeprom/</guid>
+    <description>
+        &lt;h1 id=&#34;raspberry-pi-4-boot-eeprom&#34;&gt;Raspberry Pi 4 boot EEPROM&lt;/h1&gt;
+&lt;p&gt;官方文档：https://www.raspberrypi.org/documentation/hardware/raspberrypi/booteeprom.md&lt;/p&gt;
+&lt;h1 id=&#34;升级&#34;&gt;升级&lt;/h1&gt;
+&lt;h2 id=&#34;updating-from-raspberry-pi-os&#34;&gt;Updating from Raspberry Pi OS&lt;/h2&gt;
+&lt;p&gt;Bootloader updates are instigated during a normal apt update, apt full-upgrade cycle, this means you will get new features and bug fixes during your normal updates.&lt;/p&gt;
+&lt;p&gt;Bootloader updates are performed by rpi-eeprom-update service provided by the rpi-eeprom package. This service runs at boot and updates the bootloader at the next reboot if a new production release is available. The service automatically migrates the current boot settings to the new bootloader release.&lt;/p&gt;
+&lt;p&gt;To update your system, including the bootloader:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo apt update
+sudo apt full-upgrade
+sudo reboot
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;也就是说在更新系统的时候同时更新eeprom&lt;/p&gt;
+&lt;h2 id=&#34;manually-checking-if-an-update-is-available&#34;&gt;Manually checking if an update is available&lt;/h2&gt;
+&lt;p&gt;提前说一句，手动检查更新，必须更新rpi-eeprom这个软件包，单独更新可以使用安装命令。&lt;/p&gt;
+&lt;p&gt;Running the rpi-eeprom-update command with no parameters indicates whether an update is required. An update is required if the version of the most recent file in the firmware directory (normally /lib/firmware/raspberrypi/bootloader/critical) is newer than that reported by the current bootloader. The images under /lib/firmware/raspberrypi/bootloader are part of the rpi-eeprom package and are only updated via apt upgrade.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo rpi-eeprom-update&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;If an update is available, you can install it using:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo rpi-eeprom-update -a&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo reboot&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Reading the current EEPROM version&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;vcgencmd bootloader_version&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;firmware-release-status&#34;&gt;Firmware release status&lt;/h2&gt;
+&lt;p&gt;The firmware release status corresponds to a particular subdirectory of bootloader firmware images (/lib/firmware/raspberrypi/bootloader/&amp;hellip;), and can be changed to select a different release stream. By default, Raspberry Pi OS only selects critical updates (security fixes or major hardware compatiblity changes) since most users do not use alternate boot modes (TFTP, USB etc)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;critical - Default - rarely updated&lt;/li&gt;
+&lt;li&gt;stable - Updated when new/advanced features have been successfully beta tested.&lt;/li&gt;
+&lt;li&gt;beta - New or experimental features are tested here first.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Since the release status string is just a subdirectory name then it&amp;rsquo;s possible to create your own release streams e.g. a pinned release or custom network boot configuration.&lt;/p&gt;
+&lt;p&gt;Changing the firmware release
+You can change which release stream is to be used during an update by editing the /etc/default/rpi-eeprom-update file and changing the FIRMWARE_RELEASE_STATUS entry to the appropriate stream.&lt;/p&gt;
+&lt;p&gt;For more information about the rpi-eeprom-update configuration file please run &lt;code&gt;rpi-eeprom-update -h&lt;/code&gt;.&lt;/p&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>更改ubuntu源</title>
+    <link>https://blog.wiseai.cn/post/%E6%9B%B4%E6%94%B9ubuntu%E6%BA%90/</link>
+    <pubDate>Sun, 19 Jun 2022 00:00:00 +0000</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/%E6%9B%B4%E6%94%B9ubuntu%E6%BA%90/</guid>
+    <description>
+        &lt;p&gt;&lt;code&gt;sed -i &#39;s#http://archive.ubuntu.com/ubuntu/#mirror://mirrors.ubuntu.com/mirrors.txt#&#39; /etc/apt/sources.list&lt;/code&gt;&lt;/p&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>locate命令</title>
+    <link>https://blog.wiseai.cn/post/locate%E5%91%BD%E4%BB%A4/</link>
+    <pubDate>Sat, 18 Jun 2022 00:00:00 +0000</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/locate%E5%91%BD%E4%BB%A4/</guid>
+    <description>
+        &lt;h5 id=&#34;locate命令用于查找符合条件的文档他会去保存文档和目录名称的数据库内查找合乎范本样式条件的文档或目录&#34;&gt;locate命令用于查找符合条件的文档，他会去保存文档和目录名称的数据库内，查找合乎范本样式条件的文档或目录。&lt;/h5&gt;
+&lt;p&gt;&lt;code&gt;# locate [-d ][--help][--version][查找内容文本]&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;参数：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;-b, --basename         仅匹配路径名的基本名称，**也就是说文件名包含的才显示，目录不显示**。
+-c, --count            只输出找到的数量
+-d, --database DBPATH  使用 DBPATH 指定的数据库，而不是默认数据库 /var/lib/mlocate/mlocate.db
+-e, --existing         仅打印当前现有文件的条目
+-1                     如果是 1则启动安全模式。在安全模式下，使用者不会看到权限无法看到的档案。这会始速度减慢，因为 locate 必须至实际的档案系统中取得档案的权限资料。
+-0, --null             在输出上带有NUL的单独条目
+-S, --statistics       不搜索条目，打印有关每个数据库的统计信息
+-P, --nofollow, -H     检查文件存在时不要遵循尾随的符号链接
+-l, --limit, -n LIMIT  将输出（或计数）限制为LIMIT个条目
+-n                     至多显示 n个输出。
+-m, --mmap             被忽略，为了向后兼容
+-r, --regexp REGEXP    使用基本正则表达式
+--regex                使用扩展正则表达式
+-q, --quiet            安静模式，不会显示任何错误讯息
+-s, --stdio            被忽略，为了向后兼容
+-o                     指定资料库存的名称。
+-h, --help             显示帮助
+-i, --ignore-case      忽略大小写
+-V, --version          显示版本信息 	
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;locate 的数据库在 /var/lib/slocate/slocate.db 中，一般是系统自己维护，也可以手工升级数据库 ，命令为：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# updatedb&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;默认情况下 updatedb 每天执行一次。&lt;/p&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>整站或网页下载软件httrack</title>
+    <link>https://blog.wiseai.cn/post/%E6%95%B4%E7%AB%99%E6%88%96%E7%BD%91%E9%A1%B5%E4%B8%8B%E8%BD%BD%E8%BD%AF%E4%BB%B6httrack/</link>
+    <pubDate>Fri, 17 Jun 2022 00:00:00 +0000</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/%E6%95%B4%E7%AB%99%E6%88%96%E7%BD%91%E9%A1%B5%E4%B8%8B%E8%BD%BD%E8%BD%AF%E4%BB%B6httrack/</guid>
+    <description>
+        &lt;p&gt;首先安装httrack:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;＃dnf install httrack&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;使用说明：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;＃httrack&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;输入项目名&lt;/p&gt;
+&lt;p&gt;输入保存目录&lt;/p&gt;
+&lt;p&gt;输入需要保存的网站URL或者网页URL&lt;/p&gt;
+&lt;p&gt;其它的默认就好&lt;/p&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>搭建apt本地源</title>
+    <link>https://blog.wiseai.cn/post/%E6%90%AD%E5%BB%BAapt%E6%9C%AC%E5%9C%B0%E6%BA%90/</link>
+    <pubDate>Thu, 16 Jun 2022 00:00:00 +0000</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/%E6%90%AD%E5%BB%BAapt%E6%9C%AC%E5%9C%B0%E6%BA%90/</guid>
+    <description>
+        &lt;h2 id=&#34;一安装apt-mirror命令&#34;&gt;一、安装apt-mirror命令&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;# apt install apt-mirror&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;二-修改apt-mirror配置文件&#34;&gt;二、 修改apt-mirror配置文件&lt;/h2&gt;
+&lt;p&gt;首先， 确定自己系统的版本 ，root权限执行：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# lsb_release -a&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;我的系统是ubuntu的bionic，从阿里云下载源，一般有5个目录，前三个常用，后两个是预发布软件，不常用，我一般用前三个&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然后，编辑apt-mirror的配置文件/etc/apt/mirror.list&lt;/p&gt;
+&lt;h3 id=&#34;配置镜像下载目录&#34;&gt;配置镜像下载目录&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;set base_path /var/spool/apt-mirror&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;架构配置i386amd64默认的话会下载跟本机相同的架构的源&#34;&gt;架构配置，i386/amd64，默认的话会下载跟本机相同的架构的源&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;set defaultarch amd64&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;下载线程数&#34;&gt;下载线程数&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;set nthreads 20&lt;/code&gt;
+&lt;code&gt;set _tilde 0&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;阿里云的源这里没有添加deb-src的源码源&#34;&gt;阿里云的源（这里没有添加deb-src的源码源）&lt;/h3&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;deb http://mirrors.aliyun.com/ubuntu/ xenial main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ xenial-proposed main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ xenial-backports main restricted universe multiverse
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;后面还可以添加其它版本的源&#34;&gt;后面还可以添加其它版本的源&lt;/h3&gt;
+&lt;h3 id=&#34;清理不使用的软件包&#34;&gt;清理不使用的软件包&lt;/h3&gt;
+&lt;p&gt;clean &lt;a href=&#34;http://mirrors.aliyun.com/ubuntu&#34;&gt;http://mirrors.aliyun.com/ubuntu&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;三开始同步&#34;&gt;三、开始同步&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;# apt-mirror&lt;/code&gt;
+注意：同步的文件必须在Linux文件系统下，所有人为_apt；否则出错。&lt;/p&gt;
+&lt;h2 id=&#34;四-客户端配置&#34;&gt;四、 客户端配置&lt;/h2&gt;
+&lt;p&gt;编辑/etc/apt/source.list&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;deb [arch=amd64] http://[host]:[port]/ubuntu/ bionic main restricted universe multiverse 
+deb [arch=amd64] http://[host]:[port]/ubuntu/ bionic-security main restricted universe multiverse 
+deb [arch=amd64] http://[host]:[port]/ubuntu/ bionic-updates main restricted universe multiverse 
+deb [arch=amd64] http://[host]:[port]/ubuntu/ bionic-proposed main restricted universe multiverse 
+deb [arch=amd64] http://[host]:[port]/ubuntu/ bionic-backports main restricted universe multiverse
+或
+
+deb [arch=amd64] file:///你的目录/ubuntu/ bionic main restricted universe multiverse 
+deb [arch=amd64] file:///你的目录/ubuntu/ bionic-security main restricted universe multiverse 
+deb [arch=amd64] file:///你的目录/ubuntu/ bionic-updates main restricted universe multiverse 
+deb [arch=amd64] file:///你的目录/ubuntu/ bionic-proposed main restricted universe multiverse 
+deb [arch=amd64] file:///你的目录/ubuntu/ bionic-backports main restricted universe multiverse
+&lt;/code&gt;&lt;/pre&gt;
+    </description>
+    </item>
+    
+    <item>
+    <title>yum时出现error的解决办法</title>
+    <link>https://blog.wiseai.cn/post/yum%E6%97%B6%E5%87%BA%E7%8E%B0error%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
+    <pubDate>Wed, 15 Jun 2022 00:00:00 +0000</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/yum%E6%97%B6%E5%87%BA%E7%8E%B0error%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
+    <description>
+        &lt;h3 id=&#34;错误内容&#34;&gt;错误内容：&lt;/h3&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Unable to detect release version (use ‘–releasever’ to specify release version)
+
+error: rpmdb: damaged header #173 retrieved — skipping.
+error: rpmdbNextIterator: skipping h# 173 blob size(55540): BAD, 8 + 16 * il(78) + dl(54284)
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;解决办法&#34;&gt;解决办法：&lt;/h3&gt;
+&lt;p&gt;首先：删除/var/lib/下的rpm文件夹&lt;/p&gt;
+&lt;p&gt;之后：执行命令&lt;code&gt;rpm --rebuilddb&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;最后：安装一个提供版本号的包&lt;code&gt;yum --releasever 8 install centos-release&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;其中&lt;code&gt;--releasever 8&lt;/code&gt;是指定版本号，我的是centos8，所以这么写。&lt;/p&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>树莓派蓝牙相关问题</title>
+    <link>https://blog.wiseai.cn/post/%E6%A0%91%E8%8E%93%E6%B4%BE%E8%93%9D%E7%89%99%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</link>
+    <pubDate>Wed, 15 Jun 2022 00:00:00 +0000</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/%E6%A0%91%E8%8E%93%E6%B4%BE%E8%93%9D%E7%89%99%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</guid>
+    <description>
+        &lt;p&gt;&lt;strong&gt;因系统更新快，这里的操作仅供参考!!&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;升级安装蓝牙相关软件包&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;# sudo apt-get install pi-bluetooth bluez bluez-firmware blueman&lt;/code&gt;&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;添加pi用户到蓝牙组&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;# sudo usermod -G bluetooth -a pi&lt;/code&gt;&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;重启&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;# sudo reboot&lt;/code&gt;&lt;/p&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;使用命令打开蓝牙&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;pi@raspberrypi:/ $ sudo bluetoothctl
+[bluetooth]#list
+Controller B8:27:EB:3D:15:E9 raspberrypi [default]
+[bluetooth]# scan on
+Discovery started
+[CHG] Device 5F:FC:4E:B0:EA:59 RSSI: -97
+[NEW] Device 42:29:9A:3B:75:E6 42-29-9A-3B-75-E6
+[bluetooth]# devices
+Device 30:21:4F:54:4D:8E Newmine
+Device 72:D7:02:62:CE:A0 72-D7-02-62-CE-A0
+Device 5F:FC:4E:B0:EA:59 5F-FC-4E-B0-EA-59
+Device E4:A7:C5:C8:55:F5 HUAWEI Mate 10 Pro
+Device 42:29:9A:3B:75:E6 42-29-9A-3B-75-E6
+[bluetooth]# pair 30:21:4F:54:4D:8E
+Attempting to pair with 30:21:4F:54:4D:8E
+Failed to pair: org.bluez.Error.AlreadyExists(已配对成功过，如果是初次配对是显示成功的信息）
+[bluetooth]# trust 30:21:4F:54:4D:8E
+Changing 30:21:4F:54:4D:8E trust succeeded
+[bluetooth]# connect 30:21:4F:54:4D:8E
+Attempting to connect to 30:21:4F:54:4D:8E
+[CHG] Device 30:21:4F:54:4D:8E Connected: yes
+Connection successful
+[CHG] Device 5F:FC:4E:B0:EA:59 RSSI: -86
+[CHG] Device 30:21:4F:54:4D:8E ServicesResolved: yes
+[Newmine]#quit
+&lt;/code&gt;&lt;/pre&gt;
+    </description>
+    </item>
+    
     <item>
     <title>MarkDown在线编辑器</title>
     <link>https://blog.wiseai.cn/post/markdown%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91%E5%99%A8/</link>
@@ -1352,9 +2220,9 @@ download_enable=YES/NO（YES）
     <guid>https://blog.wiseai.cn/post/git/</guid>
     <description>
         &lt;h2 id=&#34;添加ssh公钥&#34;&gt;添加ssh公钥：&lt;/h2&gt;
-&lt;p&gt;查看~/.ssh/id_rsa.pub文件，如果有公钥直接添加，没有的话使用这个命令：&lt;/p&gt;
+&lt;p&gt;查看&lt;code&gt;~/.ssh/id_rsa.pub&lt;/code&gt;文件，如果有公钥直接添加，没有的话使用这个命令：&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ ssh-keygen -t ed25519 -C &amp;#34;xxxxx@xxxxx.com&amp;#34;
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;三次回车后，再查看~/.ssh/id_rsa.pub文件，添加到gitee设置。&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;三次回车后，再查看&lt;code&gt;~/.ssh/id_rsa.pub&lt;/code&gt;文件，添加到gitee设置。&lt;/p&gt;
 &lt;h2 id=&#34;创建版本库&#34;&gt;创建版本库：&lt;/h2&gt;
 &lt;p&gt;不建议直接生成，可以在gitee网站下建立仓库，之后clone到本地，直接使用下面的命令操作就可以了。&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ git init

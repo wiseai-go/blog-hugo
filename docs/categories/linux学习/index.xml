@@ -7,7 +7,104 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Wed, 01 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/categories/linux%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 20 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/categories/linux%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux中firefox支持flash</title>
+      <link>https://blog.wiseai.cn/post/linux%E4%B8%ADfirefox%E6%94%AF%E6%8C%81flash/</link>
+      <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/linux%E4%B8%ADfirefox%E6%94%AF%E6%8C%81flash/</guid>
+      <description>这个有点旧了，参考下   进入adobe中下载flash
+  解压文件
+  cp ./libflashplayer.so /home/wiseai/.mozilla/plugins/
+  chmod 755 /home/wiseai/.mozilla/plugins/libflashplayer.so
+  搞定</description>
+    </item>
+    
+    <item>
+      <title>Linux远程连接软件</title>
+      <link>https://blog.wiseai.cn/post/linux%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E8%BD%AF%E4%BB%B6/</link>
+      <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/linux%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E8%BD%AF%E4%BB%B6/</guid>
+      <description>远程桌面客户端:Remmina Remote Desktop Client
+安装：apt install remmina</description>
+    </item>
+    
+    <item>
+      <title>NetworkManager网络管理相关问题</title>
+      <link>https://blog.wiseai.cn/post/networkmanager%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/networkmanager%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</guid>
+      <description>相关配置文件位置   /etc/dbus-1/system.d/NetworkManager.conf /etc/dbus-1/system.d/nm-avahi-autoipd.conf /etc/dbus-1/system.d/nm-dhcp-client.conf /etc/dbus-1/system.d/nm-dispatcher.conf /etc/dbus-1/system.d/nm-system-settings.conf /etc/rc.d/init.d/NetworkManager
+ /etc/dbus-1/system.d/nm-applet.conf
+ 不使用Network Manager 管理某些网络设备 默认情况下，NetworkManager 管理除 lo（环回）设备以外的所有网络设备，因为一些情况需要将设备设置为 unmanaged，也就是不使用NetworkManager管理这些设备。  查看设备状态 # nmcli device status 在 /etc/NetworkManager/NetworkManager.conf 配置文件的[main] 层级下启用插件 keyfile。    [main] plugins=keyfile 这个一般都启用了。 - 创建 /etc/NetworkManager/conf.d/unmanaged-devices.conf 配置文件（这个文件名没有要求，自己容易识别就可以了），包含以下内容：
+[keyfile] unmanaged-devices=interface-name:wlan*   以分号隔开； 可以使用通配符来匹配接口； interface-name:eth*,except:interface-name:eth0;表示：除了 eth0，其他以 eth 开头的接口全部 unmanaged； 可以通过 mac 地址来排除接口，mac:66:77:88:99:00:aa   - 重启服务  # systemctl restart network-manager.service</description>
+    </item>
+    
+    <item>
+      <title>php5-fpm.sock failed</title>
+      <link>https://blog.wiseai.cn/post/php5-fpm.sock-failed/</link>
+      <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/php5-fpm.sock-failed/</guid>
+      <description>/etc/php5/fpm/pool.d/www.conf
+里面找到这样一段代码：
+listen = 127.0.0.1:9000
+在这上面代码的下面添加一行：
+listen = /var/run/php5-fpm.sock
+保存后启动php5-fpm
+/etc/init.d/php5-fpm restart
+这时就可以正常访问了</description>
+    </item>
+    
+    <item>
+      <title>php截取中文字符串乱码问题</title>
+      <link>https://blog.wiseai.cn/post/php%E6%88%AA%E5%8F%96%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/php%E6%88%AA%E5%8F%96%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</guid>
+      <description>php截取字符串有两个函数:
+一个是substr()，这个用来截取全字母的字符串，截取UTF-8的汉字就会出错；
+另一个是mb_substr()，这个用来截取汉字，但一定要注明编码方式：mb_substr(&amp;lsquo;我的祖国是中国&amp;rsquo;, 0, 4, &amp;lsquo;utf-8&amp;rsquo;);</description>
+    </item>
+    
+    <item>
+      <title>samba服务器配置和使用</title>
+      <link>https://blog.wiseai.cn/post/samba%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/samba%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/</guid>
+      <description>安装：
+#dnf install samba
+端口：
+管理工作组：UDP137，138
+共享数据：TCP139，445（不一定存在）
+启动服务：
+#systemctl start smb
+#systemctl enable smb
+配置文件（/etc/samba/smb.conf）:
+1.先设定好服务器整体环境方面的参数
+[global]
+config file = /etc/samba/conf/smb.conf.%m
+说明：config file可以让你使用另一个配置文件来覆盖缺省的配置文件。如果文件 不存在，则该项无效。这个参数很有用，可以使得samba配置更灵活，可以让一台samba服务器模拟多台不同配置的服务器。比如，你想让PC1（主机 名）这台电脑在访问Samba Server时使用它自己的配置文件，那么先在/etc/samba/host/下为PC1配置一个名为smb.conf.pc1的文件，然后在 smb.conf中加入：config file = /etc/samba/conf/smb.conf.%m。这样当PC1请求连接Samba Server时，smb.conf.%m就被替换成smb.conf.pc1。这样，对于PC1来说，它所使用的Samba服务就是由 smb.conf.pc1定义的，而其他机器访问Samba Server则还是应用smb.conf。
+#用户组 workgroup = mygroup #欢迎信息 server string = Samba Server Version %v #加密 security = user #使用TDB 数据库格式 passdb backend = tdbsam #不加载打印机 load printers = no #共享名 [homes] #说明 comment = Home Directories #除了使用者自己外,不可被其他人浏览 browseable = no #挂载后可擦写此分享 writable = yes #建立档案的权限为 664 create mode = 0664 #建立目录的权限为 775 directory mode = 0775 #指定允许访问该共享资源的用户&amp;amp;&amp;amp;多个用户或者组中间用逗号隔开，如果要加入一个组就用&amp;#34;@组名&amp;#34;表示,%s表示代替前一个[]里的内容 valid users = %S valid users = MYDOMAIN\%S [share] comment = Public Stuff #实际的 Linux 上面的目录位置 path = /home/samba #用来指定该共享的管理员（对该共享具有完全控制权限） admin users = admin #指定允许访问该共享资源的用户或者组 valid users = share,@share #指定不允许访问该共享资源的用户 invalid users = guest #除了使用者自己外,不可被其他人浏览 browseable = no #指定可以在该共享下写入文件的用户 write list = share,@share #指定该共享是否允许guest账户访问 public = no #指定该共享路径是否可写 writable = yes #可以在该共享下写入文件的用户和组 write list = share,@share 用 testparm 查阅 smb.</description>
+    </item>
+    
+    <item>
+      <title>ssh加密算法的启用禁用方法</title>
+      <link>https://blog.wiseai.cn/post/ssh%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E7%9A%84%E5%90%AF%E7%94%A8%E7%A6%81%E7%94%A8%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/ssh%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E7%9A%84%E5%90%AF%E7%94%A8%E7%A6%81%E7%94%A8%E6%96%B9%E6%B3%95/</guid>
+      <description>“手机ES文件浏览器”不能连接sftp的问题解决方法 首先，说说为什么学习这个东西，在使用“手机ES文件浏览器”这个软件的时候，出现了不能连接的情况，在网上查询后发现是KexAlgorithms 密钥交换算法的问题，在/etc/ssh/sshd_config后添加: KexAlgorithms +diffie-hellman-group14-sha1 后问题解决。 出现no matching host key type found.Their offer: ssh-rsa,ssh-dss这个问题时,在/etc/ssh/sshd_config后添加： HostKeyAlgorithms ssh-rsa  配置位置：/etc/ssh/sshd_config   Ciphers Ciphers 指定 ssh 使用的加密算法。多个加密算法之间使用逗号分隔。当 Ciphers 的值以 + 字符开始时，指定的加密算法将附加到默认集合，不影响默认集合中的其它算法。当 Ciphers 的值以 ‘-’ 字符开始时，指定的加密算法将会从默认集合中移除，不影响默认集合中的其它项目。 比如，在 sshd_config 文件的最后添加如下行： Ciphers +3des-cbc,aes128-cbc 这样就添加了两个加密算法。 Ciphers -3des-cbc,aes128-cbc 这样就删除了两个加密算法。
+  MACs MACs 选项指定可用的 MAC（消息认证代码）算法，用于数据完整性保护。配置方法与 Ciphers 一致。
+  KexAlgorithms KexAlgorithms 选项指定可用的密钥交换算法。配置方法与 Ciphers 一致。
+  PubkeyAcceptedKeyTypes PubkeyAcceptedKeyTypes 指定公钥认证允许的密钥类型。配置方法与 Ciphers 一致。
+  查看 ssh 支持的不同类别的加密算法 Ciphers: ssh -Q cipher MACs: ssh -Q mac KexAlgorithms: ssh -Q kex PubkeyAcceptedKeyTypes: ssh -Q key</description>
+    </item>
+    
     <item>
       <title>Linux下合并文件</title>
       <link>https://blog.wiseai.cn/post/linux%E4%B8%8B%E5%90%88%E5%B9%B6%E6%96%87%E4%BB%B6/</link>
@@ -52,10 +149,10 @@
       <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/linux%E4%B8%AD%E7%BC%BA%E5%B0%91%E8%BF%90%E8%A1%8C%E5%BA%93%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
-      <description>编辑 vi /etc/ld.so.conf root权限执行 /sbin/ldconfig -v命令 这样 ldd 才能找到这个库
+      <description>编辑 vi /etc/ld.so.conf root权限执行 /sbin/ldconfig -v命令  这样 ldd 才能找到这个库
 /etc/ld.so.conf:
-这个文件记录了编译时使用的动态链接库的路径。 默认情况下，编译器只会使用/lib和/usr/lib这两个目录下的库文件 如果你安装了某些库，没有指定 –prefix=/usr 这样lib库就装到了/usr/local下，而又没有在/etc/ld.so.conf中添加/usr/local/lib，就会报错了 ldconfig是个什么东东吧 ：
-它是一个程序，通常它位于/sbin下，是root用户使用的东东。具体作用及用法可以man ldconfig查到 简单的说，它的作用就是将/etc/ld.so.conf列出的路径下的库文件 缓存到/etc/ld.so.cache 以供使用 因此当安装完一些库文件，(例如刚安装好glib)，或者修改ld.so.conf增加新的库路径后，需要运行一下/sbin/ldconfig 使所有的库文件都被缓存到ld.so.cache中，如果没做，即使库文件明明就在/usr/lib下的，也是不会被使用的，结果 编译过程中抱错，缺少xxx库。 以上尝试后发现还是不行，添加 /usr/lib/x86_64-linux-gnu 有许多QT库文件</description>
+这个文件记录了编译时使用的动态链接库的路径。 默认情况下，编译器只会使用/lib和/usr/lib这两个目录下的库文件 如果你安装了某些库，没有指定 –prefix=/usr 这样lib库就装到了/usr/local下，而又没有在/etc/ld.so.conf中添加/usr/local/lib，就会报错了  ldconfig是个什么东东吧 ：
+它是一个程序，通常它位于/sbin下，是root用户使用的东东。具体作用及用法可以man ldconfig查到 简单的说，它的作用就是将/etc/ld.so.conf列出的路径下的库文件 缓存到/etc/ld.so.cache 以供使用 因此当安装完一些库文件，(例如刚安装好glib)，或者修改ld.so.conf增加新的库路径后，需要运行一下/sbin/ldconfig 使所有的库文件都被缓存到ld.so.cache中，如果没做，即使库文件明明就在/usr/lib下的，也是不会被使用的，结果 编译过程中抱错，缺少xxx库。  以上尝试后发现还是不行，添加 /usr/lib/x86_64-linux-gnu 有许多QT库文件</description>
     </item>
     
   </channel>

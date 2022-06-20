@@ -7,7 +7,53 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Wed, 01 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/categories/linux%E5%91%BD%E4%BB%A4/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 20 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/categories/linux%E5%91%BD%E4%BB%A4/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>vi和vim使用</title>
+      <link>https://blog.wiseai.cn/post/vi%E5%92%8Cvim%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/vi%E5%92%8Cvim%E4%BD%BF%E7%94%A8/</guid>
+      <description>三种模式，分别是『一般指令模式』、『编辑模式』与『指令列命令模式』。 一般指令模式(command mode) 以vi 打开一个档案就直接进入一般指令模式了(这是预设的模式，也简称为一般模式)。在这个模式中， 你可以使用『上下左右』按键来移动游标，你可以使用『删除字元』或『删除整列』来处理档案内容， 也可以使用『复制、贴上』来处理你的文件资料。 编辑模式(insert mode) 在一般指令模式中可以进行删除、复制、贴上等等的动作，但是却无法编辑文件内容的！要等到你按下『i, I, o, O, a, A, r, R』等任何一个字母之后才会进入编辑模式。注意了！通常在Linux中，按下这些按键时，在画面的左下方会出现『INSERT或REPLACE』的字样，此时才可以进行编辑。而如果要回到一般指令模式时，则必须要按下『Esc』这个按键即可退出编辑模式。 指令列命令模式(command-line mode) 在一般模式当中，输入『 : / ?』三个中的任何一个按钮，就可以将游标移动到最底下那一列。在这个模式当中，可以提供你『搜寻资料』的动作，而读取、存档、大量取代字元、离开vi 、显示行号等等的动作则是在此模式中达成的！  按键说明 一般指令模式可用的按键说明，游标移动、复制贴上、搜寻取代等 屏幕『向下』移动半页: [Ctrl] + [d] 屏幕『向上』移动半页: [Ctrl] + [u] 游标向右移动这一列的n个字符: n空格键 移动到这个档案的第n行#: nG 游标向下移动n行#:n回车键 搜寻与取代 在第n1与n2列之间寻找word1这个字串，并将该字串取代为word2 #:n1,n2s/word1/word2/g 从第一列到最后一列寻找word1字串，并将该字串取代为word2 #:1,$s/word1/word2/g 从第一列到最后一列寻找word1字串，并将该字串取代为word2,且在取代前显示提示字元给使用者确认(confirm)是否需要取代 #:1,$s/word1/word2/gc 删除、复制与粘贴 删除游标所在到第一行的所有资料#:d1G 删除游标所在到最后一列的所有资料#:dG 删除游标所在处，到该行的最后一个字符#:d$ 删除游标所在处，到该行的最前面一个字符#:d0 将游标所在行与下一行的资料结合成同一列#:J 复原前一个动作#:u 重做上一个动作#:[Ctrl]+r 重复前一个动作#:. 区块选择的按键意义 用长方形的方式选择区块#:[Ctrl]+v  多档案编辑
+vim /etc/hosts /etc/resolv.conf 编辑下一个档案::n 编辑上一个档案::N 列出目前这个vim的开启的所有档案::files 多视窗功能 在指令列模式输入『:sp {filename}』 『[ctrl]+w+↑』[ctrl]+w+j及『[ctrl]+w+↓』[ctrl]+w+k在两个视窗之间移动 </description>
+    </item>
+    
+    <item>
+      <title>下载命令wget</title>
+      <link>https://blog.wiseai.cn/post/%E4%B8%8B%E8%BD%BD%E5%91%BD%E4%BB%A4wget/</link>
+      <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/%E4%B8%8B%E8%BD%BD%E5%91%BD%E4%BB%A4wget/</guid>
+      <description>选项:
+-b 后台下载 -O 文件名为***（大写o） -i 下载文件中的URL -t 设置重试次数（0为无限次） -c 断点续传  其它参数：wget –help</description>
+    </item>
+    
+    <item>
+      <title>使用caddy搭建webdav服务器</title>
+      <link>https://blog.wiseai.cn/post/%E4%BD%BF%E7%94%A8caddy%E6%90%AD%E5%BB%BAwebdav%E6%9C%8D%E5%8A%A1%E5%99%A8/</link>
+      <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/%E4%BD%BF%E7%94%A8caddy%E6%90%AD%E5%BB%BAwebdav%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid>
+      <description>首先下载或者编译包含Webdav插件的Caddy 生成密码（设置123456789的密码）  # caddy hash-password --plaintext 123456789
+JDJhJDE0JHpGUDNaL1Q5UEV2dWZxd1BCYWdGUS56WkdZbHJDZG8ybURERWYyRzlzLzd0TTM2akYxNFVh
+编辑Caddyfile   { http_port 80 https_port 443 order webdav before file_server } :6666 { root * /home/xjc/software/caddy/ encode zstd gzip basicauth { #用户名 上面命令生成的密码 admin JDJhJDE0JHpGUDNaL1Q5UEV2dWZxd1BCYWdGUS56WkdZbHJDZG8ybURERWYyRzlzLzd0TTM2akYxNFVh } route { rewrite /webdav /webdav/ webdav /webdav/* { prefix /webdav } } } 运行服务  # caddy run -config Caddyfile -watch
+或者
+# caddy start后台运行服务
+# caddy stop停止服务
+挂载webdav网盘  # sudo mount.</description>
+    </item>
+    
+    <item>
+      <title>locate命令</title>
+      <link>https://blog.wiseai.cn/post/locate%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Sat, 18 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/locate%E5%91%BD%E4%BB%A4/</guid>
+      <description>locate命令用于查找符合条件的文档，他会去保存文档和目录名称的数据库内，查找合乎范本样式条件的文档或目录。 # locate [-d ][--help][--version][查找内容文本]
+参数：
+-b, --basename 仅匹配路径名的基本名称，**也就是说文件名包含的才显示，目录不显示**。 -c, --count 只输出找到的数量 -d, --database DBPATH 使用 DBPATH 指定的数据库，而不是默认数据库 /var/lib/mlocate/mlocate.db -e, --existing 仅打印当前现有文件的条目 -1 如果是 1则启动安全模式。在安全模式下，使用者不会看到权限无法看到的档案。这会始速度减慢，因为 locate 必须至实际的档案系统中取得档案的权限资料。 -0, --null 在输出上带有NUL的单独条目 -S, --statistics 不搜索条目，打印有关每个数据库的统计信息 -P, --nofollow, -H 检查文件存在时不要遵循尾随的符号链接 -l, --limit, -n LIMIT 将输出（或计数）限制为LIMIT个条目 -n 至多显示 n个输出。 -m, --mmap 被忽略，为了向后兼容 -r, --regexp REGEXP 使用基本正则表达式 --regex 使用扩展正则表达式 -q, --quiet 安静模式，不会显示任何错误讯息 -s, --stdio 被忽略，为了向后兼容 -o 指定资料库存的名称。 -h, --help 显示帮助 -i, --ignore-case 忽略大小写 -V, --version 显示版本信息  locate 的数据库在 /var/lib/slocate/slocate.</description>
+    </item>
+    
     <item>
       <title>mariadb和mysql命令</title>
       <link>https://blog.wiseai.cn/post/mariadb%E5%92%8Cmysql%E5%91%BD%E4%BB%A4/</link>
@@ -21,7 +67,7 @@
 # mysqld_safe --user=mysql --skip-grant-tables --skip-networking
 3.无密码登录:
 # mysql -u root mysql
-命令行登录：
+ 命令行登录：
 # mysql -h 127.0.0.1 -u root -p -P 3306
 新建用户：
 # create user &#39;newuser&#39;@&#39;localhost&#39; identified by &#39;123456&#39;;
@@ -33,7 +79,7 @@
 注：you password获取方法：
 # select password(&#39;你的明文密码&#39;);
 所有权限
-# grant all privileges on *.* to &#39;newuser&#39;@&#39;localhost&#39; identified by password &#39;you password&#39;;</description>
+# grant all privileges on *.</description>
     </item>
     
     <item>
@@ -42,11 +88,25 @@
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/adduseraddgroup%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E7%94%A8%E6%88%B7%E7%BB%84/</guid>
-      <description>添加一个普通用户 # adduser [--home 主目录] [--shell SHELL] [--no-create-home] [--uid ID] [--firstuid ID] [--lastuid ID] [--gecos GECOS] [--ingroup 用户组 | --gid ID][--disabled-password] [--disabled-login] [--add_extra_groups] 用户名
-添加一个系统用户 # adduser --system [--home 主目录] [--shell SHELL] [--no-create-home] [--uid ID] [--gecos GECOS] [--group | --ingroup 用户组 | --gid ID] [--disabled-password] [--disabled-login] [--add_extra_groups] 用户名
-添加一个用户组 # adduser --group [--gid ID] 用户组名 # addgroup [--gid ID] 用户组名
-添加一个系统用户组 # addgroup --system [--gid ID] 用户组名
-将一个已存在的用户添加至一个已存在的用户组 # adduser 用户名 用户组名</description>
+      <description>添加一个普通用户  # adduser [--home 主目录] [--shell SHELL] [--no-create-home] [--uid ID] [--firstuid ID] [--lastuid ID] [--gecos GECOS] [--ingroup 用户组 | --gid ID][--disabled-password] [--disabled-login] [--add_extra_groups] 用户名
+ 添加一个系统用户  # adduser --system [--home 主目录] [--shell SHELL] [--no-create-home] [--uid ID] [--gecos GECOS] [--group | --ingroup 用户组 | --gid ID] [--disabled-password] [--disabled-login] [--add_extra_groups] 用户名
+ 添加一个用户组  # adduser --group [--gid ID] 用户组名 # addgroup [--gid ID] 用户组名
+ 添加一个系统用户组  # addgroup --system [--gid ID] 用户组名</description>
+    </item>
+    
+    <item>
+      <title>git的使用</title>
+      <link>https://blog.wiseai.cn/post/git/</link>
+      <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/git/</guid>
+      <description>添加ssh公钥： 查看~/.ssh/id_rsa.pub文件，如果有公钥直接添加，没有的话使用这个命令：
+$ ssh-keygen -t ed25519 -C &amp;#34;xxxxx@xxxxx.com&amp;#34; 三次回车后，再查看~/.ssh/id_rsa.pub文件，添加到gitee设置。
+创建版本库： 不建议直接生成，可以在gitee网站下建立仓库，之后clone到本地，直接使用下面的命令操作就可以了。
+$ git init 这个命令可以把当前目录变成git管理的仓库。 远程库如果是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。
+添加远程仓库： $ git remote add gitee git@gitee.com:wiseai/wiseai.git $ git remote add github git@github.com:wiseai/wiseai.git 查看远程仓库信息： $ git remote -v 删除远程仓库： $ git remote rm github 推送到GitHub或Gitee: $ git push gitee master $ git push github master 该操作在后面内容同步后再推送。
+设置邮件和用户名： $ git config --global user.email &amp;#34;you@example.com&amp;#34; $ git config --global user.name &amp;#34;Your Name&amp;#34; 全局设置使用&amp;ndash;global参数，如果仅在本仓库设置身份标识，则省略 &amp;ndash;global 参数。
+查看git的修改状态： $ git status 查看具体修改内容： $ git diff readme.</description>
     </item>
     
   </channel>

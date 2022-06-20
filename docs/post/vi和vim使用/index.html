@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-cn"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+
+    <title>vi和vim使用 | WiseAI的博客</title>
+</head><body><nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <img src="/favicon.ico" alt="" width="30" height="24" class="d-inline-block align-text-top">
+            WiseAI的博客
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                
+                <li class="nav-item">
+                    <a  class="nav-link"   href="/articles/">文章</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a  class="nav-link"   href="/categories/">分类</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a  class="nav-link"   href="/tags/">关键字</a>
+                </li>
+                
+            </ul>
+            <form class="d-flex">
+                <input id="search-query" class="form-control me-2" type="search" placeholder="Search for anything..." aria-label="Search">
+            </form>
+        </div>
+    </div>
+</nav>
+
+
+
+
+<div id="search-results" style="margin-top: 60px">
+
+</div><div id="content">
+<div class="container article">
+	<h1>vi和vim使用</h1>
+	<div class="post-meta">
+		<div>
+			
+			
+			By wiseai | 2022-06-20 | 1 minutes
+		</div>
+		<div class="tags">
+			
+			<a class="btn btn-light links btn-sm" href="/tags/vim/">vim</a>
+			
+			<a class="btn btn-light links btn-sm" href="/tags/vi/">vi</a>
+			
+		</div>
+	</div>
+	<div>
+		<div class="article-post">
+			<h4 id="三种模式分别是一般指令模式编辑模式与指令列命令模式">三种模式，分别是『一般指令模式』、『编辑模式』与『指令列命令模式』。</h4>
+<pre><code>一般指令模式(command mode)
+以vi 打开一个档案就直接进入一般指令模式了(这是预设的模式，也简称为一般模式)。在这个模式中， 你可以使用『上下左右』按键来移动游标，你可以使用『删除字元』或『删除整列』来处理档案内容， 也可以使用『复制、贴上』来处理你的文件资料。
+编辑模式(insert mode)
+在一般指令模式中可以进行删除、复制、贴上等等的动作，但是却无法编辑文件内容的！要等到你按下『i, I, o, O, a, A, r, R』等任何一个字母之后才会进入编辑模式。注意了！通常在Linux中，按下这些按键时，在画面的左下方会出现『INSERT或REPLACE』的字样，此时才可以进行编辑。而如果要回到一般指令模式时，则必须要按下『Esc』这个按键即可退出编辑模式。
+指令列命令模式(command-line mode)
+在一般模式当中，输入『 : / ?』三个中的任何一个按钮，就可以将游标移动到最底下那一列。在这个模式当中，可以提供你『搜寻资料』的动作，而读取、存档、大量取代字元、离开vi 、显示行号等等的动作则是在此模式中达成的！
+</code></pre>
+<h2 id="按键说明">按键说明</h2>
+<pre><code>一般指令模式可用的按键说明，游标移动、复制贴上、搜寻取代等
+屏幕『向下』移动半页: [Ctrl] + [d]
+屏幕『向上』移动半页: [Ctrl] + [u]
+游标向右移动这一列的n个字符: n空格键
+移动到这个档案的第n行#: nG
+游标向下移动n行#:n回车键
+搜寻与取代
+在第n1与n2列之间寻找word1这个字串，并将该字串取代为word2
+#:n1,n2s/word1/word2/g
+从第一列到最后一列寻找word1字串，并将该字串取代为word2
+#:1,$s/word1/word2/g
+从第一列到最后一列寻找word1字串，并将该字串取代为word2,且在取代前显示提示字元给使用者确认(confirm)是否需要取代
+#:1,$s/word1/word2/gc
+删除、复制与粘贴
+删除游标所在到第一行的所有资料#:d1G
+删除游标所在到最后一列的所有资料#:dG
+删除游标所在处，到该行的最后一个字符#:d$
+删除游标所在处，到该行的最前面一个字符#:d0
+将游标所在行与下一行的资料结合成同一列#:J
+复原前一个动作#:u
+重做上一个动作#:[Ctrl]+r
+重复前一个动作#:.
+区块选择的按键意义
+用长方形的方式选择区块#:[Ctrl]+v
+</code></pre>
+<p>多档案编辑</p>
+<pre><code>vim /etc/hosts /etc/resolv.conf
+编辑下一个档案::n
+编辑上一个档案::N
+列出目前这个vim的开启的所有档案::files
+多视窗功能
+
+在指令列模式输入『:sp {filename}』  
+『[ctrl]+w+↑』[ctrl]+w+j及『[ctrl]+w+↓』[ctrl]+w+k在两个视窗之间移动</code></pre>
+
+		</div>
+	</div>
+</div>
+
+
+<div class="container">
+    
+    <div class="row">
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-end dh" href="/post/%E4%B8%8B%E8%BD%BD%E5%91%BD%E4%BB%A4wget/">
+                <h5>前一篇</h5><br>
+                下载命令wget
+            </a>            
+        </div>
+        
+        <div class="col-2">
+        </div>
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-start dh" href="/post/ssh%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E7%9A%84%E5%90%AF%E7%94%A8%E7%A6%81%E7%94%A8%E6%96%B9%E6%B3%95/">
+                <h5>后一篇</h5><br>
+                ssh加密算法的启用禁用方法
+            </a>            
+        </div>
+        
+    </div>
+    
+</div>
+
+        </div><br><br>
+<footer class="container">
+    <h2>友情链接</h2>
+    <hr>
+    <nav class="nav nav-pills flex-column flex-sm-row">
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/gnzg/index.html" target="_blank">孤鸟之歌</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/mm/index.html" target="_blank">生成随机字符</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/md/index.html" target="_blank">MarkDown</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://gitee.com/" target="_blank">Gitee</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://github.com/" target="_blank">Github</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.oschina.net/" target="_blank">OSCHINA</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://gitee.com/wiseai/the-way-to-go_ZH_CN/blob/master/eBook/directory.md" target="_blank">the way to go</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://goframe.org/display/gf" target="_blank">GoFrame</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.aliyundrive.com/" target="_blank">阿里云盘</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.bootstrap.cn/" target="_blank">bootstrap文档</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.58pic.com/" target="_blank">千图</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://marketing.qiniu.com/" target="_blank">七牛云</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.ixigua.com/" target="_blank">西瓜视频</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/yugang/index.html" target="_blank">鱼缸计算</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="/index.xml" target="_blank">RSS</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.kancloud.cn/idcpj/python/418553" target="_blank">参考资料</a>
+        
+    </nav>
+
+    <div class="copyright text-center">
+      <span class="power-by">
+        Powered by <a class="links" href="https://gohugo.io" target="_blank">Hugo</a>
+    </span>
+    <span>|</span>
+    <span>
+        Theme - <a class="links" href="https://github.com/wiseai-go/blog-hugo" target="_blank">WiseAI</a>
+    </span>
+    <br>
+    <span class="copyright-year">
+        &copy;
+        
+        2017 -
+        2022<span>
+            陇ICP备15000157号
+            
+        </span></span>
+
+</div>
+</footer>
+<script src="/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+</html>

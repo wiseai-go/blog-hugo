@@ -7,7 +7,75 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Fri, 10 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/categories/linux%E4%BD%BF%E7%94%A8/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 20 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/categories/linux%E4%BD%BF%E7%94%A8/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用OpenSSL生成证书</title>
+      <link>https://blog.wiseai.cn/post/%E4%BD%BF%E7%94%A8openssl%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6/</link>
+      <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/%E4%BD%BF%E7%94%A8openssl%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6/</guid>
+      <description>下载安装OpenSSL，进入/bin/下面，执行命令（把ssl目录下的openssl.cnf 拷贝到bin目录下）
+1.首先要生成服务器端的私钥(key文件):
+ openssl genrsa -des3 -out server.key 1024 [root@airwaySSL openssl]# cd ssl/ [root@airwaySSL ssl]# pwd /home/openssl/ssl [root@airwaySSL ssl]# ls certs man misc openssl.cnf private server.csr server.key 运行时会提示输入密码,此密码用于加密key文件(参数des3便是指加密算法,当然也可以选用其他你认为安全的算法.),以后每当需读取此文件(通过openssl提供的命令或API)都需输入口令.如果觉得不方便,也可以去除这个口令,但一定要采取其他的保护措施!
+去除key文件口令的命令:
+ openssl rsa -in server.key -out server.key 2.openssl req -new -key server.key -out server.csr -config openssl.cnf
+ [root@airwaySSL bin]# openssl req -new -key server.key -out server.csr -config openssl.cnf Enter pass phrase for server.key:12345 You are about to be asked to enter information that will be incorporated into your certificate request.</description>
+    </item>
+    
+    <item>
+      <title>更改ubuntu源</title>
+      <link>https://blog.wiseai.cn/post/%E6%9B%B4%E6%94%B9ubuntu%E6%BA%90/</link>
+      <pubDate>Sun, 19 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/%E6%9B%B4%E6%94%B9ubuntu%E6%BA%90/</guid>
+      <description>sed -i &#39;s#http://archive.ubuntu.com/ubuntu/#mirror://mirrors.ubuntu.com/mirrors.txt#&#39; /etc/apt/sources.list</description>
+    </item>
+    
+    <item>
+      <title>整站或网页下载软件httrack</title>
+      <link>https://blog.wiseai.cn/post/%E6%95%B4%E7%AB%99%E6%88%96%E7%BD%91%E9%A1%B5%E4%B8%8B%E8%BD%BD%E8%BD%AF%E4%BB%B6httrack/</link>
+      <pubDate>Fri, 17 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/%E6%95%B4%E7%AB%99%E6%88%96%E7%BD%91%E9%A1%B5%E4%B8%8B%E8%BD%BD%E8%BD%AF%E4%BB%B6httrack/</guid>
+      <description>首先安装httrack:
+＃dnf install httrack
+使用说明：
+＃httrack
+输入项目名
+输入保存目录
+输入需要保存的网站URL或者网页URL
+其它的默认就好</description>
+    </item>
+    
+    <item>
+      <title>搭建apt本地源</title>
+      <link>https://blog.wiseai.cn/post/%E6%90%AD%E5%BB%BAapt%E6%9C%AC%E5%9C%B0%E6%BA%90/</link>
+      <pubDate>Thu, 16 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/%E6%90%AD%E5%BB%BAapt%E6%9C%AC%E5%9C%B0%E6%BA%90/</guid>
+      <description>一、安装apt-mirror命令 # apt install apt-mirror
+二、 修改apt-mirror配置文件 首先， 确定自己系统的版本 ，root权限执行：
+# lsb_release -a
+我的系统是ubuntu的bionic，从阿里云下载源，一般有5个目录，前三个常用，后两个是预发布软件，不常用，我一般用前三个
+deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse 然后，编辑apt-mirror的配置文件/etc/apt/mirror.list
+配置镜像下载目录 set base_path /var/spool/apt-mirror
+架构配置，i386/amd64，默认的话会下载跟本机相同的架构的源 set defaultarch amd64
+下载线程数 set nthreads 20 set _tilde 0
+阿里云的源（这里没有添加deb-src的源码源） deb http://mirrors.aliyun.com/ubuntu/ xenial main restricted universe multiverse deb http://mirrors.</description>
+    </item>
+    
+    <item>
+      <title>yum时出现error的解决办法</title>
+      <link>https://blog.wiseai.cn/post/yum%E6%97%B6%E5%87%BA%E7%8E%B0error%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
+      <pubDate>Wed, 15 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/yum%E6%97%B6%E5%87%BA%E7%8E%B0error%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
+      <description>错误内容： Unable to detect release version (use ‘–releasever’ to specify release version) error: rpmdb: damaged header #173 retrieved — skipping. error: rpmdbNextIterator: skipping h# 173 blob size(55540): BAD, 8 + 16 * il(78) + dl(54284) 解决办法： 首先：删除/var/lib/下的rpm文件夹
+之后：执行命令rpm --rebuilddb
+最后：安装一个提供版本号的包yum --releasever 8 install centos-release
+其中--releasever 8是指定版本号，我的是centos8，所以这么写。</description>
+    </item>
+    
     <item>
       <title>MarkDown在线编辑器</title>
       <link>https://blog.wiseai.cn/post/markdown%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91%E5%99%A8/</link>
@@ -16,7 +84,7 @@
       <guid>https://blog.wiseai.cn/post/markdown%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91%E5%99%A8/</guid>
       <description>使用开源项目editor.md我的gitee仓库下也有。
 安装 # npm install editor.md
-使用 &amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;&amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt;&amp;lt;link rel=&amp;#34;stylesheet&amp;#34; href=&amp;#34;editor.md/css/editormd.min.css&amp;#34; /&amp;gt;&amp;lt;title&amp;gt;Markdown 编辑在线器&amp;lt;/title&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;body&amp;gt;&amp;lt;div id=&amp;#34;text&amp;#34; style=&amp;#34;width: 100%;&amp;#34;&amp;gt;&amp;lt;div id=&amp;#34;editor&amp;#34; style=&amp;#34;height: 100%;&amp;#34;&amp;gt;&amp;lt;!-- Tips: Editor.md can auto append a `&amp;lt;textarea&amp;gt;` tag --&amp;gt;&amp;lt;textarea style=&amp;#34;display:none;&amp;#34; placeholder=&amp;#34;欢迎使用&amp;#34;&amp;gt;&amp;lt;/textarea&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;script src=&amp;#34;jquery.min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt;&amp;lt;script src=&amp;#34;editor.md/editormd.min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt;&amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt;// 设置div与窗口高度一致window.onload = function () {var h = window.innerHeight - 25 ; //获取当前窗口的高度; document.getElementById(&amp;#34;text&amp;#34;).style.height = h + &amp;#34;px&amp;#34;; //设置div的高度}// 设置textarea参数$(function() {var h = window.</description>
+使用  &amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;&amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt;&amp;lt;link rel=&amp;#34;stylesheet&amp;#34; href=&amp;#34;editor.md/css/editormd.min.css&amp;#34; /&amp;gt;&amp;lt;title&amp;gt;Markdown 编辑在线器&amp;lt;/title&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;body&amp;gt;&amp;lt;div id=&amp;#34;text&amp;#34; style=&amp;#34;width: 100%;&amp;#34;&amp;gt;&amp;lt;div id=&amp;#34;editor&amp;#34; style=&amp;#34;height: 100%;&amp;#34;&amp;gt;&amp;lt;!-- Tips: Editor.md can auto append a `&amp;lt;textarea&amp;gt;` tag --&amp;gt;&amp;lt;textarea style=&amp;#34;display:none;&amp;#34; placeholder=&amp;#34;欢迎使用&amp;#34;&amp;gt;&amp;lt;/textarea&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;script src=&amp;#34;jquery.min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt;&amp;lt;script src=&amp;#34;editor.md/editormd.min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt;&amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt;// 设置div与窗口高度一致window.onload = function () {var h = window.innerHeight - 25 ; //获取当前窗口的高度; document.getElementById(&amp;#34;text&amp;#34;).style.height = h + &amp;#34;px&amp;#34;; //设置div的高度}// 设置textarea参数$(function() {var h = window.</description>
     </item>
     
     <item>
@@ -34,7 +102,7 @@
       <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/sublime%E4%BD%BF%E7%94%A8/</guid>
-      <description>安装Package Control Tools-&amp;gt;Install Package Control 选项，即可调出 Package Control “Tools-&amp;gt;Command Palette&amp;hellip;”选项，快捷键Ctrl+Shift +P 输入 ipc ,点击 Install Package Control，即可调出 Package Control 设置中文 Preferences-&amp;gt;Package Control，快捷键Ctrl+Shift +P 选项弹出命令行输入框，输入ip，点击“install Package” 弹出命令行输入框，输入clz，点击“ChineseLocalizations” “帮助-&amp;gt;Language ”切换语言。 </description>
+      <description>安装Package Control  Tools-&amp;gt;Install Package Control 选项，即可调出 Package Control “Tools-&amp;gt;Command Palette&amp;hellip;”选项，快捷键Ctrl+Shift +P 输入 ipc ,点击 Install Package Control，即可调出 Package Control  设置中文  Preferences-&amp;gt;Package Control，快捷键Ctrl+Shift +P 选项弹出命令行输入框，输入ip，点击“install Package” 弹出命令行输入框，输入clz，点击“ChineseLocalizations” “帮助-&amp;gt;Language ”切换语言。  </description>
     </item>
     
     <item>
@@ -95,7 +163,7 @@ ALFS：Automated Linux From Scratch提供了自动化和管理LFS和BLFS构建�
 # apt install simplescreenrecorder
 其它安装方式：https://www.maartenbaert.be/simplescreenrecorder/
 它的一些显著特点包括:
-基于QT的简单GUI 可以记录整个屏幕或它的一部分	从OpenGL的应用程序直接记录 良好的视频和音频同步 有助于减少慢速机的视频帧速率 支持暂停和恢复功能 显示了了在记录过程期间的统计 支持录制过程中预览 默认设置已经很好，不需要进行过多设置 二、 OBS (Open Broadcaster Software) OBS 是一个免费、开源和跨平台的视频记录和流媒体应用程序,它可以工作在Linux、Windows和Mac OS X。 Windows需要从官网下载（https://obsproject.com/），Linux系统包含在rpmfusion中。
+基于QT的简单GUI 可以记录整个屏幕或它的一部分	从OpenGL的应用程序直接记录 良好的视频和音频同步 有助于减少慢速机的视频帧速率 支持暂停和恢复功能 显示了了在记录过程期间的统计 支持录制过程中预览 默认设置已经很好，不需要进行过多设置  二、 OBS (Open Broadcaster Software) OBS 是一个免费、开源和跨平台的视频记录和流媒体应用程序,它可以工作在Linux、Windows和Mac OS X。 Windows需要从官网下载（https://obsproject.com/），Linux系统包含在rpmfusion中。
 ＃ yum install obs-studio
 # apt install ffmpeg
 # add-apt-repository ppa:obsproject/obs-studio
@@ -122,7 +190,7 @@ $ yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-
 $ yum install docker-ce
 如果提示接受GPG密钥，请验证指纹是否匹配060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35，如果匹配 ，则接受它。
 ubuntu:
-$ sudo apt-get update $ sudo apt-get install apt-transport-https ca-certificates curl software-properties-common $ curl -fsSL https://download.</description>
+ $ sudo apt-get update $ sudo apt-get install apt-transport-https ca-certificates curl software-properties-common $ curl -fsSL https://download.</description>
     </item>
     
     <item>
@@ -141,8 +209,8 @@ efi下的/boot/efi/EFI/centos/grub.cfg文件一般调用/boot/grub2/grub.cfg这�
 # grub2-set-default 2
 一般从0开始
 四、安装 # grub-install --efi-directory=/boot/efi/ --boot-directory=/boot/ --removable /dev/sda 几个需要说明的地方：
---efi-directory=/boot/efi/这个位置的问题，如果efi分区是单独挂载的，就直接写这个目录就可以了，不用加efi，它会在这个目录下建立EFI的目录，写入相关文件。 --boot-directory=/boot/这个不用加grub2，它会自己生成grub2目录，写入相关文件 --removable如果是移动设备，一定要加这个选项
-五、常用命令 启动常用的grub命令 root (hd0,2) #设置某块分区为根目录kernel /vmlinuz #加载linux kernelinitrd /initrd.gz #加载驱动，或者虚拟rootfsboot #启动加载的kernel 查找文件 find --set-root --ignore-floppies --ignore-cd /usr/bin/cp #查找/usr/bin/cp文件，并将分区设为根目录，忽略软盘和cd 加载iso root (hdx,x) #设置根目录map --mem /xx.iso (0xff) #映射iso文件到模拟cdrom 0xffmap --hook #映射钩子chainloader (0xff) #链接到映射的CDROMboot #启动 grub命名规则，(hd32)为第一仿真cd/dvd设备，等同于0xa0，(hd33)为二仿真cd/dvd设备，0xff为最后一个。grub中将0xa0以上都认做cdrom。 map --mem 用于仿真不连续的存放的iso文件，不加则必须连续存放，碎片整理后再存放iso一般才会连续。 另外grub不支持大的iso，如果iso不支持则提示:inviladorupsupported executableformat。</description>
+ --efi-directory=/boot/efi/这个位置的问题，如果efi分区是单独挂载的，就直接写这个目录就可以了，不用加efi，它会在这个目录下建立EFI的目录，写入相关文件。 --boot-directory=/boot/这个不用加grub2，它会自己生成grub2目录，写入相关文件 --removable如果是移动设备，一定要加这个选项
+ 五、常用命令  启动常用的grub命令  root (hd0,2) #设置某块分区为根目录kernel /vmlinuz #加载linux kernelinitrd /initrd.gz #加载驱动，或者虚拟rootfsboot #启动加载的kernel  查找文件 find --set-root --ignore-floppies --ignore-cd /usr/bin/cp #查找/usr/bin/cp文件，并将分区设为根目录，忽略软盘和cd 加载iso  root (hdx,x) #设置根目录map --mem /xx.iso (0xff) #映射iso文件到模拟cdrom 0xffmap --hook #映射钩子chainloader (0xff) #链接到映射的CDROMboot #启动 grub命名规则，(hd32)为第一仿真cd/dvd设备，等同于0xa0，(hd33)为二仿真cd/dvd设备，0xff为最后一个。grub中将0xa0以上都认做cdrom。 map --mem 用于仿真不连续的存放的iso文件，不加则必须连续存放，碎片整理后再存放iso一般才会连续。 另外grub不支持大的iso，如果iso不支持则提示:inviladorupsupported executableformat。</description>
     </item>
     
     <item>
@@ -192,21 +260,6 @@ $ make build 注：开始编译，完成后在当前目录下filebrowser
 与上一个档案有关系,也就是 PAM 模块 (/etc/pam.d/vsftpd) 所指定的那个无法登入的用户配置文件啊! 这个档案的设定很简单,你只要将『不想让他登入FTP 的账号』写入这个档案即可。
 /etc/vsftpd/user_list
 这个档案是否能够生效与 vsftpd.conf 内的两个参数有关,分别是『 userlist_enable, userlist_deny 』。 如果说 /etc/vsftpd/ftpusers 是PAM 模块的抵挡设定项目,那么这个 /etc/vsftpd/user_list 则是 vsftpd 自定义的抵挡项目。事实上这个档案与 /etc/vsftpd/ftpusers 几乎一模一样, 在预设的情况下,你可以将不希望可登入 vsftpd 的账号写入这里。不过这个档案的功能会依据 vsftpd.</description>
-    </item>
-    
-    <item>
-      <title>git的使用</title>
-      <link>https://blog.wiseai.cn/post/git/</link>
-      <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.wiseai.cn/post/git/</guid>
-      <description>添加ssh公钥： 查看~/.ssh/id_rsa.pub文件，如果有公钥直接添加，没有的话使用这个命令：
-$ ssh-keygen -t ed25519 -C &amp;#34;xxxxx@xxxxx.com&amp;#34; 三次回车后，再查看~/.ssh/id_rsa.pub文件，添加到gitee设置。
-创建版本库： 不建议直接生成，可以在gitee网站下建立仓库，之后clone到本地，直接使用下面的命令操作就可以了。
-$ git init 这个命令可以把当前目录变成git管理的仓库。 远程库如果是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。
-添加远程仓库： $ git remote add gitee git@gitee.com:wiseai/wiseai.git $ git remote add github git@github.com:wiseai/wiseai.git 查看远程仓库信息： $ git remote -v 删除远程仓库： $ git remote rm github 推送到GitHub或Gitee: $ git push gitee master $ git push github master 该操作在后面内容同步后再推送。
-设置邮件和用户名： $ git config --global user.email &amp;#34;you@example.com&amp;#34; $ git config --global user.name &amp;#34;Your Name&amp;#34; 全局设置使用&amp;ndash;global参数，如果仅在本仓库设置身份标识，则省略 &amp;ndash;global 参数。
-查看git的修改状态： $ git status 查看具体修改内容： $ git diff readme.</description>
     </item>
     
     <item>

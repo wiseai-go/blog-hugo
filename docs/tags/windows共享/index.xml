@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>windows共享 on WiseAI的博客</title>
+    <link>https://blog.wiseai.cn/tags/windows%E5%85%B1%E4%BA%AB/</link>
+    <description>Recent content in windows共享 on WiseAI的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>陇ICP备15000157号</copyright>
+    <lastBuildDate>Mon, 20 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/tags/windows%E5%85%B1%E4%BA%AB/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>samba服务器配置和使用</title>
+      <link>https://blog.wiseai.cn/post/samba%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/samba%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/</guid>
+      <description>安装：
+#dnf install samba
+端口：
+管理工作组：UDP137，138
+共享数据：TCP139，445（不一定存在）
+启动服务：
+#systemctl start smb
+#systemctl enable smb
+配置文件（/etc/samba/smb.conf）:
+1.先设定好服务器整体环境方面的参数
+[global]
+config file = /etc/samba/conf/smb.conf.%m
+说明：config file可以让你使用另一个配置文件来覆盖缺省的配置文件。如果文件 不存在，则该项无效。这个参数很有用，可以使得samba配置更灵活，可以让一台samba服务器模拟多台不同配置的服务器。比如，你想让PC1（主机 名）这台电脑在访问Samba Server时使用它自己的配置文件，那么先在/etc/samba/host/下为PC1配置一个名为smb.conf.pc1的文件，然后在 smb.conf中加入：config file = /etc/samba/conf/smb.conf.%m。这样当PC1请求连接Samba Server时，smb.conf.%m就被替换成smb.conf.pc1。这样，对于PC1来说，它所使用的Samba服务就是由 smb.conf.pc1定义的，而其他机器访问Samba Server则还是应用smb.conf。
+#用户组 workgroup = mygroup #欢迎信息 server string = Samba Server Version %v #加密 security = user #使用TDB 数据库格式 passdb backend = tdbsam #不加载打印机 load printers = no #共享名 [homes] #说明 comment = Home Directories #除了使用者自己外,不可被其他人浏览 browseable = no #挂载后可擦写此分享 writable = yes #建立档案的权限为 664 create mode = 0664 #建立目录的权限为 775 directory mode = 0775 #指定允许访问该共享资源的用户&amp;amp;&amp;amp;多个用户或者组中间用逗号隔开，如果要加入一个组就用&amp;#34;@组名&amp;#34;表示,%s表示代替前一个[]里的内容 valid users = %S valid users = MYDOMAIN\%S [share] comment = Public Stuff #实际的 Linux 上面的目录位置 path = /home/samba #用来指定该共享的管理员（对该共享具有完全控制权限） admin users = admin #指定允许访问该共享资源的用户或者组 valid users = share,@share #指定不允许访问该共享资源的用户 invalid users = guest #除了使用者自己外,不可被其他人浏览 browseable = no #指定可以在该共享下写入文件的用户 write list = share,@share #指定该共享是否允许guest账户访问 public = no #指定该共享路径是否可写 writable = yes #可以在该共享下写入文件的用户和组 write list = share,@share 用 testparm 查阅 smb.</description>
+    </item>
+    
+  </channel>
+</rss>

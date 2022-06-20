@@ -16,8 +16,8 @@
       <guid>https://blog.wiseai.cn/post/gpio%E7%9B%B8%E5%85%B3/</guid>
       <description>linux查看gpio状态 cat /sys/kernel/debug/gpio
 有个blog里有这个方法，去试试：
-mkdir /tmp/debug mount -t debugfs debugfs /tmp/debug cat /tmp/debug/gpio GPIO操作的一些说明 首先，看看系统中有没有“/sys/class/gpio”这个文件夹。如果没有请在编译内核的时候加入 Device Drivers-&amp;gt; GPIO Support -&amp;gt;/sys/class/gpio/… (sysfs interface)
-/sys/class/gpio 的使用说明： gpio_operation 通过/sys/文件接口操作IO端口 GPIO到文件系统的映射
+mkdir /tmp/debug mount -t debugfs debugfs /tmp/debug cat /tmp/debug/gpio GPIO操作的一些说明  首先，看看系统中有没有“/sys/class/gpio”这个文件夹。如果没有请在编译内核的时候加入  Device Drivers-&amp;gt; GPIO Support -&amp;gt;/sys/class/gpio/… (sysfs interface)
+ /sys/class/gpio 的使用说明：  gpio_operation 通过/sys/文件接口操作IO端口 GPIO到文件系统的映射
 ◇ 控制GPIO的目录位于/sys/class/gpio
 ◇ /sys/class/gpio/export文件用于通知系统需要导出控制的GPIO引脚编号
 ◇ /sys/class/gpio/unexport 用于通知系统取消导出
@@ -27,10 +27,8 @@ mkdir /tmp/debug mount -t debugfs debugfs /tmp/debug cat /tmp/debug/gpio GPIO操
 ◇ direction文件，定义输入输入方向，可以通过下面命令定义为输出。direction接受的参数：in, out, high, low。high/low同时设置方向为输出，并将value设置为相应的1/0
 ◇ value文件是端口的数值，为1或0
 例子： 进入/sys/class/gpio/文件夹：
-将gpio7重定向用户定义设备，生成gpio7目录 # echo 7 &amp;gt; export
-进入gpio7目录并查看文件 # cd gpio7
-# ls
-direction设置引脚方向，输入还是输出</description>
+ 将gpio7重定向用户定义设备，生成gpio7目录  # echo 7 &amp;gt; export
+进入gpio7目录并查看文件  # cd gpio7</description>
     </item>
     
   </channel>

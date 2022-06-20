@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-cn"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+
+    <title>搭建apt本地源 | WiseAI的博客</title>
+</head><body><nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <img src="/favicon.ico" alt="" width="30" height="24" class="d-inline-block align-text-top">
+            WiseAI的博客
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                
+                <li class="nav-item">
+                    <a  class="nav-link"   href="/articles/">文章</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a  class="nav-link"   href="/categories/">分类</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a  class="nav-link"   href="/tags/">关键字</a>
+                </li>
+                
+            </ul>
+            <form class="d-flex">
+                <input id="search-query" class="form-control me-2" type="search" placeholder="Search for anything..." aria-label="Search">
+            </form>
+        </div>
+    </div>
+</nav>
+
+
+
+
+<div id="search-results" style="margin-top: 60px">
+
+</div><div id="content">
+<div class="container article">
+	<h1>搭建apt本地源</h1>
+	<div class="post-meta">
+		<div>
+			
+			
+			By wiseai | 2022-06-16 | 1 minutes
+		</div>
+		<div class="tags">
+			
+			<a class="btn btn-light links btn-sm" href="/tags/apt/">apt</a>
+			
+			<a class="btn btn-light links btn-sm" href="/tags/%E6%9B%B4%E6%96%B0/">更新</a>
+			
+			<a class="btn btn-light links btn-sm" href="/tags/%E6%9C%AC%E5%9C%B0%E6%BA%90/">本地源</a>
+			
+		</div>
+	</div>
+	<div>
+		<div class="article-post">
+			<h2 id="一安装apt-mirror命令">一、安装apt-mirror命令</h2>
+<p><code># apt install apt-mirror</code></p>
+<h2 id="二-修改apt-mirror配置文件">二、 修改apt-mirror配置文件</h2>
+<p>首先， 确定自己系统的版本 ，root权限执行：</p>
+<p><code># lsb_release -a</code></p>
+<p>我的系统是ubuntu的bionic，从阿里云下载源，一般有5个目录，前三个常用，后两个是预发布软件，不常用，我一般用前三个</p>
+<pre tabindex="0"><code>deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+</code></pre><p>然后，编辑apt-mirror的配置文件/etc/apt/mirror.list</p>
+<h3 id="配置镜像下载目录">配置镜像下载目录</h3>
+<p><code>set base_path /var/spool/apt-mirror</code></p>
+<h3 id="架构配置i386amd64默认的话会下载跟本机相同的架构的源">架构配置，i386/amd64，默认的话会下载跟本机相同的架构的源</h3>
+<p><code>set defaultarch amd64</code></p>
+<h3 id="下载线程数">下载线程数</h3>
+<p><code>set nthreads 20</code>
+<code>set _tilde 0</code></p>
+<h3 id="阿里云的源这里没有添加deb-src的源码源">阿里云的源（这里没有添加deb-src的源码源）</h3>
+<pre tabindex="0"><code>deb http://mirrors.aliyun.com/ubuntu/ xenial main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ xenial-proposed main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ xenial-backports main restricted universe multiverse
+</code></pre><h3 id="后面还可以添加其它版本的源">后面还可以添加其它版本的源</h3>
+<h3 id="清理不使用的软件包">清理不使用的软件包</h3>
+<p>clean <a href="http://mirrors.aliyun.com/ubuntu">http://mirrors.aliyun.com/ubuntu</a></p>
+<h2 id="三开始同步">三、开始同步</h2>
+<p><code># apt-mirror</code>
+注意：同步的文件必须在Linux文件系统下，所有人为_apt；否则出错。</p>
+<h2 id="四-客户端配置">四、 客户端配置</h2>
+<p>编辑/etc/apt/source.list</p>
+<pre tabindex="0"><code>deb [arch=amd64] http://[host]:[port]/ubuntu/ bionic main restricted universe multiverse 
+deb [arch=amd64] http://[host]:[port]/ubuntu/ bionic-security main restricted universe multiverse 
+deb [arch=amd64] http://[host]:[port]/ubuntu/ bionic-updates main restricted universe multiverse 
+deb [arch=amd64] http://[host]:[port]/ubuntu/ bionic-proposed main restricted universe multiverse 
+deb [arch=amd64] http://[host]:[port]/ubuntu/ bionic-backports main restricted universe multiverse
+或
+
+deb [arch=amd64] file:///你的目录/ubuntu/ bionic main restricted universe multiverse 
+deb [arch=amd64] file:///你的目录/ubuntu/ bionic-security main restricted universe multiverse 
+deb [arch=amd64] file:///你的目录/ubuntu/ bionic-updates main restricted universe multiverse 
+deb [arch=amd64] file:///你的目录/ubuntu/ bionic-proposed main restricted universe multiverse 
+deb [arch=amd64] file:///你的目录/ubuntu/ bionic-backports main restricted universe multiverse
+</code></pre>
+		</div>
+	</div>
+</div>
+
+
+<div class="container">
+    
+    <div class="row">
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-end dh" href="/post/yum%E6%97%B6%E5%87%BA%E7%8E%B0error%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">
+                <h5>前一篇</h5><br>
+                yum时出现error的解决办法
+            </a>            
+        </div>
+        
+        <div class="col-2">
+        </div>
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-start dh" href="/post/%E6%95%B4%E7%AB%99%E6%88%96%E7%BD%91%E9%A1%B5%E4%B8%8B%E8%BD%BD%E8%BD%AF%E4%BB%B6httrack/">
+                <h5>后一篇</h5><br>
+                整站或网页下载软件httrack
+            </a>            
+        </div>
+        
+    </div>
+    
+</div>
+
+        </div><br><br>
+<footer class="container">
+    <h2>友情链接</h2>
+    <hr>
+    <nav class="nav nav-pills flex-column flex-sm-row">
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/gnzg/index.html" target="_blank">孤鸟之歌</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/mm/index.html" target="_blank">生成随机字符</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/md/index.html" target="_blank">MarkDown</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://gitee.com/" target="_blank">Gitee</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://github.com/" target="_blank">Github</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.oschina.net/" target="_blank">OSCHINA</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://gitee.com/wiseai/the-way-to-go_ZH_CN/blob/master/eBook/directory.md" target="_blank">the way to go</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://goframe.org/display/gf" target="_blank">GoFrame</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.aliyundrive.com/" target="_blank">阿里云盘</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.bootstrap.cn/" target="_blank">bootstrap文档</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.58pic.com/" target="_blank">千图</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://marketing.qiniu.com/" target="_blank">七牛云</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.ixigua.com/" target="_blank">西瓜视频</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/yugang/index.html" target="_blank">鱼缸计算</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="/index.xml" target="_blank">RSS</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.kancloud.cn/idcpj/python/418553" target="_blank">参考资料</a>
+        
+    </nav>
+
+    <div class="copyright text-center">
+      <span class="power-by">
+        Powered by <a class="links" href="https://gohugo.io" target="_blank">Hugo</a>
+    </span>
+    <span>|</span>
+    <span>
+        Theme - <a class="links" href="https://github.com/wiseai-go/blog-hugo" target="_blank">WiseAI</a>
+    </span>
+    <br>
+    <span class="copyright-year">
+        &copy;
+        
+        2017 -
+        2022<span>
+            陇ICP备15000157号
+            
+        </span></span>
+
+</div>
+</footer>
+<script src="/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+</html>

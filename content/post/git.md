@@ -7,17 +7,17 @@ tags:
 - github
 - gitee
 categories:
-- Linux使用
+- Linux命令
 draft: false
 ---
 
 添加ssh公钥：
 --
-查看~/.ssh/id_rsa.pub文件，如果有公钥直接添加，没有的话使用这个命令：
+查看`~/.ssh/id_rsa.pub`文件，如果有公钥直接添加，没有的话使用这个命令：
 ```
 $ ssh-keygen -t ed25519 -C "xxxxx@xxxxx.com"
 ```
-三次回车后，再查看~/.ssh/id_rsa.pub文件，添加到gitee设置。
+三次回车后，再查看`~/.ssh/id_rsa.pub`文件，添加到gitee设置。
 
 创建版本库：
 --

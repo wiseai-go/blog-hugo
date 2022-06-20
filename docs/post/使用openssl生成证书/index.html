@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-cn"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+
+    <title>使用OpenSSL生成证书 | WiseAI的博客</title>
+</head><body><nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <img src="/favicon.ico" alt="" width="30" height="24" class="d-inline-block align-text-top">
+            WiseAI的博客
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                
+                <li class="nav-item">
+                    <a  class="nav-link"   href="/articles/">文章</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a  class="nav-link"   href="/categories/">分类</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a  class="nav-link"   href="/tags/">关键字</a>
+                </li>
+                
+            </ul>
+            <form class="d-flex">
+                <input id="search-query" class="form-control me-2" type="search" placeholder="Search for anything..." aria-label="Search">
+            </form>
+        </div>
+    </div>
+</nav>
+
+
+
+
+<div id="search-results" style="margin-top: 60px">
+
+</div><div id="content">
+<div class="container article">
+	<h1>使用OpenSSL生成证书</h1>
+	<div class="post-meta">
+		<div>
+			
+			
+			By wiseai | 2022-06-20 | 3 minutes
+		</div>
+		<div class="tags">
+			
+			<a class="btn btn-light links btn-sm" href="/tags/ssl/">ssl</a>
+			
+			<a class="btn btn-light links btn-sm" href="/tags/%E8%AF%81%E4%B9%A6/">证书</a>
+			
+		</div>
+	</div>
+	<div>
+		<div class="article-post">
+			<p>下载安装OpenSSL，进入/bin/下面，执行命令（把ssl目录下的openssl.cnf 拷贝到bin目录下）</p>
+<p>1.首先要生成服务器端的私钥(key文件):</p>
+<pre tabindex="0"><code>
+openssl genrsa -des3 -out server.key 1024
+
+[root@airwaySSL openssl]# cd ssl/
+
+[root@airwaySSL ssl]# pwd
+
+/home/openssl/ssl
+
+[root@airwaySSL ssl]# ls
+
+certs  man  misc  openssl.cnf  private  server.csr  server.key
+</code></pre><p>运行时会提示输入密码,此密码用于加密key文件(参数des3便是指加密算法,当然也可以选用其他你认为安全的算法.),以后每当需读取此文件(通过openssl提供的命令或API)都需输入口令.如果觉得不方便,也可以去除这个口令,但一定要采取其他的保护措施!</p>
+<p>去除key文件口令的命令:</p>
+<pre tabindex="0"><code>
+openssl rsa -in server.key -out server.key
+</code></pre><p>2.openssl req -new -key server.key -out server.csr -config openssl.cnf</p>
+<pre tabindex="0"><code>
+[root@airwaySSL bin]# openssl req -new -key server.key -out server.csr -config openssl.cnf
+
+Enter pass phrase for server.key:12345
+
+You are about to be asked to enter information that will be incorporated
+
+into your certificate request.
+
+What you are about to enter is what is called a Distinguished Name or a DN.
+
+There are quite a few fields but you can leave some blank
+
+For some fields there will be a default value,
+
+If you enter &#39;.&#39;, the field will be left blank.
+</code></pre><hr>
+<pre tabindex="0"><code>
+Country Name (2 letter code) [AU]:CN
+
+State or Province Name (full name) [Some-State]:china
+
+Locality Name (eg, city) []:wuhan
+
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:airway
+
+Organizational Unit Name (eg, section) []:airway
+
+Common Name (eg, YOUR name) []:airway
+
+Email Address []:
+
+Please enter the following &#39;extra&#39; attributes
+
+to be sent with your certificate request
+
+A challenge password []:
+
+An optional company name []:
+
+生成Certificate Signing Request（CSR）,生成的csr文件交给CA签名后形成服务端自己的证书.屏幕上将有提示,依照其指示一步一步输入要求的个人信息即可.
+</code></pre><p>3.对客户端也作同样的命令生成key及csr文件:</p>
+<pre tabindex="0"><code>
+openssl genrsa -des3 -out client.key 1024
+
+Generating RSA private key, 1024 bit long modulus
+
+...........++++++
+
+..++++++
+
+e is 65537 (0x10001)
+
+Enter pass phrase for client.key:12345
+
+Verifying - Enter pass phrase for client.key:12345
+
+openssl req -new -key client.key -out client.csr -config openssl.cnf
+
+[root@airwaySSL bin]# openssl req -new -key client.key -out client.csr -config openssl.cnf
+
+Enter pass phrase for client.key:12345
+
+You are about to be asked to enter information that will be incorporated
+
+into your certificate request.
+
+What you are about to enter is what is called a Distinguished Name or a DN.
+
+There are quite a few fields but you can leave some blank
+
+For some fields there will be a default value,
+
+If you enter &#39;.&#39;, the field will be left blank.
+</code></pre><hr>
+<pre tabindex="0"><code>
+Country Name (2 letter code) [AU]:cn
+
+State or Province Name (full name) [Some-State]:china
+
+Locality Name (eg, city) []:wuhan
+
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:airway
+
+Organizational Unit Name (eg, section) []:airway
+
+Common Name (eg, YOUR name) []:airway
+
+Email Address []:
+
+Please enter the following &#39;extra&#39; attributes
+
+to be sent with your certificate request
+
+A challenge password []:
+
+An optional company name []:
+</code></pre><p>4.CSR文件必须有CA的签名才可形成证书.可将此文件发送到verisign等地方由它验证,要交一大笔钱,何不自己做CA呢.</p>
+<pre tabindex="0"><code>
+openssl req -new -x509 -keyout ca.key -out ca.crt -config openssl.cnf
+
+[root@airwaySSL bin]# openssl req -new -x509 -keyout ca.key -out ca.crt -config openssl.cnf
+
+Generating a 1024 bit RSA private key
+
+...++++++
+
+...................++++++
+
+writing new private key to &#39;ca.key&#39;
+
+Enter PEM pass phrase:12345
+
+Verifying - Enter PEM pass phrase:
+
+-----
+
+You are about to be asked to enter information that will be incorporated
+
+into your certificate request.
+
+What you are about to enter is what is called a Distinguished Name or a DN.
+
+There are quite a few fields but you can leave some blank
+
+For some fields there will be a default value,
+
+If you enter &#39;.&#39;, the field will be left blank.
+
+-----
+
+Country Name (2 letter code) [AU]:CN
+
+State or Province Name (full name) [Some-State]:china
+
+Locality Name (eg, city) []:wuhan
+
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:airway
+
+Organizational Unit Name (eg, section) []:airway
+
+Common Name (eg, YOUR name) []:airway
+
+Email Address []:
+</code></pre><p>在继续下面操作前，将openssl.conf文件打开，查看其dir路径将其修改为dir = /home/openssl/bin/demoCA /，否则下面的步骤会提示路径无法找到。</p>
+<p>自己手动创建一个CA目录结构：</p>
+<pre tabindex="0"><code>
+[weigw@TEST bin]$ mkdir ./demoCA
+
+[weigw@TEST bin]$ mkdir
+</code></pre>
+		</div>
+	</div>
+</div>
+
+
+<div class="container">
+    
+    <div class="row">
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-end dh" href="/post/raspberry-pi-4-boot-eeprom/">
+                <h5>前一篇</h5><br>
+                Raspberry Pi 4 boot EEPROM
+            </a>            
+        </div>
+        
+        <div class="col-2">
+        </div>
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-start dh" href="/post/%E4%BD%BF%E7%94%A8caddy%E6%90%AD%E5%BB%BAwebdav%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+                <h5>后一篇</h5><br>
+                使用caddy搭建webdav服务器
+            </a>            
+        </div>
+        
+    </div>
+    
+</div>
+
+        </div><br><br>
+<footer class="container">
+    <h2>友情链接</h2>
+    <hr>
+    <nav class="nav nav-pills flex-column flex-sm-row">
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/gnzg/index.html" target="_blank">孤鸟之歌</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/mm/index.html" target="_blank">生成随机字符</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/md/index.html" target="_blank">MarkDown</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://gitee.com/" target="_blank">Gitee</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://github.com/" target="_blank">Github</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.oschina.net/" target="_blank">OSCHINA</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://gitee.com/wiseai/the-way-to-go_ZH_CN/blob/master/eBook/directory.md" target="_blank">the way to go</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://goframe.org/display/gf" target="_blank">GoFrame</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.aliyundrive.com/" target="_blank">阿里云盘</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.bootstrap.cn/" target="_blank">bootstrap文档</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.58pic.com/" target="_blank">千图</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://marketing.qiniu.com/" target="_blank">七牛云</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.ixigua.com/" target="_blank">西瓜视频</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/yugang/index.html" target="_blank">鱼缸计算</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="/index.xml" target="_blank">RSS</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.kancloud.cn/idcpj/python/418553" target="_blank">参考资料</a>
+        
+    </nav>
+
+    <div class="copyright text-center">
+      <span class="power-by">
+        Powered by <a class="links" href="https://gohugo.io" target="_blank">Hugo</a>
+    </span>
+    <span>|</span>
+    <span>
+        Theme - <a class="links" href="https://github.com/wiseai-go/blog-hugo" target="_blank">WiseAI</a>
+    </span>
+    <br>
+    <span class="copyright-year">
+        &copy;
+        
+        2017 -
+        2022<span>
+            陇ICP备15000157号
+            
+        </span></span>
+
+</div>
+</footer>
+<script src="/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+</html>

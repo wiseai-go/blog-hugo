@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>文件服务器 on WiseAI的博客</title>
+    <link>https://blog.wiseai.cn/tags/%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8/</link>
+    <description>Recent content in 文件服务器 on WiseAI的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>陇ICP备15000157号</copyright>
+    <lastBuildDate>Mon, 20 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/tags/%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用caddy搭建webdav服务器</title>
+      <link>https://blog.wiseai.cn/post/%E4%BD%BF%E7%94%A8caddy%E6%90%AD%E5%BB%BAwebdav%E6%9C%8D%E5%8A%A1%E5%99%A8/</link>
+      <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/%E4%BD%BF%E7%94%A8caddy%E6%90%AD%E5%BB%BAwebdav%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid>
+      <description>首先下载或者编译包含Webdav插件的Caddy 生成密码（设置123456789的密码）  # caddy hash-password --plaintext 123456789
+JDJhJDE0JHpGUDNaL1Q5UEV2dWZxd1BCYWdGUS56WkdZbHJDZG8ybURERWYyRzlzLzd0TTM2akYxNFVh
+编辑Caddyfile   { http_port 80 https_port 443 order webdav before file_server } :6666 { root * /home/xjc/software/caddy/ encode zstd gzip basicauth { #用户名 上面命令生成的密码 admin JDJhJDE0JHpGUDNaL1Q5UEV2dWZxd1BCYWdGUS56WkdZbHJDZG8ybURERWYyRzlzLzd0TTM2akYxNFVh } route { rewrite /webdav /webdav/ webdav /webdav/* { prefix /webdav } } } 运行服务  # caddy run -config Caddyfile -watch
+或者
+# caddy start后台运行服务
+# caddy stop停止服务
+挂载webdav网盘  # sudo mount.</description>
+    </item>
+    
+  </channel>
+</rss>
