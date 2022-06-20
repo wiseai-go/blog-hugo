@@ -1,5 +1,5 @@
 {{ define "main" }}
-<div class="container-fluid">
+<div id="myjj" class="container-fluid">
     <div id="carouselIndexSlides" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner text-center">
             <div class="carousel-item active">
@@ -9,7 +9,7 @@
             </div>
             {{ range .Site.Params.Text }}
             <div class="carousel-item">
-                <p>{{ .content }}</p>
+                <p><span>✨</span>{{ .content }}</p>
             </div>
             {{ end }}
         </div>

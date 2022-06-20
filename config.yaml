@@ -89,52 +89,55 @@ menu:
       url: "categories/"
   footer:
     - name: 孤鸟之歌
-      weight: 1
+      weight: 10
       url: "https://wiseai.gitee.io/pages/gnzg/index.html"
     - name: 生成随机字符
-      weight: 1
+      weight: 11
       url: "https://wiseai.gitee.io/pages/mm/index.html"
     - name: MarkDown
-      weight: 2
+      weight: 20
       url: "https://wiseai.gitee.io/pages/md/index.html"
     - name: Gitee
-      weight: 3
+      weight: 30
       url: "https://gitee.com/"
     - name: Github
-      weight: 4
+      weight: 40
       url: "https://github.com/"
     - name: OSCHINA
-      weight: 5
+      weight: 50
       url: "https://www.oschina.net/"
     - name: the way to go
-      weight: 6
+      weight: 60
       url: "https://gitee.com/wiseai/the-way-to-go_ZH_CN/blob/master/eBook/directory.md"
     - name: GoFrame
-      weight: 7
+      weight: 70
       url: "https://goframe.org/display/gf"
     - name: 阿里云盘
-      weight: 8
+      weight: 80
       url: "https://www.aliyundrive.com/"
     - name: bootstrap文档
-      weight: 9
+      weight: 90
       url: "https://www.bootstrap.cn/"
     - name: 千图
-      weight: 10
+      weight: 100
       url: "https://www.58pic.com/"
+    - name: iFonts
+      weight: 101
+      url: "https://ifonts.com/"
     - name: 七牛云
-      weight: 11
+      weight: 110
       url: "https://marketing.qiniu.com/"
     - name: 西瓜视频
-      weight: 12
+      weight: 120
       url: "https://www.ixigua.com/"
     - name: 鱼缸计算
-      weight: 13
+      weight: 130
       url: "https://wiseai.gitee.io/pages/yugang/index.html"
     - name: RSS
-      weight: 100
+      weight: 1000
       url: "index.xml"
     - name: 参考资料
-      weight: 100
+      weight: 1000
       url: "https://www.kancloud.cn/idcpj/python/418553"
 
 markup:

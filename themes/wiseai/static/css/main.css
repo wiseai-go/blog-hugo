@@ -1,3 +1,6 @@
+body {
+
+}
 .links {
 	text-decoration:none;
 }
@@ -75,6 +78,21 @@ pre {
 	background: lightgray;
 }
 
-#p404 {
+@font-face {
+	font-family: qtbf;
+	src: url(/fonts/千图笔锋手写体.ttf);
+}
+
+@font-face {
+	font-family: yrxk;
+	src: url(/fonts/YanShiYouRanXiaoKai-2.ttf);
+}
+
+#myjj {
+	font-family: qtbf;
+	font-size: 2em;
+}
+
+#myjj span {
 	color: red;
 }
