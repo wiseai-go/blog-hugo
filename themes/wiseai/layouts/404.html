@@ -4,9 +4,6 @@
 <h3>404 NOT FOUND</h3>
 <h1>看看有没有您需要的：</h1>
 </div>
-{{ $pages := .Pages }}
-{{ $pages = (.Paginate $pages).Pages }}
-
 
 {{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
 {{ $pages = .Paginate ($pages)  }}
