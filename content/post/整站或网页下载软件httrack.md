@@ -8,7 +8,7 @@ tags:
 - 整站下载
 - 网页下载
 categories:
-- Linux使用
+- Linux学习
 draft: false
 ---
 

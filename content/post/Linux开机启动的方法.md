@@ -7,7 +7,7 @@ tags:
 - 开机
 - 自动运行
 categories:
-- Linux使用
+- Linux学习
 draft: false
 ---
 

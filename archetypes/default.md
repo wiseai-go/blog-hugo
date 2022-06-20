@@ -9,6 +9,8 @@ tags:
 - 树莓派
 - golang
 categories:
-- Linux使用
+- Linux学习
+- Linux命令
+- 树莓派
 draft: true
 ---

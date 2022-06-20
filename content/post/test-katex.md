@@ -4,7 +4,7 @@ title: Katex support
 date: 2021-05-22
 description: "KaTeX is a fast, easy-to-use JavaScript library for TeX math rendering on the web."
 categories:
-- math
+- 主题相关
 katex: true
 ---
 

@@ -7,7 +7,7 @@ tags:
 - 防火墙
 - sh
 categories:
-- Linux使用
+- Linux学习
 draft: false
 ---
 

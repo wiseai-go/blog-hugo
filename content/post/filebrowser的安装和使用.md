@@ -7,7 +7,7 @@ tags:
 - filebrowser
 - 文件管理
 categories:
-- Linux使用
+- Linux学习
 draft: false
 ---
 

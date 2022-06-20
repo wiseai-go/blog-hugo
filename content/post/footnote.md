@@ -1,7 +1,7 @@
 ---
 title: Footnote test
 categories:
-- syntax
+- 主题相关
 date: 2021-05-31
 ---
 

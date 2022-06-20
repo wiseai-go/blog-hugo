@@ -7,7 +7,7 @@ tags:
 - markdown
 - 格式
 categories:
-- Linux使用
+- Linux学习
 draft: false
 ---
 

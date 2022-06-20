@@ -7,7 +7,7 @@ tags:
 - Linux系统
 - 构建系统
 categories:
-- Linux使用
+- Linux学习
 draft: false
 ---
 

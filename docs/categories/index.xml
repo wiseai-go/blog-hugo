@@ -9,15 +9,6 @@
     <copyright>陇ICP备15000157号</copyright>
     <lastBuildDate>Mon, 20 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Linux使用</title>
-      <link>https://blog.wiseai.cn/categories/linux%E4%BD%BF%E7%94%A8/</link>
-      <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.wiseai.cn/categories/linux%E4%BD%BF%E7%94%A8/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Linux命令</title>
       <link>https://blog.wiseai.cn/categories/linux%E5%91%BD%E4%BB%A4/</link>
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
@@ -54,29 +45,11 @@
     </item>
     
     <item>
-      <title>syntax</title>
-      <link>https://blog.wiseai.cn/categories/syntax/</link>
+      <title>主题相关</title>
+      <link>https://blog.wiseai.cn/categories/%E4%B8%BB%E9%A2%98%E7%9B%B8%E5%85%B3/</link>
       <pubDate>Mon, 31 May 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/categories/syntax/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>math</title>
-      <link>https://blog.wiseai.cn/categories/math/</link>
-      <pubDate>Sat, 22 May 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.wiseai.cn/categories/math/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>themes</title>
-      <link>https://blog.wiseai.cn/categories/themes/</link>
-      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.wiseai.cn/categories/themes/</guid>
+      <guid>https://blog.wiseai.cn/categories/%E4%B8%BB%E9%A2%98%E7%9B%B8%E5%85%B3/</guid>
       <description></description>
     </item>
     

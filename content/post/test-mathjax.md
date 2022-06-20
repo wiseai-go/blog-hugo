@@ -4,7 +4,7 @@ title: MathJax support
 date: 2021-05-22
 description: A brief guide to setup MathJax
 categories:
-- math
+- 主题相关
 mathjax: true
 ---
 

@@ -7,7 +7,7 @@ tags:
 - 代码编辑器
 - 配置
 categories:
-- Linux使用
+- Linux学习
 draft: false
 ---
 

@@ -7,7 +7,7 @@ tags:
 - 系统引导
 - 启动
 categories:
-- Linux使用
+- Linux学习
 draft: false
 ---
 

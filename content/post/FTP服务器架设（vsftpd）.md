@@ -6,7 +6,7 @@ description: "ftp服务器"
 tags:
 - ftp
 categories:
-- Linux使用
+- Linux学习
 draft: false
 ---
 

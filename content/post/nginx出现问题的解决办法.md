@@ -7,7 +7,7 @@ tags:
 - nginx
 - error
 categories:
-- Linux使用
+- Linux学习
 draft: false
 ---
 

@@ -3,6 +3,8 @@ author: "Hugo Authors"
 title: "Example Lazy Load Image"
 date: "2019-03-09"
 description: "Example Lazy Load Image"
+categories:
+- 主题相关
 tags:
 - markdown
 - text

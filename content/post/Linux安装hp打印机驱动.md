@@ -6,7 +6,7 @@ description: "Linux安装hp打印机驱动"
 tags:
 - 惠普
 categories:
-- Linux使用
+- Linux学习
 draft: false
 ---
 

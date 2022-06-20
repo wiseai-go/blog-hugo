@@ -7,7 +7,7 @@ tags:
 - 服务
 - 管理
 categories:
-- Linux使用
+- Linux学习
 draft: false
 ---
 

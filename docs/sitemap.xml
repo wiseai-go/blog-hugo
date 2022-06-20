@@ -24,9 +24,6 @@
     <loc>https://blog.wiseai.cn/post/linux%E4%B8%ADfirefox%E6%94%AF%E6%8C%81flash/</loc>
     <lastmod>2022-06-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.wiseai.cn/categories/linux%E4%BD%BF%E7%94%A8/</loc>
-    <lastmod>2022-06-20T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://blog.wiseai.cn/categories/linux%E5%91%BD%E4%BB%A4/</loc>
     <lastmod>2022-06-20T00:00:00+00:00</lastmod>
   </url><url>
@@ -381,13 +378,10 @@
     <loc>https://blog.wiseai.cn/post/footnote/</loc>
     <lastmod>2021-05-31T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.wiseai.cn/categories/syntax/</loc>
+    <loc>https://blog.wiseai.cn/categories/%E4%B8%BB%E9%A2%98%E7%9B%B8%E5%85%B3/</loc>
     <lastmod>2021-05-31T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wiseai.cn/post/test-katex/</loc>
-    <lastmod>2021-05-22T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wiseai.cn/categories/math/</loc>
     <lastmod>2021-05-22T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wiseai.cn/post/test-mathjax/</loc>
@@ -403,9 +397,6 @@
     <lastmod>2019-03-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wiseai.cn/post/markdown-syntax/</loc>
-    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wiseai.cn/categories/themes/</loc>
     <lastmod>2019-03-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wiseai.cn/post/example-lazy-load-image/</loc>
