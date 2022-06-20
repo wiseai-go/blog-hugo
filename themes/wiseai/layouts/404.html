@@ -1,10 +1,30 @@
-{{ partial "head" . }}
-{{ partial "header" . }}
+{{ define "main" }}
+
+<div id="p404" class="container">
+<h3>404 NOT FOUND</h3>
+<h1>看看有没有您需要的：</h1>
+</div>
+{{ $pages := .Pages }}
+{{ $pages = (.Paginate $pages).Pages }}
+
+
+{{ $pages := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
+{{ $pages = .Paginate ($pages)  }}
+{{ $archivesPage := first 1 (where .Site.RegularPages "Layout" "eq" "archives") }}
 
 <div class="container">
-<main>
-<h1>404 NOT FOUND</h1>
-</main>
+    <h2>最新文章<span class="badge bg-light">
+        {{ range $archivesPage }}
+        <a class="link-dark links" href="{{ .RelPermalink }}">查看所有</a>
+        {{ end }}
+    </span><hr></h2>
+    <div class="row">
+        {{ range $pages.Pages }}        
+        <div class="col-12 post text-truncate">
+            <a class="link-dark links" href="{{ .RelPermalink }}"><time>{{ .Date.Format "2006-01-02" }}</time>{{ .Title }}</a>
+        </div>
+        {{ end }}
+    </div>
 </div>
 
-{{ partial "footer" . }}
+{{ end }}
