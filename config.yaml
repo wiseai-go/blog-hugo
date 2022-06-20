@@ -87,6 +87,9 @@ menu:
     - name: 分类
       weight: "2"
       url: "categories/"
+    - name: 关于
+      weight: "4"
+      url: "about/"
   footer:
     - name: 孤鸟之歌
       weight: 10
