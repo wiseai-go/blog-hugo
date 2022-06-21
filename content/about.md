@@ -22,7 +22,7 @@ UOS根本就不是Windows，这样用怎么可能用好？
 
 ### 我的自媒体：
 ---
-- 西瓜视频:[国产系统那点事golang](https://www.ixigua.com/home/3817125407125848/?list_entrance=search)
+- 西瓜视频: [国产系统那点事golang](https://www.ixigua.com/home/3817125407125848/?list_entrance=search)
 - 今日头条: [国产系统那点事golang](https://www.toutiao.com/c/user/token/MS4wLjABAAAAw9Tx7ZDK6Dt-zEkR4M5bfLwZL87UqxrHsoOqxHuE6LQFNhnP8uUEnPi0UTtSxcIy/?)
 - 抖&emsp;&emsp;音: [国产系统那点事golang](https://www.douyin.com/user/MS4wLjABAAAAbHJMaaUXek0GXCev9G93O4BiZAbj60E79nQuQG4LVwspyvc2_7-E9HdYzC5RBiCG)
 
