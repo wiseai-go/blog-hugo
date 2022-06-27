@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-cn"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+
+    <title>Go程序的常量 | WiseAI的博客</title>
+</head><body><nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <img src="/favicon.ico" alt="" width="30" height="24" class="d-inline-block align-text-top">
+            WiseAI的博客
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                
+                <li class="nav-item">
+                    <a  class="nav-link"   href="/articles/">文章</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a  class="nav-link"   href="/categories/">分类</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a  class="nav-link"   href="/tags/">关键字</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a  class="nav-link"   href="/about/">关于</a>
+                </li>
+                
+            </ul>
+            <form class="d-flex">
+                <input id="search-query" class="form-control me-2" type="search" placeholder="Search for anything..." aria-label="Search">
+            </form>
+        </div>
+    </div>
+</nav>
+
+
+
+
+<div id="search-results" style="margin-top: 60px">
+
+</div><div id="content">
+<div class="container article">
+	<h1>Go程序的常量</h1>
+	<div class="post-meta">
+		<div>
+			
+			
+			By wiseai | 2022-06-27 | 2 minutes
+		</div>
+		<div class="tags">
+			
+			<a class="btn btn-light links btn-sm" href="/tags/%E7%BC%96%E7%A8%8B/">编程</a>
+			
+		</div>
+	</div>
+	<div>
+		<div class="article-post">
+			<h1 id="43-常量">4.3 常量</h1>
+<p>常量使用关键字 <code>const</code> 定义，用于存储不会改变的数据。</p>
+<p>存储在常量中的数据类型只可以是布尔型、数字型（整数型、浮点型和复数）和字符串型。</p>
+<p>常量的定义格式：<code>const identifier [type] = value</code>，例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">const</span> <span class="nx">Pi</span> <span class="p">=</span> <span class="mf">3.14159</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在 Go 语言中，你可以省略类型说明符 <code>[type]</code>，因为编译器可以根据变量的值来推断其类型。</p>
+<ul>
+<li>显式类型定义： <code>const b string = &quot;abc&quot;</code></li>
+<li>隐式类型定义： <code>const b = &quot;abc&quot;</code></li>
+</ul>
+<p>一个没有指定类型的常量被使用时，会根据其使用环境而推断出它所需要具备的类型。换句话说，未定义类型的常量会在必要时刻根据上下文来获得相关类型。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">n</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="nf">f</span><span class="p">(</span><span class="nx">n</span> <span class="o">+</span> <span class="mi">5</span><span class="p">)</span> <span class="c1">// 无类型的数字型常量 “5” 它的类型在这里变成了 int
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>常量的值必须是能够在编译时就能够确定的；你可以在其赋值表达式中涉及计算过程，但是所有用于计算的值必须在编译期间就能获得。</p>
+<ul>
+<li>正确的做法：<code>const c1 = 2/3</code></li>
+<li>错误的做法：<code>const c2 = getNumber()</code> // 引发构建错误: <code>getNumber() used as value</code></li>
+</ul>
+<p><strong>因为在编译期间自定义函数均属于未知，因此无法用于常量的赋值，但内置函数可以使用，如：<code>len()</code>。</strong></p>
+<p>数字型的常量是没有大小和符号的，并且可以使用任何精度而不会导致溢出：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">const</span> <span class="nx">Ln2</span> <span class="p">=</span> <span class="mf">0.693147180559945309417232121458</span>\
+</span></span><span class="line"><span class="cl">			<span class="mi">176568075500134360255254120680009</span>
+</span></span><span class="line"><span class="cl"><span class="kd">const</span> <span class="nx">Log2E</span> <span class="p">=</span> <span class="mi">1</span><span class="o">/</span><span class="nx">Ln2</span> <span class="c1">// this is a precise reciprocal
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">const</span> <span class="nx">Billion</span> <span class="p">=</span> <span class="mf">1e9</span> <span class="c1">// float constant
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">const</span> <span class="nx">hardEight</span> <span class="p">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">100</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">97</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>根据上面的例子我们可以看到，反斜杠 <code>\</code> 可以在常量表达式中作为多行的连接符使用。</p>
+<p>与各种类型的数字型变量相比，你无需担心常量之间的类型转换问题，因为它们都是非常理想的数字。</p>
+<p>不过需要注意的是，当常量赋值给一个精度过小的数字型变量时，可能会因为无法正确表达常量所代表的数值而导致溢出，这会在编译期间就引发错误。另外，常量也允许使用并行赋值的形式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">const</span> <span class="nx">beef</span><span class="p">,</span> <span class="nx">two</span><span class="p">,</span> <span class="nx">c</span> <span class="p">=</span> <span class="s">&#34;eat&#34;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#34;veg&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">const</span> <span class="nx">Monday</span><span class="p">,</span> <span class="nx">Tuesday</span><span class="p">,</span> <span class="nx">Wednesday</span><span class="p">,</span> <span class="nx">Thursday</span><span class="p">,</span> <span class="nx">Friday</span><span class="p">,</span> <span class="nx">Saturday</span> <span class="p">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span>
+</span></span><span class="line"><span class="cl"><span class="kd">const</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Monday</span><span class="p">,</span> <span class="nx">Tuesday</span><span class="p">,</span> <span class="nx">Wednesday</span> <span class="p">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Thursday</span><span class="p">,</span> <span class="nx">Friday</span><span class="p">,</span> <span class="nx">Saturday</span> <span class="p">=</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>常量还可以用作枚举：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">const</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Unknown</span> <span class="p">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Female</span> <span class="p">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Male</span> <span class="p">=</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>现在，数字 <code>0</code>、<code>1</code> 和 <code>2</code> 分别代表未知性别、女性和男性。这些枚举值可以用于测试某个变量或常量的实际值，比如使用 switch/case 结构（<a href="./05.3.md">第 5.3 节</a>）。</p>
+<p>在这个例子中，<code>iota</code> 可以被用作枚举值：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">const</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">a</span> <span class="p">=</span> <span class="kc">iota</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">b</span> <span class="p">=</span> <span class="kc">iota</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">c</span> <span class="p">=</span> <span class="kc">iota</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>第一个 <code>iota</code> 等于 0，每当 <code>iota</code> 在新的一行被使用时，它的值都会自动加 1，并且没有赋值的常量默认会应用上一行的赋值表达式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 赋值一个常量时，之后没赋值的常量都会应用上一行的赋值表达式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">const</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">a</span> <span class="p">=</span> <span class="kc">iota</span>  <span class="c1">// a = 0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">b</span>         <span class="c1">// b = 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">c</span>         <span class="c1">// c = 2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">d</span> <span class="p">=</span> <span class="mi">5</span>     <span class="c1">// d = 5   
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">e</span>         <span class="c1">// e = 5
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 赋值两个常量，iota 只会增长一次，而不会因为使用了两次就增长两次
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">const</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Apple</span><span class="p">,</span> <span class="nx">Banana</span> <span class="p">=</span> <span class="kc">iota</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">iota</span> <span class="o">+</span> <span class="mi">2</span> <span class="c1">// Apple=1 Banana=2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">Cherimoya</span><span class="p">,</span> <span class="nx">Durian</span>                  <span class="c1">// Cherimoya=2 Durian=3
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">Elderberry</span><span class="p">,</span> <span class="nx">Fig</span>                    <span class="c1">// Elderberry=3, Fig=4
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 使用 iota 结合 位运算 表示资源状态的使用案例
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">const</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Open</span> <span class="p">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="kc">iota</span>  <span class="c1">// 0001
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">Close</span>             <span class="c1">// 0010
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">Pending</span>           <span class="c1">// 0100
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">const</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">_</span>           <span class="p">=</span> <span class="kc">iota</span>             <span class="c1">// 使用 _ 忽略不需要的 iota
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">KB</span> <span class="p">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="kc">iota</span><span class="p">)</span>          <span class="c1">// 1 &lt;&lt; (10*1)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">MB</span>                             <span class="c1">// 1 &lt;&lt; (10*2)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">GB</span>                             <span class="c1">// 1 &lt;&lt; (10*3)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">TB</span>                             <span class="c1">// 1 &lt;&lt; (10*4)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">PB</span>                             <span class="c1">// 1 &lt;&lt; (10*5)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">EB</span>                             <span class="c1">// 1 &lt;&lt; (10*6)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">ZB</span>                             <span class="c1">// 1 &lt;&lt; (10*7)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">YB</span>                             <span class="c1">// 1 &lt;&lt; (10*8)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>（ <strong>译者注：关于 <code>iota</code> 的使用涉及到非常复杂多样的情况，这里作者解释的并不清晰，因为很难对 <code>iota</code> 的用法进行直观的文字描述。如希望进一步了解，请观看视频教程 <a href="https://github.com/Unknwon/go-fundamental-programming">《Go编程基础》</a> <a href="https://github.com/Unknwon/go-fundamental-programming/blob/master/lectures/lecture4.md">第四课：常量与运算符</a></strong> ）</p>
+<p><code>iota</code> 也可以用在表达式中，如：<code>iota + 50</code>。在每遇到一个新的常量块或单个常量声明时， <code>iota</code> 都会重置为 0（ <strong>简单地讲，每遇到一次 const 关键字，<code>iota</code> 就重置为 0</strong> ）。</p>
+<p>当然，常量之所以为常量就是恒定不变的量，因此我们无法在程序运行过程中修改它的值；如果你在代码中试图修改常量的值则会引发编译错误。</p>
+
+		</div>
+	</div>
+</div>
+
+
+<div class="container">
+    
+    <div class="row">
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-end dh" href="/post/%E5%A4%A7%E6%95%B0%E7%9A%84%E9%98%B6%E4%B9%98/">
+                <h5>前一篇</h5><br>
+                大数的阶乘
+            </a>            
+        </div>
+        
+        <div class="col-2">
+        </div>
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-start dh" href="">
+                <h5>没有了</h5><br>
+            </a>            
+        </div>
+        
+    </div>
+    
+</div>
+
+        </div><br><br>
+<footer class="container">
+    <h2>友情链接</h2>
+    <hr>
+    <nav class="nav nav-pills flex-column flex-sm-row">
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/gnzg/index.html" target="_blank">孤鸟之歌</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/mm/index.html" target="_blank">生成随机字符</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/md/index.html" target="_blank">MarkDown</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://gitee.com/" target="_blank">Gitee</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://github.com/" target="_blank">Github</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.oschina.net/" target="_blank">OSCHINA</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/directory.md" target="_blank">the way to go</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://goframe.org/display/gf" target="_blank">GoFrame</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.aliyundrive.com/" target="_blank">阿里云盘</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.bootstrap.cn/" target="_blank">bootstrap文档</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.58pic.com/" target="_blank">千图</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://ifonts.com/" target="_blank">iFonts</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://marketing.qiniu.com/" target="_blank">七牛云</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.ixigua.com/" target="_blank">西瓜视频</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/yugang/index.html" target="_blank">鱼缸计算</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="/index.xml" target="_blank">RSS</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.kancloud.cn/idcpj/python/418553" target="_blank">参考资料</a>
+        
+    </nav>
+
+    <div class="copyright text-center">
+      <span class="power-by">
+        Powered by <a class="links" href="https://gohugo.io" target="_blank">Hugo</a>
+    </span>
+    <span>|</span>
+    <span>
+        Theme - <a class="links" href="https://github.com/wiseai-go/blog-hugo" target="_blank">WiseAI</a>
+    </span>
+    <br>
+    <span class="copyright-year">
+        &copy;
+        
+        2017 -
+        2022<span>
+            陇ICP备15000157号
+            
+        </span></span>
+
+</div>
+</footer>
+<script src="/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+</html>

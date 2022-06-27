@@ -111,7 +111,7 @@ menu:
       url: "https://www.oschina.net/"
     - name: the way to go
       weight: 60
-      url: "https://gitee.com/wiseai/the-way-to-go_ZH_CN/blob/master/eBook/directory.md"
+      url: "https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/directory.md"
     - name: GoFrame
       weight: 70
       url: "https://goframe.org/display/gf"

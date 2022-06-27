@@ -8,14 +8,41 @@
     <loc>https://blog.wiseai.cn/projects/tania_theme/</loc>
     <lastmod>2020-11-26T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.wiseai.cn/about/</loc>
-    <lastmod>2022-06-20T11:35:48+08:00</lastmod>
-  </url><url>
     <loc>https://blog.wiseai.cn/</loc>
-    <lastmod>2022-06-20T00:00:00+00:00</lastmod>
+    <lastmod>2022-06-27T11:36:06+08:00</lastmod>
   </url><url>
     <loc>https://blog.wiseai.cn/categories/</loc>
-    <lastmod>2022-06-20T00:00:00+00:00</lastmod>
+    <lastmod>2022-06-27T11:36:06+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/categories/golang%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2022-06-27T11:36:06+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/post/golang/%E5%B8%B8%E9%87%8F/</loc>
+    <lastmod>2022-06-27T11:36:06+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/post/</loc>
+    <lastmod>2022-06-27T11:36:06+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/tags/</loc>
+    <lastmod>2022-06-27T11:36:06+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/tags/%E7%BC%96%E7%A8%8B/</loc>
+    <lastmod>2022-06-27T11:36:06+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/tags/c%E8%AF%AD%E8%A8%80/</loc>
+    <lastmod>2022-06-27T10:38:51+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/tags/golang/</loc>
+    <lastmod>2022-06-27T10:38:51+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/post/%E5%A4%A7%E6%95%B0%E7%9A%84%E9%98%B6%E4%B9%98/</loc>
+    <lastmod>2022-06-27T10:38:51+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/post/golang/go%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84%E5%92%8C%E8%A6%81%E7%B4%A0/</loc>
+    <lastmod>2022-06-22T14:23:01+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/about/</loc>
+    <lastmod>2022-06-20T11:35:48+08:00</lastmod>
   </url><url>
     <loc>https://blog.wiseai.cn/tags/error/</loc>
     <lastmod>2022-06-20T00:00:00+00:00</lastmod>
@@ -50,9 +77,6 @@
     <loc>https://blog.wiseai.cn/post/php%E6%88%AA%E5%8F%96%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</loc>
     <lastmod>2022-06-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.wiseai.cn/post/</loc>
-    <lastmod>2022-06-20T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://blog.wiseai.cn/tags/remmina/</loc>
     <lastmod>2022-06-20T00:00:00+00:00</lastmod>
   </url><url>
@@ -69,9 +93,6 @@
     <lastmod>2022-06-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wiseai.cn/tags/ssl/</loc>
-    <lastmod>2022-06-20T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wiseai.cn/tags/</loc>
     <lastmod>2022-06-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wiseai.cn/tags/vi/</loc>
@@ -308,13 +329,7 @@
     <loc>https://blog.wiseai.cn/post/git/</loc>
     <lastmod>2022-05-30T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.wiseai.cn/tags/golang/</loc>
-    <lastmod>2022-05-30T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://blog.wiseai.cn/post/golang%E5%92%8Cnodejs%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</loc>
-    <lastmod>2022-05-30T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wiseai.cn/categories/golang%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2022-05-30T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wiseai.cn/post/golang%E7%9A%84build%E5%91%BD%E4%BB%A4/</loc>
