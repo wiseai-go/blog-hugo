@@ -7,7 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Mon, 27 Jun 2022 11:36:06 +0800</lastBuildDate><atom:link href="https://blog.wiseai.cn/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 27 Jun 2022 11:46:14 +0800</lastBuildDate><atom:link href="https://blog.wiseai.cn/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go程序的变量</title>
+      <link>https://blog.wiseai.cn/post/golang/%E5%8F%98%E9%87%8F/</link>
+      <pubDate>Mon, 27 Jun 2022 11:46:14 +0800</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/golang/%E5%8F%98%E9%87%8F/</guid>
+      <description>4.4 变量 4.4.1 简介 声明变量的一般形式是使用 var 关键字：var identifier type。
+需要注意的是，Go 和许多编程语言不同，它在声明变量时将变量的类型放在变量的名称之后。Go 为什么要选择这么做呢？
+首先，它是为了避免像 C 语言中那样含糊不清的声明形式，例如：int* a, b;。在这个例子中，只有 a 是指针而 b 不是。如果你想要这两个变量都是指针，则需要将它们分开书写（你可以在 Go 语言的声明语法 页面找到有关于这个话题的更多讨论）。
+而在 Go 中，则可以很轻松地将它们都声明为指针类型：
+1  var a, b *int   其次，这种语法能够按照从左至右的顺序阅读，使得代码更加容易理解。
+示例：
+1 2 3  var a int var b bool var str string   你也可以改写成这种形式：
+1 2 3 4 5  var ( a int b bool str string )   这种因式分解关键字的写法一般用于声明全局变量。</description>
+    </item>
+    
     <item>
       <title>Go程序的常量</title>
       <link>https://blog.wiseai.cn/post/golang/%E5%B8%B8%E9%87%8F/</link>
