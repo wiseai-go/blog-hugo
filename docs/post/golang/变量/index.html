@@ -10,48 +10,48 @@
     <link rel="shortcut icon" type="image/x-icon" href="http://static.wiseai.cn/img/favicon.ico" />
 
     <title>Go程序的变量 | WiseAI的博客</title>
-</head><body><nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">
-            <img src="/favicon.ico" alt="" width="30" height="24" class="d-inline-block align-text-top">
-            WiseAI的博客
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                
-                <li class="nav-item">
-                    <a  class="nav-link"   href="/articles/">文章</a>
-                </li>
-                
-                <li class="nav-item">
-                    <a  class="nav-link"   href="/categories/">分类</a>
-                </li>
-                
-                <li class="nav-item">
-                    <a  class="nav-link"   href="/tags/">关键字</a>
-                </li>
-                
-                <li class="nav-item">
-                    <a  class="nav-link"   href="/about/">关于</a>
-                </li>
-                
-            </ul>
-            <form class="d-flex">
-                <input id="search-query" class="form-control me-2" type="search" placeholder="Search for anything..." aria-label="Search">
-            </form>
+</head><body><div class="container-fluid">
+    <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="http://static.wiseai.cn/img/favicon.ico" alt="" width="30" height="24" class="d-inline-block align-text-top">
+                WiseAI的博客
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/articles/">文章</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/categories/">分类</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/tags/">关键字</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/about/">关于</a>
+                    </li>
+                    
+                </ul>
+                <form class="d-flex">
+                    <input id="search-query" class="form-control me-2" type="search" placeholder="Search for anything..." aria-label="Search">
+                </form>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
+</div>
 
 
 
 
-<div id="search-results" style="margin-top: 60px">
-
-</div><div id="content">
+<div id="content">
 <div class="container article">
 	<h1>Go程序的变量</h1>
 	<div class="post-meta">
@@ -74,46 +74,19 @@
 <p>需要注意的是，Go 和许多编程语言不同，它在声明变量时将变量的类型放在变量的名称之后。Go 为什么要选择这么做呢？</p>
 <p>首先，它是为了避免像 C 语言中那样含糊不清的声明形式，例如：<code>int* a, b;</code>。在这个例子中，只有 <code>a</code> 是指针而 <code>b</code> 不是。如果你想要这两个变量都是指针，则需要将它们分开书写（你可以在 <a href="http://blog.golang.org/2010/07/gos-declaration-syntax.html">Go 语言的声明语法</a> 页面找到有关于这个话题的更多讨论）。</p>
 <p>而在 Go 中，则可以很轻松地将它们都声明为指针类型：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="o">*</span><span class="kt">int</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>其次，这种语法能够按照从左至右的顺序阅读，使得代码更加容易理解。</p>
+<pre tabindex="0"><code>var a, b *int
+</code></pre><p>其次，这种语法能够按照从左至右的顺序阅读，使得代码更加容易理解。</p>
 <p>示例：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">a</span> <span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">b</span> <span class="kt">bool</span>
-</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">str</span> <span class="kt">string</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>你也可以改写成这种形式：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">a</span> <span class="kt">int</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">b</span> <span class="kt">bool</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">str</span> <span class="kt">string</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>这种因式分解关键字的写法一般用于声明全局变量。</p>
+<pre tabindex="0"><code>var a int
+var b bool
+var str string
+</code></pre><p>你也可以改写成这种形式：</p>
+<pre tabindex="0"><code>var (
+	a int
+	b bool
+	str string
+)
+</code></pre><p>这种因式分解关键字的写法一般用于声明全局变量。</p>
 <p>当一个变量被声明之后，系统自动赋予它该类型的零值：<code>int</code> 为 <code>0</code>，<code>float32(64)</code> 为 <code>0.0</code>，bool 为 <code>false</code>，<code>string</code> 为空字符串，指针为 <code>nil</code>。记住，所有的内存在 Go 中都是经过初始化的。</p>
 <p>变量的命名规则遵循骆驼命名法，即首个单词小写，每个新单词的首字母大写，例如：<code>numShips</code> 和 <code>startDate</code>。</p>
 <p>但如果你的全局变量希望能够被外部包所使用，则需要将首个单词的首字母也大写（第 4.2 节：可见性规则）。</p>
@@ -122,137 +95,53 @@
 <p>尽管变量的标识符必须是唯一的，但你可以在某个代码块的内层代码块中使用相同名称的变量，则此时外部的同名变量将会暂时隐藏（结束内部代码块的执行后隐藏的外部同名变量又会出现，而内部同名变量则被释放），你任何的操作都只会影响内部代码块的局部变量。</p>
 <p>变量可以编译期间就被赋值，赋值给变量使用运算符等号 <code>=</code>，当然你也可以在运行时对变量进行赋值操作。</p>
 <p>示例：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">a</span> <span class="p">=</span> <span class="mi">15</span>
-</span></span><span class="line"><span class="cl"><span class="nx">b</span> <span class="p">=</span> <span class="kc">false</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>一般情况下，当变量a和变量b之间类型相同时，才能进行如 <code>a = b</code> 的赋值。</p>
+<pre tabindex="0"><code>a = 15
+b = false
+</code></pre><p>一般情况下，当变量a和变量b之间类型相同时，才能进行如 <code>a = b</code> 的赋值。</p>
 <p>声明与赋值（初始化）语句也可以组合起来。</p>
 <p>示例：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">identifier</span> <span class="p">[</span><span class="kd">type</span><span class="p">]</span> <span class="p">=</span> <span class="nx">value</span>
-</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">a</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">15</span>
-</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">i</span> <span class="p">=</span> <span class="mi">5</span>
-</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">b</span> <span class="kt">bool</span> <span class="p">=</span> <span class="kc">false</span>
-</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">str</span> <span class="kt">string</span> <span class="p">=</span> <span class="s">&#34;Go says hello to the world!&#34;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>但是 Go 编译器的智商已经高到可以根据变量的值来自动推断其类型，这有点像 Ruby 和 Python 这类动态语言，只不过它们是在运行时进行推断，而 Go 是在编译时就已经完成推断过程。因此，你还可以使用下面的这些形式来声明及初始化变量：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">a</span> <span class="p">=</span> <span class="mi">15</span>
-</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">b</span> <span class="p">=</span> <span class="kc">false</span>
-</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">str</span> <span class="p">=</span> <span class="s">&#34;Go says hello to the world!&#34;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>或：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">a</span> <span class="p">=</span> <span class="mi">15</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">b</span> <span class="p">=</span> <span class="kc">false</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">str</span> <span class="p">=</span> <span class="s">&#34;Go says hello to the world!&#34;</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">numShips</span> <span class="p">=</span> <span class="mi">50</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">city</span> <span class="kt">string</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>不过自动推断类型并不是任何时候都适用的，当你想要给变量的类型并不是自动推断出的某种类型时，你还是需要显式指定变量的类型，例如：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">n</span> <span class="kt">int64</span> <span class="p">=</span> <span class="mi">2</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>然而，<code>var a</code> 这种语法是不正确的，因为编译器没有任何可以用于自动推断类型的依据。变量的类型也可以在运行时实现自动推断，例如：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">HOME</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Getenv</span><span class="p">(</span><span class="s">&#34;HOME&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">USER</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Getenv</span><span class="p">(</span><span class="s">&#34;USER&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">GOROOT</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Getenv</span><span class="p">(</span><span class="s">&#34;GOROOT&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>这种写法主要用于声明包级别的全局变量，当你在函数体内声明局部变量时，应使用简短声明语法 <code>:=</code>，例如：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">a</span> <span class="o">:=</span> <span class="mi">1</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>下面这个例子展示了如何通过 <code>runtime</code> 包在运行时获取所在的操作系统类型，以及如何通过 <code>os</code> 包中的函数 <code>os.Getenv()</code> 来获取环境变量中的值，并保存到 <code>string</code> 类型的局部变量 <code>path</code> 中。</p>
+<pre tabindex="0"><code>var identifier [type] = value
+var a int = 15
+var i = 5
+var b bool = false
+var str string = &#34;Go says hello to the world!&#34;
+</code></pre><p>但是 Go 编译器的智商已经高到可以根据变量的值来自动推断其类型，这有点像 Ruby 和 Python 这类动态语言，只不过它们是在运行时进行推断，而 Go 是在编译时就已经完成推断过程。因此，你还可以使用下面的这些形式来声明及初始化变量：</p>
+<pre tabindex="0"><code>var a = 15
+var b = false
+var str = &#34;Go says hello to the world!&#34;
+</code></pre><p>或：</p>
+<pre tabindex="0"><code>var (
+	a = 15
+	b = false
+	str = &#34;Go says hello to the world!&#34;
+	numShips = 50
+	city string
+)
+</code></pre><p>不过自动推断类型并不是任何时候都适用的，当你想要给变量的类型并不是自动推断出的某种类型时，你还是需要显式指定变量的类型，例如：</p>
+<pre tabindex="0"><code>var n int64 = 2
+</code></pre><p>然而，<code>var a</code> 这种语法是不正确的，因为编译器没有任何可以用于自动推断类型的依据。变量的类型也可以在运行时实现自动推断，例如：</p>
+<pre tabindex="0"><code>var (
+	HOME = os.Getenv(&#34;HOME&#34;)
+	USER = os.Getenv(&#34;USER&#34;)
+	GOROOT = os.Getenv(&#34;GOROOT&#34;)
+)
+</code></pre><p>这种写法主要用于声明包级别的全局变量，当你在函数体内声明局部变量时，应使用简短声明语法 <code>:=</code>，例如：</p>
+<pre tabindex="0"><code>a := 1
+</code></pre><p>下面这个例子展示了如何通过 <code>runtime</code> 包在运行时获取所在的操作系统类型，以及如何通过 <code>os</code> 包中的函数 <code>os.Getenv()</code> 来获取环境变量中的值，并保存到 <code>string</code> 类型的局部变量 <code>path</code> 中。</p>
 <p>示例 4.5 <a href="examples/chapter_4/goos.go">goos.go</a></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">	<span class="s">&#34;fmt&#34;</span>
-</span></span><span class="line"><span class="cl">   <span class="s">&#34;runtime&#34;</span>
-</span></span><span class="line"><span class="cl">	<span class="s">&#34;os&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">goos</span> <span class="kt">string</span> <span class="p">=</span> <span class="nx">runtime</span><span class="p">.</span><span class="nx">GOOS</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;The operating system is: %s\n&#34;</span><span class="p">,</span> <span class="nx">goos</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">path</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Getenv</span><span class="p">(</span><span class="s">&#34;PATH&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Path is %s\n&#34;</span><span class="p">,</span> <span class="nx">path</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>如果你在 Windows 下运行这段代码，则会输出 <code>The operating system is: windows</code> 以及相应的环境变量的值；如果你在 Linux 下运行这段代码，则会输出 <code>The operating system is: linux</code> 以及相应的的环境变量的值。</p>
+<pre tabindex="0"><code>package main
+import (
+	&#34;fmt&#34;
+   &#34;runtime&#34;
+	&#34;os&#34;
+)
+func main() {
+	var goos string = runtime.GOOS
+	fmt.Printf(&#34;The operating system is: %s\n&#34;, goos)
+	path := os.Getenv(&#34;PATH&#34;)
+	fmt.Printf(&#34;Path is %s\n&#34;, path)
+}
+</code></pre><p>如果你在 Windows 下运行这段代码，则会输出 <code>The operating system is: windows</code> 以及相应的环境变量的值；如果你在 Linux 下运行这段代码，则会输出 <code>The operating system is: linux</code> 以及相应的的环境变量的值。</p>
 <p>这里用到了 <code>Printf</code> 的格式化输出的功能（<a href="./04.4.md">第 4.4.3 节</a>）。</p>
 <h2 id="442-值类型和引用类型">4.4.2 值类型和引用类型</h2>
 <p>程序中所用到的内存在计算机中使用一堆箱子来表示（这也是人们在讲解它的时候的画法），这些箱子被称为“字”。根据不同的处理器以及操作系统类型，所有的字都具有 32 位（4 字节）或 64 位（8 字节）的相同长度；所有的字都使用相关的内存地址来进行表示（以十六进制数表示）。</p>
@@ -273,27 +162,13 @@
 <p>在 Go 语言中，指针（<a href="./04.9.md">第 4.9 节</a>）属于引用类型，其它的引用类型还包括 slices（<a href="07.0.md">第 7 章</a>），maps（<a href="08.0.md">第 8 章</a>）和 channel（<a href="13.0.md">第 13 章</a>）。被引用的变量会存储在堆中，以便进行垃圾回收，且比栈拥有更大的内存空间。</p>
 <h2 id="443-打印">4.4.3 打印</h2>
 <p>函数 <code>Printf</code> 可以在 <code>fmt</code> 包外部使用，这是因为它以大写字母 P 开头，该函数主要用于打印输出到控制台。通常使用的格式化字符串作为第一个参数：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">Printf</span><span class="p">(</span><span class="nx">format</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">list</span> <span class="nx">of</span> <span class="nx">variables</span> <span class="nx">to</span> <span class="nx">be</span> <span class="nx">printed</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>在示例 4.5 中，格式化字符串为：<code>&quot;The operating system is: %s\n&quot;</code>。
+<pre tabindex="0"><code>func Printf(format string, list of variables to be printed)
+</code></pre><p>在示例 4.5 中，格式化字符串为：<code>&quot;The operating system is: %s\n&quot;</code>。
 这个格式化字符串可以含有一个或多个的格式化标识符，例如：<code>%..</code>，其中 <code>..</code> 可以被不同类型所对应的标识符替换，如 <code>%s</code> 代表字符串标识符、<code>%v</code> 代表使用类型的默认输出格式的标识符。这些标识符所对应的值从格式化字符串后的第一个逗号开始按照相同顺序添加，如果参数超过 1 个则同样需要使用逗号分隔。使用这些占位符可以很好地控制格式化输出的文本。
 函数 <code>fmt.Sprintf</code> 与 <code>Printf</code> 的作用是完全相同的，不过前者将格式化后的字符串以返回值的形式返回给调用者，因此你可以在程序中使用包含变量的字符串，具体例子可以参见示例 15.4 <a href="examples/chapter_15/simple_tcp_server.go">simple_tcp_server.go</a>。
 函数 <code>fmt.Print</code> 和 <code>fmt.Println</code> 会自动使用格式化标识符 <code>%v</code> 对字符串进行格式化，两者都会在每个参数之间自动增加空格，而后者还会在字符串的最后加上一个换行符。例如：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Print</span><span class="p">(</span><span class="s">&#34;Hello:&#34;</span><span class="p">,</span> <span class="mi">23</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>将输出：<code>Hello: 23</code>。</p>
+<pre tabindex="0"><code>fmt.Print(&#34;Hello:&#34;, 23)
+</code></pre><p>将输出：<code>Hello: 23</code>。</p>
 <h2 id="444-简短形式使用--赋值操作符">4.4.4 简短形式，使用 := 赋值操作符</h2>
 <p>我们知道可以在变量的初始化时省略变量的类型而由系统自动推断，而这个时候再在 Example 4.4.1 的最后一个声明语句写上 <code>var</code> 关键字就显得有些多余了，因此我们可以将它们简写为 <code>a := 50</code> 或 <code>b := false</code>。
 <code>a</code> 和 <code>b</code> 的类型（<code>int</code> 和 <code>bool</code>）将由编译器自动推断。
@@ -302,53 +177,22 @@
 如果在相同的代码块中，我们不可以再次对于相同名称的变量使用初始化声明，例如：<code>a := 20</code> 就是不被允许的，编译器会提示错误 <code>no new variables on left side of :=</code>，但是 <code>a = 20</code> 是可以的，因为这是给相同的变量赋予一个新的值。
 如果你在定义变量 <code>a</code> 之前使用它，则会得到编译错误 <code>undefined: a</code>。
 如果你声明了一个局部变量却没有在相同的代码块中使用它，同样会得到编译错误，例如下面这个例子当中的变量 <code>a</code>：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">   <span class="kd">var</span> <span class="nx">a</span> <span class="kt">string</span> <span class="p">=</span> <span class="s">&#34;abc&#34;</span>
-</span></span><span class="line"><span class="cl">   <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;hello, world&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>尝试编译这段代码将得到错误 <code>a declared and not used</code>。</p>
+<pre tabindex="0"><code>func main() {
+   var a string = &#34;abc&#34;
+   fmt.Println(&#34;hello, world&#34;)
+}
+</code></pre><p>尝试编译这段代码将得到错误 <code>a declared and not used</code>。</p>
 <p>此外，单纯地给 <code>a</code> 赋值也是不够的，这个值必须被使用，所以使用 <code>fmt.Println(&quot;hello, world&quot;, a)</code> 会移除错误。</p>
 <p>但是全局变量是允许声明但不使用。</p>
 <p>其他的简短形式为：</p>
 <p>同一类型的多个变量可以声明在同一行，如：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span> <span class="kt">int</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>(这是将类型写在标识符后面的一个重要原因)</p>
+<pre tabindex="0"><code>var a, b, c int
+</code></pre><p>(这是将类型写在标识符后面的一个重要原因)</p>
 <p>多变量可以在同一行进行赋值，如：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span> <span class="p">=</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="s">&#34;abc&#34;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>上面这行假设了变量 <code>a</code>，<code>b</code> 和 <code>c</code> 都已经被声明，否则的话应该这样使用：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span> <span class="o">:=</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="s">&#34;abc&#34;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>右边的这些值以相同的顺序赋值给左边的变量，所以 <code>a</code> 的值是 <code>5</code>， <code>b</code> 的值是 <code>7</code>，<code>c</code> 的值是 <code>&quot;abc&quot;</code>。</p>
+<pre tabindex="0"><code>a, b, c = 5, 7, &#34;abc&#34;
+</code></pre><p>上面这行假设了变量 <code>a</code>，<code>b</code> 和 <code>c</code> 都已经被声明，否则的话应该这样使用：</p>
+<pre tabindex="0"><code>a, b, c := 5, 7, &#34;abc&#34;
+</code></pre><p>右边的这些值以相同的顺序赋值给左边的变量，所以 <code>a</code> 的值是 <code>5</code>， <code>b</code> 的值是 <code>7</code>，<code>c</code> 的值是 <code>&quot;abc&quot;</code>。</p>
 <p>这被称为 <strong>并行</strong> 或 <strong>同时</strong> 赋值。</p>
 <p>如果你想要交换两个变量的值，则可以简单地使用 <code>a, b = b, a</code>。</p>
 <p>(在 Go 语言中，这样省去了使用交换函数的必要)</p>
@@ -360,170 +204,74 @@
 <p>每个源文件可以包含多个 <code>init()</code> 函数，同一个源文件中的 <code>init()</code> 函数会按照从上到下的顺序执行，如果一个包有多个源文件包含 <code>init()</code> 函数的话，则官方鼓励但不保证以文件名的顺序调用。初始化总是以单线程并且按照包的依赖关系顺序执行。</p>
 <p>一个可能的用途是在开始执行程序之前对数据进行检验或修复，以保证程序状态的正确性。</p>
 <p>示例 4.6 <a href="examples/chapter_4/init.go">init.go</a>:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">trans</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;math&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">Pi</span> <span class="kt">float64</span>
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">   <span class="nx">Pi</span> <span class="p">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="nx">math</span><span class="p">.</span><span class="nf">Atan</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1">// init() function computes Pi
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>在它的 <code>init()</code> 函数中计算变量 <code>Pi</code> 的初始值。</p>
+<pre tabindex="0"><code>package trans
+import &#34;math&#34;
+var Pi float64
+func init() {
+   Pi = 4 * math.Atan(1) // init() function computes Pi
+}
+</code></pre><p>在它的 <code>init()</code> 函数中计算变量 <code>Pi</code> 的初始值。</p>
 <p>示例 4.7 <a href="examples/chapter_4/user_init.go">user_init.go</a> 中导入了包 <code>trans</code>（需要 <code>init.go</code> 目录为 <code>./trans/init.go</code> ）并且使用到了变量 <code>Pi</code>：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">   <span class="s">&#34;fmt&#34;</span>
-</span></span><span class="line"><span class="cl">   <span class="s">&#34;./trans&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">twoPi</span> <span class="p">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="nx">trans</span><span class="p">.</span><span class="nx">Pi</span>
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">   <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;2*Pi = %g\n&#34;</span><span class="p">,</span> <span class="nx">twoPi</span><span class="p">)</span> <span class="c1">// 2*Pi = 6.283185307179586
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><code>init()</code> 函数也经常被用在当一个程序开始之前调用后台执行的 goroutine，如下面这个例子当中的 <code>backend()</code>：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">   <span class="c1">// setup preparations
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="k">go</span> <span class="nf">backend</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><strong>练习</strong> 推断以下程序的输出，并解释你的答案，然后编译并执行它们。</p>
+<pre tabindex="0"><code>package main
+import (
+   &#34;fmt&#34;
+   &#34;./trans&#34;
+)
+var twoPi = 2 * trans.Pi
+func main() {
+   fmt.Printf(&#34;2*Pi = %g\n&#34;, twoPi) // 2*Pi = 6.283185307179586
+}
+</code></pre><p><code>init()</code> 函数也经常被用在当一个程序开始之前调用后台执行的 goroutine，如下面这个例子当中的 <code>backend()</code>：</p>
+<pre tabindex="0"><code>func init() {
+   // setup preparations
+   go backend()
+}
+</code></pre><p><strong>练习</strong> 推断以下程序的输出，并解释你的答案，然后编译并执行它们。</p>
 <p>练习 4.1 <a href="examples/chapter_4/local_scope.go">local_scope.go</a>:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">a</span> <span class="p">=</span> <span class="s">&#34;G&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">   <span class="nf">n</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">   <span class="nf">m</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">   <span class="nf">n</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">n</span><span class="p">()</span> <span class="p">{</span> <span class="nb">print</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">m</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">   <span class="nx">a</span> <span class="o">:=</span> <span class="s">&#34;O&#34;</span>
-</span></span><span class="line"><span class="cl">   <span class="nb">print</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>练习 4.2 <a href="examples/chapter_4/global_scope.go">global_scope.go</a>:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">a</span> <span class="p">=</span> <span class="s">&#34;G&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">   <span class="nf">n</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">   <span class="nf">m</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">   <span class="nf">n</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">n</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">   <span class="nb">print</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">m</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">   <span class="nx">a</span> <span class="p">=</span> <span class="s">&#34;O&#34;</span>
-</span></span><span class="line"><span class="cl">   <span class="nb">print</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>练习 4.3 <a href="examples/chapter_4/function_calls_function.go">function_calls_function.go</a></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">a</span> <span class="kt">string</span>
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">   <span class="nx">a</span> <span class="p">=</span> <span class="s">&#34;G&#34;</span>
-</span></span><span class="line"><span class="cl">   <span class="nb">print</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">   <span class="nf">f1</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">f1</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">   <span class="nx">a</span> <span class="o">:=</span> <span class="s">&#34;O&#34;</span>
-</span></span><span class="line"><span class="cl">   <span class="nb">print</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">   <span class="nf">f2</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">f2</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">   <span class="nb">print</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div>
+<pre tabindex="0"><code>package main
+var a = &#34;G&#34;
+func main() {
+   n()
+   m()
+   n()
+}
+func n() { print(a) }
+func m() {
+   a := &#34;O&#34;
+   print(a)
+}
+</code></pre><p>练习 4.2 <a href="examples/chapter_4/global_scope.go">global_scope.go</a>:</p>
+<pre tabindex="0"><code>package main
+var a = &#34;G&#34;
+func main() {
+   n()
+   m()
+   n()
+}
+func n() {
+   print(a)
+}
+func m() {
+   a = &#34;O&#34;
+   print(a)
+}
+</code></pre><p>练习 4.3 <a href="examples/chapter_4/function_calls_function.go">function_calls_function.go</a></p>
+<pre tabindex="0"><code>package main
+var a string
+func main() {
+   a = &#34;G&#34;
+   print(a)
+   f1()
+}
+func f1() {
+   a := &#34;O&#34;
+   print(a)
+   f2()
+}
+func f2() {
+   print(a)
+}
+</code></pre>
 		</div>
 	</div>
 </div>

@@ -1,30 +1,33 @@
-<nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{{ relURL "/" }}">
-            <img src="/favicon.ico" alt="" width="30" height="24" class="d-inline-block align-text-top">
-            {{ .Site.Title }}
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                {{ range .Site.Menus.header }}
-                <li class="nav-item">
-                    <a {{ if eq (.URL | relURL) $.RelPermalink }} class="nav-link active" {{ else }} class="nav-link" {{ end }} {{ if eq (.URL | relURL) $.RelPermalink }} aria-current="page" {{ end }} href="{{ .URL | relURL }}">{{ .Pre }}{{ .Name }}{{ .Post }}</a>
-                </li>
-                {{ end }}
-            </ul>
-            <form class="d-flex">
-                <input id="search-query" class="form-control me-2" type="search" placeholder="Search for anything..." aria-label="Search">
-            </form>
+<div class="container-fluid">
+    <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ relURL "/" }}">
+                <img src="http://static.wiseai.cn/img/favicon.ico" alt="" width="30" height="24" class="d-inline-block align-text-top">
+                {{ .Site.Title }}
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    {{ range .Site.Menus.header }}
+                    <li class="nav-item">
+                        <a {{ if eq (.URL | relURL) $.RelPermalink }} class="nav-link active" {{ else }} class="nav-link" {{ end }} {{ if eq (.URL | relURL) $.RelPermalink }} aria-current="page" {{ end }} href="{{ .URL | relURL }}">{{ .Pre }}{{ .Name }}{{ .Post }}</a>
+                    </li>
+                    {{ end }}
+                </ul>
+                <form class="d-flex">
+                    <input id="search-query" class="form-control me-2" type="search" placeholder="Search for anything..." aria-label="Search">
+                </form>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
+</div>
+
 
 <!-- 搜索结果显示 -->
 
-
+<!-- 
 <div id="search-results" style="margin-top: 60px">
 
-</div>
+</div> -->
