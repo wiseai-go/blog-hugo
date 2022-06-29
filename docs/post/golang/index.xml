@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>golang编程 on WiseAI的博客</title>
+    <link>https://blog.wiseai.cn/post/golang/</link>
+    <description>Recent content in golang编程 on WiseAI的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>陇ICP备15000157号</copyright>
+    <lastBuildDate>Wed, 29 Jun 2022 11:33:14 +0800</lastBuildDate><atom:link href="https://blog.wiseai.cn/post/golang/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>基本类型和运算符</title>
+      <link>https://blog.wiseai.cn/post/golang/%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/</link>
+      <pubDate>Wed, 29 Jun 2022 11:33:14 +0800</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/golang/%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/</guid>
+      <description>4.5 基本类型和运算符 我们将在这个部分讲解有关布尔型、数字型和字符型的相关知识。
+表达式是一种特定的类型的值，它可以由其它的值以及运算符组合而成。每个类型都定义了可以和自己结合的运算符集合，如果你使用了不在这个集合中的运算符，则会在编译时获得编译错误。
+一元运算符只可以用于一个值的操作（作为后缀），而二元运算符则可以和两个值或者操作数结合（作为中缀）。
+只有两个类型相同的值才可以和二元运算符结合，另外要注意的是，Go 是强类型语言，因此不会进行隐式转换，任何不同类型之间的转换都必须显式说明（第 4.2 节）。Go 不存在像 C 那样的运算符重载，表达式的解析顺序是从左至右。
+你可以在第 4.5.3 节找到有关运算符优先级的相关信息，优先级越高的运算符在条件相同的情况下将被优先执行。但是你可以通过使用括号将其中的表达式括起来，以人为地提升某个表达式的运算优先级。
+4.5.1 布尔类型 bool 一个简单的例子：var b bool = true。
+布尔型的值只可以是常量 true 或者 false。
+两个类型相同的值可以使用相等 == 或者不等 != 运算符来进行比较并获得一个布尔型的值。
+当相等运算符两边的值是完全相同的值的时候会返回 true，否则返回 false，并且只有在两个的值的类型相同的情况下才可以使用。
+示例：
+var aVar = 10 aVar == 5 -&amp;gt; false aVar == 10 -&amp;gt; true 当不等运算符两边的值是不同的时候会返回 true，否则返回 false。
+示例：
+var aVar = 10 aVar != 5 -&amp;gt; true aVar != 10 -&amp;gt; false Go 对于值之间的比较有非常严格的限制，只有两个类型相同的值才可以进行比较，如果值的类型是接口（interface，第 11 章），它们也必须都实现了相同的接口。如果其中一个值是常量，那么另外一个值的类型必须和该常量类型相兼容的。如果以上条件都不满足，则其中一个值的类型必须在被转换为和另外一个值的类型相同之后才可以进行比较。</description>
+    </item>
+    
+    <item>
+      <title>Go程序的变量</title>
+      <link>https://blog.wiseai.cn/post/golang/%E5%8F%98%E9%87%8F/</link>
+      <pubDate>Mon, 27 Jun 2022 11:46:14 +0800</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/golang/%E5%8F%98%E9%87%8F/</guid>
+      <description>4.4 变量 4.4.1 简介 声明变量的一般形式是使用 var 关键字：var identifier type。
+需要注意的是，Go 和许多编程语言不同，它在声明变量时将变量的类型放在变量的名称之后。Go 为什么要选择这么做呢？
+首先，它是为了避免像 C 语言中那样含糊不清的声明形式，例如：int* a, b;。在这个例子中，只有 a 是指针而 b 不是。如果你想要这两个变量都是指针，则需要将它们分开书写（你可以在 Go 语言的声明语法 页面找到有关于这个话题的更多讨论）。
+而在 Go 中，则可以很轻松地将它们都声明为指针类型：
+var a, b *int 其次，这种语法能够按照从左至右的顺序阅读，使得代码更加容易理解。
+示例：
+var a int var b bool var str string 你也可以改写成这种形式：
+var ( a int b bool str string ) 这种因式分解关键字的写法一般用于声明全局变量。
+当一个变量被声明之后，系统自动赋予它该类型的零值：int 为 0，float32(64) 为 0.0，bool 为 false，string 为空字符串，指针为 nil。记住，所有的内存在 Go 中都是经过初始化的。
+变量的命名规则遵循骆驼命名法，即首个单词小写，每个新单词的首字母大写，例如：numShips 和 startDate。
+但如果你的全局变量希望能够被外部包所使用，则需要将首个单词的首字母也大写（第 4.2 节：可见性规则）。</description>
+    </item>
+    
+    <item>
+      <title>Go程序的常量</title>
+      <link>https://blog.wiseai.cn/post/golang/%E5%B8%B8%E9%87%8F/</link>
+      <pubDate>Mon, 27 Jun 2022 11:36:06 +0800</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/golang/%E5%B8%B8%E9%87%8F/</guid>
+      <description>4.3 常量 常量使用关键字 const 定义，用于存储不会改变的数据。
+存储在常量中的数据类型只可以是布尔型、数字型（整数型、浮点型和复数）和字符串型。
+常量的定义格式：const identifier [type] = value，例如：
+const Pi = 3.14159 在 Go 语言中，你可以省略类型说明符 [type]，因为编译器可以根据变量的值来推断其类型。
+ 显式类型定义： const b string = &amp;quot;abc&amp;quot; 隐式类型定义： const b = &amp;quot;abc&amp;quot;  一个没有指定类型的常量被使用时，会根据其使用环境而推断出它所需要具备的类型。换句话说，未定义类型的常量会在必要时刻根据上下文来获得相关类型。
+var n int f(n + 5) // 无类型的数字型常量 “5” 它的类型在这里变成了 int 常量的值必须是能够在编译时就能够确定的；你可以在其赋值表达式中涉及计算过程，但是所有用于计算的值必须在编译期间就能获得。
+ 正确的做法：const c1 = 2/3 错误的做法：const c2 = getNumber() // 引发构建错误: getNumber() used as value  因为在编译期间自定义函数均属于未知，因此无法用于常量的赋值，但内置函数可以使用，如：len()。
+数字型的常量是没有大小和符号的，并且可以使用任何精度而不会导致溢出：
+const Ln2 = 0.693147180559945309417232121458\ 176568075500134360255254120680009 const Log2E = 1/Ln2 // this is a precise reciprocal const Billion = 1e9 // float constant const hardEight = (1 &amp;lt;&amp;lt; 100) &amp;gt;&amp;gt; 97 根据上面的例子我们可以看到，反斜杠 \ 可以在常量表达式中作为多行的连接符使用。</description>
+    </item>
+    
+    <item>
+      <title>Go程序的基本结构和要素</title>
+      <link>https://blog.wiseai.cn/post/golang/go%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84%E5%92%8C%E8%A6%81%E7%B4%A0/</link>
+      <pubDate>Wed, 22 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/golang/go%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84%E5%92%8C%E8%A6%81%E7%B4%A0/</guid>
+      <description>4.2 Go 程序的基本结构和要素 示例 hello_world.go
+package main import &amp;#34;fmt&amp;#34; func main() { fmt.Println(&amp;#34;hello, world&amp;#34;) } 4.2.1 包的概念、导入与可见性 包是结构化代码的一种方式：每个程序都由包（通常简称为 pkg）的概念组成，可以使用自身的包或者从其它包中导入内容。
+如同其它一些编程语言中的类库或命名空间的概念，每个 Go 文件都属于且仅属于一个包。一个包可以由许多以 .go 为扩展名的源文件组成，因此文件名和包名一般来说都是不相同的。
+你必须在源文件中非注释的第一行指明这个文件属于哪个包，如：package main。package main 表示一个可独立执行的程序，每个 Go 应用程序都包含一个名为 main 的包。
+一个应用程序可以包含不同的包，而且即使你只使用 main 包也不必把所有的代码都写在一个巨大的文件里：你可以用一些较小的文件，并且在每个文件非注释的第一行都使用 package main 来指明这些文件都属于 main 包。如果你打算编译包名不是为 main 的源文件，如 pack1，编译后产生的对象文件将会是 pack1.a 而不是可执行程序。另外要注意的是，所有的包名都应该使用小写字母。
+标准库
+在 Go 的安装文件里包含了一些可以直接使用的包，即标准库。在 Windows 下，标准库的位置在 Go 根目录下的子目录 pkg\windows_386 中；在 Linux 下，标准库在 Go 根目录下的子目录 pkg\linux_amd64 中（如果是安装的是 32 位，则在 linux_386 目录中）。一般情况下，标准包会存放在 $GOROOT/pkg/$GOOS_$GOARCH/ 目录下。
+Go 的标准库包含了大量的包（如：fmt 和 os），但是你也可以创建自己的包（第 9 章）。</description>
+    </item>
+    
+  </channel>
+</rss>

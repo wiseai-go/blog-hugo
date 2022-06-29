@@ -87,8 +87,11 @@ menu:
     - name: 分类
       weight: "2"
       url: "categories/"
+    - name: golang编程
+      weight: 4
+      url: "post/golang/"
     - name: 关于
-      weight: "4"
+      weight: "10"
       url: "about/"
   footer:
     - name: 孤鸟之歌

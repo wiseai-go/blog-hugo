@@ -7,7 +7,28 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Mon, 27 Jun 2022 11:46:14 +0800</lastBuildDate><atom:link href="https://blog.wiseai.cn/tags/%E7%BC%96%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 29 Jun 2022 11:33:14 +0800</lastBuildDate><atom:link href="https://blog.wiseai.cn/tags/%E7%BC%96%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>基本类型和运算符</title>
+      <link>https://blog.wiseai.cn/post/golang/%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/</link>
+      <pubDate>Wed, 29 Jun 2022 11:33:14 +0800</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/golang/%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/</guid>
+      <description>4.5 基本类型和运算符 我们将在这个部分讲解有关布尔型、数字型和字符型的相关知识。
+表达式是一种特定的类型的值，它可以由其它的值以及运算符组合而成。每个类型都定义了可以和自己结合的运算符集合，如果你使用了不在这个集合中的运算符，则会在编译时获得编译错误。
+一元运算符只可以用于一个值的操作（作为后缀），而二元运算符则可以和两个值或者操作数结合（作为中缀）。
+只有两个类型相同的值才可以和二元运算符结合，另外要注意的是，Go 是强类型语言，因此不会进行隐式转换，任何不同类型之间的转换都必须显式说明（第 4.2 节）。Go 不存在像 C 那样的运算符重载，表达式的解析顺序是从左至右。
+你可以在第 4.5.3 节找到有关运算符优先级的相关信息，优先级越高的运算符在条件相同的情况下将被优先执行。但是你可以通过使用括号将其中的表达式括起来，以人为地提升某个表达式的运算优先级。
+4.5.1 布尔类型 bool 一个简单的例子：var b bool = true。
+布尔型的值只可以是常量 true 或者 false。
+两个类型相同的值可以使用相等 == 或者不等 != 运算符来进行比较并获得一个布尔型的值。
+当相等运算符两边的值是完全相同的值的时候会返回 true，否则返回 false，并且只有在两个的值的类型相同的情况下才可以使用。
+示例：
+var aVar = 10 aVar == 5 -&amp;gt; false aVar == 10 -&amp;gt; true 当不等运算符两边的值是不同的时候会返回 true，否则返回 false。
+示例：
+var aVar = 10 aVar != 5 -&amp;gt; true aVar != 10 -&amp;gt; false Go 对于值之间的比较有非常严格的限制，只有两个类型相同的值才可以进行比较，如果值的类型是接口（interface，第 11 章），它们也必须都实现了相同的接口。如果其中一个值是常量，那么另外一个值的类型必须和该常量类型相兼容的。如果以上条件都不满足，则其中一个值的类型必须在被转换为和另外一个值的类型相同之后才可以进行比较。</description>
+    </item>
+    
     <item>
       <title>Go程序的变量</title>
       <link>https://blog.wiseai.cn/post/golang/%E5%8F%98%E9%87%8F/</link>

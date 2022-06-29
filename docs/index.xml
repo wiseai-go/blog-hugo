@@ -6,7 +6,380 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Mon, 27 Jun 2022 11:46:14 +0800</lastBuildDate><atom:link href="https://blog.wiseai.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 29 Jun 2022 11:33:14 +0800</lastBuildDate><atom:link href="https://blog.wiseai.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+    <title>基本类型和运算符</title>
+    <link>https://blog.wiseai.cn/post/golang/%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/</link>
+    <pubDate>Wed, 29 Jun 2022 11:33:14 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/golang/%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/</guid>
+    <description>
+        &lt;h1 id=&#34;45-基本类型和运算符&#34;&gt;4.5 基本类型和运算符&lt;/h1&gt;
+&lt;p&gt;我们将在这个部分讲解有关布尔型、数字型和字符型的相关知识。&lt;/p&gt;
+&lt;p&gt;表达式是一种特定的类型的值，它可以由其它的值以及运算符组合而成。每个类型都定义了可以和自己结合的运算符集合，如果你使用了不在这个集合中的运算符，则会在编译时获得编译错误。&lt;/p&gt;
+&lt;p&gt;一元运算符只可以用于一个值的操作（作为后缀），而二元运算符则可以和两个值或者操作数结合（作为中缀）。&lt;/p&gt;
+&lt;p&gt;只有两个类型相同的值才可以和二元运算符结合，另外要注意的是，Go 是强类型语言，因此不会进行隐式转换，任何不同类型之间的转换都必须显式说明（第 4.2 节）。Go 不存在像 C 那样的运算符重载，表达式的解析顺序是从左至右。&lt;/p&gt;
+&lt;p&gt;你可以在第 4.5.3 节找到有关运算符优先级的相关信息，优先级越高的运算符在条件相同的情况下将被优先执行。但是你可以通过使用括号将其中的表达式括起来，以人为地提升某个表达式的运算优先级。&lt;/p&gt;
+&lt;h2 id=&#34;451-布尔类型-bool&#34;&gt;4.5.1 布尔类型 bool&lt;/h2&gt;
+&lt;p&gt;一个简单的例子：&lt;code&gt;var b bool = true&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;布尔型的值只可以是常量 true 或者 false。&lt;/p&gt;
+&lt;p&gt;两个类型相同的值可以使用相等 &lt;code&gt;==&lt;/code&gt; 或者不等 &lt;code&gt;!=&lt;/code&gt; 运算符来进行比较并获得一个布尔型的值。&lt;/p&gt;
+&lt;p&gt;当相等运算符两边的值是完全相同的值的时候会返回 &lt;code&gt;true&lt;/code&gt;，否则返回 &lt;code&gt;false&lt;/code&gt;，并且只有在两个的值的类型相同的情况下才可以使用。&lt;/p&gt;
+&lt;p&gt;示例：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;var aVar = 10
+aVar == 5 -&amp;gt; false
+aVar == 10 -&amp;gt; true
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;当不等运算符两边的值是不同的时候会返回 &lt;code&gt;true&lt;/code&gt;，否则返回 &lt;code&gt;false&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;示例：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;var aVar = 10
+aVar != 5 -&amp;gt; true
+aVar != 10 -&amp;gt; false
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Go 对于值之间的比较有非常严格的限制，只有两个类型相同的值才可以进行比较，如果值的类型是接口（interface，&lt;a href=&#34;11.0.md&#34;&gt;第 11 章&lt;/a&gt;），它们也必须都实现了相同的接口。如果其中一个值是常量，那么另外一个值的类型必须和该常量类型相兼容的。如果以上条件都不满足，则其中一个值的类型必须在被转换为和另外一个值的类型相同之后才可以进行比较。&lt;/p&gt;
+&lt;p&gt;布尔型的常量和变量也可以通过和逻辑运算符（非 &lt;code&gt;!&lt;/code&gt;、与 &lt;code&gt;&amp;amp;&amp;amp;&lt;/code&gt;、或 &lt;code&gt;||&lt;/code&gt;）结合来产生另外一个布尔值，这样的逻辑语句就其本身而言，并不是一个完整的 Go 语句。&lt;/p&gt;
+&lt;p&gt;逻辑值可以被用于条件结构中的条件语句（&lt;a href=&#34;05.0.md&#34;&gt;第 5 章&lt;/a&gt;），以便测试某个条件是否满足。另外，与 &lt;code&gt;&amp;amp;&amp;amp;&lt;/code&gt;、或 &lt;code&gt;||&lt;/code&gt; 与相等 &lt;code&gt;==&lt;/code&gt; 或不等 &lt;code&gt;!=&lt;/code&gt; 属于二元运算符，而非 &lt;code&gt;!&lt;/code&gt; 属于一元运算符。在接下来的内容中，我们会使用 T 来代表条件符合的语句，用 F 来代表条件不符合的语句。&lt;/p&gt;
+&lt;p&gt;Go 语言中包含以下逻辑运算符：&lt;/p&gt;
+&lt;p&gt;非运算符：&lt;code&gt;!&lt;/code&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;!T -&amp;gt; false
+!F -&amp;gt; true
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;非运算符用于取得和布尔值相反的结果。&lt;/p&gt;
+&lt;p&gt;与运算符：&lt;code&gt;&amp;amp;&amp;amp;&lt;/code&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;T &amp;amp;&amp;amp; T -&amp;gt; true
+T &amp;amp;&amp;amp; F -&amp;gt; false
+F &amp;amp;&amp;amp; T -&amp;gt; false
+F &amp;amp;&amp;amp; F -&amp;gt; false
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;只有当两边的值都为 &lt;code&gt;true&lt;/code&gt; 的时候，和运算符的结果才是 &lt;code&gt;true&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;或运算符：&lt;code&gt;||&lt;/code&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;T || T -&amp;gt; true
+T || F -&amp;gt; true
+F || T -&amp;gt; true
+F || F -&amp;gt; false
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;只有当两边的值都为 &lt;code&gt;false&lt;/code&gt; 的时候，或运算符的结果才是 &lt;code&gt;false&lt;/code&gt;，其中任意一边的值为 &lt;code&gt;true&lt;/code&gt; 就能够使得该表达式的结果为 &lt;code&gt;true&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;在 Go 语言中，&lt;code&gt;&amp;amp;&amp;amp;&lt;/code&gt; 和 &lt;code&gt;||&lt;/code&gt; 是具有快捷性质的运算符，当运算符左边表达式的值已经能够决定整个表达式的值的时候（&lt;code&gt;&amp;amp;&amp;amp;&lt;/code&gt; 左边的值为 &lt;code&gt;false&lt;/code&gt;，&lt;code&gt;||&lt;/code&gt; 左边的值为 &lt;code&gt;true&lt;/code&gt;），运算符右边的表达式将不会被执行。利用这个性质，如果你有多个条件判断，应当将计算过程较为复杂的表达式放在运算符的右侧以减少不必要的运算。&lt;/p&gt;
+&lt;p&gt;利用括号同样可以升级某个表达式的运算优先级。&lt;/p&gt;
+&lt;p&gt;在格式化输出时，你可以使用 &lt;code&gt;%t&lt;/code&gt; 来表示你要输出的值为布尔型。&lt;/p&gt;
+&lt;p&gt;布尔值（以及任何结果为布尔值的表达式）最常用在条件结构的条件语句中，例如：if、for 和 switch 结构（第 5 章）。&lt;/p&gt;
+&lt;p&gt;对于布尔值的好的命名能够很好地提升代码的可读性，例如以 &lt;code&gt;is&lt;/code&gt; 或者 &lt;code&gt;Is&lt;/code&gt; 开头的 &lt;code&gt;isSorted&lt;/code&gt;、&lt;code&gt;isFinished&lt;/code&gt;、&lt;code&gt;isVisible&lt;/code&gt;，使用这样的命名能够在阅读代码的获得阅读正常语句一样的良好体验，例如标准库中的 &lt;code&gt;unicode.IsDigit(ch)&lt;/code&gt;（&lt;a href=&#34;04.5.md&#34;&gt;第 4.5.5 节&lt;/a&gt;）。&lt;/p&gt;
+&lt;h2 id=&#34;452-数字类型&#34;&gt;4.5.2 数字类型&lt;/h2&gt;
+&lt;h3 id=&#34;4521-整型-int-和浮点型-float&#34;&gt;4.5.2.1 整型 int 和浮点型 float&lt;/h3&gt;
+&lt;p&gt;Go 语言支持整型和浮点型数字，并且原生支持复数，其中位的运算采用补码（详情参见 &lt;a href=&#34;http://en.wikipedia.org/wiki/Two&#39;s_complement&#34;&gt;二的补码&lt;/a&gt; 页面）。&lt;/p&gt;
+&lt;p&gt;Go 也有基于架构的类型，例如：&lt;code&gt;int&lt;/code&gt;、&lt;code&gt;uint&lt;/code&gt; 和 &lt;code&gt;uintptr&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;这些类型的长度都是根据运行程序所在的操作系统类型所决定的：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;int&lt;/code&gt; 和 &lt;code&gt;uint&lt;/code&gt; 在 32 位操作系统上，它们均使用 32 位（4 个字节），在 64 位操作系统上，它们均使用 64 位（8 个字节）。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;uintptr&lt;/code&gt; 的长度被设定为足够存放一个指针即可。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Go 语言中没有 float 类型。（Go语言中只有 &lt;code&gt;float32&lt;/code&gt; 和 &lt;code&gt;float64&lt;/code&gt;）没有 double 类型。&lt;/p&gt;
+&lt;p&gt;与操作系统架构无关的类型都有固定的大小，并在类型的名称中就可以看出来：&lt;/p&gt;
+&lt;p&gt;整数：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;int8&lt;/code&gt;（-128 -&amp;gt; 127）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int16&lt;/code&gt;（-32768 -&amp;gt; 32767）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int32&lt;/code&gt;（-2,147,483,648 -&amp;gt; 2,147,483,647）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;int64&lt;/code&gt;（-9,223,372,036,854,775,808 -&amp;gt; 9,223,372,036,854,775,807）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;无符号整数：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;uint8&lt;/code&gt;（0 -&amp;gt; 255）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;uint16&lt;/code&gt;（0 -&amp;gt; 65,535）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;uint32&lt;/code&gt;（0 -&amp;gt; 4,294,967,295）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;uint64&lt;/code&gt;（0 -&amp;gt; 18,446,744,073,709,551,615）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;浮点型（IEEE-754 标准）：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;float32&lt;/code&gt;（+- 1e-45 -&amp;gt; +- 3.4 * 1e38）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;float64&lt;/code&gt;（+- 5 * 1e-324 -&amp;gt; 107 * 1e308）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;int&lt;/code&gt; 型是计算最快的一种类型。&lt;/p&gt;
+&lt;p&gt;整型的零值为 &lt;code&gt;0&lt;/code&gt;，浮点型的零值为 &lt;code&gt;0.0&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;float32&lt;/code&gt; 精确到小数点后 7 位，&lt;code&gt;float64&lt;/code&gt; 精确到小数点后 15 位。由于精确度的缘故，你在使用 &lt;code&gt;==&lt;/code&gt; 或者 &lt;code&gt;!=&lt;/code&gt; 来比较浮点数时应当非常小心。你最好在正式使用前测试对于精确度要求较高的运算。&lt;/p&gt;
+&lt;p&gt;你应该尽可能地使用 &lt;code&gt;float64&lt;/code&gt;，因为 &lt;code&gt;math&lt;/code&gt; 包中所有有关数学运算的函数都会要求接收这个类型。&lt;/p&gt;
+&lt;p&gt;你可以通过增加前缀 0 来表示 8 进制数（如：077），增加前缀 0x 来表示 16 进制数（如：&lt;code&gt;0xFF&lt;/code&gt;），以及使用 &lt;code&gt;e&lt;/code&gt; 来表示 10 的连乘（如： 1e3 = 1000，或者 6.022e23 = 6.022 x 1e23）。&lt;/p&gt;
+&lt;p&gt;你可以使用 &lt;code&gt;a := uint64(0)&lt;/code&gt; 来同时完成类型转换和赋值操作，这样 &lt;code&gt;a&lt;/code&gt; 的类型就是 &lt;code&gt;uint64&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;Go 中不允许不同类型之间的混合使用，但是对于常量的类型限制非常少，因此允许常量之间的混合使用，下面这个程序很好地解释了这个现象（该程序无法通过编译）：&lt;/p&gt;
+&lt;p&gt;示例 4.8 &lt;a href=&#34;examples/chapter_4/type_mixing.go&#34;&gt;type_mixing.go&lt;/a&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+
+func main() {
+	var a int
+	var b int32
+	a = 15
+	b = a + a	 // 编译错误
+	b = b + 5    // 因为 5 是常量，所以可以通过编译
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;如果你尝试编译该程序，则将得到编译错误 &lt;code&gt;cannot use a + a (type int) as type int32 in assignment&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;同样地，&lt;code&gt;int16&lt;/code&gt;  也不能够被隐式转换为 &lt;code&gt;int32&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;下面这个程序展示了通过显式转换来避免这个问题（&lt;a href=&#34;04.2.md&#34;&gt;第 4.2 节&lt;/a&gt;）。&lt;/p&gt;
+&lt;p&gt;示例 4.9 &lt;a href=&#34;examples/chapter_4/casting.go&#34;&gt;casting.go&lt;/a&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+
+import &amp;#34;fmt&amp;#34;
+
+func main() {
+	var n int16 = 34
+	var m int32
+	// compiler error: cannot use n (type int16) as type int32 in assignment
+	//m = n
+	m = int32(n)
+
+	fmt.Printf(&amp;#34;32 bit int is: %d\n&amp;#34;, m)
+	fmt.Printf(&amp;#34;16 bit int is: %d\n&amp;#34;, n)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;输出：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;32 bit int is: 34
+16 bit int is: 34
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;格式化说明符&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;在格式化字符串里，&lt;code&gt;%d&lt;/code&gt; 用于格式化整数（&lt;code&gt;%x&lt;/code&gt; 和 &lt;code&gt;%X&lt;/code&gt; 用于格式化 16 进制表示的数字），&lt;code&gt;%g&lt;/code&gt; 用于格式化浮点型（&lt;code&gt;%f&lt;/code&gt; 输出浮点数，&lt;code&gt;%e&lt;/code&gt; 输出科学计数表示法），&lt;code&gt;%0nd&lt;/code&gt; 用于规定输出长度为 n 的整数，其中开头的数字 0 是必须的。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;%n.mg&lt;/code&gt; 用于表示数字 n 并精确到小数点后 m 位，除了使用 g 之外，还可以使用 e 或者 f，例如：使用格式化字符串 &lt;code&gt;%5.2e&lt;/code&gt; 来输出 3.4 的结果为 &lt;code&gt;3.40e+00&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;数字值转换&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;当进行类似 &lt;code&gt;a32bitInt = int32(a32Float)&lt;/code&gt; 的转换时，小数点后的数字将被丢弃。这种情况一般发生当从取值范围较大的类型转换为取值范围较小的类型时，或者你可以写一个专门用于处理类型转换的函数来确保没有发生精度的丢失。下面这个例子展示如何安全地从 &lt;code&gt;int&lt;/code&gt; 型转换为 &lt;code&gt;int8&lt;/code&gt;：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func Uint8FromInt(n int) (uint8, error) {
+	if 0 &amp;lt;= n &amp;amp;&amp;amp; n &amp;lt;= math.MaxUint8 { // conversion is safe
+		return uint8(n), nil
+	}
+	return 0, fmt.Errorf(&amp;#34;%d is out of the uint8 range&amp;#34;, n)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;或者安全地从 &lt;code&gt;float64&lt;/code&gt; 转换为 &lt;code&gt;int&lt;/code&gt;：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func IntFromFloat64(x float64) int {
+	if math.MinInt32 &amp;lt;= x &amp;amp;&amp;amp; x &amp;lt;= math.MaxInt32 { // x lies in the integer range
+		whole, fraction := math.Modf(x)
+		if fraction &amp;gt;= 0.5 {
+			whole++
+		}
+		return int(whole)
+	}
+	panic(fmt.Sprintf(&amp;#34;%g is out of the int32 range&amp;#34;, x))
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;不过如果你实际存的数字超出你要转换到的类型的取值范围的话，则会引发 &lt;code&gt;panic&lt;/code&gt;（&lt;a href=&#34;./13.2.md&#34;&gt;第 13.2 节&lt;/a&gt;）。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;问题 4.1&lt;/strong&gt; &lt;code&gt;int&lt;/code&gt; 和 &lt;code&gt;int64&lt;/code&gt; 是相同的类型吗？&lt;/p&gt;
+&lt;h3 id=&#34;4522-复数&#34;&gt;4.5.2.2 复数&lt;/h3&gt;
+&lt;p&gt;Go 拥有以下复数类型：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;complex64 (32 位实数和虚数)
+complex128 (64 位实数和虚数)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;复数使用 &lt;code&gt;re+imI&lt;/code&gt; 来表示，其中 &lt;code&gt;re&lt;/code&gt; 代表实数部分，&lt;code&gt;im&lt;/code&gt; 代表虚数部分，&lt;code&gt;I&lt;/code&gt; 代表根号负 1。&lt;/p&gt;
+&lt;p&gt;示例：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;var c1 complex64 = 5 + 10i
+fmt.Printf(&amp;#34;The value is: %v&amp;#34;, c1)
+// 输出： 5 + 10i
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;如果 &lt;code&gt;re&lt;/code&gt; 和 &lt;code&gt;im&lt;/code&gt; 的类型均为 &lt;code&gt;float32&lt;/code&gt;，那么类型为 &lt;code&gt;complex64&lt;/code&gt; 的复数 &lt;code&gt;c&lt;/code&gt; 可以通过以下方式来获得：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;c = complex(re, im)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;函数 &lt;code&gt;real(c)&lt;/code&gt; 和 &lt;code&gt;imag(c)&lt;/code&gt; 可以分别获得相应的实数和虚数部分。&lt;/p&gt;
+&lt;p&gt;在使用格式化说明符时，可以使用 &lt;code&gt;%v&lt;/code&gt; 来表示复数，但当你希望只表示其中的一个部分的时候需要使用 &lt;code&gt;%f&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;复数支持和其它数字类型一样的运算。当你使用等号 &lt;code&gt;==&lt;/code&gt; 或者不等号 &lt;code&gt;!=&lt;/code&gt; 对复数进行比较运算时，注意对精确度的把握。&lt;code&gt;cmath&lt;/code&gt; 包中包含了一些操作复数的公共方法。如果你对内存的要求不是特别高，最好使用 &lt;code&gt;complex128&lt;/code&gt; 作为计算类型，因为相关函数都使用这个类型的参数。&lt;/p&gt;
+&lt;h3 id=&#34;4523-位运算&#34;&gt;4.5.2.3 位运算&lt;/h3&gt;
+&lt;p&gt;位运算只能用于整数类型的变量，且需当它们拥有等长位模式时。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;%b&lt;/code&gt; 是用于表示位的格式化标识符。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;二元运算符&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;按位与 &lt;code&gt;&amp;amp;&lt;/code&gt;：&lt;/p&gt;
+&lt;p&gt;对应位置上的值经过和运算结果，具体参见和运算符（第 4.5.1 节），并将 T (true) 替换为 &lt;code&gt;1&lt;/code&gt;，将 F (false) 替换为 &lt;code&gt;0&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  1 &amp;amp; 1 -&amp;gt; 1
+  1 &amp;amp; 0 -&amp;gt; 0
+  0 &amp;amp; 1 -&amp;gt; 0
+  0 &amp;amp; 0 -&amp;gt; 0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;按位或 &lt;code&gt;|&lt;/code&gt;：&lt;/p&gt;
+&lt;p&gt;对应位置上的值经过或运算结果，具体参见或运算符（第 4.5.1 节），并将 T (true) 替换为 &lt;code&gt;1&lt;/code&gt;，将 F (false) 替换为 &lt;code&gt;0&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  1 | 1 -&amp;gt; 1
+  1 | 0 -&amp;gt; 1
+  0 | 1 -&amp;gt; 1
+  0 | 0 -&amp;gt; 0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;按位异或 &lt;code&gt;^&lt;/code&gt;：&lt;/p&gt;
+&lt;p&gt;对应位置上的值根据以下规则组合：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  1 ^ 1 -&amp;gt; 0
+  1 ^ 0 -&amp;gt; 1
+  0 ^ 1 -&amp;gt; 1
+  0 ^ 0 -&amp;gt; 0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;位清除 &lt;code&gt;&amp;amp;^&lt;/code&gt;：将指定位置上的值设置为 &lt;code&gt;0&lt;/code&gt;。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+import &amp;#34;fmt&amp;#34;
+func main() {
+	var x uint8 = 15
+	var y uint8 = 4
+	fmt.Printf(&amp;#34;%08b\n&amp;#34;, x &amp;amp;^ y);  // 00001011
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;一元运算符&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;按位补足 &lt;code&gt;^&lt;/code&gt;：&lt;/p&gt;
+&lt;p&gt;该运算符与异或运算符一同使用，即 &lt;code&gt;m^x&lt;/code&gt;，对于无符号 &lt;code&gt;x&lt;/code&gt; 使用 “全部位设置为 1” 的规则，对于有符号 &lt;code&gt;x&lt;/code&gt; 时使用 &lt;code&gt;m=-1&lt;/code&gt;。例如：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  ^10 = -01 ^ 10 = -11
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;位左移 &lt;code&gt;&amp;lt;&amp;lt;&lt;/code&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;用法：&lt;code&gt;bitP &amp;lt;&amp;lt; n&lt;/code&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;bitP&lt;/code&gt; 的位向左移动 &lt;code&gt;n&lt;/code&gt; 位，右侧空白部分使用 0 填充；如果 &lt;code&gt;n&lt;/code&gt; 等于 2，则结果是 2 的相应倍数，即 2 的 &lt;code&gt;n&lt;/code&gt; 次方。例如：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  1 &amp;lt;&amp;lt; 10 // 等于 1 KB
+  1 &amp;lt;&amp;lt; 20 // 等于 1 MB
+  1 &amp;lt;&amp;lt; 30 // 等于 1 GB
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;位右移 &lt;code&gt;&amp;gt;&amp;gt;&lt;/code&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用法：&lt;code&gt;bitP &amp;gt;&amp;gt; n&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bitP&lt;/code&gt; 的位向右移动 &lt;code&gt;n&lt;/code&gt; 位，左侧空白部分使用 0 填充；如果 &lt;code&gt;n&lt;/code&gt; 等于 2，则结果是当前值除以 2 的 n 次方。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;当希望把结果赋值给第一个操作数时，可以简写为 &lt;code&gt;a &amp;lt;&amp;lt;= 2&lt;/code&gt; 或者 &lt;code&gt;b ^= a &amp;amp; 0xffffffff&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;位左移常见实现存储单位的用例&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;使用位左移与 &lt;code&gt;iota&lt;/code&gt; 计数配合可优雅地实现存储单位的常量枚举：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;type ByteSize float64
+const (
+	_ = iota // 通过赋值给空白标识符来忽略值
+	KB ByteSize = 1&amp;lt;&amp;lt;(10*iota)
+	MB
+	GB
+	TB
+	PB
+	EB
+	ZB
+	YB
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;在通讯中使用位左移表示标识的用例&lt;/strong&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;type BitFlag int
+const (
+	Active BitFlag = 1 &amp;lt;&amp;lt; iota // 1 &amp;lt;&amp;lt; 0 == 1
+	Send // 1 &amp;lt;&amp;lt; 1 == 2
+	Receive // 1 &amp;lt;&amp;lt; 2 == 4
+)
+
+flag := Active | Send // == 3
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;4524-逻辑运算符&#34;&gt;4.5.2.4 逻辑运算符&lt;/h3&gt;
+&lt;p&gt;Go 中拥有以下逻辑运算符：&lt;code&gt;==&lt;/code&gt;、&lt;code&gt;!=&lt;/code&gt;（第 4.5.1 节）、&lt;code&gt;&amp;lt;&lt;/code&gt;、&lt;code&gt;&amp;lt;=&lt;/code&gt;、&lt;code&gt;&amp;gt;&lt;/code&gt;、&lt;code&gt;&amp;gt;=&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;它们之所以被称为逻辑运算符是因为它们的运算结果总是为布尔值 &lt;code&gt;bool&lt;/code&gt;。例如：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;b3 := 10 &amp;gt; 5 // b3 is true
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;4525-算术运算符&#34;&gt;4.5.2.5 算术运算符&lt;/h3&gt;
+&lt;p&gt;常见可用于整数和浮点数的二元运算符有 &lt;code&gt;+&lt;/code&gt;、&lt;code&gt;-&lt;/code&gt;、&lt;code&gt;*&lt;/code&gt; 和 &lt;code&gt;/&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;（相对于一般规则而言，Go 在进行字符串拼接时允许使用对运算符 &lt;code&gt;+&lt;/code&gt; 的重载，但 Go 本身不允许开发者进行自定义的运算符重载）&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;/&lt;/code&gt; 对于整数运算而言，结果依旧为整数，例如：&lt;code&gt;9 / 4 -&amp;gt; 2&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;取余运算符只能作用于整数：&lt;code&gt;9 % 4 -&amp;gt; 1&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;整数除以 0 可能导致程序崩溃，将会导致运行时的恐慌状态（如果除以 0 的行为在编译时就能被捕捉到，则会引发编译错误）；&lt;a href=&#34;13.0.md&#34;&gt;第 13 章&lt;/a&gt; 将会详细讲解如何正确地处理此类情况。&lt;/p&gt;
+&lt;p&gt;浮点数除以 &lt;code&gt;0.0&lt;/code&gt; 会返回一个无穷尽的结果，使用 &lt;code&gt;+Inf&lt;/code&gt; 表示。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;练习 4.4&lt;/strong&gt; 尝试编译 &lt;a href=&#34;exercises/chapter_4/divby0.go&#34;&gt;divby0.go&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;你可以将语句 &lt;code&gt;b = b + a&lt;/code&gt; 简写为 &lt;code&gt;b += a&lt;/code&gt;，同样的写法也可用于 &lt;code&gt;-=&lt;/code&gt;、&lt;code&gt;*=&lt;/code&gt;、&lt;code&gt;/=&lt;/code&gt;、&lt;code&gt;%=&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;对于整数和浮点数，你可以使用一元运算符 &lt;code&gt;++&lt;/code&gt;（递增）和 &lt;code&gt;--&lt;/code&gt;（递减），但只能用于后缀：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;i++ -&amp;gt; i += 1 -&amp;gt; i = i + 1
+i-- -&amp;gt; i -= 1 -&amp;gt; i = i - 1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;同时，带有 &lt;code&gt;++&lt;/code&gt; 和 &lt;code&gt;--&lt;/code&gt; 的只能作为语句，而非表达式，因此 &lt;code&gt;n = i++&lt;/code&gt; 这种写法是无效的，其它像 &lt;code&gt;f(i++)&lt;/code&gt; 或者 &lt;code&gt;a[i]=b[i++]&lt;/code&gt; 这些可以用于 C、C++ 和 Java 中的写法在 Go 中也是不允许的。&lt;/p&gt;
+&lt;p&gt;在运算时 &lt;strong&gt;溢出&lt;/strong&gt; 不会产生错误，Go 会简单地将超出位数抛弃。如果你需要范围无限大的整数或者有理数（意味着只被限制于计算机内存），你可以使用标准库中的 &lt;code&gt;big&lt;/code&gt; 包，该包提供了类似 &lt;code&gt;big.Int&lt;/code&gt; 和 &lt;code&gt;big.Rat&lt;/code&gt; 这样的类型（&lt;a href=&#34;09.4.md&#34;&gt;第 9.4 节&lt;/a&gt;）。&lt;/p&gt;
+&lt;h3 id=&#34;4526-随机数&#34;&gt;4.5.2.6 随机数&lt;/h3&gt;
+&lt;p&gt;一些像游戏或者统计学类的应用需要用到随机数。&lt;code&gt;rand&lt;/code&gt; 包实现了伪随机数的生成。&lt;/p&gt;
+&lt;p&gt;示例 4.10 &lt;a href=&#34;examples/chapter_4/random.go&#34;&gt;random.go&lt;/a&gt; 演示了如何生成 10 个非负随机数：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+import (
+	&amp;#34;fmt&amp;#34;
+	&amp;#34;math/rand&amp;#34;
+	&amp;#34;time&amp;#34;
+)
+
+func main() {
+	for i := 0; i &amp;lt; 10; i++ {
+		a := rand.Int()
+		fmt.Printf(&amp;#34;%d / &amp;#34;, a)
+	}
+	for i := 0; i &amp;lt; 5; i++ {
+		r := rand.Intn(8)
+		fmt.Printf(&amp;#34;%d / &amp;#34;, r)
+	}
+	fmt.Println()
+	timens := int64(time.Now().Nanosecond())
+	rand.Seed(timens)
+	for i := 0; i &amp;lt; 10; i++ {
+		fmt.Printf(&amp;#34;%2.2f / &amp;#34;, 100*rand.Float32())
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;可能的输出：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;816681689 / 1325201247 / 623951027 / 478285186 / 1654146165 /
+1951252986 / 2029250107 / 762911244 / 1372544545 / 591415086 / / 3 / 0 / 6 / 4 / 2 /22.10
+/ 65.77 / 65.89 / 16.85 / 75.56 / 46.90 / 55.24 / 55.95 / 25.58 / 70.61 /
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;函数 &lt;code&gt;rand.Float32&lt;/code&gt; 和 &lt;code&gt;rand.Float64&lt;/code&gt; 返回介于 $[0.0, 1.0)$ 之间的伪随机数，其中包括 &lt;code&gt;0.0&lt;/code&gt; 但不包括 &lt;code&gt;1.0&lt;/code&gt;。函数 &lt;code&gt;rand.Intn&lt;/code&gt; 返回介于 $[0, n)$ 之间的伪随机数。&lt;/p&gt;
+&lt;p&gt;你可以使用 &lt;code&gt;rand.Seed(value)&lt;/code&gt; 函数来提供伪随机数的生成种子，一般情况下都会使用当前时间的纳秒级数字（第 4.8 节）。&lt;/p&gt;
+&lt;h2 id=&#34;453-运算符与优先级&#34;&gt;4.5.3 运算符与优先级&lt;/h2&gt;
+&lt;p&gt;有些运算符拥有较高的优先级，二元运算符的运算方向均是从左至右。下表列出了所有运算符以及它们的优先级，由上至下代表优先级由高到低：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;优先级 	运算符
+ 7 		^ !
+ 6 		* / % &amp;lt;&amp;lt; &amp;gt;&amp;gt; &amp;amp; &amp;amp;^
+ 5 		+ - | ^
+ 4 		== != &amp;lt; &amp;lt;= &amp;gt;= &amp;gt;
+ 3 		&amp;lt;-
+ 2 		&amp;amp;&amp;amp;
+ 1 		||
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;当然，你可以通过使用括号来临时提升某个表达式的整体运算优先级。&lt;/p&gt;
+&lt;h2 id=&#34;454-类型别名&#34;&gt;4.5.4 类型别名&lt;/h2&gt;
+&lt;p&gt;当你在使用某个类型时，你可以给它起另一个名字，然后你就可以在你的代码中使用新的名字（用于简化名称或解决名称冲突）。&lt;/p&gt;
+&lt;p&gt;在 &lt;code&gt;type TZ int&lt;/code&gt; 中，&lt;code&gt;TZ&lt;/code&gt; 就是 &lt;code&gt;int&lt;/code&gt; 类型的新名称（用于表示程序中的时区），然后就可以使用 &lt;code&gt;TZ&lt;/code&gt; 来操作 &lt;code&gt;int&lt;/code&gt; 类型的数据。&lt;/p&gt;
+&lt;p&gt;示例 4.11 &lt;a href=&#34;examples/chapter_4/type.go&#34;&gt;type.go&lt;/a&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+import &amp;#34;fmt&amp;#34;
+
+type TZ int
+
+func main() {
+	var a, b TZ = 3, 4
+	c := a + b
+	fmt.Printf(&amp;#34;c has the value: %d&amp;#34;, c) // 输出：c has the value: 7
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;实际上，类型别名得到的新类型并非和原类型完全相同，新类型不会拥有原类型所附带的方法（&lt;a href=&#34;./10.0.md&#34;&gt;第 10 章&lt;/a&gt;）；&lt;code&gt;TZ&lt;/code&gt; 可以自定义一个方法用来输出更加人性化的时区信息。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;练习 4.5&lt;/strong&gt; 定义一个 &lt;code&gt;string&lt;/code&gt; 的类型别名 &lt;code&gt;Rope&lt;/code&gt;，并声明一个该类型的变量。&lt;/p&gt;
+&lt;h2 id=&#34;455-字符类型&#34;&gt;4.5.5 字符类型&lt;/h2&gt;
+&lt;p&gt;严格来说，这并不是 Go 语言的一个类型，字符只是整数的特殊用例。&lt;code&gt;byte&lt;/code&gt; 类型是 &lt;code&gt;uint8&lt;/code&gt; 的别名，对于只占用 1 个字节的传统 ASCII 编码的字符来说，完全没有问题。例如：&lt;code&gt;var ch byte = &#39;A&#39;&lt;/code&gt;；字符使用单引号括起来。&lt;/p&gt;
+&lt;p&gt;在 ASCII 码表中，&lt;code&gt;&#39;A&#39;&lt;/code&gt; 的值是 &lt;code&gt;65&lt;/code&gt;，而使用 16 进制表示则为 &lt;code&gt;41&lt;/code&gt;，所以下面的写法是等效的：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;var ch byte = 65 或 var ch byte = &amp;#39;\x41&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;（&lt;code&gt;\x&lt;/code&gt; 总是紧跟着长度为 2 的 16 进制数）&lt;/p&gt;
+&lt;p&gt;另外一种可能的写法是 &lt;code&gt;\&lt;/code&gt; 后面紧跟着长度为 3 的 8 进制数，例如：&lt;code&gt;\377&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;不过 Go 同样支持 Unicode（UTF-8），因此字符同样称为 Unicode 代码点或者 runes，并在内存中使用 &lt;code&gt;int&lt;/code&gt; 来表示。在文档中，一般使用格式 &lt;code&gt;U+hhhh&lt;/code&gt; 来表示，其中 &lt;code&gt;h&lt;/code&gt; 表示一个 16 进制数。其实 &lt;code&gt;rune&lt;/code&gt; 也是 Go 当中的一个类型，并且是 &lt;code&gt;int32&lt;/code&gt; 的别名。&lt;/p&gt;
+&lt;p&gt;在书写 Unicode 字符时，需要在 16 进制数之前加上前缀 &lt;code&gt;\u&lt;/code&gt; 或者 &lt;code&gt;\U&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;因为 Unicode 至少占用 2 个字节，所以我们使用 &lt;code&gt;int16&lt;/code&gt; 或者 &lt;code&gt;int&lt;/code&gt; 类型来表示。如果需要使用到 4 字节，则会加上 &lt;code&gt;\U&lt;/code&gt; 前缀；前缀 &lt;code&gt;\u&lt;/code&gt; 则总是紧跟着长度为 4 的 16 进制数，前缀 &lt;code&gt;\U&lt;/code&gt; 紧跟着长度为 8 的 16 进制数。&lt;/p&gt;
+&lt;p&gt;示例 4.12 &lt;a href=&#34;examples/chapter_4/char.go&#34;&gt;char.go&lt;/a&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;var ch int = &amp;#39;\u0041&amp;#39;
+var ch2 int = &amp;#39;\u03B2&amp;#39;
+var ch3 int = &amp;#39;\U00101234&amp;#39;
+fmt.Printf(&amp;#34;%d - %d - %d\n&amp;#34;, ch, ch2, ch3) // integer
+fmt.Printf(&amp;#34;%c - %c - %c\n&amp;#34;, ch, ch2, ch3) // character
+fmt.Printf(&amp;#34;%X - %X - %X\n&amp;#34;, ch, ch2, ch3) // UTF-8 bytes
+fmt.Printf(&amp;#34;%U - %U - %U&amp;#34;, ch, ch2, ch3) // UTF-8 code point
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;输出：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;65 - 946 - 1053236
+A - β - r
+41 - 3B2 - 101234
+U+0041 - U+03B2 - U+101234
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;格式化说明符 &lt;code&gt;%c&lt;/code&gt; 用于表示字符；当和字符配合使用时，&lt;code&gt;%v&lt;/code&gt; 或 &lt;code&gt;%d&lt;/code&gt; 会输出用于表示该字符的整数；&lt;code&gt;%U&lt;/code&gt; 输出格式为 &lt;code&gt;U+hhhh&lt;/code&gt; 的字符串（另一个示例见&lt;a href=&#34;./05.4.md&#34;&gt;第 5.4.4 节&lt;/a&gt;）。&lt;/p&gt;
+&lt;p&gt;包 &lt;code&gt;unicode&lt;/code&gt; 包含了一些针对测试字符的非常有用的函数（其中 &lt;code&gt;ch&lt;/code&gt; 代表字符）：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;判断是否为字母：&lt;code&gt;unicode.IsLetter(ch)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;判断是否为数字：&lt;code&gt;unicode.IsDigit(ch)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;判断是否为空白符号：&lt;code&gt;unicode.IsSpace(ch)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这些函数返回单个布尔值。包 &lt;code&gt;utf8&lt;/code&gt; 拥有更多与 &lt;code&gt;rune&lt;/code&gt; 类型相关的函数。&lt;/p&gt;
+&lt;p&gt;（ &lt;strong&gt;译者注：关于类型的相关讲解，可参考视频教程 《Go编程基础》 第 3 课：&lt;a href=&#34;https://github.com/Unknwon/go-fundamental-programming/blob/master/lectures/lecture3.md&#34;&gt;类型与变量&lt;/a&gt;&lt;/strong&gt; ）&lt;/p&gt;
+
+    </description>
+    </item>
+    
     <item>
     <title>Go程序的变量</title>
     <link>https://blog.wiseai.cn/post/golang/%E5%8F%98%E9%87%8F/</link>
