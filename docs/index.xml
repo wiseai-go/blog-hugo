@@ -6,9 +6,69 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Wed, 29 Jun 2022 11:33:14 +0800</lastBuildDate><atom:link href="https://blog.wiseai.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 30 Jun 2022 09:37:08 +0800</lastBuildDate><atom:link href="https://blog.wiseai.cn/index.xml" rel="self" type="application/rss+xml" />
     <item>
-    <title>基本类型和运算符</title>
+    <title>Go程序的字符串</title>
+    <link>https://blog.wiseai.cn/post/golang/%E5%AD%97%E7%AC%A6%E4%B8%B2/</link>
+    <pubDate>Thu, 30 Jun 2022 09:37:08 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/golang/%E5%AD%97%E7%AC%A6%E4%B8%B2/</guid>
+    <description>
+        &lt;h1 id=&#34;46-字符串&#34;&gt;4.6 字符串&lt;/h1&gt;
+&lt;p&gt;字符串是 UTF-8 字符的一个序列（当字符为 ASCII 码时则占用 1 个字节，其它字符根据需要占用 2-4 个字节）。UTF-8 是被广泛使用的编码格式，是文本文件的标准编码，其它包括 XML 和 JSON 在内，也都使用该编码。由于该编码对占用字节长度的不定性，Go 中的字符串里面的字符也可能根据需要占用 1 至 4 个字节（示例见&lt;a href=&#34;04.6.md&#34;&gt;第 4.6 节&lt;/a&gt;），这与其它语言如 C++、Java 或者 Python 不同（Java 始终使用 2 个字节）。Go 这样做的好处是不仅减少了内存和硬盘空间占用，同时也不用像其它语言那样需要对使用 UTF-8 字符集的文本进行编码和解码。&lt;/p&gt;
+&lt;p&gt;字符串是一种值类型，且值不可变，即创建某个文本后你无法再次修改这个文本的内容；更深入地讲，字符串是字节的定长数组。&lt;/p&gt;
+&lt;p&gt;Go 支持以下 2 种形式的字面值：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;解释字符串：&lt;/p&gt;
+&lt;p&gt;该类字符串使用双引号括起来，其中的相关的转义字符将被替换，这些转义字符包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;\n&lt;/code&gt;：换行符&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;\r&lt;/code&gt;：回车符&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;\t&lt;/code&gt;：tab 键&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;\u&lt;/code&gt; 或 &lt;code&gt;\U&lt;/code&gt;：Unicode 字符&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;\\&lt;/code&gt;：反斜杠自身&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;非解释字符串：&lt;/p&gt;
+&lt;p&gt;该类字符串使用反引号括起来，支持换行，例如：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  `This is a raw string \n` 中的 `\n\` 会被原样输出。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;和 C/C++不一样，Go 中的字符串是根据长度限定，而非特殊字符 &lt;code&gt;\0&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;string&lt;/code&gt; 类型的零值为长度为零的字符串，即空字符串 &lt;code&gt;&amp;quot;&amp;quot;&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;一般的比较运算符（&lt;code&gt;==&lt;/code&gt;、&lt;code&gt;!=&lt;/code&gt;、&lt;code&gt;&amp;lt;&lt;/code&gt;、&lt;code&gt;&amp;lt;=&lt;/code&gt;、&lt;code&gt;&amp;gt;=&lt;/code&gt;、&lt;code&gt;&amp;gt;&lt;/code&gt;）通过在内存中按字节比较来实现字符串的对比。你可以通过函数 &lt;code&gt;len()&lt;/code&gt; 来获取字符串所占的字节长度，例如：&lt;code&gt;len(str)&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;字符串的内容（纯字节）可以通过标准索引法来获取，在中括号 &lt;code&gt;[]&lt;/code&gt; 内写入索引，索引从 0 开始计数：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;字符串 &lt;code&gt;str&lt;/code&gt; 的第 1 个字节：&lt;code&gt;str[0]&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;第 &lt;code&gt;i&lt;/code&gt; 个字节：&lt;code&gt;str[i - 1]&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;最后 1 个字节：&lt;code&gt;str[len(str)-1]&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;需要注意的是，这种转换方案只对纯 ASCII 码的字符串有效。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意事项&lt;/strong&gt; 获取字符串中某个字节的地址的行为是非法的，例如：&lt;code&gt;&amp;amp;str[i]&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;字符串拼接符 &lt;code&gt;+&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;两个字符串 &lt;code&gt;s1&lt;/code&gt; 和 &lt;code&gt;s2&lt;/code&gt; 可以通过 &lt;code&gt;s := s1 + s2&lt;/code&gt; 拼接在一起。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;s2&lt;/code&gt; 追加在 &lt;code&gt;s1&lt;/code&gt; 尾部并生成一个新的字符串 &lt;code&gt;s&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;你可以通过以下方式来对代码中多行的字符串进行拼接：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;str := &amp;#34;Beginning of the string &amp;#34; +
+	&amp;#34;second part of the string&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;由于编译器行尾自动补全分号的缘故，加号 &lt;code&gt;+&lt;/code&gt; 必须放在第一行。&lt;/p&gt;
+&lt;p&gt;拼接的简写形式 &lt;code&gt;+=&lt;/code&gt; 也可以用于字符串：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;s := &amp;#34;hel&amp;#34; + &amp;#34;lo,&amp;#34;
+s += &amp;#34;world!&amp;#34;
+fmt.Println(s) //输出 “hello, world!”
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;在循环中使用加号 &lt;code&gt;+&lt;/code&gt; 拼接字符串并不是最高效的做法，更好的办法是使用函数 &lt;code&gt;strings.Join()&lt;/code&gt;（&lt;a href=&#34;04.7.md&#34;&gt;第 4.7.10 节&lt;/a&gt;），有没有更好的办法了？有！使用字节缓冲（&lt;code&gt;bytes.Buffer&lt;/code&gt;）拼接更加给力（&lt;a href=&#34;07.2.md&#34;&gt;第 7.2.6 节&lt;/a&gt;）！&lt;/p&gt;
+&lt;p&gt;在&lt;a href=&#34;07.0.md&#34;&gt;第 7 章&lt;/a&gt;，我们会讲到通过将字符串看作是字节 (&lt;code&gt;byte&lt;/code&gt;) 的切片 (slice) 来实现对其标准索引法的操作。会在&lt;a href=&#34;05.4.md&#34;&gt;第 5.4.1 节&lt;/a&gt; 中讲到的 &lt;code&gt;for&lt;/code&gt; 循环只会根据索引返回字符串中的纯字节，而在&lt;a href=&#34;./05.4.md&#34;&gt;第 5.4.4 节&lt;/a&gt;（以及&lt;a href=&#34;07.6.md&#34;&gt;第 7.6.1 节&lt;/a&gt; 的示例）将会展示如何使用 for-range 循环来实现对 Unicode 字符串的迭代操作。在下一节，我们会学习到许多有关字符串操作的函数和方法，同时 &lt;code&gt;fmt&lt;/code&gt; 包中的 &lt;code&gt;fmt.Sprint(x)&lt;/code&gt; 也可以格式化生成并返回你所需要的字符串（&lt;a href=&#34;04.3.md&#34;&gt;第 4.4.3 节&lt;/a&gt;）。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;练习 4.6&lt;/strong&gt; &lt;a href=&#34;exercises/chapter_4/count_characters.go&#34;&gt;count_characters.go&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;创建一个用于统计字节和字符 (rune) 的程序，并对字符串 &lt;code&gt;asSASA ddd dsjkdsjs dk&lt;/code&gt; 进行分析，然后再分析 &lt;code&gt;asSASA ddd dsjkdsjsこん dk&lt;/code&gt;，最后解释两者不同的原因（提示：使用 &lt;code&gt;unicode/utf8&lt;/code&gt; 包）。&lt;/p&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>Go程序的基本类型和运算符</title>
     <link>https://blog.wiseai.cn/post/golang/%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/</link>
     <pubDate>Wed, 29 Jun 2022 11:33:14 +0800</pubDate>
     <author>wiseai</author>

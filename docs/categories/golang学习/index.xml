@@ -7,9 +7,25 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Wed, 29 Jun 2022 11:33:14 +0800</lastBuildDate><atom:link href="https://blog.wiseai.cn/categories/golang%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 30 Jun 2022 09:37:08 +0800</lastBuildDate><atom:link href="https://blog.wiseai.cn/categories/golang%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>基本类型和运算符</title>
+      <title>Go程序的字符串</title>
+      <link>https://blog.wiseai.cn/post/golang/%E5%AD%97%E7%AC%A6%E4%B8%B2/</link>
+      <pubDate>Thu, 30 Jun 2022 09:37:08 +0800</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/golang/%E5%AD%97%E7%AC%A6%E4%B8%B2/</guid>
+      <description>4.6 字符串 字符串是 UTF-8 字符的一个序列（当字符为 ASCII 码时则占用 1 个字节，其它字符根据需要占用 2-4 个字节）。UTF-8 是被广泛使用的编码格式，是文本文件的标准编码，其它包括 XML 和 JSON 在内，也都使用该编码。由于该编码对占用字节长度的不定性，Go 中的字符串里面的字符也可能根据需要占用 1 至 4 个字节（示例见第 4.6 节），这与其它语言如 C++、Java 或者 Python 不同（Java 始终使用 2 个字节）。Go 这样做的好处是不仅减少了内存和硬盘空间占用，同时也不用像其它语言那样需要对使用 UTF-8 字符集的文本进行编码和解码。
+字符串是一种值类型，且值不可变，即创建某个文本后你无法再次修改这个文本的内容；更深入地讲，字符串是字节的定长数组。
+Go 支持以下 2 种形式的字面值：
+  解释字符串：
+该类字符串使用双引号括起来，其中的相关的转义字符将被替换，这些转义字符包括：
+ \n：换行符 \r：回车符 \t：tab 键 \u 或 \U：Unicode 字符 \\：反斜杠自身    非解释字符串：
+该类字符串使用反引号括起来，支持换行，例如：
+ `This is a raw string \n` 中的 `\n\` 会被原样输出。    和 C/C++不一样，Go 中的字符串是根据长度限定，而非特殊字符 \0。</description>
+    </item>
+    
+    <item>
+      <title>Go程序的基本类型和运算符</title>
       <link>https://blog.wiseai.cn/post/golang/%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/</link>
       <pubDate>Wed, 29 Jun 2022 11:33:14 +0800</pubDate>
       
