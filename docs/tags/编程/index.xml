@@ -7,7 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Thu, 30 Jun 2022 09:37:08 +0800</lastBuildDate><atom:link href="https://blog.wiseai.cn/tags/%E7%BC%96%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 01 Jul 2022 10:14:36 +0800</lastBuildDate><atom:link href="https://blog.wiseai.cn/tags/%E7%BC%96%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go程序的 Strings 和 strconv 包</title>
+      <link>https://blog.wiseai.cn/post/golang/strings%E5%92%8Cstrconv%E5%8C%85/</link>
+      <pubDate>Fri, 01 Jul 2022 10:14:36 +0800</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/golang/strings%E5%92%8Cstrconv%E5%8C%85/</guid>
+      <description>4.7 strings 和 strconv 包 作为一种基本数据结构，每种语言都有一些对于字符串的预定义处理函数。Go 中使用 strings 包来完成对字符串的主要操作。
+4.7.1 前缀和后缀 HasPrefix() 判断字符串 s 是否以 prefix 开头：
+strings.HasPrefix(s, prefix string) bool HasSuffix() 判断字符串 s 是否以 suffix 结尾：
+strings.HasSuffix(s, suffix string) bool 示例 4.13 presuffix.go
+package main import ( &amp;#34;fmt&amp;#34; &amp;#34;strings&amp;#34; ) func main() { var str string = &amp;#34;This is an example of a string&amp;#34; fmt.Printf(&amp;#34;T/F? Does the string \&amp;#34;%s\&amp;#34; have prefix %s? &amp;#34;, str, &amp;#34;Th&amp;#34;) fmt.Printf(&amp;#34;%t\n&amp;#34;, strings.HasPrefix(str, &amp;#34;Th&amp;#34;)) } 输出：</description>
+    </item>
+    
     <item>
       <title>Go程序的字符串</title>
       <link>https://blog.wiseai.cn/post/golang/%E5%AD%97%E7%AC%A6%E4%B8%B2/</link>
@@ -17,11 +30,13 @@
       <description>4.6 字符串 字符串是 UTF-8 字符的一个序列（当字符为 ASCII 码时则占用 1 个字节，其它字符根据需要占用 2-4 个字节）。UTF-8 是被广泛使用的编码格式，是文本文件的标准编码，其它包括 XML 和 JSON 在内，也都使用该编码。由于该编码对占用字节长度的不定性，Go 中的字符串里面的字符也可能根据需要占用 1 至 4 个字节（示例见第 4.6 节），这与其它语言如 C++、Java 或者 Python 不同（Java 始终使用 2 个字节）。Go 这样做的好处是不仅减少了内存和硬盘空间占用，同时也不用像其它语言那样需要对使用 UTF-8 字符集的文本进行编码和解码。
 字符串是一种值类型，且值不可变，即创建某个文本后你无法再次修改这个文本的内容；更深入地讲，字符串是字节的定长数组。
 Go 支持以下 2 种形式的字面值：
-  解释字符串：
+解释字符串：
 该类字符串使用双引号括起来，其中的相关的转义字符将被替换，这些转义字符包括：
- \n：换行符 \r：回车符 \t：tab 键 \u 或 \U：Unicode 字符 \\：反斜杠自身    非解释字符串：
+\n：换行符 \r：回车符 \t：tab 键 \u 或 \U：Unicode 字符 \\：反斜杠自身 非解释字符串：
 该类字符串使用反引号括起来，支持换行，例如：
- `This is a raw string \n` 中的 `\n\` 会被原样输出。    和 C/C++不一样，Go 中的字符串是根据长度限定，而非特殊字符 \0。</description>
+`This is a raw string \n` 中的 `\n\` 会被原样输出。 和 C/C++不一样，Go 中的字符串是根据长度限定，而非特殊字符 \0。
+string 类型的零值为长度为零的字符串，即空字符串 &amp;quot;&amp;quot;。
+一般的比较运算符（==、!=、&amp;lt;、&amp;lt;=、&amp;gt;=、&amp;gt;）通过在内存中按字节比较来实现字符串的对比。你可以通过函数 len() 来获取字符串所占的字节长度，例如：len(str)。</description>
     </item>
     
     <item>
@@ -74,9 +89,9 @@ var ( a int b bool str string ) 这种因式分解关键字的写法一般用于
 存储在常量中的数据类型只可以是布尔型、数字型（整数型、浮点型和复数）和字符串型。
 常量的定义格式：const identifier [type] = value，例如：
 const Pi = 3.14159 在 Go 语言中，你可以省略类型说明符 [type]，因为编译器可以根据变量的值来推断其类型。
- 显式类型定义： const b string = &amp;quot;abc&amp;quot; 隐式类型定义： const b = &amp;quot;abc&amp;quot;  一个没有指定类型的常量被使用时，会根据其使用环境而推断出它所需要具备的类型。换句话说，未定义类型的常量会在必要时刻根据上下文来获得相关类型。
+显式类型定义： const b string = &amp;quot;abc&amp;quot; 隐式类型定义： const b = &amp;quot;abc&amp;quot; 一个没有指定类型的常量被使用时，会根据其使用环境而推断出它所需要具备的类型。换句话说，未定义类型的常量会在必要时刻根据上下文来获得相关类型。
 var n int f(n + 5) // 无类型的数字型常量 “5” 它的类型在这里变成了 int 常量的值必须是能够在编译时就能够确定的；你可以在其赋值表达式中涉及计算过程，但是所有用于计算的值必须在编译期间就能获得。
- 正确的做法：const c1 = 2/3 错误的做法：const c2 = getNumber() // 引发构建错误: getNumber() used as value  因为在编译期间自定义函数均属于未知，因此无法用于常量的赋值，但内置函数可以使用，如：len()。
+正确的做法：const c1 = 2/3 错误的做法：const c2 = getNumber() // 引发构建错误: getNumber() used as value 因为在编译期间自定义函数均属于未知，因此无法用于常量的赋值，但内置函数可以使用，如：len()。
 数字型的常量是没有大小和符号的，并且可以使用任何精度而不会导致溢出：
 const Ln2 = 0.693147180559945309417232121458\ 176568075500134360255254120680009 const Log2E = 1/Ln2 // this is a precise reciprocal const Billion = 1e9 // float constant const hardEight = (1 &amp;lt;&amp;lt; 100) &amp;gt;&amp;gt; 97 根据上面的例子我们可以看到，反斜杠 \ 可以在常量表达式中作为多行的连接符使用。</description>
     </item>

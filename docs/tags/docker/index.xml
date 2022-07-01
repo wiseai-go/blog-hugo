@@ -25,7 +25,7 @@ $ yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-
 $ yum install docker-ce
 如果提示接受GPG密钥，请验证指纹是否匹配060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35，如果匹配 ，则接受它。
 ubuntu:
- $ sudo apt-get update $ sudo apt-get install apt-transport-https ca-certificates curl software-properties-common $ curl -fsSL https://download.</description>
+$ sudo apt-get update $ sudo apt-get install apt-transport-https ca-certificates curl software-properties-common $ curl -fsSL https://download.</description>
     </item>
     
   </channel>

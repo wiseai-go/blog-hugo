@@ -14,11 +14,11 @@
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/linux%E4%B8%ADfirefox%E6%94%AF%E6%8C%81flash/</guid>
-      <description>这个有点旧了，参考下   进入adobe中下载flash
-  解压文件
-  cp ./libflashplayer.so /home/wiseai/.mozilla/plugins/
-  chmod 755 /home/wiseai/.mozilla/plugins/libflashplayer.so
-  搞定</description>
+      <description>这个有点旧了，参考下 进入adobe中下载flash
+解压文件
+cp ./libflashplayer.so /home/wiseai/.mozilla/plugins/
+chmod 755 /home/wiseai/.mozilla/plugins/libflashplayer.so
+搞定</description>
     </item>
     
     <item>
@@ -37,10 +37,10 @@
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/networkmanager%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</guid>
-      <description>相关配置文件位置   /etc/dbus-1/system.d/NetworkManager.conf /etc/dbus-1/system.d/nm-avahi-autoipd.conf /etc/dbus-1/system.d/nm-dhcp-client.conf /etc/dbus-1/system.d/nm-dispatcher.conf /etc/dbus-1/system.d/nm-system-settings.conf /etc/rc.d/init.d/NetworkManager
- /etc/dbus-1/system.d/nm-applet.conf
- 不使用Network Manager 管理某些网络设备 默认情况下，NetworkManager 管理除 lo（环回）设备以外的所有网络设备，因为一些情况需要将设备设置为 unmanaged，也就是不使用NetworkManager管理这些设备。  查看设备状态 # nmcli device status 在 /etc/NetworkManager/NetworkManager.conf 配置文件的[main] 层级下启用插件 keyfile。    [main] plugins=keyfile 这个一般都启用了。 - 创建 /etc/NetworkManager/conf.d/unmanaged-devices.conf 配置文件（这个文件名没有要求，自己容易识别就可以了），包含以下内容：
-[keyfile] unmanaged-devices=interface-name:wlan*   以分号隔开； 可以使用通配符来匹配接口； interface-name:eth*,except:interface-name:eth0;表示：除了 eth0，其他以 eth 开头的接口全部 unmanaged； 可以通过 mac 地址来排除接口，mac:66:77:88:99:00:aa   - 重启服务  # systemctl restart network-manager.service</description>
+      <description>相关配置文件位置 /etc/dbus-1/system.d/NetworkManager.conf /etc/dbus-1/system.d/nm-avahi-autoipd.conf /etc/dbus-1/system.d/nm-dhcp-client.conf /etc/dbus-1/system.d/nm-dispatcher.conf /etc/dbus-1/system.d/nm-system-settings.conf /etc/rc.d/init.d/NetworkManager
+/etc/dbus-1/system.d/nm-applet.conf
+不使用Network Manager 管理某些网络设备 默认情况下，NetworkManager 管理除 lo（环回）设备以外的所有网络设备，因为一些情况需要将设备设置为 unmanaged，也就是不使用NetworkManager管理这些设备。 查看设备状态 # nmcli device status 在 /etc/NetworkManager/NetworkManager.conf 配置文件的[main] 层级下启用插件 keyfile。 [main] plugins=keyfile 这个一般都启用了。 - 创建 /etc/NetworkManager/conf.d/unmanaged-devices.conf 配置文件（这个文件名没有要求，自己容易识别就可以了），包含以下内容：
+[keyfile] unmanaged-devices=interface-name:wlan* 以分号隔开； 可以使用通配符来匹配接口； interface-name:eth*,except:interface-name:eth0;表示：除了 eth0，其他以 eth 开头的接口全部 unmanaged； 可以通过 mac 地址来排除接口，mac:66:77:88:99:00:aa - 重启服务 # systemctl restart network-manager.service</description>
     </item>
     
     <item>
@@ -98,11 +98,11 @@ config file = /etc/samba/conf/smb.conf.%m
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/ssh%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E7%9A%84%E5%90%AF%E7%94%A8%E7%A6%81%E7%94%A8%E6%96%B9%E6%B3%95/</guid>
-      <description>“手机ES文件浏览器”不能连接sftp的问题解决方法 首先，说说为什么学习这个东西，在使用“手机ES文件浏览器”这个软件的时候，出现了不能连接的情况，在网上查询后发现是KexAlgorithms 密钥交换算法的问题，在/etc/ssh/sshd_config后添加: KexAlgorithms +diffie-hellman-group14-sha1 后问题解决。 出现no matching host key type found.Their offer: ssh-rsa,ssh-dss这个问题时,在/etc/ssh/sshd_config后添加： HostKeyAlgorithms ssh-rsa  配置位置：/etc/ssh/sshd_config   Ciphers Ciphers 指定 ssh 使用的加密算法。多个加密算法之间使用逗号分隔。当 Ciphers 的值以 + 字符开始时，指定的加密算法将附加到默认集合，不影响默认集合中的其它算法。当 Ciphers 的值以 ‘-’ 字符开始时，指定的加密算法将会从默认集合中移除，不影响默认集合中的其它项目。 比如，在 sshd_config 文件的最后添加如下行： Ciphers +3des-cbc,aes128-cbc 这样就添加了两个加密算法。 Ciphers -3des-cbc,aes128-cbc 这样就删除了两个加密算法。
-  MACs MACs 选项指定可用的 MAC（消息认证代码）算法，用于数据完整性保护。配置方法与 Ciphers 一致。
-  KexAlgorithms KexAlgorithms 选项指定可用的密钥交换算法。配置方法与 Ciphers 一致。
-  PubkeyAcceptedKeyTypes PubkeyAcceptedKeyTypes 指定公钥认证允许的密钥类型。配置方法与 Ciphers 一致。
-  查看 ssh 支持的不同类别的加密算法 Ciphers: ssh -Q cipher MACs: ssh -Q mac KexAlgorithms: ssh -Q kex PubkeyAcceptedKeyTypes: ssh -Q key</description>
+      <description>“手机ES文件浏览器”不能连接sftp的问题解决方法 首先，说说为什么学习这个东西，在使用“手机ES文件浏览器”这个软件的时候，出现了不能连接的情况，在网上查询后发现是KexAlgorithms 密钥交换算法的问题，在/etc/ssh/sshd_config后添加: KexAlgorithms +diffie-hellman-group14-sha1 后问题解决。 出现no matching host key type found.Their offer: ssh-rsa,ssh-dss这个问题时,在/etc/ssh/sshd_config后添加： HostKeyAlgorithms ssh-rsa 配置位置：/etc/ssh/sshd_config Ciphers Ciphers 指定 ssh 使用的加密算法。多个加密算法之间使用逗号分隔。当 Ciphers 的值以 + 字符开始时，指定的加密算法将附加到默认集合，不影响默认集合中的其它算法。当 Ciphers 的值以 ‘-’ 字符开始时，指定的加密算法将会从默认集合中移除，不影响默认集合中的其它项目。 比如，在 sshd_config 文件的最后添加如下行： Ciphers +3des-cbc,aes128-cbc 这样就添加了两个加密算法。 Ciphers -3des-cbc,aes128-cbc 这样就删除了两个加密算法。
+MACs MACs 选项指定可用的 MAC（消息认证代码）算法，用于数据完整性保护。配置方法与 Ciphers 一致。
+KexAlgorithms KexAlgorithms 选项指定可用的密钥交换算法。配置方法与 Ciphers 一致。
+PubkeyAcceptedKeyTypes PubkeyAcceptedKeyTypes 指定公钥认证允许的密钥类型。配置方法与 Ciphers 一致。
+查看 ssh 支持的不同类别的加密算法 Ciphers: ssh -Q cipher MACs: ssh -Q mac KexAlgorithms: ssh -Q kex PubkeyAcceptedKeyTypes: ssh -Q key</description>
     </item>
     
     <item>
@@ -113,10 +113,10 @@ config file = /etc/samba/conf/smb.conf.%m
       <guid>https://blog.wiseai.cn/post/%E4%BD%BF%E7%94%A8openssl%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6/</guid>
       <description>下载安装OpenSSL，进入/bin/下面，执行命令（把ssl目录下的openssl.cnf 拷贝到bin目录下）
 1.首先要生成服务器端的私钥(key文件):
- openssl genrsa -des3 -out server.key 1024 [root@airwaySSL openssl]# cd ssl/ [root@airwaySSL ssl]# pwd /home/openssl/ssl [root@airwaySSL ssl]# ls certs man misc openssl.cnf private server.csr server.key 运行时会提示输入密码,此密码用于加密key文件(参数des3便是指加密算法,当然也可以选用其他你认为安全的算法.),以后每当需读取此文件(通过openssl提供的命令或API)都需输入口令.如果觉得不方便,也可以去除这个口令,但一定要采取其他的保护措施!
+openssl genrsa -des3 -out server.key 1024 [root@airwaySSL openssl]# cd ssl/ [root@airwaySSL ssl]# pwd /home/openssl/ssl [root@airwaySSL ssl]# ls certs man misc openssl.cnf private server.csr server.key 运行时会提示输入密码,此密码用于加密key文件(参数des3便是指加密算法,当然也可以选用其他你认为安全的算法.),以后每当需读取此文件(通过openssl提供的命令或API)都需输入口令.如果觉得不方便,也可以去除这个口令,但一定要采取其他的保护措施!
 去除key文件口令的命令:
- openssl rsa -in server.key -out server.key 2.openssl req -new -key server.key -out server.csr -config openssl.cnf
- [root@airwaySSL bin]# openssl req -new -key server.key -out server.csr -config openssl.cnf Enter pass phrase for server.key:12345 You are about to be asked to enter information that will be incorporated into your certificate request.</description>
+openssl rsa -in server.key -out server.key 2.openssl req -new -key server.key -out server.csr -config openssl.cnf
+[root@airwaySSL bin]# openssl req -new -key server.key -out server.csr -config openssl.cnf Enter pass phrase for server.key:12345 You are about to be asked to enter information that will be incorporated into your certificate request.</description>
     </item>
     
     <item>
@@ -181,7 +181,7 @@ deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
       <guid>https://blog.wiseai.cn/post/markdown%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91%E5%99%A8/</guid>
       <description>使用开源项目editor.md我的gitee仓库下也有。
 安装 # npm install editor.md
-使用  &amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;&amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt;&amp;lt;link rel=&amp;#34;stylesheet&amp;#34; href=&amp;#34;editor.md/css/editormd.min.css&amp;#34; /&amp;gt;&amp;lt;title&amp;gt;Markdown 编辑在线器&amp;lt;/title&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;body&amp;gt;&amp;lt;div id=&amp;#34;text&amp;#34; style=&amp;#34;width: 100%;&amp;#34;&amp;gt;&amp;lt;div id=&amp;#34;editor&amp;#34; style=&amp;#34;height: 100%;&amp;#34;&amp;gt;&amp;lt;!-- Tips: Editor.md can auto append a `&amp;lt;textarea&amp;gt;` tag --&amp;gt;&amp;lt;textarea style=&amp;#34;display:none;&amp;#34; placeholder=&amp;#34;欢迎使用&amp;#34;&amp;gt;&amp;lt;/textarea&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;script src=&amp;#34;jquery.min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt;&amp;lt;script src=&amp;#34;editor.md/editormd.min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt;&amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt;// 设置div与窗口高度一致window.onload = function () {var h = window.innerHeight - 25 ; //获取当前窗口的高度; document.getElementById(&amp;#34;text&amp;#34;).style.height = h + &amp;#34;px&amp;#34;; //设置div的高度}// 设置textarea参数$(function() {var h = window.</description>
+使用 &amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;&amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt;&amp;lt;link rel=&amp;#34;stylesheet&amp;#34; href=&amp;#34;editor.md/css/editormd.min.css&amp;#34; /&amp;gt;&amp;lt;title&amp;gt;Markdown 编辑在线器&amp;lt;/title&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;body&amp;gt;&amp;lt;div id=&amp;#34;text&amp;#34; style=&amp;#34;width: 100%;&amp;#34;&amp;gt;&amp;lt;div id=&amp;#34;editor&amp;#34; style=&amp;#34;height: 100%;&amp;#34;&amp;gt;&amp;lt;!-- Tips: Editor.md can auto append a `&amp;lt;textarea&amp;gt;` tag --&amp;gt;&amp;lt;textarea style=&amp;#34;display:none;&amp;#34; placeholder=&amp;#34;欢迎使用&amp;#34;&amp;gt;&amp;lt;/textarea&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;script src=&amp;#34;jquery.min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt;&amp;lt;script src=&amp;#34;editor.md/editormd.min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt;&amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt;// 设置div与窗口高度一致window.onload = function () {var h = window.innerHeight - 25 ; //获取当前窗口的高度; document.getElementById(&amp;#34;text&amp;#34;).style.height = h + &amp;#34;px&amp;#34;; //设置div的高度}// 设置textarea参数$(function() {var h = window.</description>
     </item>
     
     <item>
@@ -199,7 +199,7 @@ deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
       <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/sublime%E4%BD%BF%E7%94%A8/</guid>
-      <description>安装Package Control  Tools-&amp;gt;Install Package Control 选项，即可调出 Package Control “Tools-&amp;gt;Command Palette&amp;hellip;”选项，快捷键Ctrl+Shift +P 输入 ipc ,点击 Install Package Control，即可调出 Package Control  设置中文  Preferences-&amp;gt;Package Control，快捷键Ctrl+Shift +P 选项弹出命令行输入框，输入ip，点击“install Package” 弹出命令行输入框，输入clz，点击“ChineseLocalizations” “帮助-&amp;gt;Language ”切换语言。  </description>
+      <description>安装Package Control Tools-&amp;gt;Install Package Control 选项，即可调出 Package Control “Tools-&amp;gt;Command Palette&amp;hellip;”选项，快捷键Ctrl+Shift +P 输入 ipc ,点击 Install Package Control，即可调出 Package Control 设置中文 Preferences-&amp;gt;Package Control，快捷键Ctrl+Shift +P 选项弹出命令行输入框，输入ip，点击“install Package” 弹出命令行输入框，输入clz，点击“ChineseLocalizations” “帮助-&amp;gt;Language ”切换语言。 </description>
     </item>
     
     <item>
@@ -293,10 +293,10 @@ ALFS：Automated Linux From Scratch提供了自动化和管理LFS和BLFS构建�
       <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.wiseai.cn/post/linux%E4%B8%AD%E7%BC%BA%E5%B0%91%E8%BF%90%E8%A1%8C%E5%BA%93%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
-      <description>编辑 vi /etc/ld.so.conf root权限执行 /sbin/ldconfig -v命令  这样 ldd 才能找到这个库
+      <description>编辑 vi /etc/ld.so.conf root权限执行 /sbin/ldconfig -v命令 这样 ldd 才能找到这个库
 /etc/ld.so.conf:
-这个文件记录了编译时使用的动态链接库的路径。 默认情况下，编译器只会使用/lib和/usr/lib这两个目录下的库文件 如果你安装了某些库，没有指定 –prefix=/usr 这样lib库就装到了/usr/local下，而又没有在/etc/ld.so.conf中添加/usr/local/lib，就会报错了  ldconfig是个什么东东吧 ：
-它是一个程序，通常它位于/sbin下，是root用户使用的东东。具体作用及用法可以man ldconfig查到 简单的说，它的作用就是将/etc/ld.so.conf列出的路径下的库文件 缓存到/etc/ld.so.cache 以供使用 因此当安装完一些库文件，(例如刚安装好glib)，或者修改ld.so.conf增加新的库路径后，需要运行一下/sbin/ldconfig 使所有的库文件都被缓存到ld.so.cache中，如果没做，即使库文件明明就在/usr/lib下的，也是不会被使用的，结果 编译过程中抱错，缺少xxx库。  以上尝试后发现还是不行，添加 /usr/lib/x86_64-linux-gnu 有许多QT库文件</description>
+这个文件记录了编译时使用的动态链接库的路径。 默认情况下，编译器只会使用/lib和/usr/lib这两个目录下的库文件 如果你安装了某些库，没有指定 –prefix=/usr 这样lib库就装到了/usr/local下，而又没有在/etc/ld.so.conf中添加/usr/local/lib，就会报错了 ldconfig是个什么东东吧 ：
+它是一个程序，通常它位于/sbin下，是root用户使用的东东。具体作用及用法可以man ldconfig查到 简单的说，它的作用就是将/etc/ld.so.conf列出的路径下的库文件 缓存到/etc/ld.so.cache 以供使用 因此当安装完一些库文件，(例如刚安装好glib)，或者修改ld.so.conf增加新的库路径后，需要运行一下/sbin/ldconfig 使所有的库文件都被缓存到ld.so.cache中，如果没做，即使库文件明明就在/usr/lib下的，也是不会被使用的，结果 编译过程中抱错，缺少xxx库。 以上尝试后发现还是不行，添加 /usr/lib/x86_64-linux-gnu 有许多QT库文件</description>
     </item>
     
     <item>
@@ -310,7 +310,7 @@ ALFS：Automated Linux From Scratch提供了自动化和管理LFS和BLFS构建�
 # apt install simplescreenrecorder
 其它安装方式：https://www.maartenbaert.be/simplescreenrecorder/
 它的一些显著特点包括:
-基于QT的简单GUI 可以记录整个屏幕或它的一部分	从OpenGL的应用程序直接记录 良好的视频和音频同步 有助于减少慢速机的视频帧速率 支持暂停和恢复功能 显示了了在记录过程期间的统计 支持录制过程中预览 默认设置已经很好，不需要进行过多设置  二、 OBS (Open Broadcaster Software) OBS 是一个免费、开源和跨平台的视频记录和流媒体应用程序,它可以工作在Linux、Windows和Mac OS X。 Windows需要从官网下载（https://obsproject.com/），Linux系统包含在rpmfusion中。
+基于QT的简单GUI 可以记录整个屏幕或它的一部分	从OpenGL的应用程序直接记录 良好的视频和音频同步 有助于减少慢速机的视频帧速率 支持暂停和恢复功能 显示了了在记录过程期间的统计 支持录制过程中预览 默认设置已经很好，不需要进行过多设置 二、 OBS (Open Broadcaster Software) OBS 是一个免费、开源和跨平台的视频记录和流媒体应用程序,它可以工作在Linux、Windows和Mac OS X。 Windows需要从官网下载（https://obsproject.com/），Linux系统包含在rpmfusion中。
 ＃ yum install obs-studio
 # apt install ffmpeg
 # add-apt-repository ppa:obsproject/obs-studio
@@ -337,7 +337,7 @@ $ yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-
 $ yum install docker-ce
 如果提示接受GPG密钥，请验证指纹是否匹配060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35，如果匹配 ，则接受它。
 ubuntu:
- $ sudo apt-get update $ sudo apt-get install apt-transport-https ca-certificates curl software-properties-common $ curl -fsSL https://download.</description>
+$ sudo apt-get update $ sudo apt-get install apt-transport-https ca-certificates curl software-properties-common $ curl -fsSL https://download.</description>
     </item>
     
     <item>
@@ -356,8 +356,8 @@ efi下的/boot/efi/EFI/centos/grub.cfg文件一般调用/boot/grub2/grub.cfg这�
 # grub2-set-default 2
 一般从0开始
 四、安装 # grub-install --efi-directory=/boot/efi/ --boot-directory=/boot/ --removable /dev/sda 几个需要说明的地方：
- --efi-directory=/boot/efi/这个位置的问题，如果efi分区是单独挂载的，就直接写这个目录就可以了，不用加efi，它会在这个目录下建立EFI的目录，写入相关文件。 --boot-directory=/boot/这个不用加grub2，它会自己生成grub2目录，写入相关文件 --removable如果是移动设备，一定要加这个选项
- 五、常用命令  启动常用的grub命令  root (hd0,2) #设置某块分区为根目录kernel /vmlinuz #加载linux kernelinitrd /initrd.gz #加载驱动，或者虚拟rootfsboot #启动加载的kernel  查找文件 find --set-root --ignore-floppies --ignore-cd /usr/bin/cp #查找/usr/bin/cp文件，并将分区设为根目录，忽略软盘和cd 加载iso  root (hdx,x) #设置根目录map --mem /xx.iso (0xff) #映射iso文件到模拟cdrom 0xffmap --hook #映射钩子chainloader (0xff) #链接到映射的CDROMboot #启动 grub命名规则，(hd32)为第一仿真cd/dvd设备，等同于0xa0，(hd33)为二仿真cd/dvd设备，0xff为最后一个。grub中将0xa0以上都认做cdrom。 map --mem 用于仿真不连续的存放的iso文件，不加则必须连续存放，碎片整理后再存放iso一般才会连续。 另外grub不支持大的iso，如果iso不支持则提示:inviladorupsupported executableformat。</description>
+--efi-directory=/boot/efi/这个位置的问题，如果efi分区是单独挂载的，就直接写这个目录就可以了，不用加efi，它会在这个目录下建立EFI的目录，写入相关文件。 --boot-directory=/boot/这个不用加grub2，它会自己生成grub2目录，写入相关文件 --removable如果是移动设备，一定要加这个选项
+五、常用命令 启动常用的grub命令 root (hd0,2) #设置某块分区为根目录kernel /vmlinuz #加载linux kernelinitrd /initrd.gz #加载驱动，或者虚拟rootfsboot #启动加载的kernel 查找文件 find --set-root --ignore-floppies --ignore-cd /usr/bin/cp #查找/usr/bin/cp文件，并将分区设为根目录，忽略软盘和cd 加载iso root (hdx,x) #设置根目录map --mem /xx.iso (0xff) #映射iso文件到模拟cdrom 0xffmap --hook #映射钩子chainloader (0xff) #链接到映射的CDROMboot #启动 grub命名规则，(hd32)为第一仿真cd/dvd设备，等同于0xa0，(hd33)为二仿真cd/dvd设备，0xff为最后一个。grub中将0xa0以上都认做cdrom。 map --mem 用于仿真不连续的存放的iso文件，不加则必须连续存放，碎片整理后再存放iso一般才会连续。 另外grub不支持大的iso，如果iso不支持则提示:inviladorupsupported executableformat。</description>
     </item>
     
     <item>
