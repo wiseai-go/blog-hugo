@@ -139,6 +139,9 @@ menu:
     - name: 鱼缸计算
       weight: 130
       url: "https://wiseai.gitee.io/pages/yugang/index.html"
+    - name: C语言JustCC
+      weight: 140
+      url: "https://justcc.mengkang.net/#/"
     - name: RSS
       weight: 1000
       url: "index.xml"
