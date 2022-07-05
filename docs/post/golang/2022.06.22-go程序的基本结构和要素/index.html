@@ -138,6 +138,12 @@ func main() {
 <p>如果你导入了一个包却没有使用它，则会在构建程序时引发错误，如 <code>imported and not used: os</code>，这正是遵循了 Go 的格言：“没有不必要的代码！”。</p>
 <p><strong>包的分级声明和初始化</strong></p>
 <p>你可以在使用 <code>import</code> 导入包之后定义或声明 0 个或多个常量 (const)、变量 (var) 和类型 (type)，这些对象的作用域都是全局的（在本包范围内），所以可以被本包中所有的函数调用，然后声明一个或多个函数 (func)。</p>
+<p><strong><u>特别注意:</u></strong></p>
+<p><u>导入本地包，一定要初始化mod，<code>go mod init</code></p>
+<p>导入时写到目录，查看go.mod，module后的为根目录（这个说法不准确，也不知道怎么说）</p>
+<p>package名和目录名可以不同，调用时按包名调用</p>
+<p>跨包调用时注意可见性，首字母大写时才可以跨包调用
+</u></p>
 <h2 id="422-函数">4.2.2 函数</h2>
 <p>这是定义一个函数最简单的格式：</p>
 <pre tabindex="0"><code>func functionName()
@@ -340,6 +346,8 @@ d := IZ(c)
         <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.ixigua.com/" target="_blank">西瓜视频</a>
         
         <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/yugang/index.html" target="_blank">鱼缸计算</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://justcc.mengkang.net/#/" target="_blank">C语言JustCC</a>
         
         <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="/index.xml" target="_blank">RSS</a>
         
