@@ -6,7 +6,59 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Tue, 05 Jul 2022 10:08:37 +0800</lastBuildDate><atom:link href="https://blog.wiseai.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 05 Jul 2022 11:18:29 +0800</lastBuildDate><atom:link href="https://blog.wiseai.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+    <title>Go程序的时间和日期</title>
+    <link>https://blog.wiseai.cn/post/golang/2022.07.05-%E6%97%B6%E9%97%B4%E5%92%8C%E6%97%A5%E6%9C%9F/</link>
+    <pubDate>Tue, 05 Jul 2022 11:18:29 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/golang/2022.07.05-%E6%97%B6%E9%97%B4%E5%92%8C%E6%97%A5%E6%9C%9F/</guid>
+    <description>
+        &lt;h1 id=&#34;48-时间和日期&#34;&gt;4.8 时间和日期&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;time&lt;/code&gt; 包为我们提供了一个数据类型 &lt;code&gt;time.Time&lt;/code&gt;（作为值使用）以及显示和测量时间和日期的功能函数。&lt;/p&gt;
+&lt;p&gt;当前时间可以使用 &lt;code&gt;time.Now()&lt;/code&gt; 获取，或者使用 &lt;code&gt;t.Day()&lt;/code&gt;、&lt;code&gt;t.Minute()&lt;/code&gt; 等等来获取时间的一部分；你甚至可以自定义时间格式化字符串，例如： &lt;code&gt;fmt.Printf(&amp;quot;%02d.%02d.%4d\n&amp;quot;, t.Day(), t.Month(), t.Year())&lt;/code&gt; 将会输出 &lt;code&gt;21.07.2011&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Duration&lt;/code&gt; 类型表示两个连续时刻所相差的纳秒数，类型为 &lt;code&gt;int64&lt;/code&gt;。&lt;code&gt;Location&lt;/code&gt; 类型映射某个时区的时间，UTC 表示通用协调世界时间。&lt;/p&gt;
+&lt;p&gt;包中的一个预定义函数 &lt;code&gt;func (t Time) Format(layout string) string&lt;/code&gt; 可以根据一个格式化字符串来将一个时间 &lt;code&gt;t&lt;/code&gt; 转换为相应格式的字符串，你可以使用一些预定义的格式，如：&lt;code&gt;time.ANSIC&lt;/code&gt; 或 &lt;code&gt;time.RFC822&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;一般的格式化设计是通过对于一个标准时间的格式化描述来展现的，这听起来很奇怪（&lt;code&gt;02 Jan 2006 15:04&lt;/code&gt; 是 Go 语言的诞生时间且自定义格式化时必须以此时间为基准），但看下面这个例子你就会一目了然：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;fmt.Println(t.Format(&amp;#34;02 Jan 2006 15:04&amp;#34;)) 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;输出：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;21 Jul 2011 10:31
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;其它有关时间操作的文档请参阅 &lt;a href=&#34;http://golang.org/pkg/time/&#34;&gt;官方文档&lt;/a&gt;（ &lt;strong&gt;译者注：国内用户可访问 &lt;a href=&#34;http://docs.studygolang.com/pkg/time/&#34;&gt;该页面&lt;/a&gt;&lt;/strong&gt; ）。&lt;/p&gt;
+&lt;p&gt;示例 4.20 &lt;a href=&#34;examples/chapter_4/time.go&#34;&gt;time.go&lt;/a&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+import (
+	&amp;#34;fmt&amp;#34;
+	&amp;#34;time&amp;#34;
+)
+var week time.Duration
+func main() {
+	t := time.Now()
+	fmt.Println(t) // e.g. Wed Dec 21 09:52:14 +0100 RST 2011
+	fmt.Printf(&amp;#34;%02d.%02d.%4d\n&amp;#34;, t.Day(), t.Month(), t.Year())
+	// 21.12.2011
+	t = time.Now().UTC()
+	fmt.Println(t) // Wed Dec 21 08:52:14 +0000 UTC 2011
+	fmt.Println(time.Now()) // Wed Dec 21 09:52:14 +0100 RST 2011
+	// calculating times:
+	week = 60 * 60 * 24 * 7 * 1e9 // must be in nanosec
+	week_from_now := t.Add(time.Duration(week))
+	fmt.Println(week_from_now) // Wed Dec 28 08:52:14 +0000 UTC 2011
+	// formatting times:
+	fmt.Println(t.Format(time.RFC822)) // 21 Dec 11 0852 UTC
+	fmt.Println(t.Format(time.ANSIC)) // Wed Dec 21 08:56:34 2011
+	// The time must be 2006-01-02 15:04:05
+	fmt.Println(t.Format(&amp;#34;02 Jan 2006 15:04&amp;#34;)) // 21 Dec 2011 08:52
+	s := t.Format(&amp;#34;20060102&amp;#34;)
+	fmt.Println(t, &amp;#34;=&amp;gt;&amp;#34;, s)
+	// Wed Dec 21 08:52:14 +0000 UTC 2011 =&amp;gt; 20111221
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;输出的结果已经写在每行 &lt;code&gt;//&lt;/code&gt; 的后面。&lt;/p&gt;
+&lt;p&gt;如果你需要在应用程序在经过一定时间或周期执行某项任务（事件处理的特例），则可以使用 &lt;code&gt;time.After()&lt;/code&gt; 或者 &lt;code&gt;time.Ticker&lt;/code&gt;：我们将会在 &lt;a href=&#34;14.5.md&#34;&gt;第 14.5 节&lt;/a&gt; 讨论这些有趣的事情。 另外，&lt;code&gt;time.Sleep(d Duration)&lt;/code&gt; 可以实现对某个进程（实质上是 goroutine）时长为 &lt;code&gt;d&lt;/code&gt; 的暂停。&lt;/p&gt;
+
+    </description>
+    </item>
+    
     <item>
     <title>U盘启动盘制作</title>
     <link>https://blog.wiseai.cn/post/u%E7%9B%98%E5%90%AF%E5%8A%A8%E7%9B%98%E5%88%B6%E4%BD%9C/</link>
@@ -71,10 +123,10 @@
     
     <item>
     <title>Go程序的 Strings 和 strconv 包</title>
-    <link>https://blog.wiseai.cn/post/golang/strings%E5%92%8Cstrconv%E5%8C%85/</link>
+    <link>https://blog.wiseai.cn/post/golang/2022.07.01-strings%E5%92%8Cstrconv%E5%8C%85/</link>
     <pubDate>Fri, 01 Jul 2022 10:14:36 +0800</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/golang/strings%E5%92%8Cstrconv%E5%8C%85/</guid>
+    <guid>https://blog.wiseai.cn/post/golang/2022.07.01-strings%E5%92%8Cstrconv%E5%8C%85/</guid>
     <description>
         &lt;h1 id=&#34;47-strings-和-strconv-包&#34;&gt;4.7 strings 和 strconv 包&lt;/h1&gt;
 &lt;p&gt;作为一种基本数据结构，每种语言都有一些对于字符串的预定义处理函数。Go 中使用 &lt;code&gt;strings&lt;/code&gt; 包来完成对字符串的主要操作。&lt;/p&gt;
@@ -302,10 +354,10 @@ The new string is: 671
     
     <item>
     <title>Go程序的字符串</title>
-    <link>https://blog.wiseai.cn/post/golang/%E5%AD%97%E7%AC%A6%E4%B8%B2/</link>
+    <link>https://blog.wiseai.cn/post/golang/2022.06.30-%E5%AD%97%E7%AC%A6%E4%B8%B2/</link>
     <pubDate>Thu, 30 Jun 2022 09:37:08 +0800</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/golang/%E5%AD%97%E7%AC%A6%E4%B8%B2/</guid>
+    <guid>https://blog.wiseai.cn/post/golang/2022.06.30-%E5%AD%97%E7%AC%A6%E4%B8%B2/</guid>
     <description>
         &lt;h1 id=&#34;46-字符串&#34;&gt;4.6 字符串&lt;/h1&gt;
 &lt;p&gt;字符串是 UTF-8 字符的一个序列（当字符为 ASCII 码时则占用 1 个字节，其它字符根据需要占用 2-4 个字节）。UTF-8 是被广泛使用的编码格式，是文本文件的标准编码，其它包括 XML 和 JSON 在内，也都使用该编码。由于该编码对占用字节长度的不定性，Go 中的字符串里面的字符也可能根据需要占用 1 至 4 个字节（示例见&lt;a href=&#34;04.6.md&#34;&gt;第 4.6 节&lt;/a&gt;），这与其它语言如 C++、Java 或者 Python 不同（Java 始终使用 2 个字节）。Go 这样做的好处是不仅减少了内存和硬盘空间占用，同时也不用像其它语言那样需要对使用 UTF-8 字符集的文本进行编码和解码。&lt;/p&gt;
@@ -362,10 +414,10 @@ fmt.Println(s) //输出 “hello, world!”
     
     <item>
     <title>Go程序的基本类型和运算符</title>
-    <link>https://blog.wiseai.cn/post/golang/%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/</link>
+    <link>https://blog.wiseai.cn/post/golang/2022.06.29-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/</link>
     <pubDate>Wed, 29 Jun 2022 11:33:14 +0800</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/golang/%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/</guid>
+    <guid>https://blog.wiseai.cn/post/golang/2022.06.29-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/</guid>
     <description>
         &lt;h1 id=&#34;45-基本类型和运算符&#34;&gt;4.5 基本类型和运算符&lt;/h1&gt;
 &lt;p&gt;我们将在这个部分讲解有关布尔型、数字型和字符型的相关知识。&lt;/p&gt;
@@ -735,10 +787,10 @@ U+0041 - U+03B2 - U+101234
     
     <item>
     <title>Go程序的变量</title>
-    <link>https://blog.wiseai.cn/post/golang/%E5%8F%98%E9%87%8F/</link>
+    <link>https://blog.wiseai.cn/post/golang/2022.06.27-%E5%8F%98%E9%87%8F/</link>
     <pubDate>Mon, 27 Jun 2022 11:46:14 +0800</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/golang/%E5%8F%98%E9%87%8F/</guid>
+    <guid>https://blog.wiseai.cn/post/golang/2022.06.27-%E5%8F%98%E9%87%8F/</guid>
     <description>
         &lt;h1 id=&#34;44-变量&#34;&gt;4.4 变量&lt;/h1&gt;
 &lt;h2 id=&#34;441-简介&#34;&gt;4.4.1 简介&lt;/h2&gt;
@@ -949,10 +1001,10 @@ func f2() {
     
     <item>
     <title>Go程序的常量</title>
-    <link>https://blog.wiseai.cn/post/golang/%E5%B8%B8%E9%87%8F/</link>
+    <link>https://blog.wiseai.cn/post/golang/2022.06.27-%E5%B8%B8%E9%87%8F/</link>
     <pubDate>Mon, 27 Jun 2022 11:36:06 +0800</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/golang/%E5%B8%B8%E9%87%8F/</guid>
+    <guid>https://blog.wiseai.cn/post/golang/2022.06.27-%E5%B8%B8%E9%87%8F/</guid>
     <description>
         &lt;h1 id=&#34;43-常量&#34;&gt;4.3 常量&lt;/h1&gt;
 &lt;p&gt;常量使用关键字 &lt;code&gt;const&lt;/code&gt; 定义，用于存储不会改变的数据。&lt;/p&gt;
@@ -1200,10 +1252,10 @@ func main() {
     
     <item>
     <title>Go程序的基本结构和要素</title>
-    <link>https://blog.wiseai.cn/post/golang/go%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84%E5%92%8C%E8%A6%81%E7%B4%A0/</link>
+    <link>https://blog.wiseai.cn/post/golang/2022.06.22-go%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84%E5%92%8C%E8%A6%81%E7%B4%A0/</link>
     <pubDate>Wed, 22 Jun 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/golang/go%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84%E5%92%8C%E8%A6%81%E7%B4%A0/</guid>
+    <guid>https://blog.wiseai.cn/post/golang/2022.06.22-go%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84%E5%92%8C%E8%A6%81%E7%B4%A0/</guid>
     <description>
         &lt;h1 id=&#34;42-go-程序的基本结构和要素&#34;&gt;4.2 Go 程序的基本结构和要素&lt;/h1&gt;
 &lt;p&gt;示例 hello_world.go&lt;/p&gt;

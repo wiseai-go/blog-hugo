@@ -9,7 +9,7 @@
 
     <link rel="shortcut icon" type="image/x-icon" href="http://static.wiseai.cn/img/favicon.ico" />
 
-    <title>404 Page not found | WiseAI的博客</title>
+    <title>Go程序的时间和日期 | WiseAI的博客</title>
 </head><body><div class="container-fluid">
     <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
         <div class="container-fluid">
@@ -56,67 +56,92 @@
 
 
 <div id="content">
+<div class="container article">
+	<h1>Go程序的时间和日期</h1>
+	<div class="post-meta">
+		<div>
+			
+			
+			By wiseai | 2022-07-05 | 1 minutes
+		</div>
+		<div class="tags">
+			
+			<a class="btn btn-light links btn-sm" href="/tags/golang/">golang</a>
+			
+		</div>
+	</div>
+	<div>
+		<div class="article-post">
+			<h1 id="48-时间和日期">4.8 时间和日期</h1>
+<p><code>time</code> 包为我们提供了一个数据类型 <code>time.Time</code>（作为值使用）以及显示和测量时间和日期的功能函数。</p>
+<p>当前时间可以使用 <code>time.Now()</code> 获取，或者使用 <code>t.Day()</code>、<code>t.Minute()</code> 等等来获取时间的一部分；你甚至可以自定义时间格式化字符串，例如： <code>fmt.Printf(&quot;%02d.%02d.%4d\n&quot;, t.Day(), t.Month(), t.Year())</code> 将会输出 <code>21.07.2011</code>。</p>
+<p><code>Duration</code> 类型表示两个连续时刻所相差的纳秒数，类型为 <code>int64</code>。<code>Location</code> 类型映射某个时区的时间，UTC 表示通用协调世界时间。</p>
+<p>包中的一个预定义函数 <code>func (t Time) Format(layout string) string</code> 可以根据一个格式化字符串来将一个时间 <code>t</code> 转换为相应格式的字符串，你可以使用一些预定义的格式，如：<code>time.ANSIC</code> 或 <code>time.RFC822</code>。</p>
+<p>一般的格式化设计是通过对于一个标准时间的格式化描述来展现的，这听起来很奇怪（<code>02 Jan 2006 15:04</code> 是 Go 语言的诞生时间且自定义格式化时必须以此时间为基准），但看下面这个例子你就会一目了然：</p>
+<pre tabindex="0"><code>fmt.Println(t.Format(&#34;02 Jan 2006 15:04&#34;)) 
+</code></pre><p>输出：</p>
+<pre><code>21 Jul 2011 10:31
+</code></pre>
+<p>其它有关时间操作的文档请参阅 <a href="http://golang.org/pkg/time/">官方文档</a>（ <strong>译者注：国内用户可访问 <a href="http://docs.studygolang.com/pkg/time/">该页面</a></strong> ）。</p>
+<p>示例 4.20 <a href="examples/chapter_4/time.go">time.go</a></p>
+<pre tabindex="0"><code>package main
+import (
+	&#34;fmt&#34;
+	&#34;time&#34;
+)
+var week time.Duration
+func main() {
+	t := time.Now()
+	fmt.Println(t) // e.g. Wed Dec 21 09:52:14 +0100 RST 2011
+	fmt.Printf(&#34;%02d.%02d.%4d\n&#34;, t.Day(), t.Month(), t.Year())
+	// 21.12.2011
+	t = time.Now().UTC()
+	fmt.Println(t) // Wed Dec 21 08:52:14 +0000 UTC 2011
+	fmt.Println(time.Now()) // Wed Dec 21 09:52:14 +0100 RST 2011
+	// calculating times:
+	week = 60 * 60 * 24 * 7 * 1e9 // must be in nanosec
+	week_from_now := t.Add(time.Duration(week))
+	fmt.Println(week_from_now) // Wed Dec 28 08:52:14 +0000 UTC 2011
+	// formatting times:
+	fmt.Println(t.Format(time.RFC822)) // 21 Dec 11 0852 UTC
+	fmt.Println(t.Format(time.ANSIC)) // Wed Dec 21 08:56:34 2011
+	// The time must be 2006-01-02 15:04:05
+	fmt.Println(t.Format(&#34;02 Jan 2006 15:04&#34;)) // 21 Dec 2011 08:52
+	s := t.Format(&#34;20060102&#34;)
+	fmt.Println(t, &#34;=&gt;&#34;, s)
+	// Wed Dec 21 08:52:14 +0000 UTC 2011 =&gt; 20111221
+}
+</code></pre><p>输出的结果已经写在每行 <code>//</code> 的后面。</p>
+<p>如果你需要在应用程序在经过一定时间或周期执行某项任务（事件处理的特例），则可以使用 <code>time.After()</code> 或者 <code>time.Ticker</code>：我们将会在 <a href="14.5.md">第 14.5 节</a> 讨论这些有趣的事情。 另外，<code>time.Sleep(d Duration)</code> 可以实现对某个进程（实质上是 goroutine）时长为 <code>d</code> 的暂停。</p>
 
-<div class="container">
-<img src="/img/404.jpg" class="img-fluid" alt="找不到了！！！">
+		</div>
+	</div>
 </div>
 
 
-
-
-
 <div class="container">
-<h1>希望下面的内容可以帮到你：</h1><hr>
+    
     <div class="row">
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/golang/2022.07.05-%E6%97%B6%E9%97%B4%E5%92%8C%E6%97%A5%E6%9C%9F/"><time>2022-07-05</time>Go程序的时间和日期</a>
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-end dh" href="/post/golang/2022.07.01-strings%E5%92%8Cstrconv%E5%8C%85/">
+                <h5>前一篇</h5><br>
+                Go程序的 Strings 和 strconv 包
+            </a>            
         </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/u%E7%9B%98%E5%90%AF%E5%8A%A8%E7%9B%98%E5%88%B6%E4%BD%9C/"><time>2022-07-05</time>U盘启动盘制作</a>
+        
+        <div class="col-2">
         </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/%E6%84%81/"><time>2022-07-04</time>愁</a>
-        </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/golang/2022.07.01-strings%E5%92%8Cstrconv%E5%8C%85/"><time>2022-07-01</time>Go程序的 Strings 和 strconv 包</a>
-        </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/golang/2022.06.30-%E5%AD%97%E7%AC%A6%E4%B8%B2/"><time>2022-06-30</time>Go程序的字符串</a>
-        </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/golang/2022.06.29-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/"><time>2022-06-29</time>Go程序的基本类型和运算符</a>
-        </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/golang/2022.06.27-%E5%8F%98%E9%87%8F/"><time>2022-06-27</time>Go程序的变量</a>
-        </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/golang/2022.06.27-%E5%B8%B8%E9%87%8F/"><time>2022-06-27</time>Go程序的常量</a>
-        </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/%E5%A4%A7%E6%95%B0%E7%9A%84%E9%98%B6%E4%B9%98/"><time>2022-06-27</time>大数的阶乘</a>
-        </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/golang/2022.06.22-go%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84%E5%92%8C%E8%A6%81%E7%B4%A0/"><time>2022-06-22</time>Go程序的基本结构和要素</a>
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-start dh" href="">
+                <h5>没有了</h5><br>
+            </a>            
         </div>
         
     </div>
-    <h2><span class="badge bg-light">
-        
-        <a class="link-dark links" href="/articles/">查看所有文章</a>
-        
-    </span></h2>
+    
 </div>
-
 
         </div><br><br>
 <footer class="container">

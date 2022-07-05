@@ -7,13 +7,30 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Fri, 01 Jul 2022 10:14:36 +0800</lastBuildDate><atom:link href="https://blog.wiseai.cn/categories/golang%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 05 Jul 2022 11:18:29 +0800</lastBuildDate><atom:link href="https://blog.wiseai.cn/categories/golang%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go程序的时间和日期</title>
+      <link>https://blog.wiseai.cn/post/golang/2022.07.05-%E6%97%B6%E9%97%B4%E5%92%8C%E6%97%A5%E6%9C%9F/</link>
+      <pubDate>Tue, 05 Jul 2022 11:18:29 +0800</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/golang/2022.07.05-%E6%97%B6%E9%97%B4%E5%92%8C%E6%97%A5%E6%9C%9F/</guid>
+      <description>4.8 时间和日期 time 包为我们提供了一个数据类型 time.Time（作为值使用）以及显示和测量时间和日期的功能函数。
+当前时间可以使用 time.Now() 获取，或者使用 t.Day()、t.Minute() 等等来获取时间的一部分；你甚至可以自定义时间格式化字符串，例如： fmt.Printf(&amp;quot;%02d.%02d.%4d\n&amp;quot;, t.Day(), t.Month(), t.Year()) 将会输出 21.07.2011。
+Duration 类型表示两个连续时刻所相差的纳秒数，类型为 int64。Location 类型映射某个时区的时间，UTC 表示通用协调世界时间。
+包中的一个预定义函数 func (t Time) Format(layout string) string 可以根据一个格式化字符串来将一个时间 t 转换为相应格式的字符串，你可以使用一些预定义的格式，如：time.ANSIC 或 time.RFC822。
+一般的格式化设计是通过对于一个标准时间的格式化描述来展现的，这听起来很奇怪（02 Jan 2006 15:04 是 Go 语言的诞生时间且自定义格式化时必须以此时间为基准），但看下面这个例子你就会一目了然：
+fmt.Println(t.Format(&amp;#34;02 Jan 2006 15:04&amp;#34;)) 输出：
+21 Jul 2011 10:31 其它有关时间操作的文档请参阅 官方文档（ 译者注：国内用户可访问 该页面 ）。
+示例 4.20 time.go
+package main import ( &amp;#34;fmt&amp;#34; &amp;#34;time&amp;#34; ) var week time.Duration func main() { t := time.</description>
+    </item>
+    
     <item>
       <title>Go程序的 Strings 和 strconv 包</title>
-      <link>https://blog.wiseai.cn/post/golang/strings%E5%92%8Cstrconv%E5%8C%85/</link>
+      <link>https://blog.wiseai.cn/post/golang/2022.07.01-strings%E5%92%8Cstrconv%E5%8C%85/</link>
       <pubDate>Fri, 01 Jul 2022 10:14:36 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/golang/strings%E5%92%8Cstrconv%E5%8C%85/</guid>
+      <guid>https://blog.wiseai.cn/post/golang/2022.07.01-strings%E5%92%8Cstrconv%E5%8C%85/</guid>
       <description>4.7 strings 和 strconv 包 作为一种基本数据结构，每种语言都有一些对于字符串的预定义处理函数。Go 中使用 strings 包来完成对字符串的主要操作。
 4.7.1 前缀和后缀 HasPrefix() 判断字符串 s 是否以 prefix 开头：
 strings.HasPrefix(s, prefix string) bool HasSuffix() 判断字符串 s 是否以 suffix 结尾：
@@ -23,10 +40,10 @@ package main import ( &amp;#34;fmt&amp;#34; &amp;#34;strings&amp;#34; ) func mai
     
     <item>
       <title>Go程序的字符串</title>
-      <link>https://blog.wiseai.cn/post/golang/%E5%AD%97%E7%AC%A6%E4%B8%B2/</link>
+      <link>https://blog.wiseai.cn/post/golang/2022.06.30-%E5%AD%97%E7%AC%A6%E4%B8%B2/</link>
       <pubDate>Thu, 30 Jun 2022 09:37:08 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/golang/%E5%AD%97%E7%AC%A6%E4%B8%B2/</guid>
+      <guid>https://blog.wiseai.cn/post/golang/2022.06.30-%E5%AD%97%E7%AC%A6%E4%B8%B2/</guid>
       <description>4.6 字符串 字符串是 UTF-8 字符的一个序列（当字符为 ASCII 码时则占用 1 个字节，其它字符根据需要占用 2-4 个字节）。UTF-8 是被广泛使用的编码格式，是文本文件的标准编码，其它包括 XML 和 JSON 在内，也都使用该编码。由于该编码对占用字节长度的不定性，Go 中的字符串里面的字符也可能根据需要占用 1 至 4 个字节（示例见第 4.6 节），这与其它语言如 C++、Java 或者 Python 不同（Java 始终使用 2 个字节）。Go 这样做的好处是不仅减少了内存和硬盘空间占用，同时也不用像其它语言那样需要对使用 UTF-8 字符集的文本进行编码和解码。
 字符串是一种值类型，且值不可变，即创建某个文本后你无法再次修改这个文本的内容；更深入地讲，字符串是字节的定长数组。
 Go 支持以下 2 种形式的字面值：
@@ -41,10 +58,10 @@ string 类型的零值为长度为零的字符串，即空字符串 &amp;quot;&a
     
     <item>
       <title>Go程序的基本类型和运算符</title>
-      <link>https://blog.wiseai.cn/post/golang/%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/</link>
+      <link>https://blog.wiseai.cn/post/golang/2022.06.29-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/</link>
       <pubDate>Wed, 29 Jun 2022 11:33:14 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/golang/%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/</guid>
+      <guid>https://blog.wiseai.cn/post/golang/2022.06.29-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/</guid>
       <description>4.5 基本类型和运算符 我们将在这个部分讲解有关布尔型、数字型和字符型的相关知识。
 表达式是一种特定的类型的值，它可以由其它的值以及运算符组合而成。每个类型都定义了可以和自己结合的运算符集合，如果你使用了不在这个集合中的运算符，则会在编译时获得编译错误。
 一元运算符只可以用于一个值的操作（作为后缀），而二元运算符则可以和两个值或者操作数结合（作为中缀）。
@@ -62,10 +79,10 @@ var aVar = 10 aVar != 5 -&amp;gt; true aVar != 10 -&amp;gt; false Go 对于值�
     
     <item>
       <title>Go程序的变量</title>
-      <link>https://blog.wiseai.cn/post/golang/%E5%8F%98%E9%87%8F/</link>
+      <link>https://blog.wiseai.cn/post/golang/2022.06.27-%E5%8F%98%E9%87%8F/</link>
       <pubDate>Mon, 27 Jun 2022 11:46:14 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/golang/%E5%8F%98%E9%87%8F/</guid>
+      <guid>https://blog.wiseai.cn/post/golang/2022.06.27-%E5%8F%98%E9%87%8F/</guid>
       <description>4.4 变量 4.4.1 简介 声明变量的一般形式是使用 var 关键字：var identifier type。
 需要注意的是，Go 和许多编程语言不同，它在声明变量时将变量的类型放在变量的名称之后。Go 为什么要选择这么做呢？
 首先，它是为了避免像 C 语言中那样含糊不清的声明形式，例如：int* a, b;。在这个例子中，只有 a 是指针而 b 不是。如果你想要这两个变量都是指针，则需要将它们分开书写（你可以在 Go 语言的声明语法 页面找到有关于这个话题的更多讨论）。
@@ -81,10 +98,10 @@ var ( a int b bool str string ) 这种因式分解关键字的写法一般用于
     
     <item>
       <title>Go程序的常量</title>
-      <link>https://blog.wiseai.cn/post/golang/%E5%B8%B8%E9%87%8F/</link>
+      <link>https://blog.wiseai.cn/post/golang/2022.06.27-%E5%B8%B8%E9%87%8F/</link>
       <pubDate>Mon, 27 Jun 2022 11:36:06 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/golang/%E5%B8%B8%E9%87%8F/</guid>
+      <guid>https://blog.wiseai.cn/post/golang/2022.06.27-%E5%B8%B8%E9%87%8F/</guid>
       <description>4.3 常量 常量使用关键字 const 定义，用于存储不会改变的数据。
 存储在常量中的数据类型只可以是布尔型、数字型（整数型、浮点型和复数）和字符串型。
 常量的定义格式：const identifier [type] = value，例如：
@@ -108,10 +125,10 @@ C语言: #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;time.h&amp;gt; //给�
     
     <item>
       <title>Go程序的基本结构和要素</title>
-      <link>https://blog.wiseai.cn/post/golang/go%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84%E5%92%8C%E8%A6%81%E7%B4%A0/</link>
+      <link>https://blog.wiseai.cn/post/golang/2022.06.22-go%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84%E5%92%8C%E8%A6%81%E7%B4%A0/</link>
       <pubDate>Wed, 22 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/golang/go%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84%E5%92%8C%E8%A6%81%E7%B4%A0/</guid>
+      <guid>https://blog.wiseai.cn/post/golang/2022.06.22-go%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84%E5%92%8C%E8%A6%81%E7%B4%A0/</guid>
       <description>4.2 Go 程序的基本结构和要素 示例 hello_world.go
 package main import &amp;#34;fmt&amp;#34; func main() { fmt.Println(&amp;#34;hello, world&amp;#34;) } 4.2.1 包的概念、导入与可见性 包是结构化代码的一种方式：每个程序都由包（通常简称为 pkg）的概念组成，可以使用自身的包或者从其它包中导入内容。
 如同其它一些编程语言中的类库或命名空间的概念，每个 Go 文件都属于且仅属于一个包。一个包可以由许多以 .go 为扩展名的源文件组成，因此文件名和包名一般来说都是不相同的。
