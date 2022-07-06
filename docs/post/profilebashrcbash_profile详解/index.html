@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-cn"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link href="http://static.wiseai.cn/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://static.wiseai.cn/css/main.css" rel="stylesheet">
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://static.wiseai.cn/img/favicon.ico" />
+
+    <title>profile、bashrc、bash_profile详解 | WiseAI的博客</title>
+</head><body><div class="container-fluid">
+    <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="http://static.wiseai.cn/img/favicon.ico" alt="" width="30" height="24" class="d-inline-block align-text-top">
+                WiseAI的博客
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/articles/">文章</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/categories/">分类</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/tags/">关键字</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/post/golang/">golang编程</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/about/">关于</a>
+                    </li>
+                    
+                </ul>
+                <form class="d-flex">
+                    <input id="search-query" class="form-control me-2" type="search" placeholder="Search for anything..." aria-label="Search">
+                </form>
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+
+
+<div id="content">
+<div class="container article">
+	<h1>profile、bashrc、bash_profile详解</h1>
+	<div class="post-meta">
+		<div>
+			
+			
+			By wiseai | 2022-07-06 | 1 minutes
+		</div>
+		<div class="tags">
+			
+			<a class="btn btn-light links btn-sm" href="/tags/linux/">Linux</a>
+			
+		</div>
+	</div>
+	<div>
+		<div class="article-post">
+			<p><strong>/etc/profile:</strong> 此文件为系统的每个用户设置环境信息,当用户第一次登录时,该文件被执行.并从/etc/profile.d目录的配置文件中搜集shell的设置.</p>
+<p>英文描述为：</p>
+<pre tabindex="0"><code># /etc/profile
+
+# System wide environment and startup programs, for login setup
+# Functions and aliases [Go](http://lib.csdn.net/base/go &#34;Go知识库&#34;) in /etc/bashrc
+
+# It&#39;s NOT a good idea to change this file unless you know what you
+# are doing. It&#39;s much better to create a custom.sh shell script in
+# /etc/profile.d/ to make custom changes to your environment, as this
+# will prevent the need for merging in future updates.
+</code></pre><p>此修改对每个用户都生效。</p>
+<hr>
+<p><strong>/etc/bashrc:</strong> 为每一个运行bash shell的用户执行此文件.当bash shell被打开时,该文件被读取.</p>
+<p>英文描述为：</p>
+<pre tabindex="0"><code># /etc/bashrc
+
+# System wide functions and aliases
+# Environment stuff goes in /etc/profile
+
+# It&#39;s NOT a good idea to change this file unless you know what you
+# are doing. It&#39;s much better to create a custom.sh shell script in
+# /etc/profile.d/ to make custom changes to your environment, as this
+# will prevent the need for merging in future updates.
+</code></pre><p>如果你想对所有的使用bash的用户修改某个配置并在以后打开的bash都生效的话可以修改这个文件，修改这个文件不用重启，重新打开一个bash即可生效。</p>
+<hr>
+<ul>
+<li><strong>~/.bash_profile:</strong> 每个用户都可使用该文件输入专用于自己使用的shell信息,当用户登录时,该文件仅仅执行一次!默认情况下,他设置一些环境变量,执行用户的 <strong>.bashrc</strong> 文件.</li>
+</ul>
+<p>此文件类似于 <strong>/etc/profile</strong> ，<strong>/etc/profile</strong>对所有用户生效，<strong>~/.bash_profile</strong>只对当前用户生效。</p>
+<ul>
+<li><strong>~/.bashrc:</strong> 该文件包含专用于你的bash shell的bash信息,当登录时以及每次打开新的shell时,该文件被读取.</li>
+</ul>
+<p>此文件类似于 <strong>/etc/bashrc</strong>，不需要重启生效，重新打开一个bash即可生效，  /etc/bashrc对所有用户新打开的bash都生效，但 <strong>~/.bashrc</strong>只对当前用户新打开的bash生效。</p>
+<ul>
+<li>~/.bash_logout:当每次退出系统(退出bash shell)时,执行该文件.</li>
+</ul>
+<p>另外,/etc/profile中设定的变量(全局)的可以作用于任何用户,而 <strong>~/.bashrc</strong> 等中设定的变量(局部)只能继承 <strong>/etc/profile</strong> 中的变量,他们是&quot;父子&quot;关系.</p>
+<p>~/.bash_profile 是交互式、login 方式进入bash 运行的；
+~/ <strong>.bashrc</strong> 是交互式 non-login 方式进入bash 运行的；
+通常二者设置大致相同，所以通常前者会调用后者。</p>
+
+		</div>
+	</div>
+</div>
+
+
+<div class="container">
+    
+    <div class="row">
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-end dh" href="/post/sed%E5%92%8Cawk%E5%91%BD%E4%BB%A4/">
+                <h5>前一篇</h5><br>
+                sed和awk命令
+            </a>            
+        </div>
+        
+        <div class="col-2">
+        </div>
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-start dh" href="/post/docker%E5%AE%B9%E5%99%A8%E8%AE%BE%E7%BD%AEssh%E8%BF%9E%E6%8E%A5/">
+                <h5>后一篇</h5><br>
+                Docker容器设置ssh连接
+            </a>            
+        </div>
+        
+    </div>
+    
+</div>
+
+        </div><br><br>
+<footer class="container">
+    <h2>友情链接</h2>
+    <hr>
+    <nav class="nav nav-pills flex-column flex-sm-row">
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/gnzg/index.html" target="_blank">孤鸟之歌</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/mm/index.html" target="_blank">生成随机字符</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/md/index.html" target="_blank">MarkDown</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://gitee.com/" target="_blank">Gitee</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://github.com/" target="_blank">Github</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.oschina.net/" target="_blank">OSCHINA</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/directory.md" target="_blank">the way to go</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://goframe.org/display/gf" target="_blank">GoFrame</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.aliyundrive.com/" target="_blank">阿里云盘</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.bootstrap.cn/" target="_blank">bootstrap文档</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.58pic.com/" target="_blank">千图</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://ifonts.com/" target="_blank">iFonts</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://marketing.qiniu.com/" target="_blank">七牛云</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.ixigua.com/" target="_blank">西瓜视频</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/yugang/index.html" target="_blank">鱼缸计算</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://justcc.mengkang.net/#/" target="_blank">C语言JustCC</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="/index.xml" target="_blank">RSS</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.kancloud.cn/idcpj/python/418553" target="_blank">参考资料</a>
+        
+    </nav>
+
+    <div class="copyright text-center">
+      <span class="power-by">
+        Powered by <a class="links" href="https://gohugo.io" target="_blank">Hugo</a>
+    </span>
+    <span>|</span>
+    <span>
+        Theme - <a class="links" href="https://github.com/wiseai-go/blog-hugo" target="_blank">WiseAI</a>
+    </span>
+    <br>
+    <span class="copyright-year">
+        &copy;
+        
+        2017 -
+        2022<span>
+            陇ICP备15000157号
+            
+        </span></span>
+
+</div>
+</footer>
+<script src="http://static.wiseai.cn/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+</html>

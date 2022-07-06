@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-cn"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link href="http://static.wiseai.cn/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://static.wiseai.cn/css/main.css" rel="stylesheet">
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://static.wiseai.cn/img/favicon.ico" />
+
+    <title>Docker容器设置ssh连接 | WiseAI的博客</title>
+</head><body><div class="container-fluid">
+    <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="http://static.wiseai.cn/img/favicon.ico" alt="" width="30" height="24" class="d-inline-block align-text-top">
+                WiseAI的博客
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/articles/">文章</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/categories/">分类</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/tags/">关键字</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/post/golang/">golang编程</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/about/">关于</a>
+                    </li>
+                    
+                </ul>
+                <form class="d-flex">
+                    <input id="search-query" class="form-control me-2" type="search" placeholder="Search for anything..." aria-label="Search">
+                </form>
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+
+
+<div id="content">
+<div class="container article">
+	<h1>Docker容器设置ssh连接</h1>
+	<div class="post-meta">
+		<div>
+			
+			
+			By wiseai | 2022-07-06 | 1 minutes
+		</div>
+		<div class="tags">
+			
+			<a class="btn btn-light links btn-sm" href="/tags/linux/">Linux</a>
+			
+			<a class="btn btn-light links btn-sm" href="/tags/docker/">docker</a>
+			
+			<a class="btn btn-light links btn-sm" href="/tags/%E5%AE%B9%E5%99%A8/">容器</a>
+			
+		</div>
+	</div>
+	<div>
+		<div class="article-post">
+			<p>这里以debian容器为例：</p>
+<h2 id="一进入容器更改更新源及安装openssh-server">一、进入容器、更改更新源及安装openssh-server</h2>
+<pre class="editor-colors lang-text"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"># docker exec -it debian /bin/bash</span></span>
+<span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"># sed -i -e 's/deb.debian.org/mirrors.aliyun.com/g' \</span></span>
+<span class="syntax--text syntax--plain">         <span class="syntax--meta syntax--paragraph syntax--text">-e 's/security.debian.org/mirrors.aliyun.com/g' \</span></span>
+<span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text">         /etc/apt/sources.list</span></span>
+<span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"># apt install openssh-server</span></span>
+</pre>
+<h2 id="二添加目录修改配置文件">二、添加目录、修改配置文件</h2>
+<pre class="editor-colors lang-text"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"># mkdir -p /run/sshd</span></span>
+</pre>
+<p>注：(这个地方看启动服务时的提示信息，运行sshd服务的命令只能使用绝对路径/usr/sbin/sshd -D)</p>
+<ul>
+<li>下面修改/etc/ssh/sshd_config
+先说下PermitRootLogin：prohibit-password 允许root登陆但不能使用密码登陆yes 允许root以任何方式登陆,我们这里只允许使用密钥无密码登陆：</li>
+</ul>
+<pre class="editor-colors lang-text"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"># sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin prohibit-password/g' /etc/ssh/sshd_config</span></span>
+</pre>
+<ul>
+<li>下面修改/etc/pam.d/sshd</li>
+</ul>
+<pre class="editor-colors lang-text"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"># sed -i 's/session .*required .*pam_loginuid.so/#session required pam_loginuid.so/g' /etc/pam.d/sshd</span></span>
+</pre>
+<p>注：这个是一个pam登陆控制，可以参考<a href="/post/ftp%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9E%B6%E8%AE%BEvsftpd/">ftp服务器设置</a></p>
+<h2 id="三添加ssh服务使服务在容器打开时就启动">三、添加ssh服务，使服务在容器打开时就启动：</h2>
+<pre class="editor-colors lang-text"><span class="syntax--text syntax--plain"><span class="syntax--meta syntax--paragraph syntax--text"># sed -i '$a /usr/sbin/sshd -D' /etc/bash.bashrc</span></span></pre>
+<!-- wp:heading {"level":4} -->
+<h4 id="centos容器中遇到的问题">centos容器中遇到的问题：</h4>
+<p>显示/etc/ssh/中缺少公钥和私钥：</p>
+<pre tabindex="0"><code>$ ssh-keygen -t rsa -N &#39;&#39; -f /etc/ssh/ sh_host_rsa_key  
+$ ssh-keygen -t ed25519 -N &#39;&#39; -f /etc/ssh/ssh_host_ed25519_key  
+$ ssh-keygen -t ecdsa -N &#39;&#39; -f /etc/ssh/ssh_host_ecdsa_key
+</code></pre>
+		</div>
+	</div>
+</div>
+
+
+<div class="container">
+    
+    <div class="row">
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-end dh" href="/post/profilebashrcbash_profile%E8%AF%A6%E8%A7%A3/">
+                <h5>前一篇</h5><br>
+                profile、bashrc、bash_profile详解
+            </a>            
+        </div>
+        
+        <div class="col-2">
+        </div>
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-start dh" href="/post/diffcmp%E5%91%BD%E4%BB%A4/">
+                <h5>后一篇</h5><br>
+                diff、cmp命令
+            </a>            
+        </div>
+        
+    </div>
+    
+</div>
+
+        </div><br><br>
+<footer class="container">
+    <h2>友情链接</h2>
+    <hr>
+    <nav class="nav nav-pills flex-column flex-sm-row">
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/gnzg/index.html" target="_blank">孤鸟之歌</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/mm/index.html" target="_blank">生成随机字符</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/md/index.html" target="_blank">MarkDown</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://gitee.com/" target="_blank">Gitee</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://github.com/" target="_blank">Github</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.oschina.net/" target="_blank">OSCHINA</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/directory.md" target="_blank">the way to go</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://goframe.org/display/gf" target="_blank">GoFrame</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.aliyundrive.com/" target="_blank">阿里云盘</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.bootstrap.cn/" target="_blank">bootstrap文档</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.58pic.com/" target="_blank">千图</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://ifonts.com/" target="_blank">iFonts</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://marketing.qiniu.com/" target="_blank">七牛云</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.ixigua.com/" target="_blank">西瓜视频</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/yugang/index.html" target="_blank">鱼缸计算</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://justcc.mengkang.net/#/" target="_blank">C语言JustCC</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="/index.xml" target="_blank">RSS</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.kancloud.cn/idcpj/python/418553" target="_blank">参考资料</a>
+        
+    </nav>
+
+    <div class="copyright text-center">
+      <span class="power-by">
+        Powered by <a class="links" href="https://gohugo.io" target="_blank">Hugo</a>
+    </span>
+    <span>|</span>
+    <span>
+        Theme - <a class="links" href="https://github.com/wiseai-go/blog-hugo" target="_blank">WiseAI</a>
+    </span>
+    <br>
+    <span class="copyright-year">
+        &copy;
+        
+        2017 -
+        2022<span>
+            陇ICP备15000157号
+            
+        </span></span>
+
+</div>
+</footer>
+<script src="http://static.wiseai.cn/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+</html>

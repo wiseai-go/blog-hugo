@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-cn"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link href="http://static.wiseai.cn/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://static.wiseai.cn/css/main.css" rel="stylesheet">
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://static.wiseai.cn/img/favicon.ico" />
+
+    <title>Netstat命令 | WiseAI的博客</title>
+</head><body><div class="container-fluid">
+    <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="http://static.wiseai.cn/img/favicon.ico" alt="" width="30" height="24" class="d-inline-block align-text-top">
+                WiseAI的博客
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/articles/">文章</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/categories/">分类</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/tags/">关键字</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/post/golang/">golang编程</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/about/">关于</a>
+                    </li>
+                    
+                </ul>
+                <form class="d-flex">
+                    <input id="search-query" class="form-control me-2" type="search" placeholder="Search for anything..." aria-label="Search">
+                </form>
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+
+
+<div id="content">
+<div class="container article">
+	<h1>Netstat命令</h1>
+	<div class="post-meta">
+		<div>
+			
+			
+			By wiseai | 2022-07-06 | 5 minutes
+		</div>
+		<div class="tags">
+			
+			<a class="btn btn-light links btn-sm" href="/tags/%E5%91%BD%E4%BB%A4/">命令</a>
+			
+		</div>
+	</div>
+	<div>
+		<div class="article-post">
+			<h1 id="简介"><strong>简介</strong></h1>
+<p>Netstat 命令用于显示各种网络相关信息，如网络连接，路由表，接口状态 (Interface Statistics)，masquerade 连接，多播成员 (Multicast Memberships) 等等。</p>
+<h1 id="输出信息含义"><strong>输出信息含义</strong></h1>
+<p>执行netstat后，其输出结果为</p>
+<pre>Active Internet connections (w/o servers)
+Proto Recv-Q Send-Q Local Address Foreign Address State
+tcp 0 2 210.34.6.89:telnet 210.34.6.96:2873 ESTABLISHED
+tcp 296 0 210.34.6.89:1165 210.34.6.84:netbios-ssn ESTABLISHED
+tcp 0 0 localhost.localdom:9001 localhost.localdom:1162 ESTABLISHED
+tcp 0 0 localhost.localdom:1162 localhost.localdom:9001 ESTABLISHED
+tcp 0 80 210.34.6.89:1161 210.34.6.10:netbios-ssn CLOSE
+
+Active UNIX domain sockets (w/o servers)
+Proto RefCnt Flags Type State I-Node Path
+unix 1 [ ] STREAM CONNECTED 16178 @000000dd
+unix 1 [ ] STREAM CONNECTED 16176 @000000dc
+unix 9 [ ] DGRAM 5292 /dev/log
+unix 1 [ ] STREAM CONNECTED 16182 @000000df</pre>
+<p>从整体上看，netstat的输出结果可以分为两个部分：</p>
+<p>一个是Active Internet connections，称为有源TCP连接，其中&quot;Recv-Q&quot;和&quot;Send-Q&quot;指%0A的是接收队列和发送队列。这些数字一般都应该是0。如果不是则表示软件包正在队列中堆积。这种情况只能在非常少的情况见到。</p>
+<p>另一个是Active UNIX domain sockets，称为有源Unix域套接口(和网络套接字一样，但是只能用于本机通信，性能可以提高一倍)。
+Proto显示连接使用的协议,RefCnt表示连接到本套接口上的进程号,Types显示套接口的类型,State显示套接口当前的状态,Path表示连接到套接口的其它进程使用的路径名。</p>
+<h1 id="常见参数"><strong>常见参数</strong></h1>
+<pre><code>-a (all)显示所有选项，默认不显示LISTEN相关
+-t (tcp)仅显示tcp相关选项
+-u (udp)仅显示udp相关选项
+-n 拒绝显示别名，能显示数字的全部转化成数字。
+-l 仅列出有在 Listen (监听) 的服务状态
+
+-p 显示建立相关链接的程序名
+-r 显示路由信息，路由表
+-e 显示扩展信息，例如uid等
+-s 按各个协议进行统计
+-c 每隔一个固定时间，执行该netstat命令。
+</code></pre>
+<p>提示：LISTEN和LISTENING的状态只有用-a或者-l才能看到</p>
+<h1 id="实用命令实例"><strong>实用命令实例</strong></h1>
+<h2 id="1-列出所有端口-包括监听和未监听的"><strong>1. 列出所有端口 (包括监听和未监听的)</strong></h2>
+<p><strong>列出所有端口 netstat -a</strong></p>
+<pre># netstat -a ' more
+ Active Internet connections (servers and established)
+ Proto Recv-Q Send-Q Local Address           Foreign Address         State
+ tcp        0      0 localhost:30037         *:*                     LISTEN
+ udp        0      0 *:bootpc                *:*
+
+Active UNIX domain sockets (servers and established)
+ Proto RefCnt Flags       Type       State         I-Node   Path
+ unix  2      [ ACC ]     STREAM     LISTENING     6135     /tmp/.X11-unix/X0
+ unix  2      [ ACC ]     STREAM     LISTENING     5140     /var/run/acpid.socket</pre>
+<p><strong>列出所有 tcp 端口 netstat -at</strong></p>
+<pre># netstat -at
+ Active Internet connections (servers and established)
+ Proto Recv-Q Send-Q Local Address           Foreign Address         State
+ tcp        0      0 localhost:30037         *:*                     LISTEN
+ tcp        0      0 localhost:ipp           *:*                     LISTEN
+ tcp        0      0 *:smtp                  *:*                     LISTEN
+ tcp6       0      0 localhost:ipp           [::]:*                  LISTEN</pre>
+<p><strong>列出所有 udp 端口 netstat -au</strong></p>
+<pre># netstat -au
+ Active Internet connections (servers and established)
+ Proto Recv-Q Send-Q Local Address           Foreign Address         State
+ udp        0      0 *:bootpc                *:*
+ udp        0      0 *:49119                 *:*
+ udp        0      0 *:mdns                  *:*</pre>
+<h2 id="2-列出所有处于监听状态的-sockets"><strong>2. 列出所有处于监听状态的 Sockets</strong></h2>
+<p><strong>只显示监听端口 netstat -l</strong></p>
+<pre># netstat -l
+ Active Internet connections (only servers)
+ Proto Recv-Q Send-Q Local Address           Foreign Address         State
+ tcp        0      0 localhost:ipp           *:*                     LISTEN
+ tcp6       0      0 localhost:ipp           [::]:*                  LISTEN
+ udp        0      0 *:49119                 *:*</pre>
+<p><strong>只列出所有监听 tcp 端口 netstat -lt</strong></p>
+<pre># netstat -lt
+ Active Internet connections (only servers)
+ Proto Recv-Q Send-Q Local Address           Foreign Address         State
+ tcp        0      0 localhost:30037         *:*                     LISTEN
+ tcp        0      0 *:smtp                  *:*                     LISTEN
+ tcp6       0      0 localhost:ipp           [::]:*                  LISTEN</pre>
+<p><strong>只列出所有监听 udp 端口 netstat -lu</strong></p>
+<pre># netstat -lu
+ Active Internet connections (only servers)
+ Proto Recv-Q Send-Q Local Address           Foreign Address         State
+ udp        0      0 *:49119                 *:*
+ udp        0      0 *:mdns                  *:*</pre>
+<p><strong>只列出所有监听 UNIX 端口 netstat -lx</strong></p>
+<pre># netstat -lx
+ Active UNIX domain sockets (only servers)
+ Proto RefCnt Flags       Type       State         I-Node   Path
+ unix  2      [ ACC ]     STREAM     LISTENING     6294     private/maildrop
+ unix  2      [ ACC ]     STREAM     LISTENING     6203     public/cleanup
+ unix  2      [ ACC ]     STREAM     LISTENING     6302     private/ifmail
+ unix  2      [ ACC ]     STREAM     LISTENING     6306     private/bsmtp</pre>
+<h2 id="3-显示每个协议的统计信息"><strong>3. 显示每个协议的统计信息</strong></h2>
+<p>**  显示所有端口的统计信息 netstat -s**</p>
+<pre># netstat -s
+ Ip: 11150 total packets received 1 with invalid addresses 0 forwarded 0 incoming packets discarded 11149 incoming packets delivered 11635 requests sent out
+ Icmp: 0 ICMP messages received 0 input ICMP message failed.
+ Tcp: 582 active connections openings 2 failed connection attempts 25 connection resets received
+ Udp: 1183 packets received 4 packets to unknown port received.
+ .....</pre>
+<p><strong>显示 TCP 或 UDP 端口的统计信息 netstat -st 或 -su</strong></p>
+<pre># netstat -st 
+# netstat -su</pre>
+<h2 id="4-在-netstat-输出中显示-pid-和进程名称-netstat--p"><strong>4. 在 netstat 输出中显示 PID 和进程名称 netstat -p</strong></h2>
+<p>netstat -p 可以与其它开关一起使用，就可以添加 &ldquo;PID/进程名称&rdquo; 到 netstat 输出中，这样 debugging 的时候可以很方便的发现特定端口运行的程序。</p>
+<pre># netstat -pt
+ Active Internet connections (w/o servers)
+ Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+ tcp        1      0 ramesh-laptop.loc:47212 192.168.185.75:www        CLOSE_WAIT  2109/firefox
+ tcp        0      0 ramesh-laptop.loc:52750 lax:www ESTABLISHED 2109/firefox</pre>
+<h2 id="5-在-netstat-输出中不显示主机端口和用户名-host-port-or-user"><strong>5. 在 netstat 输出中不显示主机，端口和用户名 (host, port or user)</strong></h2>
+<p>当你不想让主机，端口和用户名显示，使用 netstat -n。将会使用数字代替那些名称。</p>
+<p>同样可以加速输出，因为不用进行比对查询。</p>
+<pre># netstat -an</pre>
+<p>如果只是不想让这三个名称中的一个被显示，使用以下命令</p>
+<pre># netsat -a --numeric-ports
+# netsat -a --numeric-hosts
+# netsat -a --numeric-users</pre>
+<h2 id="6-持续输出-netstat-信息"><strong>6. 持续输出 netstat 信息</strong></h2>
+<p>netstat 将每隔一秒输出网络信息。</p>
+<pre># netstat -c
+ Active Internet connections (w/o servers)
+ Proto Recv-Q Send-Q Local Address           Foreign Address         State
+ tcp        0      0 ramesh-laptop.loc:36130 101-101-181-225.ama:www ESTABLISHED
+ tcp        1      1 ramesh-laptop.loc:52564 101.11.169.230:www      CLOSING
+ tcp        0      0 ramesh-laptop.loc:43758 server-101-101-43-2:www ESTABLISHED
+ tcp        1      1 ramesh-laptop.loc:42367 101.101.34.101:www      CLOSING
+ ^C</pre>
+<h2 id="7-显示系统不支持的地址族-address-families"><strong>7. 显示系统不支持的地址族 (Address Families)</strong></h2>
+<pre>netstat --verbose</pre>
+<p>在输出的末尾，会有如下的信息</p>
+<pre>netstat: no support for `AF IPX' on this system.netstat: no support for `AF AX25' on this system.netstat: no support for `AF X25' on this system.netstat: no support for `AF NETROM' on this system.</pre>
+<h2 id="8-显示核心路由信息-netstat--r"><strong>8. 显示核心路由信息 netstat -r</strong></h2>
+<pre># netstat -r
+ Kernel IP routing table
+ Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface 192.168.1.0     *               255.255.255.0   U         0 0          0 eth2
+ link-local      *               255.255.0.0     U         0 0          0 eth2 default         192.168.1.1     0.0.0.0         UG        0 0          0 eth2</pre>
+<p><strong>注意：</strong> 使用 netstat -rn 显示数字格式，不查询主机名称。</p>
+<h2 id="9-找出程序运行的端口"><strong>9. 找出程序运行的端口</strong></h2>
+<p>并不是所有的进程都能找到，没有权限的会不显示，使用 root 权限查看所有的信息。</p>
+<pre># netstat -ap ' grep ssh
+ tcp        1      0 dev-db:ssh           101.174.100.22:39213        CLOSE_WAIT  -
+ tcp        1      0 dev-db:ssh           101.174.100.22:57643        CLOSE_WAIT  -</pre>
+<p>**  找出运行在指定端口的进程**</p>
+<pre># netstat -an ' grep ':80'</pre>
+<h2 id="10-显示网络接口列表"><strong>10. 显示网络接口列表</strong></h2>
+<pre># netstat -i
+ Kernel Interface table
+ Iface   MTU Met   RX-OK RX-ERR RX-DRP RX-OVR    TX-OK TX-ERR TX-DRP TX-OVR Flg
+ eth0       1500 0         0      0      0 0             0      0      0      0 BMU
+ eth2       1500 0     26196      0      0 0         26883      6      0      0 BMRU
+ lo        16436 0         4      0      0 0             4      0      0      0 LRU</pre>
+<p>显示详细信息，像是 ifconfig 使用 netstat -ie:</p>
+<pre># netstat -ie
+ Kernel Interface table
+ eth0      Link encap:Ethernet  HWaddr 00:10:40:11:11:11
+ UP BROADCAST MULTICAST  MTU:1500  Metric:1
+ RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+ TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+ collisions:0 txqueuelen:1000
+ RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+ Memory:f6ae0000-f6b00000</pre>
+<h2 id="11-ip和tcp分析"><strong>11. IP和TCP分析</strong></h2>
+<p><strong>查看连接某服务端口最多的的IP地址</strong></p>
+<pre>#netstat -nat ' grep "192.168.1.15:22" 'awk '{print $5}''awk -F: '{print $1}''sort'uniq -c'sort -nr'head -2018 221.136.168.363 154.74.45.2422 78.173.31.2362 62.183.207.982 192.168.1.142 182.48.111.2152 124.193.219.342 119.145.41.22 114.255.41.301 75.102.11.99</pre>
+<p><strong>TCP各种状态列表</strong></p>
+<pre># netstat -nat 'awk '{print $6}'established)
+Foreign
+LISTEN
+TIME_WAIT
+ESTABLISHED
+TIME_WAIT
+SYN_SENT</pre>
+<p>先把状态全都取出来,然后使用uniq -c统计，之后再进行排序。</p>
+<pre># netstat -nat 'awk '{print $6}''sort'uniq -c143 ESTABLISHED1 FIN_WAIT11 Foreign1 LAST_ACK36 LISTEN6 SYN_SENT113 TIME_WAIT1 established)</pre>
+<p>最后的命令如下:</p>
+<pre># netstat -nat 'awk '{print $6}''sort'uniq -c'sort -rn</pre>
+<p>分析access.log获得访问前10位的ip地址</p>
+<pre>awk '{print $1}' access.log 'sort'uniq -c'sort -nr'head -10</pre>
+		</div>
+	</div>
+</div>
+
+
+<div class="container">
+    
+    <div class="row">
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-end dh" href="/post/debian%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/">
+                <h5>前一篇</h5><br>
+                Debian的包管理工具
+            </a>            
+        </div>
+        
+        <div class="col-2">
+        </div>
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-start dh" href="/post/screen%E5%91%BD%E4%BB%A4/">
+                <h5>后一篇</h5><br>
+                screen命令
+            </a>            
+        </div>
+        
+    </div>
+    
+</div>
+
+        </div><br><br>
+<footer class="container">
+    <h2>友情链接</h2>
+    <hr>
+    <nav class="nav nav-pills flex-column flex-sm-row">
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/gnzg/index.html" target="_blank">孤鸟之歌</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/mm/index.html" target="_blank">生成随机字符</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/md/index.html" target="_blank">MarkDown</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://gitee.com/" target="_blank">Gitee</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://github.com/" target="_blank">Github</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.oschina.net/" target="_blank">OSCHINA</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/directory.md" target="_blank">the way to go</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://goframe.org/display/gf" target="_blank">GoFrame</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.aliyundrive.com/" target="_blank">阿里云盘</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.bootstrap.cn/" target="_blank">bootstrap文档</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.58pic.com/" target="_blank">千图</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://ifonts.com/" target="_blank">iFonts</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://marketing.qiniu.com/" target="_blank">七牛云</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.ixigua.com/" target="_blank">西瓜视频</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/yugang/index.html" target="_blank">鱼缸计算</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://justcc.mengkang.net/#/" target="_blank">C语言JustCC</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="/index.xml" target="_blank">RSS</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.kancloud.cn/idcpj/python/418553" target="_blank">参考资料</a>
+        
+    </nav>
+
+    <div class="copyright text-center">
+      <span class="power-by">
+        Powered by <a class="links" href="https://gohugo.io" target="_blank">Hugo</a>
+    </span>
+    <span>|</span>
+    <span>
+        Theme - <a class="links" href="https://github.com/wiseai-go/blog-hugo" target="_blank">WiseAI</a>
+    </span>
+    <br>
+    <span class="copyright-year">
+        &copy;
+        
+        2017 -
+        2022<span>
+            陇ICP备15000157号
+            
+        </span></span>
+
+</div>
+</footer>
+<script src="http://static.wiseai.cn/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+</html>

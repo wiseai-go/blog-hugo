@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>命令 on WiseAI的博客</title>
+    <link>https://blog.wiseai.cn/tags/%E5%91%BD%E4%BB%A4/</link>
+    <description>Recent content in 命令 on WiseAI的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>陇ICP备15000157号</copyright>
+    <lastBuildDate>Wed, 06 Jul 2022 17:26:36 +0800</lastBuildDate><atom:link href="https://blog.wiseai.cn/tags/%E5%91%BD%E4%BB%A4/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Aria2命令</title>
+      <link>https://blog.wiseai.cn/post/aria2%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Wed, 06 Jul 2022 17:26:36 +0800</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/aria2%E5%91%BD%E4%BB%A4/</guid>
+      <description>安装 # dnf install aria2 配置文件aria2.conf #基本配置 dir=/home/tzb/aria2/ log=/home/tzb/aria2/aria2.log input-file=/home/tzb/aria2/session/aria2.session save-session=/home/tzb/aria2/session/ save-session-interval=60 force-save=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true log-level=error #see --split option max-concurrent-downloads=5 continue=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true max-overall-download-limit=0 max-overall-upload-limit=50K max-upload-limit=20 # Http/FTP options connect-timeout=120 lowest-speed-limit=10K max-connection-per-server=10 max-file-not-found=2 min-split-size=1M split=5 check-certificate=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;false http-no-cache=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true # FTP Specific Options # BT/PT Setting bt-enable-lpd=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true #bt-max-peers=55 follow-torrent=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true enable-dht6=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;false bt-seed-unverified rpc-save-upload-metadata=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true bt-hash-check-seed bt-remove-unselected-file bt-request-peer-speed-limit=100K seed-ratio=0.0 # Metalink Specific Options # RPC Options enable-rpc=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true pause=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;false rpc-allow-origin-all=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true rpc-listen-all=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true rpc-save-upload-metadata=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true rpc-secure=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;false # Advanced Options daemon=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true disable-ipv6=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true enable-mmap=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true file-allocation=falloc max-download-result=120 #no-file-allocation-limit=32M force-sequential=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true parameterized-uri=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true 开机启动 编辑rc.</description>
+    </item>
+    
+    <item>
+      <title>find命令</title>
+      <link>https://blog.wiseai.cn/post/find%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Wed, 06 Jul 2022 17:24:28 +0800</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/find%E5%91%BD%E4%BB%A4/</guid>
+      <description>一.find命令
+基本格式：find path expression
+1.按照文件名查找
+(1)find / -name httpd.conf　#在根目录下查找文件httpd.conf，表示在整个硬盘查找 (2)find /etc -name httpd.conf　#在/etc目录下文件httpd.conf (3)find /etc -name &amp;#39;*srm*&amp;#39;　#使用通配符*(0或者任意多个)。表示在/etc目录下查找文件名中含有字符串&amp;#39;srm&amp;#39;的文件 (4)find . -name &amp;#39;srm*&amp;#39; #表示当前目录下查找文件名开头是字符串&amp;#39;srm&amp;#39;的文件 2.按照文件特征查找
+(1)find / -amin -10 # 查找在系统中最后10分钟访问的文件(access time) (2)find / -atime -2　# 查找在系统中最后48小时访问的文件 (3)find / -empty # 查找在系统中为空的文件或者文件夹 (4)find / -group cat # 查找在系统中属于 group为cat的文件 (5)find / -mmin -5 # 查找在系统中最后5分钟里修改过的文件(modify time) (6)find / -mtime -1 #查找在系统中最后24小时里修改过的文件 (7)find / -user fred #查找在系统中属于fred这个用户的文件 (8)find / -size +10000c　#查找出大于10000000字节的文件(c:字节，w:双字，k:KB，M:MB，G:GB) (9)find / -size -1000k #查找出小于1000KB的文件 3.</description>
+    </item>
+    
+    <item>
+      <title>grep命令</title>
+      <link>https://blog.wiseai.cn/post/grep%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Wed, 06 Jul 2022 17:21:46 +0800</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/grep%E5%91%BD%E4%BB%A4/</guid>
+      <description>基本格式：grep expression
+1.主要参数
+[options]主要参数：
+－c：只输出匹配行的计数。 －i：不区分大小写 －h：查询多文件时不显示文件名。 －l：查询多文件时只输出包含匹配字符的文件名。 －n：显示匹配行及行号。 －s：不显示不存在或无匹配文本的错误信息。 －v：显示不包含匹配文本的所有行。 －r：查询目录及子目录下的文件包含匹配字符的文件名。 pattern正则表达式主要参数：
+\： 忽略正则表达式中特殊字符的原有含义。 ^：匹配正则表达式的开始行。 $: 匹配正则表达式的结束行。 \&amp;lt;：从匹配正则表达 式的行开始。 \&amp;gt;：到匹配正则表达式的行结束。 [ ]：单个字符，如[A]即A符合要求 。 [ - ]：范围，如[A-Z]，即A、B、C一直到Z都符合要求 。 .：所有的单个字符。 * ：有字符，长度可以为0。 2.实例
+(1)grep &#39;test&#39; d*　#显示所有以d开头的文件中包含 test的行 (2)grep &#39;test&#39; aa bb cc #显示在aa，bb，cc文件中包含test的行 (3)grep &#39;[a-z]\{5\}&#39; aa #显示所有包含每行字符串至少有5个连续小写字符的字符串的行 (4)grep magic /usr/src　#显示/usr/src目录下的文件(不含子目录)包含magic的行 (5)grep -r magic /usr/src　#显示/usr/src目录下的文件(包含子目录)包含magic的行 (6)grep -w pattern files ：只匹配整个单词，而不是字符串的一部分(如匹配&#39;magic&#39;，而不是&#39;magical&#39;) </description>
+    </item>
+    
+    <item>
+      <title>kill命令</title>
+      <link>https://blog.wiseai.cn/post/kill%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Wed, 06 Jul 2022 17:14:28 +0800</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/kill%E5%91%BD%E4%BB%A4/</guid>
+      <description>kill命令用来删除执行中的程序或工作。kill可将指定的信息送至程序。预设的信息为SIGTERM(15),可将指定程序终止。若仍无法终止该程序，可使用SIGKILL(9)信息尝试强制删除程序。程序或工作的编号可利用ps指令或job指令查看。
+# kill (选项) (参数) 选项:
+-a：当处理当前进程时，不限制命令名和进程号的对应关系； -l &amp;lt;信息编号&amp;gt;：若不加&amp;lt;信息编号&amp;gt;选项，则-l参数会列出全部的信息名称； -p：指定kill 命令只打印相关进程的进程号，而不发送任何信号； -s &amp;lt;信息名称或编号&amp;gt;：指定要送出的信息； -u：指定用户。 参数:
+进程或作业识别号：指定要删除的进程或作业。
+[root@wiseai ~]# kill -l 1) SIGHUP 2) SIGINT 3) SIGQUIT 4) SIGILL 5) SIGTRAP 6) SIGABRT 7) SIGBUS 8) SIGFPE 9) SIGKILL 10) SIGUSR1 11) SIGSEGV 12) SIGUSR2 13) SIGPIPE 14) SIGALRM 15) SIGTERM 16) SIGSTKFLT 17) SIGCHLD 18) SIGCONT 19) SIGSTOP 20) SIGTSTP 21) SIGTTIN 22) SIGTTOU 23) SIGURG 24) SIGXCPU 25) SIGXFSZ 26) SIGVTALRM 27) SIGPROF 28) SIGWINCH 29) SIGIO 30) SIGPWR 31) SIGSYS 34) SIGRTMIN 35) SIGRTMIN+1 36) SIGRTMIN+2 37) SIGRTMIN+3 38) SIGRTMIN+4 39) SIGRTMIN+5 40) SIGRTMIN+6 41) SIGRTMIN+7 42) SIGRTMIN+8 43) SIGRTMIN+9 44) SIGRTMIN+10 45) SIGRTMIN+11 46) SIGRTMIN+12 47) SIGRTMIN+13 48) SIGRTMIN+14 49) SIGRTMIN+15 50) SIGRTMAX-14 51) SIGRTMAX-13 52) SIGRTMAX-12 53) SIGRTMAX-11 54) SIGRTMAX-10 55) SIGRTMAX-9 56) SIGRTMAX-8 57) SIGRTMAX-7 58) SIGRTMAX-6 59) SIGRTMAX-5 60) SIGRTMAX-4 61) SIGRTMAX-3 62) SIGRTMAX-2 63) SIGRTMAX-1 64) SIGRTMAX 只有第9种信号(SIGKILL)才可以无条件终止进程，其他信号进程都有权利忽略，下面是常用的信号：</description>
+    </item>
+    
+    <item>
+      <title>screen命令</title>
+      <link>https://blog.wiseai.cn/post/screen%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Wed, 06 Jul 2022 17:09:03 +0800</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/screen%E5%91%BD%E4%BB%A4/</guid>
+      <description>一、使用 创建一个新的窗口 安装完成后，直接敲命令screen就可以启动它。但是这样启动的screen会话没有名字，实践上推荐为每个screen会话取一个名字，方便分辨： ＃ screen -S david
+screen启动后，会创建第一个窗口，也就是窗口No. 0，并在其中打开一个系统默认的shell，一般都会是bash。所以你敲入命令screen之后，会立刻又返回到命令提示符，仿佛什么也没有发生似的，其实你已经进入Screen的世界了。当然，也可以在screen命令之后加入你喜欢的参数，使之直接打开你指定的程序，例如： ＃ screen vi david.txt screen创建一个执行vi david.txt的单窗口会话，退出vi 将退出该窗口/会话。
+可以使用快捷键C-a A来为当前窗口重命名 暂时中断会话，在screen窗口键入C-a d，Screen会给出detached提示 找到该screen会话： ＃ screen -ls
+重新连接会话： ＃ screen -r 12865
+将指定的screen作业离线 ＃ screen -d
+清除dead 会话 ＃ screen -wipe
+语法 ＃screen [-AmRvx -ls -wipe][-d &amp;lt;作业名称&amp;gt;][-h &amp;lt;行数&amp;gt;][-r &amp;lt;作业名称&amp;gt;][-s ][-S &amp;lt;作业名称&amp;gt;]
+参数说明 -A 将所有的视窗都调整为目前终端机的大小。 -d &amp;lt;作业名称&amp;gt; 将指定的screen作业离线。 -h &amp;lt;行数&amp;gt; 指定视窗的缓冲区行数。 -m 即使目前已在作业中的screen作业，仍强制建立新的screen作业。 -r &amp;lt;作业名称&amp;gt; 恢复离线的screen作业。 -R 先试图恢复离线的作业。若找不到离线的作业，即建立新的screen作业。 -s 指定建立新视窗时，所要执行的shell。 -S &amp;lt;作业名称&amp;gt; 指定screen作业的名称。 -v 显示版本信息。 -x 恢复之前离线的screen作业。 -ls或--list 显示目前所有的screen作业。 -wipe 检查目前所有的screen作业，并删除已经无法使用的screen作业。 常用screen参数 &amp;gt; screen -S yourname -&amp;gt; 新建一个叫yourname的session &amp;gt; screen -ls -&amp;gt; 列出当前所有的session &amp;gt; screen -r yourname -&amp;gt; 回到yourname这个session &amp;gt; screen -d yourname -&amp;gt; 远程detach某个session &amp;gt; screen -d -r yourname -&amp;gt; 结束当前session并回到yourname这个session 在每个screen session 下，所有命令都以 ctrl+a(C-a) 开始。 C-a ?</description>
+    </item>
+    
+    <item>
+      <title>Netstat命令</title>
+      <link>https://blog.wiseai.cn/post/netstat%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Wed, 06 Jul 2022 17:01:28 +0800</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/netstat%E5%91%BD%E4%BB%A4/</guid>
+      <description>简介 Netstat 命令用于显示各种网络相关信息，如网络连接，路由表，接口状态 (Interface Statistics)，masquerade 连接，多播成员 (Multicast Memberships) 等等。
+输出信息含义 执行netstat后，其输出结果为
+Active Internet connections (w/o servers) Proto Recv-Q Send-Q Local Address Foreign Address State tcp 0 2 210.34.6.89:telnet 210.34.6.96:2873 ESTABLISHED tcp 296 0 210.34.6.89:1165 210.34.6.84:netbios-ssn ESTABLISHED tcp 0 0 localhost.localdom:9001 localhost.localdom:1162 ESTABLISHED tcp 0 0 localhost.localdom:1162 localhost.localdom:9001 ESTABLISHED tcp 0 80 210.34.6.89:1161 210.34.6.10:netbios-ssn CLOSE Active UNIX domain sockets (w/o servers) Proto RefCnt Flags Type State I-Node Path unix 1 [ ] STREAM CONNECTED 16178 @000000dd unix 1 [ ] STREAM CONNECTED 16176 @000000dc unix 9 [ ] DGRAM 5292 /dev/log unix 1 [ ] STREAM CONNECTED 16182 @000000df 从整体上看，netstat的输出结果可以分为两个部分：</description>
+    </item>
+    
+    <item>
+      <title>Debian的包管理工具</title>
+      <link>https://blog.wiseai.cn/post/debian%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/</link>
+      <pubDate>Wed, 06 Jul 2022 16:52:16 +0800</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/debian%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/</guid>
+      <description>清除所有已删除包的残余配置文件： #dpkg -l |grep ^rc|awk &#39;{print $2}&#39; |xargs dpkg -P</description>
+    </item>
+    
+    <item>
+      <title>diff、cmp命令</title>
+      <link>https://blog.wiseai.cn/post/diffcmp%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Wed, 06 Jul 2022 16:46:27 +0800</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/diffcmp%E5%91%BD%E4%BB%A4/</guid>
+      <description>diff以行为单位对比：
+$ diff [-bBi] from-file to-file 选项与参数： from-file ：一个档名，作为原始比对档案的档名； to-file ：一个档名，作为目的比对档案的档名； 注意，from-file 或to-file 可以- 取代，那个- 代表『Standard input』之意。 -b ：忽略一行当中，仅有多个空白的差异(例如&#34;about me&#34; 与&#34;about me&#34; 视为相同 -B ：忽略空白行的差异。 -i ：忽略大小写的不同。 cmp利用『位元组』单位去比对：
+$ cmp [-l] file1 file2 选项与参数： -l ：将所有的不同点的位元组处都列出来。因为cmp 预设仅会输出第一个发现的不同点。 </description>
+    </item>
+    
+    <item>
+      <title>sed和awk命令</title>
+      <link>https://blog.wiseai.cn/post/sed%E5%92%8Cawk%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Wed, 06 Jul 2022 16:03:36 +0800</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/sed%E5%92%8Cawk%E5%91%BD%E4%BB%A4/</guid>
+      <description># sed [-nefr] [动作]
+选项与参数：
+-n ：使用安静(silent)模式。在一般sed 的用法中，所有来自STDIN 的资料一般都会被列出到屏幕上。 但如果加上-n 参数后，则只有经过sed 特殊处理的那一行(或者动作)才会被列出来。 -e ：直接在指令列模式上进行sed 的动作编辑； -f ：直接将sed 的动作写在一个档案内， -f filename 则可以执行filename 内的sed 动作； -r ：sed 的动作支援的是延伸型正规表示法的语法。(预设是基础正规表示法语法) -i ：直接修改读取的档案内容，而不是由屏幕输出。 动作说明： [n1[,n2]]function
+n1, n2 ：不见得会存在，一般代表『选择进行动作的行数』，举例来说，如果我的动作 是需要在10 到20 行之间进行的，则『 10,20[动作行为] 』 function 有底下这些咚咚： a ：新增， a 的后面可以接字串，而这些字串会在新的一行出现(目前的下一行)～ c ：取代， c 的后面可以接字串，这些字串可以取代n1,n2 之间的行！ d ：删除，因为是删除啊，所以d后面通常不接任何咚咚； i ：插入， i 的后面可以接字串，而这些字串会在新的一行出现(目前的上一行)； p ：列印，亦即将某个选择的资料印出。通常p 会与参数sed -n 一起运作～ s ：取代，可以直接进行取代的工作！通常这个s的动作可以搭配正规表示法！ 例如1,20s/old/new/g 例子：
+sed &amp;#39;2,5d&amp;#39; 删除2-5行 sed &amp;#39;2a abc&amp;#39; 在第二行后添加abc sed &amp;#39;2,5c abc&amp;#39; 将2-5行替换为abc sed -n &amp;#39;2,5p&amp;#39; 打印2-5行 sed &amp;#39;s/word1/word2/g&amp;#39; 将word1替换为word2 sed -i 直接修改文档内容 # cat /etc/passwd | sed -e &#39;4d&#39; -e &#39;6c no six line&#39; &amp;gt; passwd.</description>
+    </item>
+    
+    <item>
+      <title>sftp命令</title>
+      <link>https://blog.wiseai.cn/post/sftp%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Wed, 06 Jul 2022 15:57:22 +0800</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/sftp%E5%91%BD%E4%BB%A4/</guid>
+      <description>常用方式 格式：sftp &amp;lt;host&amp;gt; 通过sftp连接&amp;lt;host&amp;gt;，端口为默认的22，用户为Linux当前登录用户。 格式：sftp -oPort=&amp;lt;port&amp;gt; &amp;lt;host&amp;gt; 通过sftp连接&amp;lt;host&amp;gt;，指定端口&amp;lt;port&amp;gt;，用户为Linux当前登录用户。 格式：sftp &amp;lt;user&amp;gt;@&amp;lt;host&amp;gt; 通过sftp连接&amp;lt;host&amp;gt;，端口为默认的22，指定用户&amp;lt;user&amp;gt;。 格式：sftp -oPort=&amp;lt;port&amp;gt; &amp;lt;user&amp;gt;@&amp;lt;host&amp;gt; 通过sftp连接&amp;lt;host&amp;gt;，端口为&amp;lt;port&amp;gt;，用户为&amp;lt;user&amp;gt;。 sftp连接成功之后常用操作命令如下：
+help/? 打印帮助信息。 pwd 查看远程服务器当前目录； lpwd 查看本地系统的当前目录。 cd &amp;lt;dir&amp;gt; 将远程服务器的当前目录更改为&amp;lt;dir&amp;gt;； lcd &amp;lt;dir&amp;gt; 将本地系统的当前目录更改为&amp;lt;dir&amp;gt;。 ls 显示远程服务器上当前目录的文件名； ls -l 显示远程服务器上当前目录的文件详细列表； ls &amp;lt;pattern&amp;gt; 显示远程服务器上符合指定模式&amp;lt;pattern&amp;gt;的文件名； ls -l &amp;lt;pattern&amp;gt; 显示远程服务器上符合指定模式&amp;lt;pattern&amp;gt;的文件详细列表。 lls 显示本地系统上当前目录的文件名； lls的其他参数与ls命令的类似。 get &amp;lt;file&amp;gt; 下载指定文件&amp;lt;file&amp;gt;； -r参数操作目录 get &amp;lt;pattern&amp;gt; 下载符合指定模式&amp;lt;pattern&amp;gt;的文件。-r参数操作目录 put &amp;lt;file&amp;gt; 上传指定文件&amp;lt;file&amp;gt;；-r参数操作目录 put &amp;lt;pattern&amp;gt; 上传符合指定模式&amp;lt;pattern&amp;gt;的文件。-r参数操作目录 progress 切换是否显示文件传输进度。 mkdir &amp;lt;dir&amp;gt; 在远程服务器上创建目录； lmkdir &amp;lt;dir&amp;gt; 在本地系统上创建目录。 exit/quit/bye 退出sftp。 ! 启动一个本地shell。 ! &amp;lt;commandline&amp;gt; 执行本地命令行。 其他命令还有：chgrp, chmod, chown, ln, lumask, rename, rm, rmdir, symlink, version。</description>
+    </item>
+    
+    <item>
+      <title>ssh免密码登陆</title>
+      <link>https://blog.wiseai.cn/post/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86/</link>
+      <pubDate>Wed, 06 Jul 2022 15:49:33 +0800</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86/</guid>
+      <description>在client生成公钥和私钥： ＃ ssh-keygen -t rsa 注:这个命令可以参考下git的使用，rsa也没有问题。
+位置在~/.ssh/下，分别是id_rsa和id_rsa.pub
+将client的公钥上传到server： ＃ ssh-copy-id -p &#39;端口&#39; &#39;用户名@IP或域名&#39; 这个时候client的公钥文件内容会追加写入到server的 .ssh/authorized_keys 文件中。
+登陆免密了：
+＃ ssh -p &#39;端口&#39; &#39;用户名@IP或域名&#39; 打完，收功。</description>
+    </item>
+    
+  </channel>
+</rss>

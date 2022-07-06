@@ -7,7 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Mon, 30 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/tags/%E5%AE%B9%E5%99%A8/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 06 Jul 2022 16:36:58 +0800</lastBuildDate><atom:link href="https://blog.wiseai.cn/tags/%E5%AE%B9%E5%99%A8/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Docker容器设置ssh连接</title>
+      <link>https://blog.wiseai.cn/post/docker%E5%AE%B9%E5%99%A8%E8%AE%BE%E7%BD%AEssh%E8%BF%9E%E6%8E%A5/</link>
+      <pubDate>Wed, 06 Jul 2022 16:36:58 +0800</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/docker%E5%AE%B9%E5%99%A8%E8%AE%BE%E7%BD%AEssh%E8%BF%9E%E6%8E%A5/</guid>
+      <description>这里以debian容器为例：
+一、进入容器、更改更新源及安装openssh-server # docker exec -it debian /bin/bash # sed -i -e &#39;s/deb.debian.org/mirrors.aliyun.com/g&#39; \ -e &#39;s/security.debian.org/mirrors.aliyun.com/g&#39; \ /etc/apt/sources.list # apt install openssh-server 二、添加目录、修改配置文件 # mkdir -p /run/sshd 注：(这个地方看启动服务时的提示信息，运行sshd服务的命令只能使用绝对路径/usr/sbin/sshd -D)
+下面修改/etc/ssh/sshd_config 先说下PermitRootLogin：prohibit-password 允许root登陆但不能使用密码登陆yes 允许root以任何方式登陆,我们这里只允许使用密钥无密码登陆： # sed -i &#39;s/#PermitRootLogin prohibit-password/PermitRootLogin prohibit-password/g&#39; /etc/ssh/sshd_config 下面修改/etc/pam.d/sshd # sed -i &#39;s/session .*required .*pam_loginuid.so/#session required pam_loginuid.so/g&#39; /etc/pam.d/sshd 注：这个是一个pam登陆控制，可以参考ftp服务器设置
+三、添加ssh服务，使服务在容器打开时就启动： # sed -i &#39;$a /usr/sbin/sshd -D&#39; /etc/bash.bashrc centos容器中遇到的问题： 显示/etc/ssh/中缺少公钥和私钥：
+$ ssh-keygen -t rsa -N &amp;#39;&amp;#39; -f /etc/ssh/ sh_host_rsa_key $ ssh-keygen -t ed25519 -N &amp;#39;&amp;#39; -f /etc/ssh/ssh_host_ed25519_key $ ssh-keygen -t ecdsa -N &amp;#39;&amp;#39; -f /etc/ssh/ssh_host_ecdsa_key </description>
+    </item>
+    
     <item>
       <title>docker学习笔记</title>
       <link>https://blog.wiseai.cn/post/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>

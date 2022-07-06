@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on WiseAI的博客</title>
+    <link>https://blog.wiseai.cn/tags/linux/</link>
+    <description>Recent content in Linux on WiseAI的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>陇ICP备15000157号</copyright>
+    <lastBuildDate>Wed, 06 Jul 2022 16:52:16 +0800</lastBuildDate><atom:link href="https://blog.wiseai.cn/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Debian的包管理工具</title>
+      <link>https://blog.wiseai.cn/post/debian%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/</link>
+      <pubDate>Wed, 06 Jul 2022 16:52:16 +0800</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/debian%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/</guid>
+      <description>清除所有已删除包的残余配置文件： #dpkg -l |grep ^rc|awk &#39;{print $2}&#39; |xargs dpkg -P</description>
+    </item>
+    
+    <item>
+      <title>Docker容器设置ssh连接</title>
+      <link>https://blog.wiseai.cn/post/docker%E5%AE%B9%E5%99%A8%E8%AE%BE%E7%BD%AEssh%E8%BF%9E%E6%8E%A5/</link>
+      <pubDate>Wed, 06 Jul 2022 16:36:58 +0800</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/docker%E5%AE%B9%E5%99%A8%E8%AE%BE%E7%BD%AEssh%E8%BF%9E%E6%8E%A5/</guid>
+      <description>这里以debian容器为例：
+一、进入容器、更改更新源及安装openssh-server # docker exec -it debian /bin/bash # sed -i -e &#39;s/deb.debian.org/mirrors.aliyun.com/g&#39; \ -e &#39;s/security.debian.org/mirrors.aliyun.com/g&#39; \ /etc/apt/sources.list # apt install openssh-server 二、添加目录、修改配置文件 # mkdir -p /run/sshd 注：(这个地方看启动服务时的提示信息，运行sshd服务的命令只能使用绝对路径/usr/sbin/sshd -D)
+下面修改/etc/ssh/sshd_config 先说下PermitRootLogin：prohibit-password 允许root登陆但不能使用密码登陆yes 允许root以任何方式登陆,我们这里只允许使用密钥无密码登陆： # sed -i &#39;s/#PermitRootLogin prohibit-password/PermitRootLogin prohibit-password/g&#39; /etc/ssh/sshd_config 下面修改/etc/pam.d/sshd # sed -i &#39;s/session .*required .*pam_loginuid.so/#session required pam_loginuid.so/g&#39; /etc/pam.d/sshd 注：这个是一个pam登陆控制，可以参考ftp服务器设置
+三、添加ssh服务，使服务在容器打开时就启动： # sed -i &#39;$a /usr/sbin/sshd -D&#39; /etc/bash.bashrc centos容器中遇到的问题： 显示/etc/ssh/中缺少公钥和私钥：
+$ ssh-keygen -t rsa -N &amp;#39;&amp;#39; -f /etc/ssh/ sh_host_rsa_key $ ssh-keygen -t ed25519 -N &amp;#39;&amp;#39; -f /etc/ssh/ssh_host_ed25519_key $ ssh-keygen -t ecdsa -N &amp;#39;&amp;#39; -f /etc/ssh/ssh_host_ecdsa_key </description>
+    </item>
+    
+    <item>
+      <title>profile、bashrc、bash_profile详解</title>
+      <link>https://blog.wiseai.cn/post/profilebashrcbash_profile%E8%AF%A6%E8%A7%A3/</link>
+      <pubDate>Wed, 06 Jul 2022 16:20:56 +0800</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/profilebashrcbash_profile%E8%AF%A6%E8%A7%A3/</guid>
+      <description>/etc/profile: 此文件为系统的每个用户设置环境信息,当用户第一次登录时,该文件被执行.并从/etc/profile.d目录的配置文件中搜集shell的设置.
+英文描述为：
+# /etc/profile # System wide environment and startup programs, for login setup # Functions and aliases [Go](http://lib.csdn.net/base/go &amp;#34;Go知识库&amp;#34;) in /etc/bashrc # It&amp;#39;s NOT a good idea to change this file unless you know what you # are doing. It&amp;#39;s much better to create a custom.sh shell script in # /etc/profile.d/ to make custom changes to your environment, as this # will prevent the need for merging in future updates.</description>
+    </item>
+    
+    <item>
+      <title>sed和awk命令</title>
+      <link>https://blog.wiseai.cn/post/sed%E5%92%8Cawk%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Wed, 06 Jul 2022 16:03:36 +0800</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/sed%E5%92%8Cawk%E5%91%BD%E4%BB%A4/</guid>
+      <description># sed [-nefr] [动作]
+选项与参数：
+-n ：使用安静(silent)模式。在一般sed 的用法中，所有来自STDIN 的资料一般都会被列出到屏幕上。 但如果加上-n 参数后，则只有经过sed 特殊处理的那一行(或者动作)才会被列出来。 -e ：直接在指令列模式上进行sed 的动作编辑； -f ：直接将sed 的动作写在一个档案内， -f filename 则可以执行filename 内的sed 动作； -r ：sed 的动作支援的是延伸型正规表示法的语法。(预设是基础正规表示法语法) -i ：直接修改读取的档案内容，而不是由屏幕输出。 动作说明： [n1[,n2]]function
+n1, n2 ：不见得会存在，一般代表『选择进行动作的行数』，举例来说，如果我的动作 是需要在10 到20 行之间进行的，则『 10,20[动作行为] 』 function 有底下这些咚咚： a ：新增， a 的后面可以接字串，而这些字串会在新的一行出现(目前的下一行)～ c ：取代， c 的后面可以接字串，这些字串可以取代n1,n2 之间的行！ d ：删除，因为是删除啊，所以d后面通常不接任何咚咚； i ：插入， i 的后面可以接字串，而这些字串会在新的一行出现(目前的上一行)； p ：列印，亦即将某个选择的资料印出。通常p 会与参数sed -n 一起运作～ s ：取代，可以直接进行取代的工作！通常这个s的动作可以搭配正规表示法！ 例如1,20s/old/new/g 例子：
+sed &amp;#39;2,5d&amp;#39; 删除2-5行 sed &amp;#39;2a abc&amp;#39; 在第二行后添加abc sed &amp;#39;2,5c abc&amp;#39; 将2-5行替换为abc sed -n &amp;#39;2,5p&amp;#39; 打印2-5行 sed &amp;#39;s/word1/word2/g&amp;#39; 将word1替换为word2 sed -i 直接修改文档内容 # cat /etc/passwd | sed -e &#39;4d&#39; -e &#39;6c no six line&#39; &amp;gt; passwd.</description>
+    </item>
+    
+    <item>
+      <title>sftp命令</title>
+      <link>https://blog.wiseai.cn/post/sftp%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Wed, 06 Jul 2022 15:57:22 +0800</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/sftp%E5%91%BD%E4%BB%A4/</guid>
+      <description>常用方式 格式：sftp &amp;lt;host&amp;gt; 通过sftp连接&amp;lt;host&amp;gt;，端口为默认的22，用户为Linux当前登录用户。 格式：sftp -oPort=&amp;lt;port&amp;gt; &amp;lt;host&amp;gt; 通过sftp连接&amp;lt;host&amp;gt;，指定端口&amp;lt;port&amp;gt;，用户为Linux当前登录用户。 格式：sftp &amp;lt;user&amp;gt;@&amp;lt;host&amp;gt; 通过sftp连接&amp;lt;host&amp;gt;，端口为默认的22，指定用户&amp;lt;user&amp;gt;。 格式：sftp -oPort=&amp;lt;port&amp;gt; &amp;lt;user&amp;gt;@&amp;lt;host&amp;gt; 通过sftp连接&amp;lt;host&amp;gt;，端口为&amp;lt;port&amp;gt;，用户为&amp;lt;user&amp;gt;。 sftp连接成功之后常用操作命令如下：
+help/? 打印帮助信息。 pwd 查看远程服务器当前目录； lpwd 查看本地系统的当前目录。 cd &amp;lt;dir&amp;gt; 将远程服务器的当前目录更改为&amp;lt;dir&amp;gt;； lcd &amp;lt;dir&amp;gt; 将本地系统的当前目录更改为&amp;lt;dir&amp;gt;。 ls 显示远程服务器上当前目录的文件名； ls -l 显示远程服务器上当前目录的文件详细列表； ls &amp;lt;pattern&amp;gt; 显示远程服务器上符合指定模式&amp;lt;pattern&amp;gt;的文件名； ls -l &amp;lt;pattern&amp;gt; 显示远程服务器上符合指定模式&amp;lt;pattern&amp;gt;的文件详细列表。 lls 显示本地系统上当前目录的文件名； lls的其他参数与ls命令的类似。 get &amp;lt;file&amp;gt; 下载指定文件&amp;lt;file&amp;gt;； -r参数操作目录 get &amp;lt;pattern&amp;gt; 下载符合指定模式&amp;lt;pattern&amp;gt;的文件。-r参数操作目录 put &amp;lt;file&amp;gt; 上传指定文件&amp;lt;file&amp;gt;；-r参数操作目录 put &amp;lt;pattern&amp;gt; 上传符合指定模式&amp;lt;pattern&amp;gt;的文件。-r参数操作目录 progress 切换是否显示文件传输进度。 mkdir &amp;lt;dir&amp;gt; 在远程服务器上创建目录； lmkdir &amp;lt;dir&amp;gt; 在本地系统上创建目录。 exit/quit/bye 退出sftp。 ! 启动一个本地shell。 ! &amp;lt;commandline&amp;gt; 执行本地命令行。 其他命令还有：chgrp, chmod, chown, ln, lumask, rename, rm, rmdir, symlink, version。</description>
+    </item>
+    
+    <item>
+      <title>ssh免密码登陆</title>
+      <link>https://blog.wiseai.cn/post/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86/</link>
+      <pubDate>Wed, 06 Jul 2022 15:49:33 +0800</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86/</guid>
+      <description>在client生成公钥和私钥： ＃ ssh-keygen -t rsa 注:这个命令可以参考下git的使用，rsa也没有问题。
+位置在~/.ssh/下，分别是id_rsa和id_rsa.pub
+将client的公钥上传到server： ＃ ssh-copy-id -p &#39;端口&#39; &#39;用户名@IP或域名&#39; 这个时候client的公钥文件内容会追加写入到server的 .ssh/authorized_keys 文件中。
+登陆免密了：
+＃ ssh -p &#39;端口&#39; &#39;用户名@IP或域名&#39; 打完，收功。</description>
+    </item>
+    
+  </channel>
+</rss>

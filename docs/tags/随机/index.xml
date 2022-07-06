@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>随机 on WiseAI的博客</title>
+    <link>https://blog.wiseai.cn/tags/%E9%9A%8F%E6%9C%BA/</link>
+    <description>Recent content in 随机 on WiseAI的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>陇ICP备15000157号</copyright>
+    <lastBuildDate>Wed, 06 Jul 2022 08:54:04 +0800</lastBuildDate><atom:link href="https://blog.wiseai.cn/tags/%E9%9A%8F%E6%9C%BA/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Golang生成随机字符串</title>
+      <link>https://blog.wiseai.cn/post/golang%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E5%AD%97%E7%AC%A6%E4%B8%B2/</link>
+      <pubDate>Wed, 06 Jul 2022 08:54:04 +0800</pubDate>
+      
+      <guid>https://blog.wiseai.cn/post/golang%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E5%AD%97%E7%AC%A6%E4%B8%B2/</guid>
+      <description>假如我们要生成一个固定长度的随机字符串，包含大小写字母，没有数字，没有特殊字符串，那么我们怎么做呢？需要怎样优化，才会更简单，更高效？在最终的方案之前，我们看看最常见的写法是怎样的，然后是如何一步步演进到最终的高效率方案的。好吧，先看下最原始的方案。
+常见做法(Runes) func init() { rand.Seed(time.Now().UnixNano()) } var letterRunes = []rune(&amp;#34;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&amp;#34;) func RandStringRunes(n int) string { b := make([]rune, n) for i := range b { b[i] = letterRunes[rand.Intn(len(letterRunes))] } return string(b) } 这个实现比较简单，二十六字母（大小写），然后随机取数，获得随机字符串。
+Bytes改进 我们在最开始的时候进行了假设，我们的随机字符串只包含大小写字母，这样的话，我们发现没有必要使用rune类型存储，因为在Golang（Go语言）UTF-8编码下，英文字母和byte字节是一对一的。byte的本质是uint8类型，而rune本质是int32类型。我们改进后的代码如下：
+const letterBytes = &amp;#34;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&amp;#34; func RandStringBytes(n int) string { b := make([]byte, n) for i := range b { b[i] = letterBytes[rand.Intn(len(letterBytes))] } return string(b) } 仔细看上面的代码，我们不光对rune类型进行了改进，还把原来的letter变量变成了常量，这样len(letterBytes)也是一个常量，代码的效率将大大提升。
+余数改进 我们前面的方案都是通过调用rand.Intn()生成的随机字符，这个rand.Intn()其实是委托调用的Rand.Intn(),而Rand.Intn()最终又是调用的Rand.Int31n()实现。相比我们直接调用rand.Int63()来说，rand.Intn()要慢很多。
+所以我们可以把rand.Intn()换成rand.Int63()来提高效率，为了不超过letterBytes的索引范围，我们使用余数来保证。
+func RandStringBytesRmndr(n int) string { b := make([]byte, n) for i := range b { b[i] = letterBytes[rand.</description>
+    </item>
+    
+  </channel>
+</rss>

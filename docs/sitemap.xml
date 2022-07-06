@@ -9,31 +9,94 @@
     <lastmod>2020-11-26T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wiseai.cn/</loc>
-    <lastmod>2022-07-05T11:18:29+08:00</lastmod>
+    <lastmod>2022-07-06T17:26:36+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/post/aria2%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2022-07-06T17:26:36+08:00</lastmod>
   </url><url>
     <loc>https://blog.wiseai.cn/categories/</loc>
-    <lastmod>2022-07-05T11:18:29+08:00</lastmod>
+    <lastmod>2022-07-06T17:26:36+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/categories/linux%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2022-07-06T17:26:36+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/post/</loc>
+    <lastmod>2022-07-06T17:26:36+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/tags/</loc>
+    <lastmod>2022-07-06T17:26:36+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/tags/%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2022-07-06T17:26:36+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/post/find%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2022-07-06T17:24:28+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/post/grep%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2022-07-06T17:21:46+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/post/kill%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2022-07-06T17:14:28+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/post/screen%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2022-07-06T17:09:03+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/post/netstat%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2022-07-06T17:01:28+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/post/debian%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/</loc>
+    <lastmod>2022-07-06T16:52:16+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/tags/linux/</loc>
+    <lastmod>2022-07-06T16:52:16+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/categories/linux%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2022-07-06T16:52:16+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/post/diffcmp%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2022-07-06T16:46:27+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/tags/docker/</loc>
+    <lastmod>2022-07-06T16:36:58+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/post/docker%E5%AE%B9%E5%99%A8%E8%AE%BE%E7%BD%AEssh%E8%BF%9E%E6%8E%A5/</loc>
+    <lastmod>2022-07-06T16:36:58+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/tags/%E5%AE%B9%E5%99%A8/</loc>
+    <lastmod>2022-07-06T16:36:58+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/post/profilebashrcbash_profile%E8%AF%A6%E8%A7%A3/</loc>
+    <lastmod>2022-07-06T16:20:56+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/post/sed%E5%92%8Cawk%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2022-07-06T16:03:36+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/post/sftp%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2022-07-06T15:57:22+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/post/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86/</loc>
+    <lastmod>2022-07-06T15:49:33+08:00</lastmod>
   </url><url>
     <loc>https://blog.wiseai.cn/tags/golang/</loc>
-    <lastmod>2022-07-05T11:18:29+08:00</lastmod>
+    <lastmod>2022-07-06T08:54:04+08:00</lastmod>
   </url><url>
     <loc>https://blog.wiseai.cn/categories/golang%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2022-07-05T11:18:29+08:00</lastmod>
+    <lastmod>2022-07-06T08:54:04+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/post/golang%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E5%AD%97%E7%AC%A6%E4%B8%B2/</loc>
+    <lastmod>2022-07-06T08:54:04+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/tags/%E7%BC%96%E7%A8%8B/</loc>
+    <lastmod>2022-07-06T08:54:04+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.wiseai.cn/tags/%E9%9A%8F%E6%9C%BA/</loc>
+    <lastmod>2022-07-06T08:54:04+08:00</lastmod>
   </url><url>
     <loc>https://blog.wiseai.cn/post/golang/</loc>
     <lastmod>2022-07-05T11:18:29+08:00</lastmod>
   </url><url>
     <loc>https://blog.wiseai.cn/post/golang/2022.07.05-%E6%97%B6%E9%97%B4%E5%92%8C%E6%97%A5%E6%9C%9F/</loc>
     <lastmod>2022-07-05T11:18:29+08:00</lastmod>
-  </url><url>
-    <loc>https://blog.wiseai.cn/post/</loc>
-    <lastmod>2022-07-05T11:18:29+08:00</lastmod>
-  </url><url>
-    <loc>https://blog.wiseai.cn/tags/</loc>
-    <lastmod>2022-07-05T11:18:29+08:00</lastmod>
-  </url><url>
-    <loc>https://blog.wiseai.cn/categories/linux%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2022-07-05T10:08:37+08:00</lastmod>
   </url><url>
     <loc>https://blog.wiseai.cn/post/u%E7%9B%98%E5%90%AF%E5%8A%A8%E7%9B%98%E5%88%B6%E4%BD%9C/</loc>
     <lastmod>2022-07-05T10:08:37+08:00</lastmod>
@@ -51,9 +114,6 @@
     <lastmod>2022-07-04T16:40:53+08:00</lastmod>
   </url><url>
     <loc>https://blog.wiseai.cn/post/golang/2022.07.01-strings%E5%92%8Cstrconv%E5%8C%85/</loc>
-    <lastmod>2022-07-01T10:14:36+08:00</lastmod>
-  </url><url>
-    <loc>https://blog.wiseai.cn/tags/%E7%BC%96%E7%A8%8B/</loc>
     <lastmod>2022-07-01T10:14:36+08:00</lastmod>
   </url><url>
     <loc>https://blog.wiseai.cn/post/golang/2022.06.30-%E5%AD%97%E7%AC%A6%E4%B8%B2/</loc>
@@ -87,9 +147,6 @@
     <lastmod>2022-06-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wiseai.cn/post/linux%E4%B8%ADfirefox%E6%94%AF%E6%8C%81flash/</loc>
-    <lastmod>2022-06-20T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wiseai.cn/categories/linux%E5%91%BD%E4%BB%A4/</loc>
     <lastmod>2022-06-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wiseai.cn/post/linux%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E8%BD%AF%E4%BB%B6/</loc>
@@ -332,9 +389,6 @@
     <loc>https://blog.wiseai.cn/post/adduseraddgroup%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E7%94%A8%E6%88%B7%E7%BB%84/</loc>
     <lastmod>2022-05-30T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.wiseai.cn/tags/docker/</loc>
-    <lastmod>2022-05-30T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://blog.wiseai.cn/post/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2022-05-30T00:00:00+00:00</lastmod>
   </url><url>
@@ -387,9 +441,6 @@
     <lastmod>2022-05-30T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wiseai.cn/tags/%E5%90%AF%E5%8A%A8/</loc>
-    <lastmod>2022-05-30T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.wiseai.cn/tags/%E5%AE%B9%E5%99%A8/</loc>
     <lastmod>2022-05-30T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.wiseai.cn/tags/%E5%BC%80%E6%9C%BA/</loc>

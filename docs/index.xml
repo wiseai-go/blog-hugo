@@ -6,7 +6,1205 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Tue, 05 Jul 2022 11:18:29 +0800</lastBuildDate><atom:link href="https://blog.wiseai.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 06 Jul 2022 17:26:36 +0800</lastBuildDate><atom:link href="https://blog.wiseai.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+    <title>Aria2命令</title>
+    <link>https://blog.wiseai.cn/post/aria2%E5%91%BD%E4%BB%A4/</link>
+    <pubDate>Wed, 06 Jul 2022 17:26:36 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/aria2%E5%91%BD%E4%BB%A4/</guid>
+    <description>
+        &lt;ul&gt;
+&lt;li&gt;安装
+&lt;code&gt;# dnf install aria2&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;配置文件aria2.conf&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;    #基本配置
+    dir=/home/tzb/aria2/
+    log=/home/tzb/aria2/aria2.log
+    input-file=/home/tzb/aria2/session/aria2.session
+    save-session=/home/tzb/aria2/session/
+    save-session-interval=60
+    force-save=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true
+    log-level=error  
+
+    #see --split option
+    max-concurrent-downloads=5
+    continue=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true
+    max-overall-download-limit=0
+    max-overall-upload-limit=50K
+    max-upload-limit=20  
+
+    # Http/FTP options
+    connect-timeout=120
+    lowest-speed-limit=10K
+    max-connection-per-server=10
+    max-file-not-found=2
+    min-split-size=1M
+    split=5
+    check-certificate=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;false
+    http-no-cache=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true  
+
+    # FTP Specific Options  
+
+    # BT/PT Setting
+    bt-enable-lpd=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true
+    #bt-max-peers=55
+    follow-torrent=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true
+    enable-dht6=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;false
+    bt-seed-unverified
+    rpc-save-upload-metadata=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true
+    bt-hash-check-seed
+    bt-remove-unselected-file
+    bt-request-peer-speed-limit=100K
+    seed-ratio=0.0
+
+    # Metalink Specific Options
+
+    # RPC Options
+    enable-rpc=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true
+    pause=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;false
+    rpc-allow-origin-all=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true
+    rpc-listen-all=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true
+    rpc-save-upload-metadata=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true
+    rpc-secure=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;false
+
+    # Advanced Options
+    daemon=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true
+    disable-ipv6=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true
+    enable-mmap=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true
+    file-allocation=falloc
+    max-download-result=120
+    #no-file-allocation-limit=32M
+    force-sequential=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true
+    parameterized-uri=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;开机启动
+&lt;code&gt;编辑rc.local添加 aria2c --conf-path=/path/to/aria2/aria2.conf&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;图形界面
+软件：uget或YAAMfirefox：flashgotjavascript：webui-aria2或AriaNg&lt;/li&gt;
+&lt;li&gt;命令：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;    aria2c http://AAA.BBB.CCC/file.zip  普通下载
+    aria2c -s 2 http://AAA.BBB.CCC/file.zip  最大两个连接下载
+    aria2c -Z http://aaa.bbb.ccc/file.zip http://ddd.eee.fff/file.zip 下载多个文件
+    aria2c -c http://AAA.BBB.CCC/file.zip 断点续传
+    aria2c -i download.txt 从文件下载
+    aria2c -x2 http://AAA.BBB.CCC/file.zip 开2个线程下载
+    aria2c http://AAA.BBB.CCC/file.zipftp://DDD.EEE.FFF/GGG/file.zip 从不同的地址下载同一文件
+    aria2c http://AAA.BBB.CCC/file.zipftp://DDD.EEE.FFF/GGG/file.zip  支持不同的协议下载同一文件
+    aria2c -o test.torrent http://AAA.BBB.CCC/file.torrent 下载BT种子
+    aria2c -max-upload-limit 40K -T file.torrent 设定BT最大上传速度
+    aria2c http://AAA.BBB.CCC/file.metalink  从metalink下载文件
+    aria2c &amp;#39;magnet:?xt=urn:btih:248D0A1CD08284299DE78D5C1ED359BB46717D8C&amp;#39;  下载 BitTorrent 磁力链接
+    aria2c https://curl.haxx.se/metalink.cgi?curl=tar.bz2  下载 BitTorrent Metalink 种子
+    aria2c -S 打印 .torrent，.meta4 和 .metalink 这类文件内含的文件列表
+    ＃从密码保护的网站下载文件
+    aria2c --http-user=xxx --http-password=xxx https://download.owncloud.org/community/owncloud-9.0.0.tar.bz2
+    aria2c --ftp-user=xxx --ftp-password=xxx ftp://ftp.gnu.org/gnu/wget/wget-1.17.tar.gz
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;注：https下载依赖于安装gnutls或openssl&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;bt下载依赖于安装gnutls+libgcrypt或opensslmetalink下载依赖于安装libxml2&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;##文件保存相关 ##
+
+#文件保存目录
+dir=/home/naonao/Downloads
+# 启用磁盘缓存, 0为禁用缓存, 需1.16以上版本, 默认:16M
+disk-cache=32M
+#断点续传
+continue=true
+
+# 文件预分配方式, 能有效降低磁盘碎片, 默认:prealloc
+# 预分配所需时间: none &amp;lt; falloc ? trunc &amp;lt; prealloc
+# falloc和trunc则需要文件系统和内核支持
+# NTFS建议使用falloc, EXT3/4建议trunc, MAC 下需要注释此项
+file-allocation=trunc
+
+## 下载连接相关 ##
+
+# 最大同时下载任务数, 运行时可修改, 默认:5
+#max-concurrent-downloads=100
+# 同一服务器连接数, 添加时可指定, 默认:1
+# 官方的aria2最高设置为16, 如果需要设置任意数值请重新编译aria2
+max-connection-per-server=256
+# 整体下载速度限制, 运行时可修改, 默认:0（不限制）
+#max-overall-download-limit=0
+# 单个任务下载速度限制, 默认:0（不限制）
+#max-download-limit=0
+# 整体上传速度限制, 运行时可修改, 默认:0（不限制）
+#max-overall-upload-limit=0
+# 单个任务上传速度限制, 默认:0（不限制）
+#max-upload-limit=0
+# 禁用IPv6, 默认:false
+# disable-ipv6=true
+
+# 最小文件分片大小, 添加时可指定, 取值范围1M -1024M, 默认:20M
+# 假定size=10M, 文件为20MiB 则使用两个来源下载; 文件为15MiB 则使用一个来源下载
+min-split-size=10M
+# 单个任务最大线程数, 添加时可指定, 默认:5
+# 建议同max-connection-per-server设置为相同值
+split=256
+
+## 进度保存相关 ##
+
+# 从会话文件中读取下载任务
+input-file=/etc/aria2/aria2.session
+# 在Aria2退出时保存错误的、未完成的下载任务到会话文件
+save-session=/etc/aria2/aria2.session
+# 定时保存会话, 0为退出时才保存, 需1.16.1以上版本, 默认:0
+save-session-interval=60
+
+## RPC相关设置 ##
+
+# 启用RPC, 默认:false
+enable-rpc=true
+# 允许所有来源, 默认:false
+rpc-allow-origin-all=true
+# 允许外部访问, 默认:false
+rpc-listen-all=true
+# RPC端口, 仅当默认端口被占用时修改
+# rpc-listen-port=6800
+# 设置的RPC授权令牌, v1.18.4新增功能, 取代 --rpc-user 和 --rpc-passwd 选项
+rpc-secret=yourpassword
+# 启动SSL
+# rpc-secure=true
+# 证书文件, 如果启用SSL则需要配置证书文件, 例如用https连接aria2
+# rpc-certificate=
+# rpc-private-key=
+
+## BT/PT下载相关 ##
+
+# 当下载的是一个种子(以.torrent结尾)时, 自动开始BT任务, 默认:true
+follow-torrent=true
+# 客户端伪装, PT需要
+peer-id-prefix=-TR2770-
+user-agent=Transmission/2.77
+# 强制保存会话, 即使任务已经完成, 默认:false
+# 较新的版本开启后会在任务完成后依然保留.aria2文件
+#force-save=false
+# 继续之前的BT任务时, 无需再次校验, 默认:false
+bt-seed-unverified=true
+# 保存磁力链接元数据为种子文件(.torrent文件), 默认:false
+# bt-save-metadata=true
+# 单个种子最大连接数, 默认:55 0表示不限制
+bt-max-peers=0
+# 最小做种时间, 单位:分
+# seed-time = 60
+# 分离做种任务
+bt-detach-seed-only=true
+&lt;/code&gt;&lt;/pre&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>find命令</title>
+    <link>https://blog.wiseai.cn/post/find%E5%91%BD%E4%BB%A4/</link>
+    <pubDate>Wed, 06 Jul 2022 17:24:28 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/find%E5%91%BD%E4%BB%A4/</guid>
+    <description>
+        &lt;p&gt;&lt;strong&gt;一.find命令&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;基本格式：find  path expression&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1.按照文件名查找&lt;/strong&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(1)find / -name httpd.conf　　#在根目录下查找文件httpd.conf，表示在整个硬盘查找
+
+(2)find /etc -name httpd.conf　　#在/etc目录下文件httpd.conf
+
+(3)find /etc -name &amp;#39;*srm*&amp;#39;　　#使用通配符*(0或者任意多个)。表示在/etc目录下查找文件名中含有字符串&amp;#39;srm&amp;#39;的文件
+
+(4)find . -name &amp;#39;srm*&amp;#39; 　　#表示当前目录下查找文件名开头是字符串&amp;#39;srm&amp;#39;的文件
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;2.按照文件特征查找&lt;/strong&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(1)find / -amin -10 　　# 查找在系统中最后10分钟访问的文件(access time)
+
+(2)find / -atime -2　　 # 查找在系统中最后48小时访问的文件
+
+(3)find / -empty 　　# 查找在系统中为空的文件或者文件夹
+
+(4)find / -group cat 　　# 查找在系统中属于 group为cat的文件
+
+(5)find / -mmin -5 　　# 查找在系统中最后5分钟里修改过的文件(modify time)
+
+(6)find / -mtime -1 　　#查找在系统中最后24小时里修改过的文件
+
+(7)find / -user fred 　　#查找在系统中属于fred这个用户的文件
+
+(8)find / -size +10000c　　#查找出大于10000000字节的文件(c:字节，w:双字，k:KB，M:MB，G:GB)
+
+(9)find / -size -1000k 　　#查找出小于1000KB的文件
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;3.使用混合查找方式查找文件&lt;/strong&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;参数有： ！，-and(-a)，-or(-o)。
+
+(1)find /tmp -size +10000c -and -mtime +2 　　#在/tmp目录下查找大于10000字节并在最后2分钟内修改的文件
+
+(2)find / -user fred -or -user george 　　#在/目录下查找用户是fred或者george的文件文件
+
+(3)find /tmp ! -user panda　　#在/tmp目录中查找所有不属于panda用户的文件
+&lt;/code&gt;&lt;/pre&gt;
+    </description>
+    </item>
+    
+    <item>
+    <title>grep命令</title>
+    <link>https://blog.wiseai.cn/post/grep%E5%91%BD%E4%BB%A4/</link>
+    <pubDate>Wed, 06 Jul 2022 17:21:46 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/grep%E5%91%BD%E4%BB%A4/</guid>
+    <description>
+        &lt;p&gt;基本格式：grep  expression&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1.主要参数&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;[options]主要参数：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;－c：只输出匹配行的计数。
+－i：不区分大小写
+－h：查询多文件时不显示文件名。
+－l：查询多文件时只输出包含匹配字符的文件名。
+－n：显示匹配行及行号。
+－s：不显示不存在或无匹配文本的错误信息。
+－v：显示不包含匹配文本的所有行。
+－r：查询目录及子目录下的文件包含匹配字符的文件名。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;pattern正则表达式主要参数：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;\： 忽略正则表达式中特殊字符的原有含义。
+^：匹配正则表达式的开始行。
+$: 匹配正则表达式的结束行。
+\&amp;lt;：从匹配正则表达 式的行开始。
+\&amp;gt;：到匹配正则表达式的行结束。
+[ ]：单个字符，如[A]即A符合要求 。
+[ - ]：范围，如[A-Z]，即A、B、C一直到Z都符合要求 。
+.：所有的单个字符。
+* ：有字符，长度可以为0。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;2.实例&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;(1)grep &#39;test&#39; d*　　#显示所有以d开头的文件中包含 test的行
+
+(2)grep &#39;test&#39; aa bb cc 　　 #显示在aa，bb，cc文件中包含test的行
+
+(3)grep &#39;[a-z]\{5\}&#39; aa 　　#显示所有包含每行字符串至少有5个连续小写字符的字符串的行
+
+(4)grep magic /usr/src　　#显示/usr/src目录下的文件(不含子目录)包含magic的行
+
+(5)grep -r magic /usr/src　　#显示/usr/src目录下的文件(包含子目录)包含magic的行
+
+(6)grep -w pattern files ：只匹配整个单词，而不是字符串的一部分(如匹配&#39;magic&#39;，而不是&#39;magical&#39;)&lt;/code&gt;&lt;/pre&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>kill命令</title>
+    <link>https://blog.wiseai.cn/post/kill%E5%91%BD%E4%BB%A4/</link>
+    <pubDate>Wed, 06 Jul 2022 17:14:28 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/kill%E5%91%BD%E4%BB%A4/</guid>
+    <description>
+        &lt;p&gt;kill命令用来删除执行中的程序或工作。kill可将指定的信息送至程序。预设的信息为SIGTERM(15),可将指定程序终止。若仍无法终止该程序，可使用SIGKILL(9)信息尝试强制删除程序。程序或工作的编号可利用ps指令或job指令查看。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# kill (选项) (参数)&lt;/code&gt;
+选项:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;-a：当处理当前进程时，不限制命令名和进程号的对应关系；
+-l &amp;lt;信息编号&amp;gt;：若不加&amp;lt;信息编号&amp;gt;选项，则-l参数会列出全部的信息名称；
+-p：指定kill 命令只打印相关进程的进程号，而不发送任何信号；
+-s &amp;lt;信息名称或编号&amp;gt;：指定要送出的信息；
+-u：指定用户。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;参数:&lt;/p&gt;
+&lt;p&gt;进程或作业识别号：指定要删除的进程或作业。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[root@wiseai ~]# kill -l
+ 1) SIGHUP       2) SIGINT       3) SIGQUIT      4) SIGILL       5) SIGTRAP
+ 6) SIGABRT      7) SIGBUS       8) SIGFPE       9) SIGKILL     10) SIGUSR1
+11) SIGSEGV     12) SIGUSR2     13) SIGPIPE     14) SIGALRM     15) SIGTERM
+16) SIGSTKFLT   17) SIGCHLD     18) SIGCONT     19) SIGSTOP     20) SIGTSTP
+21) SIGTTIN     22) SIGTTOU     23) SIGURG      24) SIGXCPU     25) SIGXFSZ
+26) SIGVTALRM   27) SIGPROF     28) SIGWINCH    29) SIGIO       30) SIGPWR
+31) SIGSYS      34) SIGRTMIN    35) SIGRTMIN+1  36) SIGRTMIN+2  37) SIGRTMIN+3
+38) SIGRTMIN+4  39) SIGRTMIN+5  40) SIGRTMIN+6  41) SIGRTMIN+7  42) SIGRTMIN+8
+43) SIGRTMIN+9  44) SIGRTMIN+10 45) SIGRTMIN+11 46) SIGRTMIN+12 47) SIGRTMIN+13
+48) SIGRTMIN+14 49) SIGRTMIN+15 50) SIGRTMAX-14 51) SIGRTMAX-13 52) SIGRTMAX-12
+53) SIGRTMAX-11 54) SIGRTMAX-10 55) SIGRTMAX-9  56) SIGRTMAX-8  57) SIGRTMAX-7
+58) SIGRTMAX-6  59) SIGRTMAX-5  60) SIGRTMAX-4  61) SIGRTMAX-3  62) SIGRTMAX-2
+63) SIGRTMAX-1  64) SIGRTMAX
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;只有第9种信号(SIGKILL)才可以无条件终止进程，其他信号进程都有权利忽略，下面是常用的信号：&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;HUP     1    终端断线
+INT     2    中断（同 Ctrl + C）
+QUIT    3    退出（同 Ctrl + \）
+TERM   15    终止
+KILL    9    强制终止
+CONT   18    继续（与STOP相反， fg/bg命令）
+STOP   19    暂停（同 Ctrl + Z）
+&lt;/code&gt;&lt;/pre&gt;
+    </description>
+    </item>
+    
+    <item>
+    <title>screen命令</title>
+    <link>https://blog.wiseai.cn/post/screen%E5%91%BD%E4%BB%A4/</link>
+    <pubDate>Wed, 06 Jul 2022 17:09:03 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/screen%E5%91%BD%E4%BB%A4/</guid>
+    <description>
+        &lt;h1 id=&#34;一使用&#34;&gt;一、使用&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;创建一个新的窗口
+安装完成后，直接敲命令screen就可以启动它。但是这样启动的screen会话没有名字，实践上推荐为每个screen会话取一个名字，方便分辨：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;＃ screen -S david&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;screen启动后，会创建第一个窗口，也就是窗口No. 0，并在其中打开一个系统默认的shell，一般都会是bash。所以你敲入命令screen之后，会立刻又返回到命令提示符，仿佛什么也没有发生似的，其实你已经进入Screen的世界了。当然，也可以在screen命令之后加入你喜欢的参数，使之直接打开你指定的程序，例如：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;＃ screen vi david.txt
+screen创建一个执行vi david.txt的单窗口会话，退出vi 将退出该窗口/会话。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;可以使用快捷键C-a A来为当前窗口重命名&lt;/li&gt;
+&lt;li&gt;暂时中断会话，在screen窗口键入C-a d，Screen会给出detached提示&lt;/li&gt;
+&lt;li&gt;找到该screen会话：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;＃ screen -ls&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;重新连接会话：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;＃ screen -r 12865&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;将指定的screen作业离线&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;＃ screen -d&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;清除dead 会话&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;＃ screen -wipe&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;语法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;＃screen [-AmRvx -ls -wipe][-d &amp;lt;作业名称&amp;gt;][-h &amp;lt;行数&amp;gt;][-r &amp;lt;作业名称&amp;gt;][-s ][-S &amp;lt;作业名称&amp;gt;]&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;参数说明&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;-A 　将所有的视窗都调整为目前终端机的大小。
+-d &amp;lt;作业名称&amp;gt; 　将指定的screen作业离线。
+-h &amp;lt;行数&amp;gt; 　指定视窗的缓冲区行数。
+-m 　即使目前已在作业中的screen作业，仍强制建立新的screen作业。
+-r &amp;lt;作业名称&amp;gt; 　恢复离线的screen作业。
+-R 　先试图恢复离线的作业。若找不到离线的作业，即建立新的screen作业。
+-s 　指定建立新视窗时，所要执行的shell。
+-S &amp;lt;作业名称&amp;gt; 　指定screen作业的名称。
+-v 　显示版本信息。
+-x 　恢复之前离线的screen作业。
+-ls或--list 　显示目前所有的screen作业。
+-wipe 　检查目前所有的screen作业，并删除已经无法使用的screen作业。
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;常用screen参数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;gt; screen -S yourname -&amp;gt; 新建一个叫yourname的session
+&amp;gt; screen -ls -&amp;gt; 列出当前所有的session
+&amp;gt; screen -r yourname -&amp;gt; 回到yourname这个session
+&amp;gt; screen -d yourname -&amp;gt; 远程detach某个session
+&amp;gt; screen -d -r yourname -&amp;gt; 结束当前session并回到yourname这个session
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;在每个screen session 下，所有命令都以 ctrl+a(C-a) 开始。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;C-a ? -&amp;gt; 显示所有键绑定信息
+C-a c -&amp;gt; 创建一个新的运行shell的窗口并切换到该窗口
+C-a n -&amp;gt; Next，切换到下一个 window
+C-a p -&amp;gt; Previous，切换到前一个 window
+C-a 0..9 -&amp;gt; 切换到第 0..9 个 window
+Ctrl+a [Space] -&amp;gt; 由视窗0循序切换到视窗9
+C-a C-a -&amp;gt; 在两个最近使用的 window 间切换
+C-a x -&amp;gt; 锁住当前的 window，需用用户密码解锁
+C-a d -&amp;gt; detach，暂时离开当前session，将目前的 screen session (可能含有多个 windows) 丢到后台执行，并会回到还没进 screen 时的状态，此时在 screen session 里，每个 window 内运行的 process (无论是前台/后台)都在继续执行，即使 logout 也不影响。
+C-a z -&amp;gt; 把当前session放到后台执行，用 shell 的 fg 命令则可回去。
+C-a w -&amp;gt; 显示所有窗口列表
+C-a t -&amp;gt; Time，显示当前时间，和系统的 load
+C-a k -&amp;gt; kill window，强行关闭当前的 window
+C-a [ -&amp;gt; 进入 copy mode，在 copy mode 下可以回滚、搜索、复制就像用使用 vi 一样
+C-b Backward，PageUp
+C-f Forward，PageDown
+H(大写) High，将光标移至左上角
+L Low，将光标移至左下角
+0 移到行首
+$ 行末
+w forward one word，以字为单位往前移
+b backward one word，以字为单位往后移
+Space 第一次按为标记区起点，第二次按为终点
+Esc 结束 copy mode
+C-a ] -&amp;gt; Paste，把刚刚在 copy mode 选定的内容贴上
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;screen 高级应用&lt;/li&gt;
+&lt;li&gt;会话共享
+还有一种比较好玩的会话恢复，可以实现会话共享。假设你在和朋友在不同地点以相同用户登录一台机器，然后你创建一个screen会话，你朋友可以在他的终端上命令：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;＃screen -x&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;这个命令会将你朋友的终端Attach到你的Screen会话上，并且你的终端不会被Detach。这样你就可以和朋友共享同一个会话了，如果你们当前又处于同一个窗口，那就相当于坐在同一个显示器前面，你的操作会同步演示给你朋友，你朋友的操作也会同步演示给你。当然，如果你们切换到这个会话的不同窗口中去，那还是可以分别进行不同的操作的。&lt;/li&gt;
+&lt;li&gt;会话锁定与解锁
+Screen允许使用快捷键C-a s锁定会话。锁定以后，再进行任何输入屏幕都不会再有反应了。但是要注意虽然屏幕上看不到反应，但你的输入都会被Screen中的进程接收到。快捷键C-a q可以解锁一个会话。
+也可以使用C-a x锁定会话，不同的是这样锁定之后，会话会被Screen所属用户的密码保护，需要输入密码才能继续访问这个会话。&lt;/li&gt;
+&lt;li&gt;发送命令到screen会话
+在一个叫做sandy的screen会话中创建一个新窗口，并在其中运行ping命令&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;＃ screen -S sandy -X screen ping 127.0.0.1&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;屏幕分割&lt;/li&gt;
+&lt;li&gt;快捷键C-a S将显示器水平分割，Screen 4.00.03版本以后，也支持垂直分屏，快捷键是C-a &amp;lsquo;。分屏以后，可以使用C-a 在各个区块间切换，每一区块上都可以创建窗口并在其中运行进程。&lt;/li&gt;
+&lt;li&gt;可以用C-a X快捷键关闭当前焦点所在的屏幕区块，也可以用C-a Q关闭除当前区块之外其他的所有区块。&lt;/li&gt;
+&lt;li&gt;C/P模式和操作
+screen的另一个很强大的功能就是可以在不同窗口之间进行复制粘贴了。使用快捷键C-a 或者C-a [可以进入copy/paste模式，这个模式下可以像在vi中一样移动光标，并可以使用空格键设置标记。其实在这个模式下有很多类似vi的操作，譬如使用/进行搜索，使用y快速标记一行，使用w快速标记一个单词等。关于C/P模式下的高级操作，其文档的这一部分有比较详细的说明。
+一般情况下，可以移动光标到指定位置，按下空格设置一个开头标记，然后移动光标到结尾位置，按下空格设置第二个标记，同时会将两个标记之间的部分储存在copy/paste buffer中，并退出copy/paste模式。在正常模式下，可以使用快捷键C-a ]将储存在buffer中的内容粘贴到当前窗口。&lt;/li&gt;
+&lt;li&gt;更多screen功能
+同大多数UNIX程序一样，GNU Screen提供了丰富强大的定制功能。你可以在Screen的默认两级配置文件/etc/screenrc和$HOME/.screenrc中指定更多，例如设定screen选项，定制绑定键，设定screen会话自启动窗口，启用多用户模式，定制用户访问权限控制等等。如果你愿意的话，也可以自己指定screen配置文件。
+以多用户功能为例，screen默认是以单用户模式运行的，你需要在配置文件中指定multiuser on 来打开多用户模式，通过acl*（acladd,acldel,aclchg&amp;hellip;）命令，你可以灵活配置其他用户访问你的screen会话。更多配置文件内容请参考screen的man页。&lt;/li&gt;
+&lt;/ul&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>Netstat命令</title>
+    <link>https://blog.wiseai.cn/post/netstat%E5%91%BD%E4%BB%A4/</link>
+    <pubDate>Wed, 06 Jul 2022 17:01:28 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/netstat%E5%91%BD%E4%BB%A4/</guid>
+    <description>
+        &lt;h1 id=&#34;简介&#34;&gt;&lt;strong&gt;简介&lt;/strong&gt;&lt;/h1&gt;
+&lt;p&gt;Netstat 命令用于显示各种网络相关信息，如网络连接，路由表，接口状态 (Interface Statistics)，masquerade 连接，多播成员 (Multicast Memberships) 等等。&lt;/p&gt;
+&lt;h1 id=&#34;输出信息含义&#34;&gt;&lt;strong&gt;输出信息含义&lt;/strong&gt;&lt;/h1&gt;
+&lt;p&gt;执行netstat后，其输出结果为&lt;/p&gt;
+&lt;pre&gt;Active Internet connections (w/o servers)
+Proto Recv-Q Send-Q Local Address Foreign Address State
+tcp 0 2 210.34.6.89:telnet 210.34.6.96:2873 ESTABLISHED
+tcp 296 0 210.34.6.89:1165 210.34.6.84:netbios-ssn ESTABLISHED
+tcp 0 0 localhost.localdom:9001 localhost.localdom:1162 ESTABLISHED
+tcp 0 0 localhost.localdom:1162 localhost.localdom:9001 ESTABLISHED
+tcp 0 80 210.34.6.89:1161 210.34.6.10:netbios-ssn CLOSE
+
+Active UNIX domain sockets (w/o servers)
+Proto RefCnt Flags Type State I-Node Path
+unix 1 [ ] STREAM CONNECTED 16178 @000000dd
+unix 1 [ ] STREAM CONNECTED 16176 @000000dc
+unix 9 [ ] DGRAM 5292 /dev/log
+unix 1 [ ] STREAM CONNECTED 16182 @000000df&lt;/pre&gt;
+&lt;p&gt;从整体上看，netstat的输出结果可以分为两个部分：&lt;/p&gt;
+&lt;p&gt;一个是Active Internet connections，称为有源TCP连接，其中&amp;quot;Recv-Q&amp;quot;和&amp;quot;Send-Q&amp;quot;指%0A的是接收队列和发送队列。这些数字一般都应该是0。如果不是则表示软件包正在队列中堆积。这种情况只能在非常少的情况见到。&lt;/p&gt;
+&lt;p&gt;另一个是Active UNIX domain sockets，称为有源Unix域套接口(和网络套接字一样，但是只能用于本机通信，性能可以提高一倍)。
+Proto显示连接使用的协议,RefCnt表示连接到本套接口上的进程号,Types显示套接口的类型,State显示套接口当前的状态,Path表示连接到套接口的其它进程使用的路径名。&lt;/p&gt;
+&lt;h1 id=&#34;常见参数&#34;&gt;&lt;strong&gt;常见参数&lt;/strong&gt;&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;-a (all)显示所有选项，默认不显示LISTEN相关
+-t (tcp)仅显示tcp相关选项
+-u (udp)仅显示udp相关选项
+-n 拒绝显示别名，能显示数字的全部转化成数字。
+-l 仅列出有在 Listen (监听) 的服务状态
+
+-p 显示建立相关链接的程序名
+-r 显示路由信息，路由表
+-e 显示扩展信息，例如uid等
+-s 按各个协议进行统计
+-c 每隔一个固定时间，执行该netstat命令。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;提示：LISTEN和LISTENING的状态只有用-a或者-l才能看到&lt;/p&gt;
+&lt;h1 id=&#34;实用命令实例&#34;&gt;&lt;strong&gt;实用命令实例&lt;/strong&gt;&lt;/h1&gt;
+&lt;h2 id=&#34;1-列出所有端口-包括监听和未监听的&#34;&gt;&lt;strong&gt;1. 列出所有端口 (包括监听和未监听的)&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;列出所有端口 netstat -a&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;# netstat -a &#39; more
+ Active Internet connections (servers and established)
+ Proto Recv-Q Send-Q Local Address           Foreign Address         State
+ tcp        0      0 localhost:30037         *:*                     LISTEN
+ udp        0      0 *:bootpc                *:*
+
+Active UNIX domain sockets (servers and established)
+ Proto RefCnt Flags       Type       State         I-Node   Path
+ unix  2      [ ACC ]     STREAM     LISTENING     6135     /tmp/.X11-unix/X0
+ unix  2      [ ACC ]     STREAM     LISTENING     5140     /var/run/acpid.socket&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;列出所有 tcp 端口 netstat -at&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;# netstat -at
+ Active Internet connections (servers and established)
+ Proto Recv-Q Send-Q Local Address           Foreign Address         State
+ tcp        0      0 localhost:30037         *:*                     LISTEN
+ tcp        0      0 localhost:ipp           *:*                     LISTEN
+ tcp        0      0 *:smtp                  *:*                     LISTEN
+ tcp6       0      0 localhost:ipp           [::]:*                  LISTEN&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;列出所有 udp 端口 netstat -au&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;# netstat -au
+ Active Internet connections (servers and established)
+ Proto Recv-Q Send-Q Local Address           Foreign Address         State
+ udp        0      0 *:bootpc                *:*
+ udp        0      0 *:49119                 *:*
+ udp        0      0 *:mdns                  *:*&lt;/pre&gt;
+&lt;h2 id=&#34;2-列出所有处于监听状态的-sockets&#34;&gt;&lt;strong&gt;2. 列出所有处于监听状态的 Sockets&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;只显示监听端口 netstat -l&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;# netstat -l
+ Active Internet connections (only servers)
+ Proto Recv-Q Send-Q Local Address           Foreign Address         State
+ tcp        0      0 localhost:ipp           *:*                     LISTEN
+ tcp6       0      0 localhost:ipp           [::]:*                  LISTEN
+ udp        0      0 *:49119                 *:*&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;只列出所有监听 tcp 端口 netstat -lt&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;# netstat -lt
+ Active Internet connections (only servers)
+ Proto Recv-Q Send-Q Local Address           Foreign Address         State
+ tcp        0      0 localhost:30037         *:*                     LISTEN
+ tcp        0      0 *:smtp                  *:*                     LISTEN
+ tcp6       0      0 localhost:ipp           [::]:*                  LISTEN&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;只列出所有监听 udp 端口 netstat -lu&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;# netstat -lu
+ Active Internet connections (only servers)
+ Proto Recv-Q Send-Q Local Address           Foreign Address         State
+ udp        0      0 *:49119                 *:*
+ udp        0      0 *:mdns                  *:*&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;只列出所有监听 UNIX 端口 netstat -lx&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;# netstat -lx
+ Active UNIX domain sockets (only servers)
+ Proto RefCnt Flags       Type       State         I-Node   Path
+ unix  2      [ ACC ]     STREAM     LISTENING     6294     private/maildrop
+ unix  2      [ ACC ]     STREAM     LISTENING     6203     public/cleanup
+ unix  2      [ ACC ]     STREAM     LISTENING     6302     private/ifmail
+ unix  2      [ ACC ]     STREAM     LISTENING     6306     private/bsmtp&lt;/pre&gt;
+&lt;h2 id=&#34;3-显示每个协议的统计信息&#34;&gt;&lt;strong&gt;3. 显示每个协议的统计信息&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;**  显示所有端口的统计信息 netstat -s**&lt;/p&gt;
+&lt;pre&gt;# netstat -s
+ Ip: 11150 total packets received 1 with invalid addresses 0 forwarded 0 incoming packets discarded 11149 incoming packets delivered 11635 requests sent out
+ Icmp: 0 ICMP messages received 0 input ICMP message failed.
+ Tcp: 582 active connections openings 2 failed connection attempts 25 connection resets received
+ Udp: 1183 packets received 4 packets to unknown port received.
+ .....&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;显示 TCP 或 UDP 端口的统计信息 netstat -st 或 -su&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;# netstat -st 
+# netstat -su&lt;/pre&gt;
+&lt;h2 id=&#34;4-在-netstat-输出中显示-pid-和进程名称-netstat--p&#34;&gt;&lt;strong&gt;4. 在 netstat 输出中显示 PID 和进程名称 netstat -p&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;netstat -p 可以与其它开关一起使用，就可以添加 &amp;ldquo;PID/进程名称&amp;rdquo; 到 netstat 输出中，这样 debugging 的时候可以很方便的发现特定端口运行的程序。&lt;/p&gt;
+&lt;pre&gt;# netstat -pt
+ Active Internet connections (w/o servers)
+ Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+ tcp        1      0 ramesh-laptop.loc:47212 192.168.185.75:www        CLOSE_WAIT  2109/firefox
+ tcp        0      0 ramesh-laptop.loc:52750 lax:www ESTABLISHED 2109/firefox&lt;/pre&gt;
+&lt;h2 id=&#34;5-在-netstat-输出中不显示主机端口和用户名-host-port-or-user&#34;&gt;&lt;strong&gt;5. 在 netstat 输出中不显示主机，端口和用户名 (host, port or user)&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;当你不想让主机，端口和用户名显示，使用 netstat -n。将会使用数字代替那些名称。&lt;/p&gt;
+&lt;p&gt;同样可以加速输出，因为不用进行比对查询。&lt;/p&gt;
+&lt;pre&gt;# netstat -an&lt;/pre&gt;
+&lt;p&gt;如果只是不想让这三个名称中的一个被显示，使用以下命令&lt;/p&gt;
+&lt;pre&gt;# netsat -a --numeric-ports
+# netsat -a --numeric-hosts
+# netsat -a --numeric-users&lt;/pre&gt;
+&lt;h2 id=&#34;6-持续输出-netstat-信息&#34;&gt;&lt;strong&gt;6. 持续输出 netstat 信息&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;netstat 将每隔一秒输出网络信息。&lt;/p&gt;
+&lt;pre&gt;# netstat -c
+ Active Internet connections (w/o servers)
+ Proto Recv-Q Send-Q Local Address           Foreign Address         State
+ tcp        0      0 ramesh-laptop.loc:36130 101-101-181-225.ama:www ESTABLISHED
+ tcp        1      1 ramesh-laptop.loc:52564 101.11.169.230:www      CLOSING
+ tcp        0      0 ramesh-laptop.loc:43758 server-101-101-43-2:www ESTABLISHED
+ tcp        1      1 ramesh-laptop.loc:42367 101.101.34.101:www      CLOSING
+ ^C&lt;/pre&gt;
+&lt;h2 id=&#34;7-显示系统不支持的地址族-address-families&#34;&gt;&lt;strong&gt;7. 显示系统不支持的地址族 (Address Families)&lt;/strong&gt;&lt;/h2&gt;
+&lt;pre&gt;netstat --verbose&lt;/pre&gt;
+&lt;p&gt;在输出的末尾，会有如下的信息&lt;/p&gt;
+&lt;pre&gt;netstat: no support for `AF IPX&#39; on this system.netstat: no support for `AF AX25&#39; on this system.netstat: no support for `AF X25&#39; on this system.netstat: no support for `AF NETROM&#39; on this system.&lt;/pre&gt;
+&lt;h2 id=&#34;8-显示核心路由信息-netstat--r&#34;&gt;&lt;strong&gt;8. 显示核心路由信息 netstat -r&lt;/strong&gt;&lt;/h2&gt;
+&lt;pre&gt;# netstat -r
+ Kernel IP routing table
+ Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface 192.168.1.0     *               255.255.255.0   U         0 0          0 eth2
+ link-local      *               255.255.0.0     U         0 0          0 eth2 default         192.168.1.1     0.0.0.0         UG        0 0          0 eth2&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt; 使用 netstat -rn 显示数字格式，不查询主机名称。&lt;/p&gt;
+&lt;h2 id=&#34;9-找出程序运行的端口&#34;&gt;&lt;strong&gt;9. 找出程序运行的端口&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;并不是所有的进程都能找到，没有权限的会不显示，使用 root 权限查看所有的信息。&lt;/p&gt;
+&lt;pre&gt;# netstat -ap &#39; grep ssh
+ tcp        1      0 dev-db:ssh           101.174.100.22:39213        CLOSE_WAIT  -
+ tcp        1      0 dev-db:ssh           101.174.100.22:57643        CLOSE_WAIT  -&lt;/pre&gt;
+&lt;p&gt;**  找出运行在指定端口的进程**&lt;/p&gt;
+&lt;pre&gt;# netstat -an &#39; grep &#39;:80&#39;&lt;/pre&gt;
+&lt;h2 id=&#34;10-显示网络接口列表&#34;&gt;&lt;strong&gt;10. 显示网络接口列表&lt;/strong&gt;&lt;/h2&gt;
+&lt;pre&gt;# netstat -i
+ Kernel Interface table
+ Iface   MTU Met   RX-OK RX-ERR RX-DRP RX-OVR    TX-OK TX-ERR TX-DRP TX-OVR Flg
+ eth0       1500 0         0      0      0 0             0      0      0      0 BMU
+ eth2       1500 0     26196      0      0 0         26883      6      0      0 BMRU
+ lo        16436 0         4      0      0 0             4      0      0      0 LRU&lt;/pre&gt;
+&lt;p&gt;显示详细信息，像是 ifconfig 使用 netstat -ie:&lt;/p&gt;
+&lt;pre&gt;# netstat -ie
+ Kernel Interface table
+ eth0      Link encap:Ethernet  HWaddr 00:10:40:11:11:11
+ UP BROADCAST MULTICAST  MTU:1500  Metric:1
+ RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+ TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+ collisions:0 txqueuelen:1000
+ RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+ Memory:f6ae0000-f6b00000&lt;/pre&gt;
+&lt;h2 id=&#34;11-ip和tcp分析&#34;&gt;&lt;strong&gt;11. IP和TCP分析&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;查看连接某服务端口最多的的IP地址&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;#netstat -nat &#39; grep &#34;192.168.1.15:22&#34; &#39;awk &#39;{print $5}&#39;&#39;awk -F: &#39;{print $1}&#39;&#39;sort&#39;uniq -c&#39;sort -nr&#39;head -2018 221.136.168.363 154.74.45.2422 78.173.31.2362 62.183.207.982 192.168.1.142 182.48.111.2152 124.193.219.342 119.145.41.22 114.255.41.301 75.102.11.99&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;TCP各种状态列表&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;# netstat -nat &#39;awk &#39;{print $6}&#39;established)
+Foreign
+LISTEN
+TIME_WAIT
+ESTABLISHED
+TIME_WAIT
+SYN_SENT&lt;/pre&gt;
+&lt;p&gt;先把状态全都取出来,然后使用uniq -c统计，之后再进行排序。&lt;/p&gt;
+&lt;pre&gt;# netstat -nat &#39;awk &#39;{print $6}&#39;&#39;sort&#39;uniq -c143 ESTABLISHED1 FIN_WAIT11 Foreign1 LAST_ACK36 LISTEN6 SYN_SENT113 TIME_WAIT1 established)&lt;/pre&gt;
+&lt;p&gt;最后的命令如下:&lt;/p&gt;
+&lt;pre&gt;# netstat -nat &#39;awk &#39;{print $6}&#39;&#39;sort&#39;uniq -c&#39;sort -rn&lt;/pre&gt;
+&lt;p&gt;分析access.log获得访问前10位的ip地址&lt;/p&gt;
+&lt;pre&gt;awk &#39;{print $1}&#39; access.log &#39;sort&#39;uniq -c&#39;sort -nr&#39;head -10&lt;/pre&gt;
+    </description>
+    </item>
+    
+    <item>
+    <title>Debian的包管理工具</title>
+    <link>https://blog.wiseai.cn/post/debian%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/</link>
+    <pubDate>Wed, 06 Jul 2022 16:52:16 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/debian%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/</guid>
+    <description>
+        &lt;p&gt;清除所有已删除包的残余配置文件：
+&lt;code&gt;#dpkg -l |grep ^rc|awk &#39;{print $2}&#39; |xargs dpkg -P&lt;/code&gt;&lt;/p&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>diff、cmp命令</title>
+    <link>https://blog.wiseai.cn/post/diffcmp%E5%91%BD%E4%BB%A4/</link>
+    <pubDate>Wed, 06 Jul 2022 16:46:27 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/diffcmp%E5%91%BD%E4%BB%A4/</guid>
+    <description>
+        &lt;p&gt;diff以行为单位对比：&lt;/p&gt;
+&lt;pre&gt;$ diff [-bBi] from-file to-file
+选项与参数：
+from-file ：一个档名，作为原始比对档案的档名；
+to-file ：一个档名，作为目的比对档案的档名；
+注意，from-file 或to-file 可以- 取代，那个- 代表『Standard input』之意。
+
+-b ：忽略一行当中，仅有多个空白的差异(例如&#34;about me&#34; 与&#34;about me&#34; 视为相同
+-B ：忽略空白行的差异。
+-i ：忽略大小写的不同。&lt;/pre&gt;
+&lt;p&gt;cmp利用『位元组』单位去比对：&lt;/p&gt;
+&lt;pre&gt;$ cmp [-l] file1 file2
+选项与参数：
+-l ：将所有的不同点的位元组处都列出来。因为cmp 预设仅会输出第一个发现的不同点。&lt;/pre&gt;&lt;blockquote&gt;
+&lt;/blockquote&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>Docker容器设置ssh连接</title>
+    <link>https://blog.wiseai.cn/post/docker%E5%AE%B9%E5%99%A8%E8%AE%BE%E7%BD%AEssh%E8%BF%9E%E6%8E%A5/</link>
+    <pubDate>Wed, 06 Jul 2022 16:36:58 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/docker%E5%AE%B9%E5%99%A8%E8%AE%BE%E7%BD%AEssh%E8%BF%9E%E6%8E%A5/</guid>
+    <description>
+        &lt;p&gt;这里以debian容器为例：&lt;/p&gt;
+&lt;h2 id=&#34;一进入容器更改更新源及安装openssh-server&#34;&gt;一、进入容器、更改更新源及安装openssh-server&lt;/h2&gt;
+&lt;pre class=&#34;editor-colors lang-text&#34;&gt;&lt;span class=&#34;syntax--text syntax--plain&#34;&gt;&lt;span class=&#34;syntax--meta syntax--paragraph syntax--text&#34;&gt;# docker exec -it debian /bin/bash&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;syntax--text syntax--plain&#34;&gt;&lt;span class=&#34;syntax--meta syntax--paragraph syntax--text&#34;&gt;# sed -i -e &#39;s/deb.debian.org/mirrors.aliyun.com/g&#39; \&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;syntax--text syntax--plain&#34;&gt;         &lt;span class=&#34;syntax--meta syntax--paragraph syntax--text&#34;&gt;-e &#39;s/security.debian.org/mirrors.aliyun.com/g&#39; \&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;syntax--text syntax--plain&#34;&gt;&lt;span class=&#34;syntax--meta syntax--paragraph syntax--text&#34;&gt;         /etc/apt/sources.list&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&#34;syntax--text syntax--plain&#34;&gt;&lt;span class=&#34;syntax--meta syntax--paragraph syntax--text&#34;&gt;# apt install openssh-server&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;
+&lt;h2 id=&#34;二添加目录修改配置文件&#34;&gt;二、添加目录、修改配置文件&lt;/h2&gt;
+&lt;pre class=&#34;editor-colors lang-text&#34;&gt;&lt;span class=&#34;syntax--text syntax--plain&#34;&gt;&lt;span class=&#34;syntax--meta syntax--paragraph syntax--text&#34;&gt;# mkdir -p /run/sshd&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;注：(这个地方看启动服务时的提示信息，运行sshd服务的命令只能使用绝对路径/usr/sbin/sshd -D)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;下面修改/etc/ssh/sshd_config
+先说下PermitRootLogin：prohibit-password 允许root登陆但不能使用密码登陆yes 允许root以任何方式登陆,我们这里只允许使用密钥无密码登陆：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;editor-colors lang-text&#34;&gt;&lt;span class=&#34;syntax--text syntax--plain&#34;&gt;&lt;span class=&#34;syntax--meta syntax--paragraph syntax--text&#34;&gt;# sed -i &#39;s/#PermitRootLogin prohibit-password/PermitRootLogin prohibit-password/g&#39; /etc/ssh/sshd_config&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;下面修改/etc/pam.d/sshd&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;editor-colors lang-text&#34;&gt;&lt;span class=&#34;syntax--text syntax--plain&#34;&gt;&lt;span class=&#34;syntax--meta syntax--paragraph syntax--text&#34;&gt;# sed -i &#39;s/session .*required .*pam_loginuid.so/#session required pam_loginuid.so/g&#39; /etc/pam.d/sshd&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;注：这个是一个pam登陆控制，可以参考&lt;a href=&#34;https://blog.wiseai.cn/post/ftp%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9E%B6%E8%AE%BEvsftpd/&#34;&gt;ftp服务器设置&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;三添加ssh服务使服务在容器打开时就启动&#34;&gt;三、添加ssh服务，使服务在容器打开时就启动：&lt;/h2&gt;
+&lt;pre class=&#34;editor-colors lang-text&#34;&gt;&lt;span class=&#34;syntax--text syntax--plain&#34;&gt;&lt;span class=&#34;syntax--meta syntax--paragraph syntax--text&#34;&gt;# sed -i &#39;$a /usr/sbin/sshd -D&#39; /etc/bash.bashrc&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;
+&lt;!-- wp:heading {&#34;level&#34;:4} --&gt;
+&lt;h4 id=&#34;centos容器中遇到的问题&#34;&gt;centos容器中遇到的问题：&lt;/h4&gt;
+&lt;p&gt;显示/etc/ssh/中缺少公钥和私钥：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ ssh-keygen -t rsa -N &amp;#39;&amp;#39; -f /etc/ssh/ sh_host_rsa_key  
+$ ssh-keygen -t ed25519 -N &amp;#39;&amp;#39; -f /etc/ssh/ssh_host_ed25519_key  
+$ ssh-keygen -t ecdsa -N &amp;#39;&amp;#39; -f /etc/ssh/ssh_host_ecdsa_key
+&lt;/code&gt;&lt;/pre&gt;
+    </description>
+    </item>
+    
+    <item>
+    <title>profile、bashrc、bash_profile详解</title>
+    <link>https://blog.wiseai.cn/post/profilebashrcbash_profile%E8%AF%A6%E8%A7%A3/</link>
+    <pubDate>Wed, 06 Jul 2022 16:20:56 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/profilebashrcbash_profile%E8%AF%A6%E8%A7%A3/</guid>
+    <description>
+        &lt;p&gt;&lt;strong&gt;/etc/profile:&lt;/strong&gt; 此文件为系统的每个用户设置环境信息,当用户第一次登录时,该文件被执行.并从/etc/profile.d目录的配置文件中搜集shell的设置.&lt;/p&gt;
+&lt;p&gt;英文描述为：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# /etc/profile
+
+# System wide environment and startup programs, for login setup
+# Functions and aliases [Go](http://lib.csdn.net/base/go &amp;#34;Go知识库&amp;#34;) in /etc/bashrc
+
+# It&amp;#39;s NOT a good idea to change this file unless you know what you
+# are doing. It&amp;#39;s much better to create a custom.sh shell script in
+# /etc/profile.d/ to make custom changes to your environment, as this
+# will prevent the need for merging in future updates.
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;此修改对每个用户都生效。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;/etc/bashrc:&lt;/strong&gt; 为每一个运行bash shell的用户执行此文件.当bash shell被打开时,该文件被读取.&lt;/p&gt;
+&lt;p&gt;英文描述为：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# /etc/bashrc
+
+# System wide functions and aliases
+# Environment stuff goes in /etc/profile
+
+# It&amp;#39;s NOT a good idea to change this file unless you know what you
+# are doing. It&amp;#39;s much better to create a custom.sh shell script in
+# /etc/profile.d/ to make custom changes to your environment, as this
+# will prevent the need for merging in future updates.
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;如果你想对所有的使用bash的用户修改某个配置并在以后打开的bash都生效的话可以修改这个文件，修改这个文件不用重启，重新打开一个bash即可生效。&lt;/p&gt;
+&lt;hr&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;~/.bash_profile:&lt;/strong&gt; 每个用户都可使用该文件输入专用于自己使用的shell信息,当用户登录时,该文件仅仅执行一次!默认情况下,他设置一些环境变量,执行用户的 &lt;strong&gt;.bashrc&lt;/strong&gt; 文件.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;此文件类似于 &lt;strong&gt;/etc/profile&lt;/strong&gt; ，&lt;strong&gt;/etc/profile&lt;/strong&gt;对所有用户生效，&lt;strong&gt;~/.bash_profile&lt;/strong&gt;只对当前用户生效。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;~/.bashrc:&lt;/strong&gt; 该文件包含专用于你的bash shell的bash信息,当登录时以及每次打开新的shell时,该文件被读取.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;此文件类似于 &lt;strong&gt;/etc/bashrc&lt;/strong&gt;，不需要重启生效，重新打开一个bash即可生效，  /etc/bashrc对所有用户新打开的bash都生效，但 &lt;strong&gt;~/.bashrc&lt;/strong&gt;只对当前用户新打开的bash生效。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;~/.bash_logout:当每次退出系统(退出bash shell)时,执行该文件.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;另外,/etc/profile中设定的变量(全局)的可以作用于任何用户,而 &lt;strong&gt;~/.bashrc&lt;/strong&gt; 等中设定的变量(局部)只能继承 &lt;strong&gt;/etc/profile&lt;/strong&gt; 中的变量,他们是&amp;quot;父子&amp;quot;关系.&lt;/p&gt;
+&lt;p&gt;~/.bash_profile 是交互式、login 方式进入bash 运行的；
+~/ &lt;strong&gt;.bashrc&lt;/strong&gt; 是交互式 non-login 方式进入bash 运行的；
+通常二者设置大致相同，所以通常前者会调用后者。&lt;/p&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>sed和awk命令</title>
+    <link>https://blog.wiseai.cn/post/sed%E5%92%8Cawk%E5%91%BD%E4%BB%A4/</link>
+    <pubDate>Wed, 06 Jul 2022 16:03:36 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/sed%E5%92%8Cawk%E5%91%BD%E4%BB%A4/</guid>
+    <description>
+        &lt;p&gt;&lt;code&gt;# sed [-nefr] [动作]&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;选项与参数：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;-n ：使用安静(silent)模式。在一般sed 的用法中，所有来自STDIN 的资料一般都会被列出到屏幕上。
+      但如果加上-n 参数后，则只有经过sed 特殊处理的那一行(或者动作)才会被列出来。
+-e ：直接在指令列模式上进行sed 的动作编辑；
+-f ：直接将sed 的动作写在一个档案内， -f filename 则可以执行filename 内的sed 动作；
+-r ：sed 的动作支援的是延伸型正规表示法的语法。(预设是基础正规表示法语法)
+-i ：直接修改读取的档案内容，而不是由屏幕输出。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;动作说明： &lt;code&gt;[n1[,n2]]function&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;n1, n2 ：不见得会存在，一般代表『选择进行动作的行数』，举例来说，如果我的动作
+         是需要在10 到20 行之间进行的，则『 10,20[动作行为] 』
+
+function 有底下这些咚咚：
+a ：新增， a 的后面可以接字串，而这些字串会在新的一行出现(目前的下一行)～
+c ：取代， c 的后面可以接字串，这些字串可以取代n1,n2 之间的行！
+d ：删除，因为是删除啊，所以d后面通常不接任何咚咚；
+i ：插入， i 的后面可以接字串，而这些字串会在新的一行出现(目前的上一行)；
+p ：列印，亦即将某个选择的资料印出。通常p 会与参数sed -n 一起运作～
+s ：取代，可以直接进行取代的工作！通常这个s的动作可以搭配正规表示法！
+         例如1,20s/old/new/g
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;例子：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sed &amp;#39;2,5d&amp;#39;  删除2-5行
+sed &amp;#39;2a abc&amp;#39;  在第二行后添加abc
+sed &amp;#39;2,5c abc&amp;#39; 将2-5行替换为abc
+sed -n &amp;#39;2,5p&amp;#39;  打印2-5行
+sed &amp;#39;s/word1/word2/g&amp;#39;  将word1替换为word2
+sed -i  直接修改文档内容
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;# cat /etc/passwd | sed -e &#39;4d&#39; -e &#39;6c no six line&#39; &amp;gt; passwd.new&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;注：sed后面如果要接超过两个以上的动作时，每个动作前面得加-e才行！&lt;/p&gt;
+&lt;pre&gt;$ printf &#39;列印格式&#39;实际内容
+选项与参数：
+关于格式方面的几个特殊样式：
+       \a 警告声音输出
+       \b 倒退键(backspace)
+       \f 清除屏幕(form feed)
+       \n 输出新的一行
+       \r 亦即Enter 按键
+       \t 水平的[tab] 按键
+       \v 垂直的[tab] 按键
+       \xNN NN 为两位数的数字，可以转换数字成为字元。
+关于C 程式语言内，常见的变数格式
+       %ns 那个n 是数字， s 代表string ，亦即多少个字元；
+       %ni 那个n 是数字， i 代表integer ，亦即多少整数位数；
+       %N.nf 那个n 与N 都是数字， f 代表floating (浮点)，如果有小数位数，
+             假设我共要十个位数，但小数点有两位，即为%10.2f 啰！
+例子：
+printf &#39;%10s %5i %5i %5i %8.2f \n&#39; $(cat printf.txt &#39; grep -v Name)&lt;/pre&gt;
+&lt;pre&gt;$ &lt;span class=&#34;term_command&#34;&gt;awk &#39;条件类型1{动作1}条件类型2{动作2} ...&#39; filename&lt;/span&gt;&lt;/pre&gt;
+&lt;table class=&#34;news&#34;&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;theader&#34;&gt;
+&lt;td&gt;变数名称&lt;/td&gt;
+&lt;td&gt;代表意义&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tcenter&#34;&gt;NF&lt;/td&gt;
+&lt;td&gt;每一行($0) 拥有的栏位总数&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tcenter&#34;&gt;NR&lt;/td&gt;
+&lt;td&gt;目前awk 所处理的是『第几行』资料&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tcenter&#34;&gt;FS&lt;/td&gt;
+&lt;td&gt;目前的分隔字元，预设是空白键&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;pre&gt;$ &lt;span class=&#34;term_command&#34;&gt;cat /etc/passwd | awk &#39;BEGIN {FS=&#34;:&#34;} $3 &lt; 10 {print $1 &#34;\t &#34; $3}&#39;&lt;/span&gt; 
+这个意思是列出UID&lt;10的所有用户名和UID&lt;/pre&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;pre&gt;Name 1st 2nd 3th
+VBird 23000 24000 25000
+DMTsai 21000 20000 23000
+Bird2 43000 42000 41000&lt;/pre&gt;
+将这个存为文件a.txt
+&lt;pre&gt;$ &lt;span class=&#34;term_command&#34;&gt;cat a.txt | \&lt;/span&gt; 
+&gt; &lt;span class=&#34;term_command&#34;&gt;awk &#39;NR==1{printf &#34;%10s %10s %10s %10s %10s\n&#34;,$1,$2,$3,$4,&#34;Total&#34; }&lt;/span&gt; 
+&gt; &lt;span class=&#34;term_command&#34;&gt;NR&gt;=2{total = $2 + $3 + $4&lt;/span&gt;          ＃这儿如果要存为一行，需要加；
+&gt; &lt;span class=&#34;term_command&#34;&gt;printf &#34;%10s %10d %10d %10d %10.2f\n&#34;, $1, $2, $3, $4, total}&#39;
+这样就可以格式化并计算出总成绩
+&lt;/span&gt;&lt;/pre&gt;
+    </description>
+    </item>
+    
+    <item>
+    <title>sftp命令</title>
+    <link>https://blog.wiseai.cn/post/sftp%E5%91%BD%E4%BB%A4/</link>
+    <pubDate>Wed, 06 Jul 2022 15:57:22 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/sftp%E5%91%BD%E4%BB%A4/</guid>
+    <description>
+        &lt;h2 id=&#34;常用方式&#34;&gt;常用方式&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;格式：sftp &amp;lt;host&amp;gt;
+
+通过sftp连接&amp;lt;host&amp;gt;，端口为默认的22，用户为Linux当前登录用户。
+
+格式：sftp -oPort=&amp;lt;port&amp;gt; &amp;lt;host&amp;gt;
+
+通过sftp连接&amp;lt;host&amp;gt;，指定端口&amp;lt;port&amp;gt;，用户为Linux当前登录用户。
+
+格式：sftp &amp;lt;user&amp;gt;@&amp;lt;host&amp;gt;
+
+通过sftp连接&amp;lt;host&amp;gt;，端口为默认的22，指定用户&amp;lt;user&amp;gt;。
+
+格式：sftp -oPort=&amp;lt;port&amp;gt; &amp;lt;user&amp;gt;@&amp;lt;host&amp;gt;
+
+通过sftp连接&amp;lt;host&amp;gt;，端口为&amp;lt;port&amp;gt;，用户为&amp;lt;user&amp;gt;。
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;sftp连接成功之后常用操作命令如下：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;help/? 打印帮助信息。
+
+pwd   查看远程服务器当前目录；
+
+lpwd  查看本地系统的当前目录。
+
+cd &amp;lt;dir&amp;gt;   将远程服务器的当前目录更改为&amp;lt;dir&amp;gt;；
+
+lcd &amp;lt;dir&amp;gt;  将本地系统的当前目录更改为&amp;lt;dir&amp;gt;。
+
+ls 显示远程服务器上当前目录的文件名；
+
+ls -l  显示远程服务器上当前目录的文件详细列表；
+
+ls &amp;lt;pattern&amp;gt; 显示远程服务器上符合指定模式&amp;lt;pattern&amp;gt;的文件名；
+
+ls -l &amp;lt;pattern&amp;gt;  显示远程服务器上符合指定模式&amp;lt;pattern&amp;gt;的文件详细列表。
+
+lls 显示本地系统上当前目录的文件名；
+
+lls的其他参数与ls命令的类似。
+
+get &amp;lt;file&amp;gt; 下载指定文件&amp;lt;file&amp;gt;； -r参数操作目录
+
+get &amp;lt;pattern&amp;gt; 下载符合指定模式&amp;lt;pattern&amp;gt;的文件。-r参数操作目录
+
+put &amp;lt;file&amp;gt; 上传指定文件&amp;lt;file&amp;gt;；-r参数操作目录
+
+put &amp;lt;pattern&amp;gt; 上传符合指定模式&amp;lt;pattern&amp;gt;的文件。-r参数操作目录
+
+progress 切换是否显示文件传输进度。
+
+mkdir &amp;lt;dir&amp;gt; 在远程服务器上创建目录；
+
+lmkdir &amp;lt;dir&amp;gt; 在本地系统上创建目录。
+
+exit/quit/bye 退出sftp。
+
+! 启动一个本地shell。
+
+! &amp;lt;commandline&amp;gt; 执行本地命令行。
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;其他命令还有：chgrp, chmod, chown, ln, lumask, rename, rm, rmdir, symlink, version。&lt;/p&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>ssh免密码登陆</title>
+    <link>https://blog.wiseai.cn/post/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86/</link>
+    <pubDate>Wed, 06 Jul 2022 15:49:33 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86/</guid>
+    <description>
+        &lt;ol&gt;
+&lt;li&gt;在client生成公钥和私钥：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;＃ ssh-keygen -t rsa&lt;/pre&gt;
+&lt;p&gt;注:这个命令可以参考下&lt;a href=&#34;https://blog.wiseai.cn/post/git/&#34;&gt;git的使用&lt;/a&gt;，rsa也没有问题。&lt;/p&gt;
+&lt;p&gt;位置在&lt;code&gt;~/.ssh/&lt;/code&gt;下，分别是id_rsa和id_rsa.pub&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;将client的公钥上传到server：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;＃ ssh-copy-id -p &#39;端口&#39; &#39;用户名@IP或域名&#39;&lt;/pre&gt;
+&lt;p&gt;这个时候client的公钥文件内容会追加写入到server的 .ssh/authorized_keys 文件中。&lt;/p&gt;
+&lt;p&gt;登陆免密了：&lt;/p&gt;
+&lt;pre&gt;＃ ssh -p &#39;端口&#39; &#39;用户名@IP或域名&#39;&lt;/pre&gt;
+&lt;p&gt;打完，收功。&lt;/p&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>Golang生成随机字符串</title>
+    <link>https://blog.wiseai.cn/post/golang%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E5%AD%97%E7%AC%A6%E4%B8%B2/</link>
+    <pubDate>Wed, 06 Jul 2022 08:54:04 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>https://blog.wiseai.cn/post/golang%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E5%AD%97%E7%AC%A6%E4%B8%B2/</guid>
+    <description>
+        &lt;p&gt;假如我们要生成一个固定长度的随机字符串，包含大小写字母，没有数字，没有特殊字符串，那么我们怎么做呢？需要怎样优化，才会更简单，更高效？在最终的方案之前，我们看看最常见的写法是怎样的，然后是如何一步步演进到最终的高效率方案的。好吧，先看下最原始的方案。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;常见做法(Runes)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func init() {
+	rand.Seed(time.Now().UnixNano())
+}
+
+var letterRunes = []rune(&amp;#34;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&amp;#34;)
+
+func RandStringRunes(n int) string {
+	b := make([]rune, n)
+	for i := range b {
+		b[i] = letterRunes[rand.Intn(len(letterRunes))]
+	}
+	return string(b)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这个实现比较简单，二十六字母（大小写），然后随机取数，获得随机字符串。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Bytes改进&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;我们在最开始的时候进行了假设，我们的随机字符串只包含大小写字母，这样的话，我们发现没有必要使用rune类型存储，因为在Golang（Go语言）UTF-8编码下，英文字母和byte字节是一对一的。byte的本质是uint8类型，而rune本质是int32类型。我们改进后的代码如下：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;const letterBytes = &amp;#34;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&amp;#34;
+
+func RandStringBytes(n int) string {
+	b := make([]byte, n)
+	for i := range b {
+		b[i] = letterBytes[rand.Intn(len(letterBytes))]
+	}
+	return string(b)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;仔细看上面的代码，我们不光对rune类型进行了改进，还把原来的letter变量变成了常量，这样len(letterBytes)也是一个常量，代码的效率将大大提升。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;余数改进&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;我们前面的方案都是通过调用rand.Intn()生成的随机字符，这个rand.Intn()其实是委托调用的Rand.Intn(),而Rand.Intn()最终又是调用的Rand.Int31n()实现。相比我们直接调用rand.Int63()来说，rand.Intn()要慢很多。&lt;/p&gt;
+&lt;p&gt;所以我们可以把rand.Intn()换成rand.Int63()来提高效率，为了不超过letterBytes的索引范围，我们使用余数来保证。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func RandStringBytesRmndr(n int) string {
+	b := make([]byte, n)
+	for i := range b {
+		b[i] = letterBytes[rand.Int63() % int64(len(letterBytes))]
+	}
+	return string(b)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这种方式虽然快，但是有个缺点，就是每个字母的概率可能会不一样，不过52个字母相比1&amp;laquo;63-1是在太小太小，所以在这种情况下，这个缺点可以忽略不计。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Masking 掩码&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;基于前面的方案，我们可以进一步改进，使用随机数的最低位保证字母的均等分配，也就是掩码的方式。我们现在有52个字母，52用二进制表示就是52==110100b，所以我们可以只使用rand.Int63()返回最低的6位数就可以。为了保证平均分配，如果返回的只大于len(letterBytes)-1，则舍弃不用。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;const letterBytes = &amp;#34;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&amp;#34;
+const (
+	letterIdxBits = 6 // 6 bits to represent a letter index
+	letterIdxMask = 1&amp;lt;&amp;lt;letterIdxBits - 1 // All 1-bits, as many as letterIdxBits
+	)
+
+	func RandStringBytesMask(n int) string {
+		b := make([]byte, n)
+		for i := 0; i &amp;lt; n; {
+			if idx := int(rand.Int63() &amp;amp; letterIdxMask); idx &amp;lt; len(letterBytes) {
+				b[i] = letterBytes[idx]
+				i++
+			}
+		}
+		return string(b)
+	}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;按照作者的推测，在52个字母的情况下，随机到超过范围的可能性(64-52)/64 = 0.19,按上面的代码，如果超过范围会重复生成，重复的10次的概率仅有1e-8。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Masking 掩码改进&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;上一步的方案，我们使用rand.Int63()可以生成63个随机位的数，但是我们只用了最低位的6个，有点浪费，因为获取随机数是我们整个代码中最慢的部分。现在我们有52个字母，意味着6位编码字母索引即可满足，所以我们使用rand.Int63()生成的随机数可以被我们使用63/6=10次。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;const letterBytes = &amp;#34;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&amp;#34;
+const (
+	letterIdxBits = 6 // 6 bits to represent a letter index
+	letterIdxMask = 1&amp;lt;&amp;lt;letterIdxBits - 1 // All 1-bits, as many as letterIdxBits
+	letterIdxMax = 63 / letterIdxBits // # of letter indices fitting in 63 bits
+	)
+
+	func RandStringBytesMaskImpr(n int) string {
+		b := make([]byte, n)
+		// A rand.Int63() generates 63 random bits, enough for letterIdxMax letters!
+		for i, cache, remain := n-1, rand.Int63(), letterIdxMax; i &amp;gt;= 0; {
+			if remain == 0 {
+				cache, remain = rand.Int63(), letterIdxMax
+			}
+			if idx := int(cache &amp;amp; letterIdxMask); idx &amp;lt; len(letterBytes) {
+				b[i] = letterBytes[idx]
+				i--
+			}
+			cache &amp;gt;&amp;gt;= letterIdxBits
+			remain--
+		}
+
+		return string(b)
+	}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;把生成的63位的随机数，分成10部分，每一部分都可以被我们使用，这样我们调用rand.Int63()次数将大大降低，进而提升效率。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;rand Source 优化&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;rand.Rand其实是使用了一个rand.Source作为生成随机数的源，这个rand.Source是个接口，正好有个func Int63() int64 方法。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;// A Source represents a source of uniformly-distributed
+// pseudo-random int64 values in the range [0, 1&amp;lt;&amp;lt;63).
+type Source interface {
+Int63() int64
+Seed(seed int64)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这正好是我们需要的，也够我们用了。改进后代码如下：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;var src = rand.NewSource(time.Now().UnixNano())
+
+func RandStringBytesMaskImprSrc(n int) string {
+	b := make([]byte, n)
+	// A src.Int63() generates 63 random bits, enough for letterIdxMax characters!
+	for i, cache, remain := n-1, src.Int63(), letterIdxMax; i &amp;gt;= 0; {
+		if remain == 0 {
+			cache, remain = src.Int63(), letterIdxMax
+		}
+		if idx := int(cache &amp;amp; letterIdxMask); idx &amp;lt; len(letterBytes) {
+			b[i] = letterBytes[idx]
+			i--
+		}
+		cache &amp;gt;&amp;gt;= letterIdxBits
+		remain--
+	}
+
+	return string(b)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;原来的rand.Int63()是整个rand包全局的，而且支持安全高并发，所以速度比较慢。现在我们自己创建的这个src只有我们自己用，所以效率比较高。
+strings.Builder 改进&lt;/p&gt;
+&lt;p&gt;这个是G0 1.10 新增的功能，提升字符串拼接的效率，这方面的可以参考我以前写的三篇文章，这里不做过多的介绍了。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://mp.weixin.qq.com/s?__biz=MzI3MjU4Njk3Ng%3D%3D&amp;amp;chksm=eb3103e0dc468af626e41f136b4652a3fb24527a69db8689c9f691ac94a12a5b6dd6df7b39d3&amp;amp;idx=1&amp;amp;mid=2247484015&amp;amp;scene=21&amp;amp;sn=4fe47b59e7c1595f4d6723c876910247#wechat_redirect&#34;&gt;Go语言字符串高效拼接（一）&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://mp.weixin.qq.com/s?__biz=MzI3MjU4Njk3Ng%3D%3D&amp;amp;chksm=eb31030edc468a18ffce72f8358f5fa3d4eaa05170569cde6615f86afea85e673767fd049fbc&amp;amp;idx=1&amp;amp;mid=2247484033&amp;amp;scene=21&amp;amp;sn=909064f18cb624ff3c2a061f4e3994f4#wechat_redirect&#34;&gt;Go语言字符串高效拼接（二）&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://mp.weixin.qq.com/s?__biz=MzI3MjU4Njk3Ng%3D%3D&amp;amp;chksm=eb31030adc468a1cf319086310111998a031691334784fd7afdca2afae0eec7656e574d4e89e&amp;amp;idx=1&amp;amp;mid=2247484037&amp;amp;scene=21&amp;amp;sn=653dcecc028b97e16eed393f37a925d2#wechat_redirect&#34;&gt;Go语言字符串高效拼接（三）&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;经过改进后，代码如下：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func RandStringBytesMaskImprSrcSB(n int) string {
+	sb := strings.Builder{}
+	sb.Grow(n)
+	// A src.Int63() generates 63 random bits, enough for letterIdxMax characters!
+	for i, cache, remain := n-1, src.Int63(), letterIdxMax; i &amp;gt;= 0; {
+		if remain == 0 {
+			cache, remain = src.Int63(), letterIdxMax
+		}
+		if idx := int(cache &amp;amp; letterIdxMask); idx &amp;lt; len(letterBytes) {
+			sb.WriteByte(letterBytes[idx])
+			i--
+		}
+		cache &amp;gt;&amp;gt;= letterIdxBits
+		remain--
+	}
+
+	return sb.String()
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;使用unsafe包模拟 strings.Builder&lt;/p&gt;
+&lt;p&gt;strings.Builder的原理其实很简单，是内置了一个[]byte存储字符，最终转换为string的时候为了避免拷贝，使用了unsafe包。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;// String returns the accumulated string.
+func (b *Builder) String() string {
+	return *(*string)(unsafe.Pointer(&amp;amp;b.buf))
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;以上这些我们可以自己来做，看看我们重写后的代码。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func RandStringBytesMaskImprSrcUnsafe(n int) string {
+	b := make([]byte, n)
+	// A src.Int63() generates 63 random bits, enough for letterIdxMax characters!
+	for i, cache, remain := n-1, src.Int63(), letterIdxMax; i &amp;gt;= 0; {
+		if remain == 0 {
+			cache, remain = src.Int63(), letterIdxMax
+		}
+		if idx := int(cache &amp;amp; letterIdxMask); idx &amp;lt; len(letterBytes) {
+			b[i] = letterBytes[idx]
+			i--
+		}
+		cache &amp;gt;&amp;gt;= letterIdxBits
+		remain--
+	}
+
+	return *(*string)(unsafe.Pointer(&amp;amp;b))
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;效果和使用strings.Builder一样，而且看起来更简洁了。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Benchmark 性能测试&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以后，我们通过一步步的改进代码，提升效率，现在我们通过Benchmark测试看下这些方法的效果。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;BenchmarkRunes-4 2000000 723 ns/op 96 B/op 2 allocs/op
+BenchmarkBytes-4 3000000 550 ns/op 32 B/op 2 allocs/op
+BenchmarkBytesRmndr-4 3000000 438 ns/op 32 B/op 2 allocs/op
+BenchmarkBytesMask-4 3000000 534 ns/op 32 B/op 2 allocs/op
+BenchmarkBytesMaskImpr-4 10000000 176 ns/op 32 B/op 2 allocs/op
+BenchmarkBytesMaskImprSrc-4 10000000 139 ns/op 32 B/op 2 allocs/op
+BenchmarkBytesMaskImprSrcSB-4 10000000 134 ns/op 16 B/op 1 allocs/op
+BenchmarkBytesMaskImprSrcUnsafe-4 10000000 115 ns/op 16 B/op 1 allocs/op
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;仅仅从rune到byte的改进，我们就获得了&lt;strong&gt;24%的提升，内存占用降低了三分之一&lt;/strong&gt; 。&lt;/p&gt;
+&lt;p&gt;使用rand.Int63替换掉原来的rand.Intn，我们又获得了近20%的提升。&lt;/p&gt;
+&lt;p&gt;单纯的使用掩码，因为重复获取可用索引的问题，性能下降了**-22%**。&lt;/p&gt;
+&lt;p&gt;但是当我们对 Masking 掩码 进行改进，分为10部分缓存的时候，我们获得了3倍的提升。&lt;/p&gt;
+&lt;p&gt;使用rand.Source 代替 rand.Rand, 我们再次获得了21%的提升。&lt;/p&gt;
+&lt;p&gt;使用strings.Builder,速度提升虽然只有3.5%,但是内存分配降低了50% 。&lt;/p&gt;
+&lt;p&gt;最后，通过unsafe包精简重写了strings.Builder的功能，我们又获得了14%的提升。&lt;/p&gt;
+&lt;p&gt;最终，RandStringBytesMaskImprSrcUnsafe比RandStringRunes快6.3倍，并且只使用了六分之一的内存和一半的内存分配，我们就完成了任务。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;结束语&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这是一篇stackoverflow的文章，有人提问 How to generate a random string of a fixed length in Go? ，icza 做了非常精彩的回答，我把整个翻译下来加以整理分享给大家。&lt;/p&gt;
+&lt;p&gt;这是一篇非常棒的文章，它的意义不光是回答这个问题，还有帮助我们建立如何一步步优化的思路以及追求极致的极客精神。&lt;/p&gt;
+&lt;p&gt;原文链接：&lt;a href=&#34;https://blog.csdn.net/flysnow_org/java/article/details/103520891&#34;&gt;https://blog.csdn.net/flysnow_org/java/article/details/103520891&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;博客链接：&lt;a href=&#34;https://www.flysnow.org/archives/&#34;&gt;https://www.flysnow.org/archives/&lt;/a&gt;&lt;/p&gt;
+
+    </description>
+    </item>
+    
     <item>
     <title>Go程序的时间和日期</title>
     <link>https://blog.wiseai.cn/post/golang/2022.07.05-%E6%97%B6%E9%97%B4%E5%92%8C%E6%97%A5%E6%9C%9F/</link>
