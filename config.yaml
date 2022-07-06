@@ -115,6 +115,9 @@ menu:
     - name: the way to go
       weight: 60
       url: "https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/directory.md"
+    - name: golang文档
+      weight: 61
+      url: "https://topgoer.com/"
     - name: GoFrame
       weight: 70
       url: "https://goframe.org/display/gf"

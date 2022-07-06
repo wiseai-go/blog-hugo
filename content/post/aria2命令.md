@@ -1,6 +1,6 @@
 ---
 author: "wiseai"
-title: "Aria2命令"
+title: "aria2命令"
 date: 2022-07-06T17:26:36+08:00
 description: ""
 tags:
