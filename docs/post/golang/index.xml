@@ -34,8 +34,8 @@ package main import ( &amp;#34;fmt&amp;#34; &amp;#34;time&amp;#34; ) var week ti
       <description>4.7 strings 和 strconv 包 作为一种基本数据结构，每种语言都有一些对于字符串的预定义处理函数。Go 中使用 strings 包来完成对字符串的主要操作。
 4.7.1 前缀和后缀 HasPrefix() 判断字符串 s 是否以 prefix 开头：
 strings.HasPrefix(s, prefix string) bool HasSuffix() 判断字符串 s 是否以 suffix 结尾：
-strings.HasSuffix(s, suffix string) bool 示例 4.13 presuffix.go
-package main import ( &amp;#34;fmt&amp;#34; &amp;#34;strings&amp;#34; ) func main() { var str string = &amp;#34;This is an example of a string&amp;#34; fmt.Printf(&amp;#34;T/F? Does the string \&amp;#34;%s\&amp;#34; have prefix %s? &amp;#34;, str, &amp;#34;Th&amp;#34;) fmt.Printf(&amp;#34;%t\n&amp;#34;, strings.HasPrefix(str, &amp;#34;Th&amp;#34;)) } 输出：</description>
+strings.HasSuffix(s, suffix string) bool package main import ( &amp;#34;fmt&amp;#34; &amp;#34;strings&amp;#34; ) func main() { var str string = &amp;#34;This is an example of a string&amp;#34; fmt.Printf(&amp;#34;T/F? Does the string \&amp;#34;%s\&amp;#34; have prefix %s? &amp;#34;, str, &amp;#34;Th&amp;#34;) fmt.Printf(&amp;#34;%t\n&amp;#34;, strings.HasPrefix(str, &amp;#34;Th&amp;#34;)) } 输出：
+T/F? Does the string &amp;quot;This is an example of a string&amp;quot; have prefix Th?</description>
     </item>
     
     <item>
@@ -44,7 +44,7 @@ package main import ( &amp;#34;fmt&amp;#34; &amp;#34;strings&amp;#34; ) func mai
       <pubDate>Thu, 30 Jun 2022 09:37:08 +0800</pubDate>
       
       <guid>https://blog.wiseai.cn/post/golang/2022.06.30-%E5%AD%97%E7%AC%A6%E4%B8%B2/</guid>
-      <description>4.6 字符串 字符串是 UTF-8 字符的一个序列（当字符为 ASCII 码时则占用 1 个字节，其它字符根据需要占用 2-4 个字节）。UTF-8 是被广泛使用的编码格式，是文本文件的标准编码，其它包括 XML 和 JSON 在内，也都使用该编码。由于该编码对占用字节长度的不定性，Go 中的字符串里面的字符也可能根据需要占用 1 至 4 个字节（示例见第 4.6 节），这与其它语言如 C++、Java 或者 Python 不同（Java 始终使用 2 个字节）。Go 这样做的好处是不仅减少了内存和硬盘空间占用，同时也不用像其它语言那样需要对使用 UTF-8 字符集的文本进行编码和解码。
+      <description>4.6 字符串 字符串是 UTF-8 字符的一个序列（当字符为 ASCII 码时则占用 1 个字节，其它字符根据需要占用 2-4 个字节）。UTF-8 是被广泛使用的编码格式，是文本文件的标准编码，其它包括 XML 和 JSON 在内，也都使用该编码。由于该编码对占用字节长度的不定性，Go 中的字符串里面的字符也可能根据需要占用 1 至 4 个字节，这与其它语言如 C++、Java 或者 Python 不同（Java 始终使用 2 个字节）。Go 这样做的好处是不仅减少了内存和硬盘空间占用，同时也不用像其它语言那样需要对使用 UTF-8 字符集的文本进行编码和解码。
 字符串是一种值类型，且值不可变，即创建某个文本后你无法再次修改这个文本的内容；更深入地讲，字符串是字节的定长数组。
 Go 支持以下 2 种形式的字面值：
 解释字符串：
@@ -53,7 +53,8 @@ Go 支持以下 2 种形式的字面值：
 该类字符串使用反引号括起来，支持换行，例如：
 `This is a raw string \n` 中的 `\n\` 会被原样输出。 和 C/C++不一样，Go 中的字符串是根据长度限定，而非特殊字符 \0。
 string 类型的零值为长度为零的字符串，即空字符串 &amp;quot;&amp;quot;。
-一般的比较运算符（==、!=、&amp;lt;、&amp;lt;=、&amp;gt;=、&amp;gt;）通过在内存中按字节比较来实现字符串的对比。你可以通过函数 len() 来获取字符串所占的字节长度，例如：len(str)。</description>
+一般的比较运算符（==、!=、&amp;lt;、&amp;lt;=、&amp;gt;=、&amp;gt;）通过在内存中按字节比较来实现字符串的对比。你可以通过函数 len() 来获取字符串所占的字节长度，例如：len(str)。
+字符串的内容（纯字节）可以通过标准索引法来获取，在中括号 [] 内写入索引，索引从 0 开始计数：</description>
     </item>
     
     <item>

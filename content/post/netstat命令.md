@@ -1,6 +1,6 @@
 ---
 author: "wiseai"
-title: "Netstat命令"
+title: "netstat命令"
 date: 2022-07-06T17:01:28+08:00
 description: ""
 tags:

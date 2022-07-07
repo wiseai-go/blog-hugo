@@ -74,7 +74,7 @@ screen启动后，会创建第一个窗口，也就是窗口No. 0，并在其中
     </item>
     
     <item>
-      <title>Netstat命令</title>
+      <title>netstat命令</title>
       <link>https://blog.wiseai.cn/post/netstat%E5%91%BD%E4%BB%A4/</link>
       <pubDate>Wed, 06 Jul 2022 17:01:28 +0800</pubDate>
       

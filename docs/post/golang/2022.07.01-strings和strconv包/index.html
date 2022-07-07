@@ -5,7 +5,7 @@
 
     
     <link href="http://static.wiseai.cn/css/bootstrap.min.css" rel="stylesheet">
-    <link href="http://static.wiseai.cn/css/main.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
 
     <link rel="shortcut icon" type="image/x-icon" href="http://static.wiseai.cn/img/favicon.ico" />
 
@@ -79,8 +79,7 @@
 <pre tabindex="0"><code>strings.HasPrefix(s, prefix string) bool
 </code></pre><p><code>HasSuffix()</code> 判断字符串 <code>s</code> 是否以 <code>suffix</code> 结尾：</p>
 <pre tabindex="0"><code>strings.HasSuffix(s, suffix string) bool
-</code></pre><p>示例 4.13 <a href="examples/chapter_4/presuffix.go">presuffix.go</a></p>
-<pre tabindex="0"><code>package main
+</code></pre><pre tabindex="0"><code>package main
 import (
 	&#34;fmt&#34;
 	&#34;strings&#34;
@@ -108,7 +107,6 @@ func main() {
 该方法在最新版本的 Go 中定义为 func IndexRune(s string, r rune) int
 实际使用中的第二个参数 rune 可以是 rune 或 int, 例如 strings.IndexRune(&quot;chicken&quot;, 99) 或 strings.IndexRune(&quot;chicken&quot;, rune('k'))
 </code></pre>
-<p>示例 4.14 <a href="examples/chapter_4/index_in_string.go">index_in_string.go</a></p>
 <pre tabindex="0"><code>package main
 import (
 	&#34;fmt&#34;
@@ -137,8 +135,7 @@ The position of &quot;Burger&quot; is: -1
 </code></pre><h2 id="475-统计字符串出现次数">4.7.5 统计字符串出现次数</h2>
 <p><code>Count()</code> 用于计算字符串 <code>str</code> 在字符串 <code>s</code> 中出现的非重叠次数：</p>
 <pre tabindex="0"><code>strings.Count(s, str string) int
-</code></pre><p>示例 4.15 <a href="examples/chapter_4/count_substring.go">count_substring.go</a></p>
-<pre tabindex="0"><code>package main
+</code></pre><pre tabindex="0"><code>package main
 import (
 	&#34;fmt&#34;
 	&#34;strings&#34;
@@ -158,8 +155,7 @@ Number of double g’s in gggggggggg is: 5
 <h2 id="476-重复字符串">4.7.6 重复字符串</h2>
 <p><code>Repeat()</code> 用于重复 <code>count</code> 次字符串 <code>s</code> 并返回一个新的字符串：</p>
 <pre tabindex="0"><code>strings.Repeat(s, count int) string
-</code></pre><p>示例 4.16 <a href="examples/chapter_4/repeat_string.go">repeat_string.go</a></p>
-<pre tabindex="0"><code>package main
+</code></pre><pre tabindex="0"><code>package main
 import (
 	&#34;fmt&#34;
 	&#34;strings&#34;
@@ -178,8 +174,7 @@ func main() {
 <pre tabindex="0"><code>strings.ToLower(s) string
 </code></pre><p><code>ToUpper()</code> 将字符串中的 Unicode 字符全部转换为相应的大写字符：</p>
 <pre tabindex="0"><code>strings.ToUpper(s) string
-</code></pre><p>示例 4.17 <a href="examples/chapter_4/toupper_lower.go">toupper_lower.go</a></p>
-<pre tabindex="0"><code>package main
+</code></pre><pre tabindex="0"><code>package main
 import (
 	&#34;fmt&#34;
 	&#34;strings&#34;
@@ -208,8 +203,7 @@ The uppercase string is: HEY, HOW ARE YOU GEORGE?
 <h2 id="4710-拼接-slice-到字符串">4.7.10 拼接 slice 到字符串</h2>
 <p><code>Join()</code> 用于将元素类型为 string 的 slice 使用分割符号来拼接组成一个字符串：</p>
 <pre tabindex="0"><code>strings.Join(sl []string, sep string) string
-</code></pre><p>示例 4.18 <a href="examples/chapter_4/strings_splitjoin.go">strings_splitjoin.go</a></p>
-<pre tabindex="0"><code>package main
+</code></pre><pre tabindex="0"><code>package main
 import (
 	&#34;fmt&#34;
 	&#34;strings&#34;

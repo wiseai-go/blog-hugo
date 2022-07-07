@@ -5,7 +5,7 @@
 
     
     <link href="http://static.wiseai.cn/css/bootstrap.min.css" rel="stylesheet">
-    <link href="http://static.wiseai.cn/css/main.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
 
     <link rel="shortcut icon" type="image/x-icon" href="http://static.wiseai.cn/img/favicon.ico" />
 
@@ -62,7 +62,7 @@
 		<div>
 			
 			
-			By wiseai | 2022-06-29 | 8 minutes
+			By wiseai | 2022-06-29 | 7 minutes
 		</div>
 		<div class="tags">
 			
@@ -333,17 +333,16 @@ flag := Active | Send // == 3
 <p>取余运算符只能作用于整数：<code>9 % 4 -&gt; 1</code>。</p>
 <p>整数除以 0 可能导致程序崩溃，将会导致运行时的恐慌状态（如果除以 0 的行为在编译时就能被捕捉到，则会引发编译错误）；<a href="13.0.md">第 13 章</a> 将会详细讲解如何正确地处理此类情况。</p>
 <p>浮点数除以 <code>0.0</code> 会返回一个无穷尽的结果，使用 <code>+Inf</code> 表示。</p>
-<p><strong>练习 4.4</strong> 尝试编译 <a href="exercises/chapter_4/divby0.go">divby0.go</a>。</p>
 <p>你可以将语句 <code>b = b + a</code> 简写为 <code>b += a</code>，同样的写法也可用于 <code>-=</code>、<code>*=</code>、<code>/=</code>、<code>%=</code>。</p>
-<p>对于整数和浮点数，你可以使用一元运算符 <code>++</code>（递增）和 <code>--</code>（递减），但只能用于后缀：</p>
+<p>对于整数和浮点数，你可以使用一元运算符 <code>++</code>（递增）和 <code>--</code>（递减），但<u>只能用于后缀</u>：</p>
 <pre><code>i++ -&gt; i += 1 -&gt; i = i + 1
 i-- -&gt; i -= 1 -&gt; i = i - 1
 </code></pre>
-<p>同时，带有 <code>++</code> 和 <code>--</code> 的只能作为语句，而非表达式，因此 <code>n = i++</code> 这种写法是无效的，其它像 <code>f(i++)</code> 或者 <code>a[i]=b[i++]</code> 这些可以用于 C、C++ 和 Java 中的写法在 Go 中也是不允许的。</p>
+<p>同时，<u>带有 <code>++</code> 和 <code>--</code> 的只能作为语句，而非表达式</u>，因此 <code>n = i++</code> 这种写法是无效的，其它像 <code>f(i++)</code> 或者 <code>a[i]=b[i++]</code> 这些可以用于 C、C++ 和 Java 中的写法在 Go 中也是不允许的。</p>
 <p>在运算时 <strong>溢出</strong> 不会产生错误，Go 会简单地将超出位数抛弃。如果你需要范围无限大的整数或者有理数（意味着只被限制于计算机内存），你可以使用标准库中的 <code>big</code> 包，该包提供了类似 <code>big.Int</code> 和 <code>big.Rat</code> 这样的类型（<a href="09.4.md">第 9.4 节</a>）。</p>
 <h3 id="4526-随机数">4.5.2.6 随机数</h3>
 <p>一些像游戏或者统计学类的应用需要用到随机数。<code>rand</code> 包实现了伪随机数的生成。</p>
-<p>示例 4.10 <a href="examples/chapter_4/random.go">random.go</a> 演示了如何生成 10 个非负随机数：</p>
+<p>下面的代码演示了如何生成 10 个非负随机数：</p>
 <pre tabindex="0"><code>package main
 import (
 	&#34;fmt&#34;
@@ -389,7 +388,6 @@ func main() {
 <h2 id="454-类型别名">4.5.4 类型别名</h2>
 <p>当你在使用某个类型时，你可以给它起另一个名字，然后你就可以在你的代码中使用新的名字（用于简化名称或解决名称冲突）。</p>
 <p>在 <code>type TZ int</code> 中，<code>TZ</code> 就是 <code>int</code> 类型的新名称（用于表示程序中的时区），然后就可以使用 <code>TZ</code> 来操作 <code>int</code> 类型的数据。</p>
-<p>示例 4.11 <a href="examples/chapter_4/type.go">type.go</a></p>
 <pre tabindex="0"><code>package main
 import &#34;fmt&#34;
 
@@ -401,7 +399,6 @@ func main() {
 	fmt.Printf(&#34;c has the value: %d&#34;, c) // 输出：c has the value: 7
 }
 </code></pre><p>实际上，类型别名得到的新类型并非和原类型完全相同，新类型不会拥有原类型所附带的方法（<a href="./10.0.md">第 10 章</a>）；<code>TZ</code> 可以自定义一个方法用来输出更加人性化的时区信息。</p>
-<p><strong>练习 4.5</strong> 定义一个 <code>string</code> 的类型别名 <code>Rope</code>，并声明一个该类型的变量。</p>
 <h2 id="455-字符类型">4.5.5 字符类型</h2>
 <p>严格来说，这并不是 Go 语言的一个类型，字符只是整数的特殊用例。<code>byte</code> 类型是 <code>uint8</code> 的别名，对于只占用 1 个字节的传统 ASCII 编码的字符来说，完全没有问题。例如：<code>var ch byte = 'A'</code>；字符使用单引号括起来。</p>
 <p>在 ASCII 码表中，<code>'A'</code> 的值是 <code>65</code>，而使用 16 进制表示则为 <code>41</code>，所以下面的写法是等效的：</p>
@@ -433,7 +430,6 @@ U+0041 - U+03B2 - U+101234
 <li>判断是否为空白符号：<code>unicode.IsSpace(ch)</code></li>
 </ul>
 <p>这些函数返回单个布尔值。包 <code>utf8</code> 拥有更多与 <code>rune</code> 类型相关的函数。</p>
-<p>（ <strong>译者注：关于类型的相关讲解，可参考视频教程 《Go编程基础》 第 3 课：<a href="https://github.com/Unknwon/go-fundamental-programming/blob/master/lectures/lecture3.md">类型与变量</a></strong> ）</p>
 
 		</div>
 	</div>
