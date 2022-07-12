@@ -2,18 +2,28 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>golang学习 on WiseAI的博客</title>
-    <link>https://blog.wiseai.cn/categories/golang%E5%AD%A6%E4%B9%A0/</link>
+    <link>https://wiseai.cn/categories/golang%E5%AD%A6%E4%B9%A0/</link>
     <description>Recent content in golang学习 on WiseAI的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Wed, 06 Jul 2022 08:54:04 +0800</lastBuildDate><atom:link href="https://blog.wiseai.cn/categories/golang%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 08 Jul 2022 16:06:32 +0800</lastBuildDate><atom:link href="https://wiseai.cn/categories/golang%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Golang执行系统命令</title>
+      <link>https://wiseai.cn/post/golang%E6%89%A7%E8%A1%8C%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Fri, 08 Jul 2022 16:06:32 +0800</pubDate>
+      
+      <guid>https://wiseai.cn/post/golang%E6%89%A7%E8%A1%8C%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/</guid>
+      <description>直接上代码:
+package main import ( &amp;#34;bytes&amp;#34; &amp;#34;fmt&amp;#34; &amp;#34;os/exec&amp;#34; ) func main() { var err error var stdout, stderr string Loop: err = nil stdout, stderr = &amp;#34;&amp;#34;, &amp;#34;&amp;#34; fmt.Println(&amp;#34;1.列出当前目录中的目录和文件&amp;#34;) fmt.Println(&amp;#34;2.重启打印服务&amp;#34;) fmt.Println(&amp;#34;退出请输入9&amp;#34;) fmt.Println(&amp;#34;-----------------------------&amp;#34;) var key uint8 fmt.Scanf(&amp;#34;%d&amp;#34;, &amp;amp;key) switch key { case 1: err, stdout, stderr = shellRun(&amp;#34;ls -l&amp;#34;) case 2: err, stdout, stderr = shellRun(&amp;#34;systemctl restart cups&amp;#34;) fmt.Println(&amp;#34;请输入密码!&amp;#34;) case 9: fmt.Println(&amp;#34;安全退出&amp;#34;) return default: fmt.Println(&amp;#34;-----------------------------&amp;#34;) fmt.Println(&amp;#34;请输入正确的数字!&amp;#34;) } if err != nil { fmt.</description>
+    </item>
+    
     <item>
       <title>Golang生成随机字符串</title>
-      <link>https://blog.wiseai.cn/post/golang%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E5%AD%97%E7%AC%A6%E4%B8%B2/</link>
+      <link>https://wiseai.cn/post/golang%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E5%AD%97%E7%AC%A6%E4%B8%B2/</link>
       <pubDate>Wed, 06 Jul 2022 08:54:04 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/golang%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E5%AD%97%E7%AC%A6%E4%B8%B2/</guid>
+      <guid>https://wiseai.cn/post/golang%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E5%AD%97%E7%AC%A6%E4%B8%B2/</guid>
       <description>假如我们要生成一个固定长度的随机字符串，包含大小写字母，没有数字，没有特殊字符串，那么我们怎么做呢？需要怎样优化，才会更简单，更高效？在最终的方案之前，我们看看最常见的写法是怎样的，然后是如何一步步演进到最终的高效率方案的。好吧，先看下最原始的方案。
 常见做法(Runes) func init() { rand.Seed(time.Now().UnixNano()) } var letterRunes = []rune(&amp;#34;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&amp;#34;) func RandStringRunes(n int) string { b := make([]rune, n) for i := range b { b[i] = letterRunes[rand.Intn(len(letterRunes))] } return string(b) } 这个实现比较简单，二十六字母（大小写），然后随机取数，获得随机字符串。
 Bytes改进 我们在最开始的时候进行了假设，我们的随机字符串只包含大小写字母，这样的话，我们发现没有必要使用rune类型存储，因为在Golang（Go语言）UTF-8编码下，英文字母和byte字节是一对一的。byte的本质是uint8类型，而rune本质是int32类型。我们改进后的代码如下：
@@ -25,10 +35,10 @@ func RandStringBytesRmndr(n int) string { b := make([]byte, n) for i := range b 
     
     <item>
       <title>Go程序的时间和日期</title>
-      <link>https://blog.wiseai.cn/post/golang/2022.07.05-%E6%97%B6%E9%97%B4%E5%92%8C%E6%97%A5%E6%9C%9F/</link>
+      <link>https://wiseai.cn/post/golang/2022.07.05-%E6%97%B6%E9%97%B4%E5%92%8C%E6%97%A5%E6%9C%9F/</link>
       <pubDate>Tue, 05 Jul 2022 11:18:29 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/golang/2022.07.05-%E6%97%B6%E9%97%B4%E5%92%8C%E6%97%A5%E6%9C%9F/</guid>
+      <guid>https://wiseai.cn/post/golang/2022.07.05-%E6%97%B6%E9%97%B4%E5%92%8C%E6%97%A5%E6%9C%9F/</guid>
       <description>4.8 时间和日期 time 包为我们提供了一个数据类型 time.Time（作为值使用）以及显示和测量时间和日期的功能函数。
 当前时间可以使用 time.Now() 获取，或者使用 t.Day()、t.Minute() 等等来获取时间的一部分；你甚至可以自定义时间格式化字符串，例如： fmt.Printf(&amp;quot;%02d.%02d.%4d\n&amp;quot;, t.Day(), t.Month(), t.Year()) 将会输出 21.07.2011。
 Duration 类型表示两个连续时刻所相差的纳秒数，类型为 int64。Location 类型映射某个时区的时间，UTC 表示通用协调世界时间。
@@ -42,10 +52,10 @@ package main import ( &amp;#34;fmt&amp;#34; &amp;#34;time&amp;#34; ) var week ti
     
     <item>
       <title>Go程序的 Strings 和 strconv 包</title>
-      <link>https://blog.wiseai.cn/post/golang/2022.07.01-strings%E5%92%8Cstrconv%E5%8C%85/</link>
+      <link>https://wiseai.cn/post/golang/2022.07.01-strings%E5%92%8Cstrconv%E5%8C%85/</link>
       <pubDate>Fri, 01 Jul 2022 10:14:36 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/golang/2022.07.01-strings%E5%92%8Cstrconv%E5%8C%85/</guid>
+      <guid>https://wiseai.cn/post/golang/2022.07.01-strings%E5%92%8Cstrconv%E5%8C%85/</guid>
       <description>4.7 strings 和 strconv 包 作为一种基本数据结构，每种语言都有一些对于字符串的预定义处理函数。Go 中使用 strings 包来完成对字符串的主要操作。
 4.7.1 前缀和后缀 HasPrefix() 判断字符串 s 是否以 prefix 开头：
 strings.HasPrefix(s, prefix string) bool HasSuffix() 判断字符串 s 是否以 suffix 结尾：
@@ -55,10 +65,10 @@ T/F? Does the string &amp;quot;This is an example of a string&amp;quot; have pre
     
     <item>
       <title>Go程序的字符串</title>
-      <link>https://blog.wiseai.cn/post/golang/2022.06.30-%E5%AD%97%E7%AC%A6%E4%B8%B2/</link>
+      <link>https://wiseai.cn/post/golang/2022.06.30-%E5%AD%97%E7%AC%A6%E4%B8%B2/</link>
       <pubDate>Thu, 30 Jun 2022 09:37:08 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/golang/2022.06.30-%E5%AD%97%E7%AC%A6%E4%B8%B2/</guid>
+      <guid>https://wiseai.cn/post/golang/2022.06.30-%E5%AD%97%E7%AC%A6%E4%B8%B2/</guid>
       <description>4.6 字符串 字符串是 UTF-8 字符的一个序列（当字符为 ASCII 码时则占用 1 个字节，其它字符根据需要占用 2-4 个字节）。UTF-8 是被广泛使用的编码格式，是文本文件的标准编码，其它包括 XML 和 JSON 在内，也都使用该编码。由于该编码对占用字节长度的不定性，Go 中的字符串里面的字符也可能根据需要占用 1 至 4 个字节，这与其它语言如 C++、Java 或者 Python 不同（Java 始终使用 2 个字节）。Go 这样做的好处是不仅减少了内存和硬盘空间占用，同时也不用像其它语言那样需要对使用 UTF-8 字符集的文本进行编码和解码。
 字符串是一种值类型，且值不可变，即创建某个文本后你无法再次修改这个文本的内容；更深入地讲，字符串是字节的定长数组。
 Go 支持以下 2 种形式的字面值：
@@ -74,10 +84,10 @@ string 类型的零值为长度为零的字符串，即空字符串 &amp;quot;&a
     
     <item>
       <title>Go程序的基本类型和运算符</title>
-      <link>https://blog.wiseai.cn/post/golang/2022.06.29-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/</link>
+      <link>https://wiseai.cn/post/golang/2022.06.29-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/</link>
       <pubDate>Wed, 29 Jun 2022 11:33:14 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/golang/2022.06.29-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/</guid>
+      <guid>https://wiseai.cn/post/golang/2022.06.29-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/</guid>
       <description>4.5 基本类型和运算符 我们将在这个部分讲解有关布尔型、数字型和字符型的相关知识。
 表达式是一种特定的类型的值，它可以由其它的值以及运算符组合而成。每个类型都定义了可以和自己结合的运算符集合，如果你使用了不在这个集合中的运算符，则会在编译时获得编译错误。
 一元运算符只可以用于一个值的操作（作为后缀），而二元运算符则可以和两个值或者操作数结合（作为中缀）。
@@ -95,10 +105,10 @@ var aVar = 10 aVar != 5 -&amp;gt; true aVar != 10 -&amp;gt; false Go 对于值�
     
     <item>
       <title>Go程序的变量</title>
-      <link>https://blog.wiseai.cn/post/golang/2022.06.27-%E5%8F%98%E9%87%8F/</link>
+      <link>https://wiseai.cn/post/golang/2022.06.27-%E5%8F%98%E9%87%8F/</link>
       <pubDate>Mon, 27 Jun 2022 11:46:14 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/golang/2022.06.27-%E5%8F%98%E9%87%8F/</guid>
+      <guid>https://wiseai.cn/post/golang/2022.06.27-%E5%8F%98%E9%87%8F/</guid>
       <description>4.4 变量 4.4.1 简介 声明变量的一般形式是使用 var 关键字：var identifier type。
 需要注意的是，Go 和许多编程语言不同，它在声明变量时将变量的类型放在变量的名称之后。Go 为什么要选择这么做呢？
 首先，它是为了避免像 C 语言中那样含糊不清的声明形式，例如：int* a, b;。在这个例子中，只有 a 是指针而 b 不是。如果你想要这两个变量都是指针，则需要将它们分开书写（你可以在 Go 语言的声明语法 页面找到有关于这个话题的更多讨论）。
@@ -114,10 +124,10 @@ var ( a int b bool str string ) 这种因式分解关键字的写法一般用于
     
     <item>
       <title>Go程序的常量</title>
-      <link>https://blog.wiseai.cn/post/golang/2022.06.27-%E5%B8%B8%E9%87%8F/</link>
+      <link>https://wiseai.cn/post/golang/2022.06.27-%E5%B8%B8%E9%87%8F/</link>
       <pubDate>Mon, 27 Jun 2022 11:36:06 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/golang/2022.06.27-%E5%B8%B8%E9%87%8F/</guid>
+      <guid>https://wiseai.cn/post/golang/2022.06.27-%E5%B8%B8%E9%87%8F/</guid>
       <description>4.3 常量 常量使用关键字 const 定义，用于存储不会改变的数据。
 存储在常量中的数据类型只可以是布尔型、数字型（整数型、浮点型和复数）和字符串型。
 常量的定义格式：const identifier [type] = value，例如：
@@ -131,20 +141,20 @@ const Ln2 = 0.693147180559945309417232121458\ 176568075500134360255254120680009 
     
     <item>
       <title>大数的阶乘</title>
-      <link>https://blog.wiseai.cn/post/%E5%A4%A7%E6%95%B0%E7%9A%84%E9%98%B6%E4%B9%98/</link>
+      <link>https://wiseai.cn/post/%E5%A4%A7%E6%95%B0%E7%9A%84%E9%98%B6%E4%B9%98/</link>
       <pubDate>Mon, 27 Jun 2022 10:38:51 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/%E5%A4%A7%E6%95%B0%E7%9A%84%E9%98%B6%E4%B9%98/</guid>
+      <guid>https://wiseai.cn/post/%E5%A4%A7%E6%95%B0%E7%9A%84%E9%98%B6%E4%B9%98/</guid>
       <description>直接上代码:
 C语言: #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;time.h&amp;gt; //给计算结果一个数组，并指定大小为4096 //第一次写程序使用的字符串保存大数，但是有个问题，需要char到int来回转换，影响计算性能。 //所以使用数组来保存数据，方便计算 int jieguo[40960] = {0}; //数组长度 int len = 0; //fac为计算阶乘的函数，计算结果存储在jieguo[4096]数组中 int fac(int n) { int v = 0; int f = 0; //初始化jieguo数组和数组长度 jieguo[0] = 1; len = 1; for(int i = 1; i &amp;lt;= n; i++) { for(int j = len - 1; j &amp;gt;= 0; j--) { v = i * jieguo[j]; jieguo[j] = v % 10; v = v / 10; f = j + 1; //如果v大于0，说明还要进位，所以将进位的数加上原来的数，判断进位后存储。 //为了提高效率，使用for进行循环 for(; v &amp;gt; 0 &amp;amp;&amp;amp; f &amp;lt; len; f++) { v = v + jieguo[f]; jieguo[f] = v % 10; v = v / 10; } //如果这时f等于数组的长度len并且v还大于0，说明需要增加jieguo数组的长度 //为了提高效率，仍然使用for进行循环 for(; v &amp;gt; 0;) { jieguo[len] = v % 10; v = v / 10; len++; if(len &amp;gt; 40960 - 2) { //这个时候说明数组长度不够，需要增加jieguo后面的数值 //计算100的阶乘的数组长度为158，计算1000的阶乘的数组长度为2568。 //可以根据实际需要进行设置。 return 1; } } }	} return 0; } //下面写主函数 int main(void) { int num; printf(&amp;#34;请输入需要计算阶乘的数字:&amp;#34;); scanf(&amp;#34;%d&amp;#34;, &amp;amp;num); //计算阶乘结果 int r = fac(num); //如果返回1,则说明数组长度不够，需要增加长度 if(r == 1) { printf(&amp;#34;计算结果太大，请增加数组长度！\n&amp;#34;); return 0; } printf(&amp;#34;%d的阶乘为：&amp;#34;, num); for(int i = len - 1; i &amp;gt;= 0; i--) { printf(&amp;#34;%d&amp;#34;, jieguo[i]); } printf(&amp;#34;\n&amp;#34;); printf(&amp;#34;%d\n&amp;#34;, len); printf(&amp;#34;运行时间:%.</description>
     </item>
     
     <item>
       <title>Go程序的基本结构和要素</title>
-      <link>https://blog.wiseai.cn/post/golang/2022.06.22-go%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84%E5%92%8C%E8%A6%81%E7%B4%A0/</link>
+      <link>https://wiseai.cn/post/golang/2022.06.22-go%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84%E5%92%8C%E8%A6%81%E7%B4%A0/</link>
       <pubDate>Wed, 22 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/golang/2022.06.22-go%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84%E5%92%8C%E8%A6%81%E7%B4%A0/</guid>
+      <guid>https://wiseai.cn/post/golang/2022.06.22-go%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84%E5%92%8C%E8%A6%81%E7%B4%A0/</guid>
       <description>4.2 Go 程序的基本结构和要素 示例 hello_world.go
 package main import &amp;#34;fmt&amp;#34; func main() { fmt.Println(&amp;#34;hello, world&amp;#34;) } 4.2.1 包的概念、导入与可见性 包是结构化代码的一种方式：每个程序都由包（通常简称为 pkg）的概念组成，可以使用自身的包或者从其它包中导入内容。
 如同其它一些编程语言中的类库或命名空间的概念，每个 Go 文件都属于且仅属于一个包。一个包可以由许多以 .go 为扩展名的源文件组成，因此文件名和包名一般来说都是不相同的。
@@ -157,10 +167,10 @@ Go 的标准库包含了大量的包（如：fmt 和 os），但是你也可以�
     
     <item>
       <title>golang和nodejs环境配置</title>
-      <link>https://blog.wiseai.cn/post/golang%E5%92%8Cnodejs%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</link>
+      <link>https://wiseai.cn/post/golang%E5%92%8Cnodejs%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/golang%E5%92%8Cnodejs%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</guid>
+      <guid>https://wiseai.cn/post/golang%E5%92%8Cnodejs%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</guid>
       <description>配置golang 下载文件：golang官网下载 解压文件至/usr/local/目录下： # rm -rf /usr/local/go &amp;amp;&amp;amp; tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz
 （第一个命令是删除golang的残余文件）
 建立软链接至/usr/bin/目录下： # ln -s /usr/local/go/bin/go /usr/bin/
@@ -175,10 +185,10 @@ Go 的标准库包含了大量的包（如：fmt 和 os），但是你也可以�
     
     <item>
       <title>golang的build命令</title>
-      <link>https://blog.wiseai.cn/post/golang%E7%9A%84build%E5%91%BD%E4%BB%A4/</link>
+      <link>https://wiseai.cn/post/golang%E7%9A%84build%E5%91%BD%E4%BB%A4/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/golang%E7%9A%84build%E5%91%BD%E4%BB%A4/</guid>
+      <guid>https://wiseai.cn/post/golang%E7%9A%84build%E5%91%BD%E4%BB%A4/</guid>
       <description>go build，是我们非常常用的命令，它可以启动编译，把我们的包和相关的依赖编译成一个可执行的文件。
 usage: go build [-o output] [-i] [build flags] [packages]
 go build的使用比较简洁，所有的参数都可以忽略，直到只有go build，这个时候意味着使用当前目录进行编译，下面的几条命令是等价的：

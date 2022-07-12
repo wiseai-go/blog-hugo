@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>故障 on WiseAI的博客</title>
-    <link>https://blog.wiseai.cn/tags/%E6%95%85%E9%9A%9C/</link>
+    <link>https://wiseai.cn/tags/%E6%95%85%E9%9A%9C/</link>
     <description>Recent content in 故障 on WiseAI的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Mon, 30 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/tags/%E6%95%85%E9%9A%9C/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 30 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wiseai.cn/tags/%E6%95%85%E9%9A%9C/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Linux更换网卡后网络服务不能启动的问题解决办法</title>
-      <link>https://blog.wiseai.cn/post/linux%E6%9B%B4%E6%8D%A2%E7%BD%91%E5%8D%A1%E5%90%8E%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E4%B8%8D%E8%83%BD%E5%90%AF%E5%8A%A8%E7%9A%84%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
+      <link>https://wiseai.cn/post/linux%E6%9B%B4%E6%8D%A2%E7%BD%91%E5%8D%A1%E5%90%8E%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E4%B8%8D%E8%83%BD%E5%90%AF%E5%8A%A8%E7%9A%84%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/linux%E6%9B%B4%E6%8D%A2%E7%BD%91%E5%8D%A1%E5%90%8E%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E4%B8%8D%E8%83%BD%E5%90%AF%E5%8A%A8%E7%9A%84%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
+      <guid>https://wiseai.cn/post/linux%E6%9B%B4%E6%8D%A2%E7%BD%91%E5%8D%A1%E5%90%8E%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E4%B8%8D%E8%83%BD%E5%90%AF%E5%8A%A8%E7%9A%84%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
       <description>1、迁移以后，会存在其中一个网卡无法启动（eth0 or eth1）
 [root@ ~]# ifup eth0
 WARNING: Deprecated config file /etc/modprobe.conf, all config files belong into /etc/modprobe.d/.

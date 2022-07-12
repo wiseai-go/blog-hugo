@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>浏览器 on WiseAI的博客</title>
-    <link>https://blog.wiseai.cn/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/</link>
+    <link>https://wiseai.cn/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/</link>
     <description>Recent content in 浏览器 on WiseAI的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Mon, 20 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 20 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wiseai.cn/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Linux中firefox支持flash</title>
-      <link>https://blog.wiseai.cn/post/linux%E4%B8%ADfirefox%E6%94%AF%E6%8C%81flash/</link>
+      <link>https://wiseai.cn/post/linux%E4%B8%ADfirefox%E6%94%AF%E6%8C%81flash/</link>
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/linux%E4%B8%ADfirefox%E6%94%AF%E6%8C%81flash/</guid>
+      <guid>https://wiseai.cn/post/linux%E4%B8%ADfirefox%E6%94%AF%E6%8C%81flash/</guid>
       <description>这个有点旧了，参考下 进入adobe中下载flash
 解压文件
 cp ./libflashplayer.so /home/wiseai/.mozilla/plugins/

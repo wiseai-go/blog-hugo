@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>格式 on WiseAI的博客</title>
-    <link>https://blog.wiseai.cn/tags/%E6%A0%BC%E5%BC%8F/</link>
+    <link>https://wiseai.cn/tags/%E6%A0%BC%E5%BC%8F/</link>
     <description>Recent content in 格式 on WiseAI的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Fri, 10 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/tags/%E6%A0%BC%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 10 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wiseai.cn/tags/%E6%A0%BC%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>MarkDown在线编辑器</title>
-      <link>https://blog.wiseai.cn/post/markdown%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91%E5%99%A8/</link>
+      <link>https://wiseai.cn/post/markdown%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91%E5%99%A8/</link>
       <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/markdown%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91%E5%99%A8/</guid>
+      <guid>https://wiseai.cn/post/markdown%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91%E5%99%A8/</guid>
       <description>使用开源项目editor.md我的gitee仓库下也有。
 安装 # npm install editor.md
 使用 &amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;&amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt;&amp;lt;link rel=&amp;#34;stylesheet&amp;#34; href=&amp;#34;editor.md/css/editormd.min.css&amp;#34; /&amp;gt;&amp;lt;title&amp;gt;Markdown 编辑在线器&amp;lt;/title&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;body&amp;gt;&amp;lt;div id=&amp;#34;text&amp;#34; style=&amp;#34;width: 100%;&amp;#34;&amp;gt;&amp;lt;div id=&amp;#34;editor&amp;#34; style=&amp;#34;height: 100%;&amp;#34;&amp;gt;&amp;lt;!-- Tips: Editor.md can auto append a `&amp;lt;textarea&amp;gt;` tag --&amp;gt;&amp;lt;textarea style=&amp;#34;display:none;&amp;#34; placeholder=&amp;#34;欢迎使用&amp;#34;&amp;gt;&amp;lt;/textarea&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;script src=&amp;#34;jquery.min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt;&amp;lt;script src=&amp;#34;editor.md/editormd.min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt;&amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt;// 设置div与窗口高度一致window.onload = function () {var h = window.innerHeight - 25 ; //获取当前窗口的高度; document.getElementById(&amp;#34;text&amp;#34;).style.height = h + &amp;#34;px&amp;#34;; //设置div的高度}// 设置textarea参数$(function() {var h = window.</description>

@@ -88,25 +88,27 @@ deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe mu
 deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
 deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
 </code></pre><p>然后，编辑apt-mirror的配置文件/etc/apt/mirror.list</p>
-<h3 id="配置镜像下载目录">配置镜像下载目录</h3>
-<p><code>set base_path /var/spool/apt-mirror</code></p>
-<h3 id="架构配置i386amd64默认的话会下载跟本机相同的架构的源">架构配置，i386/amd64，默认的话会下载跟本机相同的架构的源</h3>
-<p><code>set defaultarch amd64</code></p>
-<h3 id="下载线程数">下载线程数</h3>
-<p><code>set nthreads 20</code>
-<code>set _tilde 0</code></p>
-<h3 id="阿里云的源这里没有添加deb-src的源码源">阿里云的源（这里没有添加deb-src的源码源）</h3>
-<pre tabindex="0"><code>deb http://mirrors.aliyun.com/ubuntu/ xenial main restricted universe multiverse
+<pre tabindex="0"><code>### 配置镜像下载目录
+set base_path /var/spool/apt-mirror
+# 架构配置，i386/amd64，默认的话会下载跟本机相同的架构的源
+set defaultarch amd64
+# 下载线程数
+set nthreads 20
+set _tilde 0
+# 阿里云的源（这里没有添加deb-src的源码源）
+deb http://mirrors.aliyun.com/ubuntu/ xenial main restricted universe multiverse
 deb http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted universe multiverse
 deb http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricted universe multiverse
 deb http://mirrors.aliyun.com/ubuntu/ xenial-proposed main restricted universe multiverse
 deb http://mirrors.aliyun.com/ubuntu/ xenial-backports main restricted universe multiverse
-</code></pre><h3 id="后面还可以添加其它版本的源">后面还可以添加其它版本的源</h3>
-<h3 id="清理不使用的软件包">清理不使用的软件包</h3>
-<p>clean <a href="http://mirrors.aliyun.com/ubuntu">http://mirrors.aliyun.com/ubuntu</a></p>
-<h2 id="三开始同步">三、开始同步</h2>
-<p><code># apt-mirror</code>
-注意：同步的文件必须在Linux文件系统下，所有人为_apt；否则出错。</p>
+
+# 后面还可以添加其它版本的源
+
+# 清理不使用的软件包
+clean http://mirrors.aliyun.com/ubuntu
+</code></pre><h2 id="三开始同步">三、开始同步</h2>
+<p><code># apt-mirror</code></p>
+<p>注意：同步的文件必须在Linux文件系统下，所有人为_apt；否则出错。</p>
 <h2 id="四-客户端配置">四、 客户端配置</h2>
 <p>编辑/etc/apt/source.list</p>
 <pre tabindex="0"><code>deb [arch=amd64] http://[host]:[port]/ubuntu/ bionic main restricted universe multiverse 

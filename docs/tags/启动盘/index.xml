@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>启动盘 on WiseAI的博客</title>
-    <link>https://blog.wiseai.cn/tags/%E5%90%AF%E5%8A%A8%E7%9B%98/</link>
+    <link>https://wiseai.cn/tags/%E5%90%AF%E5%8A%A8%E7%9B%98/</link>
     <description>Recent content in 启动盘 on WiseAI的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Tue, 05 Jul 2022 10:08:37 +0800</lastBuildDate><atom:link href="https://blog.wiseai.cn/tags/%E5%90%AF%E5%8A%A8%E7%9B%98/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 05 Jul 2022 10:08:37 +0800</lastBuildDate><atom:link href="https://wiseai.cn/tags/%E5%90%AF%E5%8A%A8%E7%9B%98/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>U盘启动盘制作</title>
-      <link>https://blog.wiseai.cn/post/u%E7%9B%98%E5%90%AF%E5%8A%A8%E7%9B%98%E5%88%B6%E4%BD%9C/</link>
+      <link>https://wiseai.cn/post/u%E7%9B%98%E5%90%AF%E5%8A%A8%E7%9B%98%E5%88%B6%E4%BD%9C/</link>
       <pubDate>Tue, 05 Jul 2022 10:08:37 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/u%E7%9B%98%E5%90%AF%E5%8A%A8%E7%9B%98%E5%88%B6%E4%BD%9C/</guid>
+      <guid>https://wiseai.cn/post/u%E7%9B%98%E5%90%AF%E5%8A%A8%E7%9B%98%E5%88%B6%E4%BD%9C/</guid>
       <description>一、Ventoy:制作可启动U盘的开源工具 github
 gitee
 优点 多平台、支持Iso镜像多

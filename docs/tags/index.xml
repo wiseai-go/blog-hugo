@@ -2,765 +2,774 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>tags on WiseAI的博客</title>
-    <link>https://blog.wiseai.cn/tags/</link>
+    <link>https://wiseai.cn/tags/</link>
     <description>Recent content in tags on WiseAI的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Wed, 06 Jul 2022 17:26:36 +0800</lastBuildDate><atom:link href="https://blog.wiseai.cn/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 08 Jul 2022 16:30:38 +0800</lastBuildDate><atom:link href="https://wiseai.cn/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>命令</title>
-      <link>https://blog.wiseai.cn/tags/%E5%91%BD%E4%BB%A4/</link>
-      <pubDate>Wed, 06 Jul 2022 17:26:36 +0800</pubDate>
+      <link>https://wiseai.cn/tags/%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Fri, 08 Jul 2022 16:30:38 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E5%91%BD%E4%BB%A4/</guid>
+      <guid>https://wiseai.cn/tags/%E5%91%BD%E4%BB%A4/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>重定向</title>
+      <link>https://wiseai.cn/tags/%E9%87%8D%E5%AE%9A%E5%90%91/</link>
+      <pubDate>Fri, 08 Jul 2022 16:30:38 +0800</pubDate>
+      
+      <guid>https://wiseai.cn/tags/%E9%87%8D%E5%AE%9A%E5%90%91/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Linux</title>
-      <link>https://blog.wiseai.cn/tags/linux/</link>
+      <link>https://wiseai.cn/tags/linux/</link>
       <pubDate>Wed, 06 Jul 2022 16:52:16 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/linux/</guid>
+      <guid>https://wiseai.cn/tags/linux/</guid>
       <description></description>
     </item>
     
     <item>
       <title>docker</title>
-      <link>https://blog.wiseai.cn/tags/docker/</link>
+      <link>https://wiseai.cn/tags/docker/</link>
       <pubDate>Wed, 06 Jul 2022 16:36:58 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/docker/</guid>
+      <guid>https://wiseai.cn/tags/docker/</guid>
       <description></description>
     </item>
     
     <item>
       <title>容器</title>
-      <link>https://blog.wiseai.cn/tags/%E5%AE%B9%E5%99%A8/</link>
+      <link>https://wiseai.cn/tags/%E5%AE%B9%E5%99%A8/</link>
       <pubDate>Wed, 06 Jul 2022 16:36:58 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E5%AE%B9%E5%99%A8/</guid>
+      <guid>https://wiseai.cn/tags/%E5%AE%B9%E5%99%A8/</guid>
       <description></description>
     </item>
     
     <item>
       <title>golang</title>
-      <link>https://blog.wiseai.cn/tags/golang/</link>
+      <link>https://wiseai.cn/tags/golang/</link>
       <pubDate>Wed, 06 Jul 2022 08:54:04 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/golang/</guid>
+      <guid>https://wiseai.cn/tags/golang/</guid>
       <description></description>
     </item>
     
     <item>
       <title>编程</title>
-      <link>https://blog.wiseai.cn/tags/%E7%BC%96%E7%A8%8B/</link>
+      <link>https://wiseai.cn/tags/%E7%BC%96%E7%A8%8B/</link>
       <pubDate>Wed, 06 Jul 2022 08:54:04 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E7%BC%96%E7%A8%8B/</guid>
+      <guid>https://wiseai.cn/tags/%E7%BC%96%E7%A8%8B/</guid>
       <description></description>
     </item>
     
     <item>
       <title>随机</title>
-      <link>https://blog.wiseai.cn/tags/%E9%9A%8F%E6%9C%BA/</link>
+      <link>https://wiseai.cn/tags/%E9%9A%8F%E6%9C%BA/</link>
       <pubDate>Wed, 06 Jul 2022 08:54:04 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E9%9A%8F%E6%9C%BA/</guid>
+      <guid>https://wiseai.cn/tags/%E9%9A%8F%E6%9C%BA/</guid>
       <description></description>
     </item>
     
     <item>
       <title>启动盘</title>
-      <link>https://blog.wiseai.cn/tags/%E5%90%AF%E5%8A%A8%E7%9B%98/</link>
+      <link>https://wiseai.cn/tags/%E5%90%AF%E5%8A%A8%E7%9B%98/</link>
       <pubDate>Tue, 05 Jul 2022 10:08:37 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E5%90%AF%E5%8A%A8%E7%9B%98/</guid>
+      <guid>https://wiseai.cn/tags/%E5%90%AF%E5%8A%A8%E7%9B%98/</guid>
       <description></description>
     </item>
     
     <item>
       <title>愁</title>
-      <link>https://blog.wiseai.cn/tags/%E6%84%81/</link>
+      <link>https://wiseai.cn/tags/%E6%84%81/</link>
       <pubDate>Mon, 04 Jul 2022 16:40:53 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E6%84%81/</guid>
+      <guid>https://wiseai.cn/tags/%E6%84%81/</guid>
       <description></description>
     </item>
     
     <item>
       <title>c语言</title>
-      <link>https://blog.wiseai.cn/tags/c%E8%AF%AD%E8%A8%80/</link>
+      <link>https://wiseai.cn/tags/c%E8%AF%AD%E8%A8%80/</link>
       <pubDate>Mon, 27 Jun 2022 10:38:51 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/c%E8%AF%AD%E8%A8%80/</guid>
+      <guid>https://wiseai.cn/tags/c%E8%AF%AD%E8%A8%80/</guid>
       <description></description>
     </item>
     
     <item>
       <title>error</title>
-      <link>https://blog.wiseai.cn/tags/error/</link>
+      <link>https://wiseai.cn/tags/error/</link>
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/error/</guid>
+      <guid>https://wiseai.cn/tags/error/</guid>
       <description></description>
     </item>
     
     <item>
       <title>flash</title>
-      <link>https://blog.wiseai.cn/tags/flash/</link>
+      <link>https://wiseai.cn/tags/flash/</link>
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/flash/</guid>
+      <guid>https://wiseai.cn/tags/flash/</guid>
       <description></description>
     </item>
     
     <item>
       <title>network</title>
-      <link>https://blog.wiseai.cn/tags/network/</link>
+      <link>https://wiseai.cn/tags/network/</link>
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/network/</guid>
+      <guid>https://wiseai.cn/tags/network/</guid>
       <description></description>
     </item>
     
     <item>
       <title>php</title>
-      <link>https://blog.wiseai.cn/tags/php/</link>
+      <link>https://wiseai.cn/tags/php/</link>
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/php/</guid>
+      <guid>https://wiseai.cn/tags/php/</guid>
       <description></description>
     </item>
     
     <item>
       <title>remmina</title>
-      <link>https://blog.wiseai.cn/tags/remmina/</link>
+      <link>https://wiseai.cn/tags/remmina/</link>
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/remmina/</guid>
+      <guid>https://wiseai.cn/tags/remmina/</guid>
       <description></description>
     </item>
     
     <item>
       <title>samba</title>
-      <link>https://blog.wiseai.cn/tags/samba/</link>
+      <link>https://wiseai.cn/tags/samba/</link>
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/samba/</guid>
+      <guid>https://wiseai.cn/tags/samba/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ssh</title>
-      <link>https://blog.wiseai.cn/tags/ssh/</link>
+      <link>https://wiseai.cn/tags/ssh/</link>
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/ssh/</guid>
+      <guid>https://wiseai.cn/tags/ssh/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ssl</title>
-      <link>https://blog.wiseai.cn/tags/ssl/</link>
+      <link>https://wiseai.cn/tags/ssl/</link>
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/ssl/</guid>
+      <guid>https://wiseai.cn/tags/ssl/</guid>
       <description></description>
     </item>
     
     <item>
       <title>vi</title>
-      <link>https://blog.wiseai.cn/tags/vi/</link>
+      <link>https://wiseai.cn/tags/vi/</link>
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/vi/</guid>
+      <guid>https://wiseai.cn/tags/vi/</guid>
       <description></description>
     </item>
     
     <item>
       <title>vim</title>
-      <link>https://blog.wiseai.cn/tags/vim/</link>
+      <link>https://wiseai.cn/tags/vim/</link>
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/vim/</guid>
+      <guid>https://wiseai.cn/tags/vim/</guid>
       <description></description>
     </item>
     
     <item>
       <title>webdav</title>
-      <link>https://blog.wiseai.cn/tags/webdav/</link>
+      <link>https://wiseai.cn/tags/webdav/</link>
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/webdav/</guid>
+      <guid>https://wiseai.cn/tags/webdav/</guid>
       <description></description>
     </item>
     
     <item>
       <title>windows共享</title>
-      <link>https://blog.wiseai.cn/tags/windows%E5%85%B1%E4%BA%AB/</link>
+      <link>https://wiseai.cn/tags/windows%E5%85%B1%E4%BA%AB/</link>
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/windows%E5%85%B1%E4%BA%AB/</guid>
+      <guid>https://wiseai.cn/tags/windows%E5%85%B1%E4%BA%AB/</guid>
       <description></description>
     </item>
     
     <item>
       <title>下载</title>
-      <link>https://blog.wiseai.cn/tags/%E4%B8%8B%E8%BD%BD/</link>
+      <link>https://wiseai.cn/tags/%E4%B8%8B%E8%BD%BD/</link>
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E4%B8%8B%E8%BD%BD/</guid>
+      <guid>https://wiseai.cn/tags/%E4%B8%8B%E8%BD%BD/</guid>
       <description></description>
     </item>
     
     <item>
       <title>中文乱码</title>
-      <link>https://blog.wiseai.cn/tags/%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81/</link>
+      <link>https://wiseai.cn/tags/%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81/</link>
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81/</guid>
+      <guid>https://wiseai.cn/tags/%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81/</guid>
       <description></description>
     </item>
     
     <item>
       <title>文件服务器</title>
-      <link>https://blog.wiseai.cn/tags/%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8/</link>
+      <link>https://wiseai.cn/tags/%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8/</link>
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid>
+      <guid>https://wiseai.cn/tags/%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid>
       <description></description>
     </item>
     
     <item>
       <title>浏览器</title>
-      <link>https://blog.wiseai.cn/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/</link>
+      <link>https://wiseai.cn/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/</link>
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/</guid>
+      <guid>https://wiseai.cn/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/</guid>
       <description></description>
     </item>
     
     <item>
       <title>算法</title>
-      <link>https://blog.wiseai.cn/tags/%E7%AE%97%E6%B3%95/</link>
+      <link>https://wiseai.cn/tags/%E7%AE%97%E6%B3%95/</link>
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E7%AE%97%E6%B3%95/</guid>
+      <guid>https://wiseai.cn/tags/%E7%AE%97%E6%B3%95/</guid>
       <description></description>
     </item>
     
     <item>
       <title>网络</title>
-      <link>https://blog.wiseai.cn/tags/%E7%BD%91%E7%BB%9C/</link>
+      <link>https://wiseai.cn/tags/%E7%BD%91%E7%BB%9C/</link>
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E7%BD%91%E7%BB%9C/</guid>
+      <guid>https://wiseai.cn/tags/%E7%BD%91%E7%BB%9C/</guid>
       <description></description>
     </item>
     
     <item>
       <title>证书</title>
-      <link>https://blog.wiseai.cn/tags/%E8%AF%81%E4%B9%A6/</link>
+      <link>https://wiseai.cn/tags/%E8%AF%81%E4%B9%A6/</link>
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E8%AF%81%E4%B9%A6/</guid>
+      <guid>https://wiseai.cn/tags/%E8%AF%81%E4%B9%A6/</guid>
       <description></description>
     </item>
     
     <item>
       <title>apt</title>
-      <link>https://blog.wiseai.cn/tags/apt/</link>
+      <link>https://wiseai.cn/tags/apt/</link>
       <pubDate>Sun, 19 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/apt/</guid>
+      <guid>https://wiseai.cn/tags/apt/</guid>
       <description></description>
     </item>
     
     <item>
       <title>更新启动项</title>
-      <link>https://blog.wiseai.cn/tags/%E6%9B%B4%E6%96%B0%E5%90%AF%E5%8A%A8%E9%A1%B9/</link>
+      <link>https://wiseai.cn/tags/%E6%9B%B4%E6%96%B0%E5%90%AF%E5%8A%A8%E9%A1%B9/</link>
       <pubDate>Sun, 19 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E6%9B%B4%E6%96%B0%E5%90%AF%E5%8A%A8%E9%A1%B9/</guid>
+      <guid>https://wiseai.cn/tags/%E6%9B%B4%E6%96%B0%E5%90%AF%E5%8A%A8%E9%A1%B9/</guid>
       <description></description>
     </item>
     
     <item>
       <title>树莓派</title>
-      <link>https://blog.wiseai.cn/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/</link>
+      <link>https://wiseai.cn/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/</link>
       <pubDate>Sun, 19 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/</guid>
+      <guid>https://wiseai.cn/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/</guid>
       <description></description>
     </item>
     
     <item>
       <title>源</title>
-      <link>https://blog.wiseai.cn/tags/%E6%BA%90/</link>
+      <link>https://wiseai.cn/tags/%E6%BA%90/</link>
       <pubDate>Sun, 19 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E6%BA%90/</guid>
+      <guid>https://wiseai.cn/tags/%E6%BA%90/</guid>
       <description></description>
     </item>
     
     <item>
       <title>搜索</title>
-      <link>https://blog.wiseai.cn/tags/%E6%90%9C%E7%B4%A2/</link>
+      <link>https://wiseai.cn/tags/%E6%90%9C%E7%B4%A2/</link>
       <pubDate>Sat, 18 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E6%90%9C%E7%B4%A2/</guid>
+      <guid>https://wiseai.cn/tags/%E6%90%9C%E7%B4%A2/</guid>
       <description></description>
     </item>
     
     <item>
       <title>查找</title>
-      <link>https://blog.wiseai.cn/tags/%E6%9F%A5%E6%89%BE/</link>
+      <link>https://wiseai.cn/tags/%E6%9F%A5%E6%89%BE/</link>
       <pubDate>Sat, 18 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E6%9F%A5%E6%89%BE/</guid>
+      <guid>https://wiseai.cn/tags/%E6%9F%A5%E6%89%BE/</guid>
       <description></description>
     </item>
     
     <item>
       <title>整站下载</title>
-      <link>https://blog.wiseai.cn/tags/%E6%95%B4%E7%AB%99%E4%B8%8B%E8%BD%BD/</link>
+      <link>https://wiseai.cn/tags/%E6%95%B4%E7%AB%99%E4%B8%8B%E8%BD%BD/</link>
       <pubDate>Fri, 17 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E6%95%B4%E7%AB%99%E4%B8%8B%E8%BD%BD/</guid>
+      <guid>https://wiseai.cn/tags/%E6%95%B4%E7%AB%99%E4%B8%8B%E8%BD%BD/</guid>
       <description></description>
     </item>
     
     <item>
       <title>网页下载</title>
-      <link>https://blog.wiseai.cn/tags/%E7%BD%91%E9%A1%B5%E4%B8%8B%E8%BD%BD/</link>
+      <link>https://wiseai.cn/tags/%E7%BD%91%E9%A1%B5%E4%B8%8B%E8%BD%BD/</link>
       <pubDate>Fri, 17 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E7%BD%91%E9%A1%B5%E4%B8%8B%E8%BD%BD/</guid>
+      <guid>https://wiseai.cn/tags/%E7%BD%91%E9%A1%B5%E4%B8%8B%E8%BD%BD/</guid>
       <description></description>
     </item>
     
     <item>
       <title>更新</title>
-      <link>https://blog.wiseai.cn/tags/%E6%9B%B4%E6%96%B0/</link>
+      <link>https://wiseai.cn/tags/%E6%9B%B4%E6%96%B0/</link>
       <pubDate>Thu, 16 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E6%9B%B4%E6%96%B0/</guid>
+      <guid>https://wiseai.cn/tags/%E6%9B%B4%E6%96%B0/</guid>
       <description></description>
     </item>
     
     <item>
       <title>本地源</title>
-      <link>https://blog.wiseai.cn/tags/%E6%9C%AC%E5%9C%B0%E6%BA%90/</link>
+      <link>https://wiseai.cn/tags/%E6%9C%AC%E5%9C%B0%E6%BA%90/</link>
       <pubDate>Thu, 16 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E6%9C%AC%E5%9C%B0%E6%BA%90/</guid>
+      <guid>https://wiseai.cn/tags/%E6%9C%AC%E5%9C%B0%E6%BA%90/</guid>
       <description></description>
     </item>
     
     <item>
       <title>yum</title>
-      <link>https://blog.wiseai.cn/tags/yum/</link>
+      <link>https://wiseai.cn/tags/yum/</link>
       <pubDate>Wed, 15 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/yum/</guid>
+      <guid>https://wiseai.cn/tags/yum/</guid>
       <description></description>
     </item>
     
     <item>
       <title>无线</title>
-      <link>https://blog.wiseai.cn/tags/%E6%97%A0%E7%BA%BF/</link>
+      <link>https://wiseai.cn/tags/%E6%97%A0%E7%BA%BF/</link>
       <pubDate>Wed, 15 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E6%97%A0%E7%BA%BF/</guid>
+      <guid>https://wiseai.cn/tags/%E6%97%A0%E7%BA%BF/</guid>
       <description></description>
     </item>
     
     <item>
       <title>蓝牙</title>
-      <link>https://blog.wiseai.cn/tags/%E8%93%9D%E7%89%99/</link>
+      <link>https://wiseai.cn/tags/%E8%93%9D%E7%89%99/</link>
       <pubDate>Wed, 15 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E8%93%9D%E7%89%99/</guid>
+      <guid>https://wiseai.cn/tags/%E8%93%9D%E7%89%99/</guid>
       <description></description>
     </item>
     
     <item>
       <title>错误</title>
-      <link>https://blog.wiseai.cn/tags/%E9%94%99%E8%AF%AF/</link>
+      <link>https://wiseai.cn/tags/%E9%94%99%E8%AF%AF/</link>
       <pubDate>Wed, 15 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E9%94%99%E8%AF%AF/</guid>
+      <guid>https://wiseai.cn/tags/%E9%94%99%E8%AF%AF/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Linux系统</title>
-      <link>https://blog.wiseai.cn/tags/linux%E7%B3%BB%E7%BB%9F/</link>
+      <link>https://wiseai.cn/tags/linux%E7%B3%BB%E7%BB%9F/</link>
       <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/linux%E7%B3%BB%E7%BB%9F/</guid>
+      <guid>https://wiseai.cn/tags/linux%E7%B3%BB%E7%BB%9F/</guid>
       <description></description>
     </item>
     
     <item>
       <title>markdown</title>
-      <link>https://blog.wiseai.cn/tags/markdown/</link>
+      <link>https://wiseai.cn/tags/markdown/</link>
       <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/markdown/</guid>
+      <guid>https://wiseai.cn/tags/markdown/</guid>
       <description></description>
     </item>
     
     <item>
       <title>nginx</title>
-      <link>https://blog.wiseai.cn/tags/nginx/</link>
+      <link>https://wiseai.cn/tags/nginx/</link>
       <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/nginx/</guid>
+      <guid>https://wiseai.cn/tags/nginx/</guid>
       <description></description>
     </item>
     
     <item>
       <title>代码编辑器</title>
-      <link>https://blog.wiseai.cn/tags/%E4%BB%A3%E7%A0%81%E7%BC%96%E8%BE%91%E5%99%A8/</link>
+      <link>https://wiseai.cn/tags/%E4%BB%A3%E7%A0%81%E7%BC%96%E8%BE%91%E5%99%A8/</link>
       <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E4%BB%A3%E7%A0%81%E7%BC%96%E8%BE%91%E5%99%A8/</guid>
+      <guid>https://wiseai.cn/tags/%E4%BB%A3%E7%A0%81%E7%BC%96%E8%BE%91%E5%99%A8/</guid>
       <description></description>
     </item>
     
     <item>
       <title>服务</title>
-      <link>https://blog.wiseai.cn/tags/%E6%9C%8D%E5%8A%A1/</link>
+      <link>https://wiseai.cn/tags/%E6%9C%8D%E5%8A%A1/</link>
       <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E6%9C%8D%E5%8A%A1/</guid>
+      <guid>https://wiseai.cn/tags/%E6%9C%8D%E5%8A%A1/</guid>
       <description></description>
     </item>
     
     <item>
       <title>构建系统</title>
-      <link>https://blog.wiseai.cn/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/</link>
+      <link>https://wiseai.cn/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/</link>
       <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/</guid>
+      <guid>https://wiseai.cn/tags/%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F/</guid>
       <description></description>
     </item>
     
     <item>
       <title>格式</title>
-      <link>https://blog.wiseai.cn/tags/%E6%A0%BC%E5%BC%8F/</link>
+      <link>https://wiseai.cn/tags/%E6%A0%BC%E5%BC%8F/</link>
       <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E6%A0%BC%E5%BC%8F/</guid>
+      <guid>https://wiseai.cn/tags/%E6%A0%BC%E5%BC%8F/</guid>
       <description></description>
     </item>
     
     <item>
       <title>管理</title>
-      <link>https://blog.wiseai.cn/tags/%E7%AE%A1%E7%90%86/</link>
+      <link>https://wiseai.cn/tags/%E7%AE%A1%E7%90%86/</link>
       <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E7%AE%A1%E7%90%86/</guid>
+      <guid>https://wiseai.cn/tags/%E7%AE%A1%E7%90%86/</guid>
       <description></description>
     </item>
     
     <item>
       <title>配置</title>
-      <link>https://blog.wiseai.cn/tags/%E9%85%8D%E7%BD%AE/</link>
+      <link>https://wiseai.cn/tags/%E9%85%8D%E7%BD%AE/</link>
       <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E9%85%8D%E7%BD%AE/</guid>
+      <guid>https://wiseai.cn/tags/%E9%85%8D%E7%BD%AE/</guid>
       <description></description>
     </item>
     
     <item>
       <title>lib</title>
-      <link>https://blog.wiseai.cn/tags/lib/</link>
+      <link>https://wiseai.cn/tags/lib/</link>
       <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/lib/</guid>
+      <guid>https://wiseai.cn/tags/lib/</guid>
       <description></description>
     </item>
     
     <item>
       <title>limits</title>
-      <link>https://blog.wiseai.cn/tags/limits/</link>
+      <link>https://wiseai.cn/tags/limits/</link>
       <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/limits/</guid>
+      <guid>https://wiseai.cn/tags/limits/</guid>
       <description></description>
     </item>
     
     <item>
       <title>mariadb</title>
-      <link>https://blog.wiseai.cn/tags/mariadb/</link>
+      <link>https://wiseai.cn/tags/mariadb/</link>
       <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/mariadb/</guid>
+      <guid>https://wiseai.cn/tags/mariadb/</guid>
       <description></description>
     </item>
     
     <item>
       <title>mysql</title>
-      <link>https://blog.wiseai.cn/tags/mysql/</link>
+      <link>https://wiseai.cn/tags/mysql/</link>
       <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/mysql/</guid>
+      <guid>https://wiseai.cn/tags/mysql/</guid>
       <description></description>
     </item>
     
     <item>
       <title>sh</title>
-      <link>https://blog.wiseai.cn/tags/sh/</link>
+      <link>https://wiseai.cn/tags/sh/</link>
       <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/sh/</guid>
+      <guid>https://wiseai.cn/tags/sh/</guid>
       <description></description>
     </item>
     
     <item>
       <title>合并</title>
-      <link>https://blog.wiseai.cn/tags/%E5%90%88%E5%B9%B6/</link>
+      <link>https://wiseai.cn/tags/%E5%90%88%E5%B9%B6/</link>
       <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E5%90%88%E5%B9%B6/</guid>
+      <guid>https://wiseai.cn/tags/%E5%90%88%E5%B9%B6/</guid>
       <description></description>
     </item>
     
     <item>
       <title>文件</title>
-      <link>https://blog.wiseai.cn/tags/%E6%96%87%E4%BB%B6/</link>
+      <link>https://wiseai.cn/tags/%E6%96%87%E4%BB%B6/</link>
       <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E6%96%87%E4%BB%B6/</guid>
+      <guid>https://wiseai.cn/tags/%E6%96%87%E4%BB%B6/</guid>
       <description></description>
     </item>
     
     <item>
       <title>运行库</title>
-      <link>https://blog.wiseai.cn/tags/%E8%BF%90%E8%A1%8C%E5%BA%93/</link>
+      <link>https://wiseai.cn/tags/%E8%BF%90%E8%A1%8C%E5%BA%93/</link>
       <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E8%BF%90%E8%A1%8C%E5%BA%93/</guid>
+      <guid>https://wiseai.cn/tags/%E8%BF%90%E8%A1%8C%E5%BA%93/</guid>
       <description></description>
     </item>
     
     <item>
       <title>屏录</title>
-      <link>https://blog.wiseai.cn/tags/%E5%B1%8F%E5%BD%95/</link>
+      <link>https://wiseai.cn/tags/%E5%B1%8F%E5%BD%95/</link>
       <pubDate>Tue, 31 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E5%B1%8F%E5%BD%95/</guid>
+      <guid>https://wiseai.cn/tags/%E5%B1%8F%E5%BD%95/</guid>
       <description></description>
     </item>
     
     <item>
       <title>录屏</title>
-      <link>https://blog.wiseai.cn/tags/%E5%BD%95%E5%B1%8F/</link>
+      <link>https://wiseai.cn/tags/%E5%BD%95%E5%B1%8F/</link>
       <pubDate>Tue, 31 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E5%BD%95%E5%B1%8F/</guid>
+      <guid>https://wiseai.cn/tags/%E5%BD%95%E5%B1%8F/</guid>
       <description></description>
     </item>
     
     <item>
       <title>filebrowser</title>
-      <link>https://blog.wiseai.cn/tags/filebrowser/</link>
+      <link>https://wiseai.cn/tags/filebrowser/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/filebrowser/</guid>
+      <guid>https://wiseai.cn/tags/filebrowser/</guid>
       <description></description>
     </item>
     
     <item>
       <title>ftp</title>
-      <link>https://blog.wiseai.cn/tags/ftp/</link>
+      <link>https://wiseai.cn/tags/ftp/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/ftp/</guid>
+      <guid>https://wiseai.cn/tags/ftp/</guid>
       <description></description>
     </item>
     
     <item>
       <title>gitee</title>
-      <link>https://blog.wiseai.cn/tags/gitee/</link>
+      <link>https://wiseai.cn/tags/gitee/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/gitee/</guid>
+      <guid>https://wiseai.cn/tags/gitee/</guid>
       <description></description>
     </item>
     
     <item>
       <title>github</title>
-      <link>https://blog.wiseai.cn/tags/github/</link>
+      <link>https://wiseai.cn/tags/github/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/github/</guid>
+      <guid>https://wiseai.cn/tags/github/</guid>
       <description></description>
     </item>
     
     <item>
       <title>gpio</title>
-      <link>https://blog.wiseai.cn/tags/gpio/</link>
+      <link>https://wiseai.cn/tags/gpio/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/gpio/</guid>
+      <guid>https://wiseai.cn/tags/gpio/</guid>
       <description></description>
     </item>
     
     <item>
       <title>nodejs</title>
-      <link>https://blog.wiseai.cn/tags/nodejs/</link>
+      <link>https://wiseai.cn/tags/nodejs/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/nodejs/</guid>
+      <guid>https://wiseai.cn/tags/nodejs/</guid>
       <description></description>
     </item>
     
     <item>
       <title>启动</title>
-      <link>https://blog.wiseai.cn/tags/%E5%90%AF%E5%8A%A8/</link>
+      <link>https://wiseai.cn/tags/%E5%90%AF%E5%8A%A8/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E5%90%AF%E5%8A%A8/</guid>
+      <guid>https://wiseai.cn/tags/%E5%90%AF%E5%8A%A8/</guid>
       <description></description>
     </item>
     
     <item>
       <title>开机</title>
-      <link>https://blog.wiseai.cn/tags/%E5%BC%80%E6%9C%BA/</link>
+      <link>https://wiseai.cn/tags/%E5%BC%80%E6%9C%BA/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E5%BC%80%E6%9C%BA/</guid>
+      <guid>https://wiseai.cn/tags/%E5%BC%80%E6%9C%BA/</guid>
       <description></description>
     </item>
     
     <item>
       <title>惠普</title>
-      <link>https://blog.wiseai.cn/tags/%E6%83%A0%E6%99%AE/</link>
+      <link>https://wiseai.cn/tags/%E6%83%A0%E6%99%AE/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E6%83%A0%E6%99%AE/</guid>
+      <guid>https://wiseai.cn/tags/%E6%83%A0%E6%99%AE/</guid>
       <description></description>
     </item>
     
     <item>
       <title>故障</title>
-      <link>https://blog.wiseai.cn/tags/%E6%95%85%E9%9A%9C/</link>
+      <link>https://wiseai.cn/tags/%E6%95%85%E9%9A%9C/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E6%95%85%E9%9A%9C/</guid>
+      <guid>https://wiseai.cn/tags/%E6%95%85%E9%9A%9C/</guid>
       <description></description>
     </item>
     
     <item>
       <title>文件管理</title>
-      <link>https://blog.wiseai.cn/tags/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/</link>
+      <link>https://wiseai.cn/tags/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/</guid>
+      <guid>https://wiseai.cn/tags/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/</guid>
       <description></description>
     </item>
     
     <item>
       <title>环境配置</title>
-      <link>https://blog.wiseai.cn/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</link>
+      <link>https://wiseai.cn/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</guid>
+      <guid>https://wiseai.cn/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</guid>
       <description></description>
     </item>
     
     <item>
       <title>用户</title>
-      <link>https://blog.wiseai.cn/tags/%E7%94%A8%E6%88%B7/</link>
+      <link>https://wiseai.cn/tags/%E7%94%A8%E6%88%B7/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E7%94%A8%E6%88%B7/</guid>
+      <guid>https://wiseai.cn/tags/%E7%94%A8%E6%88%B7/</guid>
       <description></description>
     </item>
     
     <item>
       <title>系统引导</title>
-      <link>https://blog.wiseai.cn/tags/%E7%B3%BB%E7%BB%9F%E5%BC%95%E5%AF%BC/</link>
+      <link>https://wiseai.cn/tags/%E7%B3%BB%E7%BB%9F%E5%BC%95%E5%AF%BC/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E7%B3%BB%E7%BB%9F%E5%BC%95%E5%AF%BC/</guid>
+      <guid>https://wiseai.cn/tags/%E7%B3%BB%E7%BB%9F%E5%BC%95%E5%AF%BC/</guid>
       <description></description>
     </item>
     
     <item>
       <title>组</title>
-      <link>https://blog.wiseai.cn/tags/%E7%BB%84/</link>
+      <link>https://wiseai.cn/tags/%E7%BB%84/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E7%BB%84/</guid>
+      <guid>https://wiseai.cn/tags/%E7%BB%84/</guid>
       <description></description>
     </item>
     
     <item>
       <title>自动运行</title>
-      <link>https://blog.wiseai.cn/tags/%E8%87%AA%E5%8A%A8%E8%BF%90%E8%A1%8C/</link>
+      <link>https://wiseai.cn/tags/%E8%87%AA%E5%8A%A8%E8%BF%90%E8%A1%8C/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E8%87%AA%E5%8A%A8%E8%BF%90%E8%A1%8C/</guid>
+      <guid>https://wiseai.cn/tags/%E8%87%AA%E5%8A%A8%E8%BF%90%E8%A1%8C/</guid>
       <description></description>
     </item>
     
     <item>
       <title>防火墙</title>
-      <link>https://blog.wiseai.cn/tags/%E9%98%B2%E7%81%AB%E5%A2%99/</link>
+      <link>https://wiseai.cn/tags/%E9%98%B2%E7%81%AB%E5%A2%99/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/%E9%98%B2%E7%81%AB%E5%A2%99/</guid>
+      <guid>https://wiseai.cn/tags/%E9%98%B2%E7%81%AB%E5%A2%99/</guid>
       <description></description>
     </item>
     
     <item>
       <title>css</title>
-      <link>https://blog.wiseai.cn/tags/css/</link>
+      <link>https://wiseai.cn/tags/css/</link>
       <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/css/</guid>
+      <guid>https://wiseai.cn/tags/css/</guid>
       <description></description>
     </item>
     
     <item>
       <title>html</title>
-      <link>https://blog.wiseai.cn/tags/html/</link>
+      <link>https://wiseai.cn/tags/html/</link>
       <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/html/</guid>
+      <guid>https://wiseai.cn/tags/html/</guid>
       <description></description>
     </item>
     
     <item>
       <title>image</title>
-      <link>https://blog.wiseai.cn/tags/image/</link>
+      <link>https://wiseai.cn/tags/image/</link>
       <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/image/</guid>
+      <guid>https://wiseai.cn/tags/image/</guid>
       <description></description>
     </item>
     
     <item>
       <title>text</title>
-      <link>https://blog.wiseai.cn/tags/text/</link>
+      <link>https://wiseai.cn/tags/text/</link>
       <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/text/</guid>
+      <guid>https://wiseai.cn/tags/text/</guid>
       <description></description>
     </item>
     
     <item>
       <title>emoji</title>
-      <link>https://blog.wiseai.cn/tags/emoji/</link>
+      <link>https://wiseai.cn/tags/emoji/</link>
       <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/tags/emoji/</guid>
+      <guid>https://wiseai.cn/tags/emoji/</guid>
       <description></description>
     </item>
     

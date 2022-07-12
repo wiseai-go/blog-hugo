@@ -2,27 +2,52 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>命令 on WiseAI的博客</title>
-    <link>https://blog.wiseai.cn/tags/%E5%91%BD%E4%BB%A4/</link>
+    <link>https://wiseai.cn/tags/%E5%91%BD%E4%BB%A4/</link>
     <description>Recent content in 命令 on WiseAI的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Wed, 06 Jul 2022 17:26:36 +0800</lastBuildDate><atom:link href="https://blog.wiseai.cn/tags/%E5%91%BD%E4%BB%A4/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 08 Jul 2022 16:30:38 +0800</lastBuildDate><atom:link href="https://wiseai.cn/tags/%E5%91%BD%E4%BB%A4/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>nohup及重定向</title>
+      <link>https://wiseai.cn/post/nohup%E5%8F%8A%E9%87%8D%E5%AE%9A%E5%90%91/</link>
+      <pubDate>Fri, 08 Jul 2022 16:30:38 +0800</pubDate>
+      
+      <guid>https://wiseai.cn/post/nohup%E5%8F%8A%E9%87%8D%E5%AE%9A%E5%90%91/</guid>
+      <description> 语法：nohup Command [ Arg … ] [　&amp;amp; ]
+描述：nohup 命令运行由 Command 参数和任何相关的 Arg 参数指定的命令，忽略所有挂断（SIGHUP）信号。要在后台运行 nohup 命令，添加 &amp;amp; 到命令的尾部。
+操作系统中有三个常用的流：
+0：标准输入流 stdin 1：标准输出流 stdout 2：标准错误流 stderr &amp;gt; info.txt实际是 1 &amp;gt; info.txt的省略用法；
+&amp;lt; info.txt实际是 0 &amp;lt; info.txt的省略用法。
+下面步入正题： &amp;gt;nohup ./text.sh &amp;gt;output 2&amp;gt;&amp;amp;1 &amp;amp; &amp;gt;su – wiseai -c ‘/usr/local/bin/jupyter notebook &amp;amp;&amp;gt; /dev/null &amp;amp;’ 解释：
+带&amp;amp;的命令行，即使terminal（终端）关闭，或者电脑死机程序依然运行（前提是你把程序递交到服务器上)； 2&amp;gt;&amp;amp;1和&amp;amp;&amp;gt;相同:意思是把标准错误（2）重定向到标准输出中（1），而标准输出又导入文件output里面，所以结果是标准错误和标准输出都导入文件output里面了。 至于为什么需要将标准错误重定向到标准输出的原因，那就归结为标准错误没有缓冲区，而stdout有。这就会导致 &amp;gt;output 2&amp;gt;output 文件output被两次打开，而stdout和stderr将会竞争覆盖，这肯定不是我门想要的。 /dev/null文件的作用，这是一个无底洞，任何东西都可以定向到这里，但是却无法打开。 所以一般很大的stdou和stderr当你不关心的时候可以利用stdout和stderr定向到这里。 </description>
+    </item>
+    
+    <item>
+      <title>Golang执行系统命令</title>
+      <link>https://wiseai.cn/post/golang%E6%89%A7%E8%A1%8C%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Fri, 08 Jul 2022 16:06:32 +0800</pubDate>
+      
+      <guid>https://wiseai.cn/post/golang%E6%89%A7%E8%A1%8C%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/</guid>
+      <description>直接上代码:
+package main import ( &amp;#34;bytes&amp;#34; &amp;#34;fmt&amp;#34; &amp;#34;os/exec&amp;#34; ) func main() { var err error var stdout, stderr string Loop: err = nil stdout, stderr = &amp;#34;&amp;#34;, &amp;#34;&amp;#34; fmt.Println(&amp;#34;1.列出当前目录中的目录和文件&amp;#34;) fmt.Println(&amp;#34;2.重启打印服务&amp;#34;) fmt.Println(&amp;#34;退出请输入9&amp;#34;) fmt.Println(&amp;#34;-----------------------------&amp;#34;) var key uint8 fmt.Scanf(&amp;#34;%d&amp;#34;, &amp;amp;key) switch key { case 1: err, stdout, stderr = shellRun(&amp;#34;ls -l&amp;#34;) case 2: err, stdout, stderr = shellRun(&amp;#34;systemctl restart cups&amp;#34;) fmt.Println(&amp;#34;请输入密码!&amp;#34;) case 9: fmt.Println(&amp;#34;安全退出&amp;#34;) return default: fmt.Println(&amp;#34;-----------------------------&amp;#34;) fmt.Println(&amp;#34;请输入正确的数字!&amp;#34;) } if err != nil { fmt.</description>
+    </item>
+    
     <item>
       <title>aria2命令</title>
-      <link>https://blog.wiseai.cn/post/aria2%E5%91%BD%E4%BB%A4/</link>
+      <link>https://wiseai.cn/post/aria2%E5%91%BD%E4%BB%A4/</link>
       <pubDate>Wed, 06 Jul 2022 17:26:36 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/aria2%E5%91%BD%E4%BB%A4/</guid>
+      <guid>https://wiseai.cn/post/aria2%E5%91%BD%E4%BB%A4/</guid>
       <description>安装 # dnf install aria2 配置文件aria2.conf #基本配置 dir=/home/tzb/aria2/ log=/home/tzb/aria2/aria2.log input-file=/home/tzb/aria2/session/aria2.session save-session=/home/tzb/aria2/session/ save-session-interval=60 force-save=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true log-level=error #see --split option max-concurrent-downloads=5 continue=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true max-overall-download-limit=0 max-overall-upload-limit=50K max-upload-limit=20 # Http/FTP options connect-timeout=120 lowest-speed-limit=10K max-connection-per-server=10 max-file-not-found=2 min-split-size=1M split=5 check-certificate=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;false http-no-cache=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true # FTP Specific Options # BT/PT Setting bt-enable-lpd=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true #bt-max-peers=55 follow-torrent=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true enable-dht6=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;false bt-seed-unverified rpc-save-upload-metadata=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true bt-hash-check-seed bt-remove-unselected-file bt-request-peer-speed-limit=100K seed-ratio=0.0 # Metalink Specific Options # RPC Options enable-rpc=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true pause=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;false rpc-allow-origin-all=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true rpc-listen-all=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true rpc-save-upload-metadata=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true rpc-secure=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;false # Advanced Options daemon=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true disable-ipv6=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true enable-mmap=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true file-allocation=falloc max-download-result=120 #no-file-allocation-limit=32M force-sequential=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true parameterized-uri=&amp;lt;span class=&amp;#34;hljs-literal&amp;#34;&amp;gt;true 开机启动 编辑rc.</description>
     </item>
     
     <item>
       <title>find命令</title>
-      <link>https://blog.wiseai.cn/post/find%E5%91%BD%E4%BB%A4/</link>
+      <link>https://wiseai.cn/post/find%E5%91%BD%E4%BB%A4/</link>
       <pubDate>Wed, 06 Jul 2022 17:24:28 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/find%E5%91%BD%E4%BB%A4/</guid>
+      <guid>https://wiseai.cn/post/find%E5%91%BD%E4%BB%A4/</guid>
       <description>一.find命令
 基本格式：find path expression
 1.按照文件名查找
@@ -32,10 +57,10 @@
     
     <item>
       <title>grep命令</title>
-      <link>https://blog.wiseai.cn/post/grep%E5%91%BD%E4%BB%A4/</link>
+      <link>https://wiseai.cn/post/grep%E5%91%BD%E4%BB%A4/</link>
       <pubDate>Wed, 06 Jul 2022 17:21:46 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/grep%E5%91%BD%E4%BB%A4/</guid>
+      <guid>https://wiseai.cn/post/grep%E5%91%BD%E4%BB%A4/</guid>
       <description>基本格式：grep expression
 1.主要参数
 [options]主要参数：
@@ -46,10 +71,10 @@
     
     <item>
       <title>kill命令</title>
-      <link>https://blog.wiseai.cn/post/kill%E5%91%BD%E4%BB%A4/</link>
+      <link>https://wiseai.cn/post/kill%E5%91%BD%E4%BB%A4/</link>
       <pubDate>Wed, 06 Jul 2022 17:14:28 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/kill%E5%91%BD%E4%BB%A4/</guid>
+      <guid>https://wiseai.cn/post/kill%E5%91%BD%E4%BB%A4/</guid>
       <description>kill命令用来删除执行中的程序或工作。kill可将指定的信息送至程序。预设的信息为SIGTERM(15),可将指定程序终止。若仍无法终止该程序，可使用SIGKILL(9)信息尝试强制删除程序。程序或工作的编号可利用ps指令或job指令查看。
 # kill (选项) (参数) 选项:
 -a：当处理当前进程时，不限制命令名和进程号的对应关系； -l &amp;lt;信息编号&amp;gt;：若不加&amp;lt;信息编号&amp;gt;选项，则-l参数会列出全部的信息名称； -p：指定kill 命令只打印相关进程的进程号，而不发送任何信号； -s &amp;lt;信息名称或编号&amp;gt;：指定要送出的信息； -u：指定用户。 参数:
@@ -59,10 +84,10 @@
     
     <item>
       <title>screen命令</title>
-      <link>https://blog.wiseai.cn/post/screen%E5%91%BD%E4%BB%A4/</link>
+      <link>https://wiseai.cn/post/screen%E5%91%BD%E4%BB%A4/</link>
       <pubDate>Wed, 06 Jul 2022 17:09:03 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/screen%E5%91%BD%E4%BB%A4/</guid>
+      <guid>https://wiseai.cn/post/screen%E5%91%BD%E4%BB%A4/</guid>
       <description>一、使用 创建一个新的窗口 安装完成后，直接敲命令screen就可以启动它。但是这样启动的screen会话没有名字，实践上推荐为每个screen会话取一个名字，方便分辨： ＃ screen -S david
 screen启动后，会创建第一个窗口，也就是窗口No. 0，并在其中打开一个系统默认的shell，一般都会是bash。所以你敲入命令screen之后，会立刻又返回到命令提示符，仿佛什么也没有发生似的，其实你已经进入Screen的世界了。当然，也可以在screen命令之后加入你喜欢的参数，使之直接打开你指定的程序，例如： ＃ screen vi david.txt screen创建一个执行vi david.txt的单窗口会话，退出vi 将退出该窗口/会话。
 可以使用快捷键C-a A来为当前窗口重命名 暂时中断会话，在screen窗口键入C-a d，Screen会给出detached提示 找到该screen会话： ＃ screen -ls
@@ -75,10 +100,10 @@ screen启动后，会创建第一个窗口，也就是窗口No. 0，并在其中
     
     <item>
       <title>netstat命令</title>
-      <link>https://blog.wiseai.cn/post/netstat%E5%91%BD%E4%BB%A4/</link>
+      <link>https://wiseai.cn/post/netstat%E5%91%BD%E4%BB%A4/</link>
       <pubDate>Wed, 06 Jul 2022 17:01:28 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/netstat%E5%91%BD%E4%BB%A4/</guid>
+      <guid>https://wiseai.cn/post/netstat%E5%91%BD%E4%BB%A4/</guid>
       <description>简介 Netstat 命令用于显示各种网络相关信息，如网络连接，路由表，接口状态 (Interface Statistics)，masquerade 连接，多播成员 (Multicast Memberships) 等等。
 输出信息含义 执行netstat后，其输出结果为
 Active Internet connections (w/o servers) Proto Recv-Q Send-Q Local Address Foreign Address State tcp 0 2 210.34.6.89:telnet 210.34.6.96:2873 ESTABLISHED tcp 296 0 210.34.6.89:1165 210.34.6.84:netbios-ssn ESTABLISHED tcp 0 0 localhost.localdom:9001 localhost.localdom:1162 ESTABLISHED tcp 0 0 localhost.localdom:1162 localhost.localdom:9001 ESTABLISHED tcp 0 80 210.34.6.89:1161 210.34.6.10:netbios-ssn CLOSE Active UNIX domain sockets (w/o servers) Proto RefCnt Flags Type State I-Node Path unix 1 [ ] STREAM CONNECTED 16178 @000000dd unix 1 [ ] STREAM CONNECTED 16176 @000000dc unix 9 [ ] DGRAM 5292 /dev/log unix 1 [ ] STREAM CONNECTED 16182 @000000df 从整体上看，netstat的输出结果可以分为两个部分：</description>
@@ -86,19 +111,19 @@ Active Internet connections (w/o servers) Proto Recv-Q Send-Q Local Address Fore
     
     <item>
       <title>Debian的包管理工具</title>
-      <link>https://blog.wiseai.cn/post/debian%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/</link>
+      <link>https://wiseai.cn/post/debian%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/</link>
       <pubDate>Wed, 06 Jul 2022 16:52:16 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/debian%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/</guid>
+      <guid>https://wiseai.cn/post/debian%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/</guid>
       <description>清除所有已删除包的残余配置文件： #dpkg -l |grep ^rc|awk &#39;{print $2}&#39; |xargs dpkg -P</description>
     </item>
     
     <item>
       <title>diff、cmp命令</title>
-      <link>https://blog.wiseai.cn/post/diffcmp%E5%91%BD%E4%BB%A4/</link>
+      <link>https://wiseai.cn/post/diffcmp%E5%91%BD%E4%BB%A4/</link>
       <pubDate>Wed, 06 Jul 2022 16:46:27 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/diffcmp%E5%91%BD%E4%BB%A4/</guid>
+      <guid>https://wiseai.cn/post/diffcmp%E5%91%BD%E4%BB%A4/</guid>
       <description>diff以行为单位对比：
 $ diff [-bBi] from-file to-file 选项与参数： from-file ：一个档名，作为原始比对档案的档名； to-file ：一个档名，作为目的比对档案的档名； 注意，from-file 或to-file 可以- 取代，那个- 代表『Standard input』之意。 -b ：忽略一行当中，仅有多个空白的差异(例如&#34;about me&#34; 与&#34;about me&#34; 视为相同 -B ：忽略空白行的差异。 -i ：忽略大小写的不同。 cmp利用『位元组』单位去比对：
 $ cmp [-l] file1 file2 选项与参数： -l ：将所有的不同点的位元组处都列出来。因为cmp 预设仅会输出第一个发现的不同点。 </description>
@@ -106,10 +131,10 @@ $ cmp [-l] file1 file2 选项与参数： -l ：将所有的不同点的位元�
     
     <item>
       <title>sed和awk命令</title>
-      <link>https://blog.wiseai.cn/post/sed%E5%92%8Cawk%E5%91%BD%E4%BB%A4/</link>
+      <link>https://wiseai.cn/post/sed%E5%92%8Cawk%E5%91%BD%E4%BB%A4/</link>
       <pubDate>Wed, 06 Jul 2022 16:03:36 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/sed%E5%92%8Cawk%E5%91%BD%E4%BB%A4/</guid>
+      <guid>https://wiseai.cn/post/sed%E5%92%8Cawk%E5%91%BD%E4%BB%A4/</guid>
       <description># sed [-nefr] [动作]
 选项与参数：
 -n ：使用安静(silent)模式。在一般sed 的用法中，所有来自STDIN 的资料一般都会被列出到屏幕上。 但如果加上-n 参数后，则只有经过sed 特殊处理的那一行(或者动作)才会被列出来。 -e ：直接在指令列模式上进行sed 的动作编辑； -f ：直接将sed 的动作写在一个档案内， -f filename 则可以执行filename 内的sed 动作； -r ：sed 的动作支援的是延伸型正规表示法的语法。(预设是基础正规表示法语法) -i ：直接修改读取的档案内容，而不是由屏幕输出。 动作说明： [n1[,n2]]function
@@ -119,20 +144,20 @@ sed &amp;#39;2,5d&amp;#39; 删除2-5行 sed &amp;#39;2a abc&amp;#39; 在第二�
     
     <item>
       <title>sftp命令</title>
-      <link>https://blog.wiseai.cn/post/sftp%E5%91%BD%E4%BB%A4/</link>
+      <link>https://wiseai.cn/post/sftp%E5%91%BD%E4%BB%A4/</link>
       <pubDate>Wed, 06 Jul 2022 15:57:22 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/sftp%E5%91%BD%E4%BB%A4/</guid>
+      <guid>https://wiseai.cn/post/sftp%E5%91%BD%E4%BB%A4/</guid>
       <description>常用方式 格式：sftp &amp;lt;host&amp;gt; 通过sftp连接&amp;lt;host&amp;gt;，端口为默认的22，用户为Linux当前登录用户。 格式：sftp -oPort=&amp;lt;port&amp;gt; &amp;lt;host&amp;gt; 通过sftp连接&amp;lt;host&amp;gt;，指定端口&amp;lt;port&amp;gt;，用户为Linux当前登录用户。 格式：sftp &amp;lt;user&amp;gt;@&amp;lt;host&amp;gt; 通过sftp连接&amp;lt;host&amp;gt;，端口为默认的22，指定用户&amp;lt;user&amp;gt;。 格式：sftp -oPort=&amp;lt;port&amp;gt; &amp;lt;user&amp;gt;@&amp;lt;host&amp;gt; 通过sftp连接&amp;lt;host&amp;gt;，端口为&amp;lt;port&amp;gt;，用户为&amp;lt;user&amp;gt;。 sftp连接成功之后常用操作命令如下：
 help/? 打印帮助信息。 pwd 查看远程服务器当前目录； lpwd 查看本地系统的当前目录。 cd &amp;lt;dir&amp;gt; 将远程服务器的当前目录更改为&amp;lt;dir&amp;gt;； lcd &amp;lt;dir&amp;gt; 将本地系统的当前目录更改为&amp;lt;dir&amp;gt;。 ls 显示远程服务器上当前目录的文件名； ls -l 显示远程服务器上当前目录的文件详细列表； ls &amp;lt;pattern&amp;gt; 显示远程服务器上符合指定模式&amp;lt;pattern&amp;gt;的文件名； ls -l &amp;lt;pattern&amp;gt; 显示远程服务器上符合指定模式&amp;lt;pattern&amp;gt;的文件详细列表。 lls 显示本地系统上当前目录的文件名； lls的其他参数与ls命令的类似。 get &amp;lt;file&amp;gt; 下载指定文件&amp;lt;file&amp;gt;； -r参数操作目录 get &amp;lt;pattern&amp;gt; 下载符合指定模式&amp;lt;pattern&amp;gt;的文件。-r参数操作目录 put &amp;lt;file&amp;gt; 上传指定文件&amp;lt;file&amp;gt;；-r参数操作目录 put &amp;lt;pattern&amp;gt; 上传符合指定模式&amp;lt;pattern&amp;gt;的文件。-r参数操作目录 progress 切换是否显示文件传输进度。 mkdir &amp;lt;dir&amp;gt; 在远程服务器上创建目录； lmkdir &amp;lt;dir&amp;gt; 在本地系统上创建目录。 exit/quit/bye 退出sftp。 ! 启动一个本地shell。 ! &amp;lt;commandline&amp;gt; 执行本地命令行。 其他命令还有：chgrp, chmod, chown, ln, lumask, rename, rm, rmdir, symlink, version。</description>
     </item>
     
     <item>
       <title>ssh免密码登陆</title>
-      <link>https://blog.wiseai.cn/post/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86/</link>
+      <link>https://wiseai.cn/post/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86/</link>
       <pubDate>Wed, 06 Jul 2022 15:49:33 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86/</guid>
+      <guid>https://wiseai.cn/post/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86/</guid>
       <description>在client生成公钥和私钥： ＃ ssh-keygen -t rsa 注:这个命令可以参考下git的使用，rsa也没有问题。
 位置在~/.ssh/下，分别是id_rsa和id_rsa.pub
 将client的公钥上传到server： ＃ ssh-copy-id -p &#39;端口&#39; &#39;用户名@IP或域名&#39; 这个时候client的公钥文件内容会追加写入到server的 .ssh/authorized_keys 文件中。

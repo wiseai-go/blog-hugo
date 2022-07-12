@@ -1,18 +1,147 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>WiseAI的博客</title>
-    <link>https://blog.wiseai.cn/</link>
+    <link>https://wiseai.cn/</link>
     <description>Recent content on WiseAI的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Wed, 06 Jul 2022 17:26:36 +0800</lastBuildDate><atom:link href="https://blog.wiseai.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 08 Jul 2022 16:30:38 +0800</lastBuildDate><atom:link href="https://wiseai.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+    <title>nohup及重定向</title>
+    <link>https://wiseai.cn/post/nohup%E5%8F%8A%E9%87%8D%E5%AE%9A%E5%90%91/</link>
+    <pubDate>Fri, 08 Jul 2022 16:30:38 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>https://wiseai.cn/post/nohup%E5%8F%8A%E9%87%8D%E5%AE%9A%E5%90%91/</guid>
+    <description>
+        &lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;语法：nohup Command [ Arg … ] [　&amp;amp; ]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;描述：nohup 命令运行由 Command 参数和任何相关的 Arg 参数指定的命令，忽略所有挂断（SIGHUP）信号。要在后台运行 nohup 命令，添加 &lt;code&gt;&amp;amp;&lt;/code&gt; 到命令的尾部。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;操作系统中有三个常用的流：&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;0：标准输入流 stdin
+1：标准输出流 stdout
+2：标准错误流 stderr
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;&amp;gt; info.txt&lt;/code&gt;实际是 &lt;code&gt;1 &amp;gt; info.txt&lt;/code&gt;的省略用法；&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt; info.txt&lt;/code&gt;实际是 &lt;code&gt;0 &amp;lt; info.txt&lt;/code&gt;的省略用法。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;下面步入正题：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;gt;nohup ./text.sh &amp;gt;output 2&amp;gt;&amp;amp;1 &amp;amp;
+&amp;gt;su – wiseai -c ‘/usr/local/bin/jupyter notebook &amp;amp;&amp;gt; /dev/null &amp;amp;’
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;解释：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;带&amp;amp;的命令行，即使terminal（终端）关闭，或者电脑死机程序依然运行（前提是你把程序递交到服务器上)；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;2&amp;gt;&amp;amp;1&lt;/code&gt;和&lt;code&gt;&amp;amp;&amp;gt;&lt;/code&gt;相同:意思是把标准错误（2）重定向到标准输出中（1），而标准输出又导入文件output里面，所以结果是标准错误和标准输出都导入文件output里面了。 至于为什么需要将标准错误重定向到标准输出的原因，那就归结为标准错误没有缓冲区，而stdout有。这就会导致 &lt;code&gt;&amp;gt;output 2&amp;gt;output&lt;/code&gt; 文件output被两次打开，而stdout和stderr将会竞争覆盖，这肯定不是我门想要的。&lt;/li&gt;
+&lt;li&gt;/dev/null文件的作用，这是一个无底洞，任何东西都可以定向到这里，但是却无法打开。 所以一般很大的stdou和stderr当你不关心的时候可以利用stdout和stderr定向到这里。&lt;/li&gt;
+&lt;/ol&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>Golang执行系统命令</title>
+    <link>https://wiseai.cn/post/golang%E6%89%A7%E8%A1%8C%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/</link>
+    <pubDate>Fri, 08 Jul 2022 16:06:32 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>https://wiseai.cn/post/golang%E6%89%A7%E8%A1%8C%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/</guid>
+    <description>
+        &lt;p&gt;直接上代码:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+
+import (
+	&amp;#34;bytes&amp;#34;
+	&amp;#34;fmt&amp;#34;
+	&amp;#34;os/exec&amp;#34;
+)
+
+func main() {
+	var err error
+	var stdout, stderr string
+
+	Loop:
+	err = nil
+	stdout, stderr = &amp;#34;&amp;#34;, &amp;#34;&amp;#34;
+
+	fmt.Println(&amp;#34;1.列出当前目录中的目录和文件&amp;#34;)
+	fmt.Println(&amp;#34;2.重启打印服务&amp;#34;)
+	fmt.Println(&amp;#34;退出请输入9&amp;#34;)
+	fmt.Println(&amp;#34;-----------------------------&amp;#34;)
+
+	var key uint8
+	fmt.Scanf(&amp;#34;%d&amp;#34;, &amp;amp;key)
+	switch key {
+	case 1:
+		err, stdout, stderr = shellRun(&amp;#34;ls -l&amp;#34;)
+	case 2:
+		err, stdout, stderr = shellRun(&amp;#34;systemctl restart cups&amp;#34;)
+		fmt.Println(&amp;#34;请输入密码!&amp;#34;)
+	case 9:
+		fmt.Println(&amp;#34;安全退出&amp;#34;)
+		return
+	default:
+		fmt.Println(&amp;#34;-----------------------------&amp;#34;)
+		fmt.Println(&amp;#34;请输入正确的数字!&amp;#34;)
+	}
+	if err != nil {
+		fmt.Print(&amp;#34;出现错误：&amp;#34;)
+		fmt.Println(err)
+	}
+	if stdout != &amp;#34;&amp;#34; {
+		fmt.Println(stdout)
+	}
+	if stderr != &amp;#34;&amp;#34; {
+		fmt.Println(&amp;#34;错误提示:&amp;#34;)
+		fmt.Println(stderr)
+	}
+
+	fmt.Println(&amp;#34;-----------------------------&amp;#34;)
+	goto Loop
+}
+
+func shellRun(command string) (error, string, string) {
+	var stdout bytes.Buffer
+	var stderr bytes.Buffer
+	cmd := exec.Command(&amp;#34;/bin/bash&amp;#34;, &amp;#34;-c&amp;#34;, command)
+	cmd.Stdout = &amp;amp;stdout
+	cmd.Stderr = &amp;amp;stderr
+	err := cmd.Run()
+	return err, stdout.String(), stderr.String()
+}
+&lt;/code&gt;&lt;/pre&gt;
+    </description>
+    </item>
+    
+    <item>
+    <title>无党派人士发言</title>
+    <link>https://wiseai.cn/post/%E6%97%A0%E5%85%9A%E6%B4%BE%E4%BA%BA%E5%A3%AB%E5%8F%91%E8%A8%80/</link>
+    <pubDate>Fri, 08 Jul 2022 15:21:22 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>https://wiseai.cn/post/%E6%97%A0%E5%85%9A%E6%B4%BE%E4%BA%BA%E5%A3%AB%E5%8F%91%E8%A8%80/</guid>
+    <description>
+        &lt;p&gt;不忘百年奋斗路，接续奋进新征程。在中国共产党百年华诞的重要时刻，在“两个一百年”奋斗目标的历史交汇点上，中共十九届六中全会胜利召开。全会通过的《中共中央关于党的百年奋斗重大成就和历史经验的决议》，是新时代中国共产党坚持和发展中国特色社会主义的政治宣言和行动指南，展现了百年大党团结带领全国人民继往开来、矢志中华民族伟大复兴的坚定意志和历史担当，我们无党派人士坚决拥护！&lt;/p&gt;
+&lt;h5 id=&#34;一做不忘初心牢记使命的信仰者坚守者&#34;&gt;&lt;strong&gt;一、做不忘初心、牢记使命的信仰者、坚守者&lt;/strong&gt;&lt;/h5&gt;
+&lt;p&gt;中国共产党的百年奋斗历程，也是无党派人士自觉向中国共产党靠拢并最终团结在中国共产党领导下，勠力同心、团结奋斗的历史。在新民主主义革命时期，无党派人士的代表用手中的笔揭露国民党反动统治，支持中国共产党正义斗争，为民族独立和人民解放作出了积极贡献；新中国成立后，从社会主义革命和建设时期，到改革开放和社会主义现代化建设时期，无党派人士始终坚定地与中国共产党同心同向，贡献智慧和力量。进入新时代，无党派人士更加积极地投身于全面建成小康社会，实现中华民族伟大复兴的实践。面向新征程，我们将继承发扬与中国共产党同心同德、真诚合作的光荣传统，坚守致力国家富强、民族复兴、人民幸福的初心，不负使命担当。&lt;/p&gt;
+&lt;h5 id=&#34;二做习近平新时代中国特色社会主义思想的拥护者实践者&#34;&gt;&lt;strong&gt;二、做习近平新时代中国特色社会主义思想的拥护者、实践者&lt;/strong&gt;&lt;/h5&gt;
+&lt;p&gt;党确立习近平同志党中央的核心、全党的核心地位，确立习近平新时代中国特色社会主义思想的指导地位，反映了全党全军全国各族人民共同心愿。我们要切实增强“四个意识”、坚定“四个自信”、做到“两个维护”。要努力把中国共产党领导的多党合作和政治协商制度坚持好、落实好，助力中国特色社会主义民主政治不断发展完善。&lt;/p&gt;
+&lt;h5 id=&#34;三做履职尽责凝心聚力的有为者笃行者&#34;&gt;&lt;strong&gt;三、做履职尽责、凝心聚力的有为者、笃行者&lt;/strong&gt;&lt;/h5&gt;
+&lt;p&gt;无党派人士以知识分子为主体，作为政协委员，我们要认真履行委员职责，积极参加政协各项活动，自觉加强思想政治引领，努力把更多人团结在中国共产党的旗帜下。作为无党派人士中的文艺工作者，我充分体会到中国共产党在各个历史时期将文艺工作放在重要位置。特别在全国政协十三届二次会议期间，习近平总书记亲切看望了文艺、社科界委员，坚持与时代同步伐、坚持以人民为中心、坚持以精品奉献人民、坚持用明德引领风尚的殷殷嘱托言犹在耳，更是激励我们进行新时代文艺创作的不竭动力。&lt;/p&gt;
+
+    </description>
+    </item>
+    
     <item>
     <title>aria2命令</title>
-    <link>https://blog.wiseai.cn/post/aria2%E5%91%BD%E4%BB%A4/</link>
+    <link>https://wiseai.cn/post/aria2%E5%91%BD%E4%BB%A4/</link>
     <pubDate>Wed, 06 Jul 2022 17:26:36 +0800</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/aria2%E5%91%BD%E4%BB%A4/</guid>
+    <guid>https://wiseai.cn/post/aria2%E5%91%BD%E4%BB%A4/</guid>
     <description>
         &lt;ul&gt;
 &lt;li&gt;安装
@@ -200,10 +329,10 @@ bt-detach-seed-only=true
     
     <item>
     <title>find命令</title>
-    <link>https://blog.wiseai.cn/post/find%E5%91%BD%E4%BB%A4/</link>
+    <link>https://wiseai.cn/post/find%E5%91%BD%E4%BB%A4/</link>
     <pubDate>Wed, 06 Jul 2022 17:24:28 +0800</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/find%E5%91%BD%E4%BB%A4/</guid>
+    <guid>https://wiseai.cn/post/find%E5%91%BD%E4%BB%A4/</guid>
     <description>
         &lt;p&gt;&lt;strong&gt;一.find命令&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;基本格式：find  path expression&lt;/p&gt;
@@ -247,10 +376,10 @@ bt-detach-seed-only=true
     
     <item>
     <title>grep命令</title>
-    <link>https://blog.wiseai.cn/post/grep%E5%91%BD%E4%BB%A4/</link>
+    <link>https://wiseai.cn/post/grep%E5%91%BD%E4%BB%A4/</link>
     <pubDate>Wed, 06 Jul 2022 17:21:46 +0800</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/grep%E5%91%BD%E4%BB%A4/</guid>
+    <guid>https://wiseai.cn/post/grep%E5%91%BD%E4%BB%A4/</guid>
     <description>
         &lt;p&gt;基本格式：grep  expression&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;1.主要参数&lt;/strong&gt;&lt;/p&gt;
@@ -293,10 +422,10 @@ $: 匹配正则表达式的结束行。
     
     <item>
     <title>kill命令</title>
-    <link>https://blog.wiseai.cn/post/kill%E5%91%BD%E4%BB%A4/</link>
+    <link>https://wiseai.cn/post/kill%E5%91%BD%E4%BB%A4/</link>
     <pubDate>Wed, 06 Jul 2022 17:14:28 +0800</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/kill%E5%91%BD%E4%BB%A4/</guid>
+    <guid>https://wiseai.cn/post/kill%E5%91%BD%E4%BB%A4/</guid>
     <description>
         &lt;p&gt;kill命令用来删除执行中的程序或工作。kill可将指定的信息送至程序。预设的信息为SIGTERM(15),可将指定程序终止。若仍无法终止该程序，可使用SIGKILL(9)信息尝试强制删除程序。程序或工作的编号可利用ps指令或job指令查看。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;# kill (选项) (参数)&lt;/code&gt;
@@ -339,10 +468,10 @@ STOP   19    暂停（同 Ctrl + Z）
     
     <item>
     <title>screen命令</title>
-    <link>https://blog.wiseai.cn/post/screen%E5%91%BD%E4%BB%A4/</link>
+    <link>https://wiseai.cn/post/screen%E5%91%BD%E4%BB%A4/</link>
     <pubDate>Wed, 06 Jul 2022 17:09:03 +0800</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/screen%E5%91%BD%E4%BB%A4/</guid>
+    <guid>https://wiseai.cn/post/screen%E5%91%BD%E4%BB%A4/</guid>
     <description>
         &lt;h1 id=&#34;一使用&#34;&gt;一、使用&lt;/h1&gt;
 &lt;ul&gt;
@@ -478,10 +607,10 @@ screen的另一个很强大的功能就是可以在不同窗口之间进行复�
     
     <item>
     <title>netstat命令</title>
-    <link>https://blog.wiseai.cn/post/netstat%E5%91%BD%E4%BB%A4/</link>
+    <link>https://wiseai.cn/post/netstat%E5%91%BD%E4%BB%A4/</link>
     <pubDate>Wed, 06 Jul 2022 17:01:28 +0800</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/netstat%E5%91%BD%E4%BB%A4/</guid>
+    <guid>https://wiseai.cn/post/netstat%E5%91%BD%E4%BB%A4/</guid>
     <description>
         &lt;h1 id=&#34;简介&#34;&gt;&lt;strong&gt;简介&lt;/strong&gt;&lt;/h1&gt;
 &lt;p&gt;Netstat 命令用于显示各种网络相关信息，如网络连接，路由表，接口状态 (Interface Statistics)，masquerade 连接，多播成员 (Multicast Memberships) 等等。&lt;/p&gt;
@@ -668,10 +797,10 @@ SYN_SENT&lt;/pre&gt;
     
     <item>
     <title>Debian的包管理工具</title>
-    <link>https://blog.wiseai.cn/post/debian%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/</link>
+    <link>https://wiseai.cn/post/debian%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/</link>
     <pubDate>Wed, 06 Jul 2022 16:52:16 +0800</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/debian%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/</guid>
+    <guid>https://wiseai.cn/post/debian%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/</guid>
     <description>
         &lt;p&gt;清除所有已删除包的残余配置文件：
 &lt;code&gt;#dpkg -l |grep ^rc|awk &#39;{print $2}&#39; |xargs dpkg -P&lt;/code&gt;&lt;/p&gt;
@@ -681,10 +810,10 @@ SYN_SENT&lt;/pre&gt;
     
     <item>
     <title>diff、cmp命令</title>
-    <link>https://blog.wiseai.cn/post/diffcmp%E5%91%BD%E4%BB%A4/</link>
+    <link>https://wiseai.cn/post/diffcmp%E5%91%BD%E4%BB%A4/</link>
     <pubDate>Wed, 06 Jul 2022 16:46:27 +0800</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/diffcmp%E5%91%BD%E4%BB%A4/</guid>
+    <guid>https://wiseai.cn/post/diffcmp%E5%91%BD%E4%BB%A4/</guid>
     <description>
         &lt;p&gt;diff以行为单位对比：&lt;/p&gt;
 &lt;pre&gt;$ diff [-bBi] from-file to-file
@@ -707,10 +836,10 @@ to-file ：一个档名，作为目的比对档案的档名；
     
     <item>
     <title>Docker容器设置ssh连接</title>
-    <link>https://blog.wiseai.cn/post/docker%E5%AE%B9%E5%99%A8%E8%AE%BE%E7%BD%AEssh%E8%BF%9E%E6%8E%A5/</link>
+    <link>https://wiseai.cn/post/docker%E5%AE%B9%E5%99%A8%E8%AE%BE%E7%BD%AEssh%E8%BF%9E%E6%8E%A5/</link>
     <pubDate>Wed, 06 Jul 2022 16:36:58 +0800</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/docker%E5%AE%B9%E5%99%A8%E8%AE%BE%E7%BD%AEssh%E8%BF%9E%E6%8E%A5/</guid>
+    <guid>https://wiseai.cn/post/docker%E5%AE%B9%E5%99%A8%E8%AE%BE%E7%BD%AEssh%E8%BF%9E%E6%8E%A5/</guid>
     <description>
         &lt;p&gt;这里以debian容器为例：&lt;/p&gt;
 &lt;h2 id=&#34;一进入容器更改更新源及安装openssh-server&#34;&gt;一、进入容器、更改更新源及安装openssh-server&lt;/h2&gt;
@@ -735,7 +864,7 @@ to-file ：一个档名，作为目的比对档案的档名；
 &lt;/ul&gt;
 &lt;pre class=&#34;editor-colors lang-text&#34;&gt;&lt;span class=&#34;syntax--text syntax--plain&#34;&gt;&lt;span class=&#34;syntax--meta syntax--paragraph syntax--text&#34;&gt;# sed -i &#39;s/session .*required .*pam_loginuid.so/#session required pam_loginuid.so/g&#39; /etc/pam.d/sshd&lt;/span&gt;&lt;/span&gt;
 &lt;/pre&gt;
-&lt;p&gt;注：这个是一个pam登陆控制，可以参考&lt;a href=&#34;https://blog.wiseai.cn/post/ftp%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9E%B6%E8%AE%BEvsftpd/&#34;&gt;ftp服务器设置&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;注：这个是一个pam登陆控制，可以参考&lt;a href=&#34;https://wiseai.cn/post/ftp%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9E%B6%E8%AE%BEvsftpd/&#34;&gt;ftp服务器设置&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;三添加ssh服务使服务在容器打开时就启动&#34;&gt;三、添加ssh服务，使服务在容器打开时就启动：&lt;/h2&gt;
 &lt;pre class=&#34;editor-colors lang-text&#34;&gt;&lt;span class=&#34;syntax--text syntax--plain&#34;&gt;&lt;span class=&#34;syntax--meta syntax--paragraph syntax--text&#34;&gt;# sed -i &#39;$a /usr/sbin/sshd -D&#39; /etc/bash.bashrc&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;
 &lt;!-- wp:heading {&#34;level&#34;:4} --&gt;
@@ -750,10 +879,10 @@ $ ssh-keygen -t ecdsa -N &amp;#39;&amp;#39; -f /etc/ssh/ssh_host_ecdsa_key
     
     <item>
     <title>profile、bashrc、bash_profile详解</title>
-    <link>https://blog.wiseai.cn/post/profilebashrcbash_profile%E8%AF%A6%E8%A7%A3/</link>
+    <link>https://wiseai.cn/post/profilebashrcbash_profile%E8%AF%A6%E8%A7%A3/</link>
     <pubDate>Wed, 06 Jul 2022 16:20:56 +0800</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/profilebashrcbash_profile%E8%AF%A6%E8%A7%A3/</guid>
+    <guid>https://wiseai.cn/post/profilebashrcbash_profile%E8%AF%A6%E8%A7%A3/</guid>
     <description>
         &lt;p&gt;&lt;strong&gt;/etc/profile:&lt;/strong&gt; 此文件为系统的每个用户设置环境信息,当用户第一次登录时,该文件被执行.并从/etc/profile.d目录的配置文件中搜集shell的设置.&lt;/p&gt;
 &lt;p&gt;英文描述为：&lt;/p&gt;
@@ -802,10 +931,10 @@ $ ssh-keygen -t ecdsa -N &amp;#39;&amp;#39; -f /etc/ssh/ssh_host_ecdsa_key
     
     <item>
     <title>sed和awk命令</title>
-    <link>https://blog.wiseai.cn/post/sed%E5%92%8Cawk%E5%91%BD%E4%BB%A4/</link>
+    <link>https://wiseai.cn/post/sed%E5%92%8Cawk%E5%91%BD%E4%BB%A4/</link>
     <pubDate>Wed, 06 Jul 2022 16:03:36 +0800</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/sed%E5%92%8Cawk%E5%91%BD%E4%BB%A4/</guid>
+    <guid>https://wiseai.cn/post/sed%E5%92%8Cawk%E5%91%BD%E4%BB%A4/</guid>
     <description>
         &lt;p&gt;&lt;code&gt;# sed [-nefr] [动作]&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;选项与参数：&lt;/p&gt;
@@ -899,10 +1028,10 @@ Bird2 43000 42000 41000&lt;/pre&gt;
     
     <item>
     <title>sftp命令</title>
-    <link>https://blog.wiseai.cn/post/sftp%E5%91%BD%E4%BB%A4/</link>
+    <link>https://wiseai.cn/post/sftp%E5%91%BD%E4%BB%A4/</link>
     <pubDate>Wed, 06 Jul 2022 15:57:22 +0800</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/sftp%E5%91%BD%E4%BB%A4/</guid>
+    <guid>https://wiseai.cn/post/sftp%E5%91%BD%E4%BB%A4/</guid>
     <description>
         &lt;h2 id=&#34;常用方式&#34;&gt;常用方式&lt;/h2&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;格式：sftp &amp;lt;host&amp;gt;
@@ -969,16 +1098,16 @@ exit/quit/bye 退出sftp。
     
     <item>
     <title>ssh免密码登陆</title>
-    <link>https://blog.wiseai.cn/post/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86/</link>
+    <link>https://wiseai.cn/post/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86/</link>
     <pubDate>Wed, 06 Jul 2022 15:49:33 +0800</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86/</guid>
+    <guid>https://wiseai.cn/post/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86/</guid>
     <description>
         &lt;ol&gt;
 &lt;li&gt;在client生成公钥和私钥：&lt;/li&gt;
 &lt;/ol&gt;
 &lt;pre&gt;＃ ssh-keygen -t rsa&lt;/pre&gt;
-&lt;p&gt;注:这个命令可以参考下&lt;a href=&#34;https://blog.wiseai.cn/post/git/&#34;&gt;git的使用&lt;/a&gt;，rsa也没有问题。&lt;/p&gt;
+&lt;p&gt;注:这个命令可以参考下&lt;a href=&#34;https://wiseai.cn/post/git/&#34;&gt;git的使用&lt;/a&gt;，rsa也没有问题。&lt;/p&gt;
 &lt;p&gt;位置在&lt;code&gt;~/.ssh/&lt;/code&gt;下，分别是id_rsa和id_rsa.pub&lt;/p&gt;
 &lt;ol start=&#34;2&#34;&gt;
 &lt;li&gt;将client的公钥上传到server：&lt;/li&gt;
@@ -994,10 +1123,10 @@ exit/quit/bye 退出sftp。
     
     <item>
     <title>Golang生成随机字符串</title>
-    <link>https://blog.wiseai.cn/post/golang%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E5%AD%97%E7%AC%A6%E4%B8%B2/</link>
+    <link>https://wiseai.cn/post/golang%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E5%AD%97%E7%AC%A6%E4%B8%B2/</link>
     <pubDate>Wed, 06 Jul 2022 08:54:04 +0800</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/golang%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E5%AD%97%E7%AC%A6%E4%B8%B2/</guid>
+    <guid>https://wiseai.cn/post/golang%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E5%AD%97%E7%AC%A6%E4%B8%B2/</guid>
     <description>
         &lt;p&gt;假如我们要生成一个固定长度的随机字符串，包含大小写字母，没有数字，没有特殊字符串，那么我们怎么做呢？需要怎样优化，才会更简单，更高效？在最终的方案之前，我们看看最常见的写法是怎样的，然后是如何一步步演进到最终的高效率方案的。好吧，先看下最原始的方案。&lt;/p&gt;
 &lt;ul&gt;
@@ -1207,10 +1336,10 @@ BenchmarkBytesMaskImprSrcUnsafe-4 10000000 115 ns/op 16 B/op 1 allocs/op
     
     <item>
     <title>Go程序的时间和日期</title>
-    <link>https://blog.wiseai.cn/post/golang/2022.07.05-%E6%97%B6%E9%97%B4%E5%92%8C%E6%97%A5%E6%9C%9F/</link>
+    <link>https://wiseai.cn/post/golang/2022.07.05-%E6%97%B6%E9%97%B4%E5%92%8C%E6%97%A5%E6%9C%9F/</link>
     <pubDate>Tue, 05 Jul 2022 11:18:29 +0800</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/golang/2022.07.05-%E6%97%B6%E9%97%B4%E5%92%8C%E6%97%A5%E6%9C%9F/</guid>
+    <guid>https://wiseai.cn/post/golang/2022.07.05-%E6%97%B6%E9%97%B4%E5%92%8C%E6%97%A5%E6%9C%9F/</guid>
     <description>
         &lt;h1 id=&#34;48-时间和日期&#34;&gt;4.8 时间和日期&lt;/h1&gt;
 &lt;p&gt;&lt;code&gt;time&lt;/code&gt; 包为我们提供了一个数据类型 &lt;code&gt;time.Time&lt;/code&gt;（作为值使用）以及显示和测量时间和日期的功能函数。&lt;/p&gt;
@@ -1259,10 +1388,10 @@ func main() {
     
     <item>
     <title>U盘启动盘制作</title>
-    <link>https://blog.wiseai.cn/post/u%E7%9B%98%E5%90%AF%E5%8A%A8%E7%9B%98%E5%88%B6%E4%BD%9C/</link>
+    <link>https://wiseai.cn/post/u%E7%9B%98%E5%90%AF%E5%8A%A8%E7%9B%98%E5%88%B6%E4%BD%9C/</link>
     <pubDate>Tue, 05 Jul 2022 10:08:37 +0800</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/u%E7%9B%98%E5%90%AF%E5%8A%A8%E7%9B%98%E5%88%B6%E4%BD%9C/</guid>
+    <guid>https://wiseai.cn/post/u%E7%9B%98%E5%90%AF%E5%8A%A8%E7%9B%98%E5%88%B6%E4%BD%9C/</guid>
     <description>
         &lt;h2 id=&#34;一ventoyhttpswwwventoynetcnindexhtml-制作可启动u盘的开源工具制作可启动u盘的开源工具&#34;&gt;一、&lt;a href=&#34;https://www.ventoy.net/cn/index.html&#34; title=&#34;制作可启动U盘的开源工具&#34;&gt;Ventoy&lt;/a&gt;:制作可启动U盘的开源工具&lt;/h2&gt;
 &lt;hr&gt;
@@ -1299,10 +1428,10 @@ func main() {
     
     <item>
     <title>愁</title>
-    <link>https://blog.wiseai.cn/post/%E6%84%81/</link>
+    <link>https://wiseai.cn/post/%E6%84%81/</link>
     <pubDate>Mon, 04 Jul 2022 16:40:53 +0800</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/%E6%84%81/</guid>
+    <guid>https://wiseai.cn/post/%E6%84%81/</guid>
     <description>
         &lt;hr&gt;
 &lt;div id=&#34;myjj&#34;&gt;
@@ -1321,10 +1450,10 @@ func main() {
     
     <item>
     <title>Go程序的 Strings 和 strconv 包</title>
-    <link>https://blog.wiseai.cn/post/golang/2022.07.01-strings%E5%92%8Cstrconv%E5%8C%85/</link>
+    <link>https://wiseai.cn/post/golang/2022.07.01-strings%E5%92%8Cstrconv%E5%8C%85/</link>
     <pubDate>Fri, 01 Jul 2022 10:14:36 +0800</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/golang/2022.07.01-strings%E5%92%8Cstrconv%E5%8C%85/</guid>
+    <guid>https://wiseai.cn/post/golang/2022.07.01-strings%E5%92%8Cstrconv%E5%8C%85/</guid>
     <description>
         &lt;h1 id=&#34;47-strings-和-strconv-包&#34;&gt;4.7 strings 和 strconv 包&lt;/h1&gt;
 &lt;p&gt;作为一种基本数据结构，每种语言都有一些对于字符串的预定义处理函数。Go 中使用 &lt;code&gt;strings&lt;/code&gt; 包来完成对字符串的主要操作。&lt;/p&gt;
@@ -1546,10 +1675,10 @@ The new string is: 671
     
     <item>
     <title>Go程序的字符串</title>
-    <link>https://blog.wiseai.cn/post/golang/2022.06.30-%E5%AD%97%E7%AC%A6%E4%B8%B2/</link>
+    <link>https://wiseai.cn/post/golang/2022.06.30-%E5%AD%97%E7%AC%A6%E4%B8%B2/</link>
     <pubDate>Thu, 30 Jun 2022 09:37:08 +0800</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/golang/2022.06.30-%E5%AD%97%E7%AC%A6%E4%B8%B2/</guid>
+    <guid>https://wiseai.cn/post/golang/2022.06.30-%E5%AD%97%E7%AC%A6%E4%B8%B2/</guid>
     <description>
         &lt;h1 id=&#34;46-字符串&#34;&gt;4.6 字符串&lt;/h1&gt;
 &lt;p&gt;字符串是 UTF-8 字符的一个序列（当字符为 ASCII 码时则占用 1 个字节，其它字符根据需要占用 2-4 个字节）。UTF-8 是被广泛使用的编码格式，是文本文件的标准编码，其它包括 XML 和 JSON 在内，也都使用该编码。由于该编码对占用字节长度的不定性，Go 中的字符串里面的字符也可能根据需要占用 1 至 4 个字节，这与其它语言如 C++、Java 或者 Python 不同（Java 始终使用 2 个字节）。Go 这样做的好处是不仅减少了内存和硬盘空间占用，同时也不用像其它语言那样需要对使用 UTF-8 字符集的文本进行编码和解码。&lt;/p&gt;
@@ -1597,7 +1726,7 @@ The new string is: 671
 s += &amp;#34;world!&amp;#34;
 fmt.Println(s) //输出 “hello, world!”
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;下面这些后面文章添加了再修改&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;在循环中使用加号 &lt;code&gt;+&lt;/code&gt; 拼接字符串并不是最高效的做法，更好的办法是使用函数 &lt;code&gt;strings.Join()&lt;/code&gt;（&lt;a href=&#34;https://blog.wiseai.cn/post/golang/2022.07.01-strings%E5%92%8Cstrconv%E5%8C%85/&#34;&gt;第 4.7.10 节&lt;/a&gt;），有没有更好的办法了？有！使用字节缓冲（&lt;code&gt;bytes.Buffer&lt;/code&gt;）拼接更加给力（&lt;a href=&#34;07.2.md&#34;&gt;第 7.2.6 节&lt;/a&gt;）！&lt;/p&gt;
+&lt;p&gt;在循环中使用加号 &lt;code&gt;+&lt;/code&gt; 拼接字符串并不是最高效的做法，更好的办法是使用函数 &lt;code&gt;strings.Join()&lt;/code&gt;（&lt;a href=&#34;https://wiseai.cn/post/golang/2022.07.01-strings%E5%92%8Cstrconv%E5%8C%85/&#34;&gt;第 4.7.10 节&lt;/a&gt;），有没有更好的办法了？有！使用字节缓冲（&lt;code&gt;bytes.Buffer&lt;/code&gt;）拼接更加给力（&lt;a href=&#34;07.2.md&#34;&gt;第 7.2.6 节&lt;/a&gt;）！&lt;/p&gt;
 &lt;p&gt;在&lt;a href=&#34;07.0.md&#34;&gt;第 7 章&lt;/a&gt;，我们会讲到通过将字符串看作是字节 (&lt;code&gt;byte&lt;/code&gt;) 的切片 (slice) 来实现对其标准索引法的操作。会在&lt;a href=&#34;05.4.md&#34;&gt;第 5.4.1 节&lt;/a&gt; 中讲到的 &lt;code&gt;for&lt;/code&gt; 循环只会根据索引返回字符串中的纯字节，而在&lt;a href=&#34;./05.4.md&#34;&gt;第 5.4.4 节&lt;/a&gt;（以及&lt;a href=&#34;07.6.md&#34;&gt;第 7.6.1 节&lt;/a&gt; 的示例）将会展示如何使用 for-range 循环来实现对 Unicode 字符串的迭代操作。在下一节，我们会学习到许多有关字符串操作的函数和方法，同时 &lt;code&gt;fmt&lt;/code&gt; 包中的 &lt;code&gt;fmt.Sprint(x)&lt;/code&gt; 也可以格式化生成并返回你所需要的字符串（&lt;a href=&#34;04.3.md&#34;&gt;第 4.4.3 节&lt;/a&gt;）。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;练习 4.6&lt;/strong&gt; &lt;a href=&#34;exercises/chapter_4/count_characters.go&#34;&gt;count_characters.go&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;创建一个用于统计字节和字符 (rune) 的程序，并对字符串 &lt;code&gt;asSASA ddd dsjkdsjs dk&lt;/code&gt; 进行分析，然后再分析 &lt;code&gt;asSASA ddd dsjkdsjsこん dk&lt;/code&gt;，最后解释两者不同的原因（提示：使用 &lt;code&gt;unicode/utf8&lt;/code&gt; 包）。&lt;/p&gt;
@@ -1607,10 +1736,10 @@ fmt.Println(s) //输出 “hello, world!”
     
     <item>
     <title>Go程序的基本类型和运算符</title>
-    <link>https://blog.wiseai.cn/post/golang/2022.06.29-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/</link>
+    <link>https://wiseai.cn/post/golang/2022.06.29-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/</link>
     <pubDate>Wed, 29 Jun 2022 11:33:14 +0800</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/golang/2022.06.29-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/</guid>
+    <guid>https://wiseai.cn/post/golang/2022.06.29-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/</guid>
     <description>
         &lt;h1 id=&#34;45-基本类型和运算符&#34;&gt;4.5 基本类型和运算符&lt;/h1&gt;
 &lt;p&gt;我们将在这个部分讲解有关布尔型、数字型和字符型的相关知识。&lt;/p&gt;
@@ -1948,7 +2077,6 @@ func main() {
 &lt;p&gt;不过 Go 同样支持 Unicode（UTF-8），因此字符同样称为 Unicode 代码点或者 runes，并在内存中使用 &lt;code&gt;int&lt;/code&gt; 来表示。在文档中，一般使用格式 &lt;code&gt;U+hhhh&lt;/code&gt; 来表示，其中 &lt;code&gt;h&lt;/code&gt; 表示一个 16 进制数。其实 &lt;code&gt;rune&lt;/code&gt; 也是 Go 当中的一个类型，并且是 &lt;code&gt;int32&lt;/code&gt; 的别名。&lt;/p&gt;
 &lt;p&gt;在书写 Unicode 字符时，需要在 16 进制数之前加上前缀 &lt;code&gt;\u&lt;/code&gt; 或者 &lt;code&gt;\U&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;因为 Unicode 至少占用 2 个字节，所以我们使用 &lt;code&gt;int16&lt;/code&gt; 或者 &lt;code&gt;int&lt;/code&gt; 类型来表示。如果需要使用到 4 字节，则会加上 &lt;code&gt;\U&lt;/code&gt; 前缀；前缀 &lt;code&gt;\u&lt;/code&gt; 则总是紧跟着长度为 4 的 16 进制数，前缀 &lt;code&gt;\U&lt;/code&gt; 紧跟着长度为 8 的 16 进制数。&lt;/p&gt;
-&lt;p&gt;示例 4.12 &lt;a href=&#34;examples/chapter_4/char.go&#34;&gt;char.go&lt;/a&gt;&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;var ch int = &amp;#39;\u0041&amp;#39;
 var ch2 int = &amp;#39;\u03B2&amp;#39;
 var ch3 int = &amp;#39;\U00101234&amp;#39;
@@ -1976,10 +2104,10 @@ U+0041 - U+03B2 - U+101234
     
     <item>
     <title>Go程序的变量</title>
-    <link>https://blog.wiseai.cn/post/golang/2022.06.27-%E5%8F%98%E9%87%8F/</link>
+    <link>https://wiseai.cn/post/golang/2022.06.27-%E5%8F%98%E9%87%8F/</link>
     <pubDate>Mon, 27 Jun 2022 11:46:14 +0800</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/golang/2022.06.27-%E5%8F%98%E9%87%8F/</guid>
+    <guid>https://wiseai.cn/post/golang/2022.06.27-%E5%8F%98%E9%87%8F/</guid>
     <description>
         &lt;h1 id=&#34;44-变量&#34;&gt;4.4 变量&lt;/h1&gt;
 &lt;h2 id=&#34;441-简介&#34;&gt;4.4.1 简介&lt;/h2&gt;
@@ -2190,10 +2318,10 @@ func f2() {
     
     <item>
     <title>Go程序的常量</title>
-    <link>https://blog.wiseai.cn/post/golang/2022.06.27-%E5%B8%B8%E9%87%8F/</link>
+    <link>https://wiseai.cn/post/golang/2022.06.27-%E5%B8%B8%E9%87%8F/</link>
     <pubDate>Mon, 27 Jun 2022 11:36:06 +0800</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/golang/2022.06.27-%E5%B8%B8%E9%87%8F/</guid>
+    <guid>https://wiseai.cn/post/golang/2022.06.27-%E5%B8%B8%E9%87%8F/</guid>
     <description>
         &lt;h1 id=&#34;43-常量&#34;&gt;4.3 常量&lt;/h1&gt;
 &lt;p&gt;常量使用关键字 &lt;code&gt;const&lt;/code&gt; 定义，用于存储不会改变的数据。&lt;/p&gt;
@@ -2283,10 +2411,10 @@ const (
     
     <item>
     <title>大数的阶乘</title>
-    <link>https://blog.wiseai.cn/post/%E5%A4%A7%E6%95%B0%E7%9A%84%E9%98%B6%E4%B9%98/</link>
+    <link>https://wiseai.cn/post/%E5%A4%A7%E6%95%B0%E7%9A%84%E9%98%B6%E4%B9%98/</link>
     <pubDate>Mon, 27 Jun 2022 10:38:51 +0800</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/%E5%A4%A7%E6%95%B0%E7%9A%84%E9%98%B6%E4%B9%98/</guid>
+    <guid>https://wiseai.cn/post/%E5%A4%A7%E6%95%B0%E7%9A%84%E9%98%B6%E4%B9%98/</guid>
     <description>
         &lt;p&gt;直接上代码:&lt;/p&gt;
 &lt;h2 id=&#34;c语言&#34;&gt;C语言:&lt;/h2&gt;
@@ -2441,10 +2569,10 @@ func main() {
     
     <item>
     <title>Go程序的基本结构和要素</title>
-    <link>https://blog.wiseai.cn/post/golang/2022.06.22-go%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84%E5%92%8C%E8%A6%81%E7%B4%A0/</link>
+    <link>https://wiseai.cn/post/golang/2022.06.22-go%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84%E5%92%8C%E8%A6%81%E7%B4%A0/</link>
     <pubDate>Wed, 22 Jun 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/golang/2022.06.22-go%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84%E5%92%8C%E8%A6%81%E7%B4%A0/</guid>
+    <guid>https://wiseai.cn/post/golang/2022.06.22-go%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84%E5%92%8C%E8%A6%81%E7%B4%A0/</guid>
     <description>
         &lt;h1 id=&#34;42-go-程序的基本结构和要素&#34;&gt;4.2 Go 程序的基本结构和要素&lt;/h1&gt;
 &lt;p&gt;示例 hello_world.go&lt;/p&gt;
@@ -2661,10 +2789,10 @@ d := IZ(c)
     
     <item>
     <title>Linux中firefox支持flash</title>
-    <link>https://blog.wiseai.cn/post/linux%E4%B8%ADfirefox%E6%94%AF%E6%8C%81flash/</link>
+    <link>https://wiseai.cn/post/linux%E4%B8%ADfirefox%E6%94%AF%E6%8C%81flash/</link>
     <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/linux%E4%B8%ADfirefox%E6%94%AF%E6%8C%81flash/</guid>
+    <guid>https://wiseai.cn/post/linux%E4%B8%ADfirefox%E6%94%AF%E6%8C%81flash/</guid>
     <description>
         &lt;h2 id=&#34;这个有点旧了参考下&#34;&gt;这个有点旧了，参考下&lt;/h2&gt;
 &lt;ol&gt;
@@ -2688,10 +2816,10 @@ d := IZ(c)
     
     <item>
     <title>Linux远程连接软件</title>
-    <link>https://blog.wiseai.cn/post/linux%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E8%BD%AF%E4%BB%B6/</link>
+    <link>https://wiseai.cn/post/linux%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E8%BD%AF%E4%BB%B6/</link>
     <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/linux%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E8%BD%AF%E4%BB%B6/</guid>
+    <guid>https://wiseai.cn/post/linux%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E8%BD%AF%E4%BB%B6/</guid>
     <description>
         &lt;p&gt;远程桌面客户端:Remmina Remote Desktop Client&lt;/p&gt;
 &lt;p&gt;安装：apt install remmina&lt;/p&gt;
@@ -2701,10 +2829,10 @@ d := IZ(c)
     
     <item>
     <title>NetworkManager网络管理相关问题</title>
-    <link>https://blog.wiseai.cn/post/networkmanager%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</link>
+    <link>https://wiseai.cn/post/networkmanager%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</link>
     <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/networkmanager%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</guid>
+    <guid>https://wiseai.cn/post/networkmanager%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</guid>
     <description>
         &lt;ol&gt;
 &lt;li&gt;相关配置文件位置&lt;/li&gt;
@@ -2751,10 +2879,10 @@ unmanaged-devices=interface-name:wlan*
     
     <item>
     <title>php5-fpm.sock failed</title>
-    <link>https://blog.wiseai.cn/post/php5-fpm.sock-failed/</link>
+    <link>https://wiseai.cn/post/php5-fpm.sock-failed/</link>
     <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/php5-fpm.sock-failed/</guid>
+    <guid>https://wiseai.cn/post/php5-fpm.sock-failed/</guid>
     <description>
         &lt;p&gt;/etc/php5/fpm/pool.d/www.conf&lt;/p&gt;
 &lt;p&gt;里面找到这样一段代码：&lt;/p&gt;
@@ -2770,10 +2898,10 @@ unmanaged-devices=interface-name:wlan*
     
     <item>
     <title>php截取中文字符串乱码问题</title>
-    <link>https://blog.wiseai.cn/post/php%E6%88%AA%E5%8F%96%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</link>
+    <link>https://wiseai.cn/post/php%E6%88%AA%E5%8F%96%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</link>
     <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/php%E6%88%AA%E5%8F%96%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</guid>
+    <guid>https://wiseai.cn/post/php%E6%88%AA%E5%8F%96%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</guid>
     <description>
         &lt;p&gt;php截取字符串有两个函数:&lt;/p&gt;
 &lt;p&gt;一个是substr()，这个用来截取全字母的字符串，截取UTF-8的汉字就会出错；&lt;/p&gt;
@@ -2784,10 +2912,10 @@ unmanaged-devices=interface-name:wlan*
     
     <item>
     <title>samba服务器配置和使用</title>
-    <link>https://blog.wiseai.cn/post/samba%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/</link>
+    <link>https://wiseai.cn/post/samba%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/</link>
     <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/samba%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/</guid>
+    <guid>https://wiseai.cn/post/samba%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/</guid>
     <description>
         &lt;p&gt;安装：&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;#dnf install samba&lt;/code&gt;&lt;/p&gt;
@@ -2936,10 +3064,10 @@ write list = share,@share
     
     <item>
     <title>ssh加密算法的启用禁用方法</title>
-    <link>https://blog.wiseai.cn/post/ssh%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E7%9A%84%E5%90%AF%E7%94%A8%E7%A6%81%E7%94%A8%E6%96%B9%E6%B3%95/</link>
+    <link>https://wiseai.cn/post/ssh%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E7%9A%84%E5%90%AF%E7%94%A8%E7%A6%81%E7%94%A8%E6%96%B9%E6%B3%95/</link>
     <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/ssh%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E7%9A%84%E5%90%AF%E7%94%A8%E7%A6%81%E7%94%A8%E6%96%B9%E6%B3%95/</guid>
+    <guid>https://wiseai.cn/post/ssh%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E7%9A%84%E5%90%AF%E7%94%A8%E7%A6%81%E7%94%A8%E6%96%B9%E6%B3%95/</guid>
     <description>
         &lt;ul&gt;
 &lt;li&gt;“手机ES文件浏览器”不能连接sftp的问题解决方法
@@ -2986,10 +3114,10 @@ PubkeyAcceptedKeyTypes:&lt;code&gt; ssh -Q key&lt;/code&gt;&lt;/p&gt;
     
     <item>
     <title>vi和vim使用</title>
-    <link>https://blog.wiseai.cn/post/vi%E5%92%8Cvim%E4%BD%BF%E7%94%A8/</link>
+    <link>https://wiseai.cn/post/vi%E5%92%8Cvim%E4%BD%BF%E7%94%A8/</link>
     <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/vi%E5%92%8Cvim%E4%BD%BF%E7%94%A8/</guid>
+    <guid>https://wiseai.cn/post/vi%E5%92%8Cvim%E4%BD%BF%E7%94%A8/</guid>
     <description>
         &lt;h4 id=&#34;三种模式分别是一般指令模式编辑模式与指令列命令模式&#34;&gt;三种模式，分别是『一般指令模式』、『编辑模式』与『指令列命令模式』。&lt;/h4&gt;
 &lt;pre&gt;&lt;code&gt;一般指令模式(command mode)
@@ -3040,10 +3168,10 @@ PubkeyAcceptedKeyTypes:&lt;code&gt; ssh -Q key&lt;/code&gt;&lt;/p&gt;
     
     <item>
     <title>下载命令wget</title>
-    <link>https://blog.wiseai.cn/post/%E4%B8%8B%E8%BD%BD%E5%91%BD%E4%BB%A4wget/</link>
+    <link>https://wiseai.cn/post/%E4%B8%8B%E8%BD%BD%E5%91%BD%E4%BB%A4wget/</link>
     <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/%E4%B8%8B%E8%BD%BD%E5%91%BD%E4%BB%A4wget/</guid>
+    <guid>https://wiseai.cn/post/%E4%B8%8B%E8%BD%BD%E5%91%BD%E4%BB%A4wget/</guid>
     <description>
         &lt;p&gt;选项:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;-b 后台下载
@@ -3059,10 +3187,10 @@ PubkeyAcceptedKeyTypes:&lt;code&gt; ssh -Q key&lt;/code&gt;&lt;/p&gt;
     
     <item>
     <title>使用caddy搭建webdav服务器</title>
-    <link>https://blog.wiseai.cn/post/%E4%BD%BF%E7%94%A8caddy%E6%90%AD%E5%BB%BAwebdav%E6%9C%8D%E5%8A%A1%E5%99%A8/</link>
+    <link>https://wiseai.cn/post/%E4%BD%BF%E7%94%A8caddy%E6%90%AD%E5%BB%BAwebdav%E6%9C%8D%E5%8A%A1%E5%99%A8/</link>
     <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/%E4%BD%BF%E7%94%A8caddy%E6%90%AD%E5%BB%BAwebdav%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid>
+    <guid>https://wiseai.cn/post/%E4%BD%BF%E7%94%A8caddy%E6%90%AD%E5%BB%BAwebdav%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid>
     <description>
         &lt;ol&gt;
 &lt;li&gt;首先下载或者编译包含Webdav插件的Caddy&lt;/li&gt;
@@ -3110,10 +3238,10 @@ PubkeyAcceptedKeyTypes:&lt;code&gt; ssh -Q key&lt;/code&gt;&lt;/p&gt;
     
     <item>
     <title>使用OpenSSL生成证书</title>
-    <link>https://blog.wiseai.cn/post/%E4%BD%BF%E7%94%A8openssl%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6/</link>
+    <link>https://wiseai.cn/post/%E4%BD%BF%E7%94%A8openssl%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6/</link>
     <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/%E4%BD%BF%E7%94%A8openssl%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6/</guid>
+    <guid>https://wiseai.cn/post/%E4%BD%BF%E7%94%A8openssl%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6/</guid>
     <description>
         &lt;p&gt;下载安装OpenSSL，进入/bin/下面，执行命令（把ssl目录下的openssl.cnf 拷贝到bin目录下）&lt;/p&gt;
 &lt;p&gt;1.首先要生成服务器端的私钥(key文件):&lt;/p&gt;
@@ -3290,10 +3418,10 @@ Email Address []:
     
     <item>
     <title>Raspberry Pi 4 boot EEPROM</title>
-    <link>https://blog.wiseai.cn/post/raspberry-pi-4-boot-eeprom/</link>
+    <link>https://wiseai.cn/post/raspberry-pi-4-boot-eeprom/</link>
     <pubDate>Sun, 19 Jun 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/raspberry-pi-4-boot-eeprom/</guid>
+    <guid>https://wiseai.cn/post/raspberry-pi-4-boot-eeprom/</guid>
     <description>
         &lt;h1 id=&#34;raspberry-pi-4-boot-eeprom&#34;&gt;Raspberry Pi 4 boot EEPROM&lt;/h1&gt;
 &lt;p&gt;官方文档：https://www.raspberrypi.org/documentation/hardware/raspberrypi/booteeprom.md&lt;/p&gt;
@@ -3332,10 +3460,10 @@ You can change which release stream is to be used during an update by editing th
     
     <item>
     <title>更改ubuntu源</title>
-    <link>https://blog.wiseai.cn/post/%E6%9B%B4%E6%94%B9ubuntu%E6%BA%90/</link>
+    <link>https://wiseai.cn/post/%E6%9B%B4%E6%94%B9ubuntu%E6%BA%90/</link>
     <pubDate>Sun, 19 Jun 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/%E6%9B%B4%E6%94%B9ubuntu%E6%BA%90/</guid>
+    <guid>https://wiseai.cn/post/%E6%9B%B4%E6%94%B9ubuntu%E6%BA%90/</guid>
     <description>
         &lt;p&gt;&lt;code&gt;sed -i &#39;s#http://archive.ubuntu.com/ubuntu/#mirror://mirrors.ubuntu.com/mirrors.txt#&#39; /etc/apt/sources.list&lt;/code&gt;&lt;/p&gt;
 
@@ -3344,10 +3472,10 @@ You can change which release stream is to be used during an update by editing th
     
     <item>
     <title>locate命令</title>
-    <link>https://blog.wiseai.cn/post/locate%E5%91%BD%E4%BB%A4/</link>
+    <link>https://wiseai.cn/post/locate%E5%91%BD%E4%BB%A4/</link>
     <pubDate>Sat, 18 Jun 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/locate%E5%91%BD%E4%BB%A4/</guid>
+    <guid>https://wiseai.cn/post/locate%E5%91%BD%E4%BB%A4/</guid>
     <description>
         &lt;h5 id=&#34;locate命令用于查找符合条件的文档他会去保存文档和目录名称的数据库内查找合乎范本样式条件的文档或目录&#34;&gt;locate命令用于查找符合条件的文档，他会去保存文档和目录名称的数据库内，查找合乎范本样式条件的文档或目录。&lt;/h5&gt;
 &lt;p&gt;&lt;code&gt;# locate [-d ][--help][--version][查找内容文本]&lt;/code&gt;&lt;/p&gt;
@@ -3381,10 +3509,10 @@ You can change which release stream is to be used during an update by editing th
     
     <item>
     <title>整站或网页下载软件httrack</title>
-    <link>https://blog.wiseai.cn/post/%E6%95%B4%E7%AB%99%E6%88%96%E7%BD%91%E9%A1%B5%E4%B8%8B%E8%BD%BD%E8%BD%AF%E4%BB%B6httrack/</link>
+    <link>https://wiseai.cn/post/%E6%95%B4%E7%AB%99%E6%88%96%E7%BD%91%E9%A1%B5%E4%B8%8B%E8%BD%BD%E8%BD%AF%E4%BB%B6httrack/</link>
     <pubDate>Fri, 17 Jun 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/%E6%95%B4%E7%AB%99%E6%88%96%E7%BD%91%E9%A1%B5%E4%B8%8B%E8%BD%BD%E8%BD%AF%E4%BB%B6httrack/</guid>
+    <guid>https://wiseai.cn/post/%E6%95%B4%E7%AB%99%E6%88%96%E7%BD%91%E9%A1%B5%E4%B8%8B%E8%BD%BD%E8%BD%AF%E4%BB%B6httrack/</guid>
     <description>
         &lt;p&gt;首先安装httrack:&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;＃dnf install httrack&lt;/code&gt;&lt;/p&gt;
@@ -3400,10 +3528,10 @@ You can change which release stream is to be used during an update by editing th
     
     <item>
     <title>搭建apt本地源</title>
-    <link>https://blog.wiseai.cn/post/%E6%90%AD%E5%BB%BAapt%E6%9C%AC%E5%9C%B0%E6%BA%90/</link>
+    <link>https://wiseai.cn/post/%E6%90%AD%E5%BB%BAapt%E6%9C%AC%E5%9C%B0%E6%BA%90/</link>
     <pubDate>Thu, 16 Jun 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/%E6%90%AD%E5%BB%BAapt%E6%9C%AC%E5%9C%B0%E6%BA%90/</guid>
+    <guid>https://wiseai.cn/post/%E6%90%AD%E5%BB%BAapt%E6%9C%AC%E5%9C%B0%E6%BA%90/</guid>
     <description>
         &lt;h2 id=&#34;一安装apt-mirror命令&#34;&gt;一、安装apt-mirror命令&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;# apt install apt-mirror&lt;/code&gt;&lt;/p&gt;
@@ -3417,25 +3545,27 @@ deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe mu
 deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
 deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然后，编辑apt-mirror的配置文件/etc/apt/mirror.list&lt;/p&gt;
-&lt;h3 id=&#34;配置镜像下载目录&#34;&gt;配置镜像下载目录&lt;/h3&gt;
-&lt;p&gt;&lt;code&gt;set base_path /var/spool/apt-mirror&lt;/code&gt;&lt;/p&gt;
-&lt;h3 id=&#34;架构配置i386amd64默认的话会下载跟本机相同的架构的源&#34;&gt;架构配置，i386/amd64，默认的话会下载跟本机相同的架构的源&lt;/h3&gt;
-&lt;p&gt;&lt;code&gt;set defaultarch amd64&lt;/code&gt;&lt;/p&gt;
-&lt;h3 id=&#34;下载线程数&#34;&gt;下载线程数&lt;/h3&gt;
-&lt;p&gt;&lt;code&gt;set nthreads 20&lt;/code&gt;
-&lt;code&gt;set _tilde 0&lt;/code&gt;&lt;/p&gt;
-&lt;h3 id=&#34;阿里云的源这里没有添加deb-src的源码源&#34;&gt;阿里云的源（这里没有添加deb-src的源码源）&lt;/h3&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;deb http://mirrors.aliyun.com/ubuntu/ xenial main restricted universe multiverse
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;### 配置镜像下载目录
+set base_path /var/spool/apt-mirror
+# 架构配置，i386/amd64，默认的话会下载跟本机相同的架构的源
+set defaultarch amd64
+# 下载线程数
+set nthreads 20
+set _tilde 0
+# 阿里云的源（这里没有添加deb-src的源码源）
+deb http://mirrors.aliyun.com/ubuntu/ xenial main restricted universe multiverse
 deb http://mirrors.aliyun.com/ubuntu/ xenial-security main restricted universe multiverse
 deb http://mirrors.aliyun.com/ubuntu/ xenial-updates main restricted universe multiverse
 deb http://mirrors.aliyun.com/ubuntu/ xenial-proposed main restricted universe multiverse
 deb http://mirrors.aliyun.com/ubuntu/ xenial-backports main restricted universe multiverse
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;后面还可以添加其它版本的源&#34;&gt;后面还可以添加其它版本的源&lt;/h3&gt;
-&lt;h3 id=&#34;清理不使用的软件包&#34;&gt;清理不使用的软件包&lt;/h3&gt;
-&lt;p&gt;clean &lt;a href=&#34;http://mirrors.aliyun.com/ubuntu&#34;&gt;http://mirrors.aliyun.com/ubuntu&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;三开始同步&#34;&gt;三、开始同步&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;# apt-mirror&lt;/code&gt;
-注意：同步的文件必须在Linux文件系统下，所有人为_apt；否则出错。&lt;/p&gt;
+
+# 后面还可以添加其它版本的源
+
+# 清理不使用的软件包
+clean http://mirrors.aliyun.com/ubuntu
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;三开始同步&#34;&gt;三、开始同步&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;# apt-mirror&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;注意：同步的文件必须在Linux文件系统下，所有人为_apt；否则出错。&lt;/p&gt;
 &lt;h2 id=&#34;四-客户端配置&#34;&gt;四、 客户端配置&lt;/h2&gt;
 &lt;p&gt;编辑/etc/apt/source.list&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;deb [arch=amd64] http://[host]:[port]/ubuntu/ bionic main restricted universe multiverse 
@@ -3456,10 +3586,10 @@ deb [arch=amd64] file:///你的目录/ubuntu/ bionic-backports main restricted u
     
     <item>
     <title>yum时出现error的解决办法</title>
-    <link>https://blog.wiseai.cn/post/yum%E6%97%B6%E5%87%BA%E7%8E%B0error%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
+    <link>https://wiseai.cn/post/yum%E6%97%B6%E5%87%BA%E7%8E%B0error%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
     <pubDate>Wed, 15 Jun 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/yum%E6%97%B6%E5%87%BA%E7%8E%B0error%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
+    <guid>https://wiseai.cn/post/yum%E6%97%B6%E5%87%BA%E7%8E%B0error%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
     <description>
         &lt;h3 id=&#34;错误内容&#34;&gt;错误内容：&lt;/h3&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Unable to detect release version (use ‘–releasever’ to specify release version)
@@ -3477,10 +3607,10 @@ error: rpmdbNextIterator: skipping h# 173 blob size(55540): BAD, 8 + 16 * il(78)
     
     <item>
     <title>树莓派蓝牙相关问题</title>
-    <link>https://blog.wiseai.cn/post/%E6%A0%91%E8%8E%93%E6%B4%BE%E8%93%9D%E7%89%99%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</link>
+    <link>https://wiseai.cn/post/%E6%A0%91%E8%8E%93%E6%B4%BE%E8%93%9D%E7%89%99%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</link>
     <pubDate>Wed, 15 Jun 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/%E6%A0%91%E8%8E%93%E6%B4%BE%E8%93%9D%E7%89%99%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</guid>
+    <guid>https://wiseai.cn/post/%E6%A0%91%E8%8E%93%E6%B4%BE%E8%93%9D%E7%89%99%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</guid>
     <description>
         &lt;p&gt;&lt;strong&gt;因系统更新快，这里的操作仅供参考!!&lt;/strong&gt;&lt;/p&gt;
 &lt;ol&gt;
@@ -3529,10 +3659,10 @@ Connection successful
     
     <item>
     <title>MarkDown在线编辑器</title>
-    <link>https://blog.wiseai.cn/post/markdown%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91%E5%99%A8/</link>
+    <link>https://wiseai.cn/post/markdown%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91%E5%99%A8/</link>
     <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/markdown%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91%E5%99%A8/</guid>
+    <guid>https://wiseai.cn/post/markdown%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91%E5%99%A8/</guid>
     <description>
         &lt;p&gt;使用开源项目&lt;a href=&#34;https://github.com/pandao/editor.md.git&#34; title=&#34;editor.md&#34;&gt;editor.md&lt;/a&gt;我的gitee仓库下也有。&lt;/p&gt;
 &lt;h2 id=&#34;安装&#34;&gt;安装&lt;/h2&gt;
@@ -3580,10 +3710,10 @@ Connection successful
     
     <item>
     <title>Nginx出现问题的解决办法</title>
-    <link>https://blog.wiseai.cn/post/nginx%E5%87%BA%E7%8E%B0%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
+    <link>https://wiseai.cn/post/nginx%E5%87%BA%E7%8E%B0%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
     <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/nginx%E5%87%BA%E7%8E%B0%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
+    <guid>https://wiseai.cn/post/nginx%E5%87%BA%E7%8E%B0%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
     <description>
         &lt;p&gt;最近遇到Permission denied这个问题，经过排查，是目录权限的问题，server的root目录必须要有写权限才行，只有读权限还是会出现Permission denied的问题，并且要给nginx的执行用户，比如默认的www-data用户。
 待续&lt;/p&gt;
@@ -3593,10 +3723,10 @@ Connection successful
     
     <item>
     <title>sublime使用</title>
-    <link>https://blog.wiseai.cn/post/sublime%E4%BD%BF%E7%94%A8/</link>
+    <link>https://wiseai.cn/post/sublime%E4%BD%BF%E7%94%A8/</link>
     <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/sublime%E4%BD%BF%E7%94%A8/</guid>
+    <guid>https://wiseai.cn/post/sublime%E4%BD%BF%E7%94%A8/</guid>
     <description>
         &lt;h2 id=&#34;安装package-control&#34;&gt;安装Package Control&lt;/h2&gt;
 &lt;ol&gt;
@@ -3617,10 +3747,10 @@ Connection successful
     
     <item>
     <title>systemd的服务管理程序systemctl</title>
-    <link>https://blog.wiseai.cn/post/systemd%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemctl/</link>
+    <link>https://wiseai.cn/post/systemd%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemctl/</link>
     <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/systemd%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemctl/</guid>
+    <guid>https://wiseai.cn/post/systemd%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemctl/</guid>
     <description>
         &lt;p&gt;systemctl融合service和chkconfig的功能于一体,可以使用它永久性或只在当前会话中启用/禁用服务。&lt;/p&gt;
 &lt;h2 id=&#34;一启动关闭启用禁用服务&#34;&gt;一、启动/关闭、启用/禁用服务&lt;/h2&gt;
@@ -3882,10 +4012,10 @@ $ sudo systemctl restart foobar
     
     <item>
     <title>玩玩LFS-从源码构建Linux系统</title>
-    <link>https://blog.wiseai.cn/post/%E7%8E%A9%E7%8E%A9lfs-%E4%BB%8E%E6%BA%90%E7%A0%81%E6%9E%84%E5%BB%BAlinux%E7%B3%BB%E7%BB%9F/</link>
+    <link>https://wiseai.cn/post/%E7%8E%A9%E7%8E%A9lfs-%E4%BB%8E%E6%BA%90%E7%A0%81%E6%9E%84%E5%BB%BAlinux%E7%B3%BB%E7%BB%9F/</link>
     <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/%E7%8E%A9%E7%8E%A9lfs-%E4%BB%8E%E6%BA%90%E7%A0%81%E6%9E%84%E5%BB%BAlinux%E7%B3%BB%E7%BB%9F/</guid>
+    <guid>https://wiseai.cn/post/%E7%8E%A9%E7%8E%A9lfs-%E4%BB%8E%E6%BA%90%E7%A0%81%E6%9E%84%E5%BB%BAlinux%E7%B3%BB%E7%BB%9F/</guid>
     <description>
         &lt;p&gt;官方网站：http://www.linuxfromscratch.org/&lt;/p&gt;
 &lt;p&gt;LFS Book 翻译项目:https://github.com/LCTT/LFS-BOOK&lt;/p&gt;
@@ -3899,10 +4029,10 @@ $ sudo systemctl restart foobar
     
     <item>
     <title>Linux下合并文件</title>
-    <link>https://blog.wiseai.cn/post/linux%E4%B8%8B%E5%90%88%E5%B9%B6%E6%96%87%E4%BB%B6/</link>
+    <link>https://wiseai.cn/post/linux%E4%B8%8B%E5%90%88%E5%B9%B6%E6%96%87%E4%BB%B6/</link>
     <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/linux%E4%B8%8B%E5%90%88%E5%B9%B6%E6%96%87%E4%BB%B6/</guid>
+    <guid>https://wiseai.cn/post/linux%E4%B8%8B%E5%90%88%E5%B9%B6%E6%96%87%E4%BB%B6/</guid>
     <description>
         &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#!/bin/bash
 
@@ -3918,10 +4048,10 @@ done
     
     <item>
     <title>Linux中修改limits值</title>
-    <link>https://blog.wiseai.cn/post/linux%E4%B8%AD%E4%BF%AE%E6%94%B9limits%E5%80%BC/</link>
+    <link>https://wiseai.cn/post/linux%E4%B8%AD%E4%BF%AE%E6%94%B9limits%E5%80%BC/</link>
     <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/linux%E4%B8%AD%E4%BF%AE%E6%94%B9limits%E5%80%BC/</guid>
+    <guid>https://wiseai.cn/post/linux%E4%B8%AD%E4%BF%AE%E6%94%B9limits%E5%80%BC/</guid>
     <description>
         &lt;p&gt;在/etc/security/limits.conf 最后增加:&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;* soft nofile 65535&lt;/code&gt;&lt;/p&gt;
@@ -3933,10 +4063,10 @@ done
     
     <item>
     <title>Linux中的搜索</title>
-    <link>https://blog.wiseai.cn/post/linux%E4%B8%AD%E7%9A%84%E6%90%9C%E7%B4%A2/</link>
+    <link>https://wiseai.cn/post/linux%E4%B8%AD%E7%9A%84%E6%90%9C%E7%B4%A2/</link>
     <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/linux%E4%B8%AD%E7%9A%84%E6%90%9C%E7%B4%A2/</guid>
+    <guid>https://wiseai.cn/post/linux%E4%B8%AD%E7%9A%84%E6%90%9C%E7%B4%A2/</guid>
     <description>
         &lt;p&gt;一、whereis&lt;/p&gt;
 &lt;p&gt;二、which&lt;/p&gt;
@@ -3952,10 +4082,10 @@ done
     
     <item>
     <title>Linux中缺少运行库的解决办法</title>
-    <link>https://blog.wiseai.cn/post/linux%E4%B8%AD%E7%BC%BA%E5%B0%91%E8%BF%90%E8%A1%8C%E5%BA%93%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
+    <link>https://wiseai.cn/post/linux%E4%B8%AD%E7%BC%BA%E5%B0%91%E8%BF%90%E8%A1%8C%E5%BA%93%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
     <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/linux%E4%B8%AD%E7%BC%BA%E5%B0%91%E8%BF%90%E8%A1%8C%E5%BA%93%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
+    <guid>https://wiseai.cn/post/linux%E4%B8%AD%E7%BC%BA%E5%B0%91%E8%BF%90%E8%A1%8C%E5%BA%93%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
     <description>
         &lt;ol&gt;
 &lt;li&gt;编辑 vi /etc/ld.so.conf&lt;/li&gt;
@@ -3981,10 +4111,10 @@ done
     
     <item>
     <title>mariadb和mysql命令</title>
-    <link>https://blog.wiseai.cn/post/mariadb%E5%92%8Cmysql%E5%91%BD%E4%BB%A4/</link>
+    <link>https://wiseai.cn/post/mariadb%E5%92%8Cmysql%E5%91%BD%E4%BB%A4/</link>
     <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/mariadb%E5%92%8Cmysql%E5%91%BD%E4%BB%A4/</guid>
+    <guid>https://wiseai.cn/post/mariadb%E5%92%8Cmysql%E5%91%BD%E4%BB%A4/</guid>
     <description>
         &lt;p&gt;错误：ERROR 1045 (28000): Access denied for user &amp;lsquo;root&amp;rsquo;@&amp;rsquo;localhost&amp;rsquo; (using password: NO)&lt;/p&gt;
 &lt;p&gt;1.首先停掉数据库服务:&lt;/p&gt;
@@ -4084,10 +4214,10 @@ KEY `user_email` (`user_email`)
     
     <item>
     <title>Linux屏录软件</title>
-    <link>https://blog.wiseai.cn/post/linux%E5%B1%8F%E5%BD%95%E8%BD%AF%E4%BB%B6/</link>
+    <link>https://wiseai.cn/post/linux%E5%B1%8F%E5%BD%95%E8%BD%AF%E4%BB%B6/</link>
     <pubDate>Tue, 31 May 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/linux%E5%B1%8F%E5%BD%95%E8%BD%AF%E4%BB%B6/</guid>
+    <guid>https://wiseai.cn/post/linux%E5%B1%8F%E5%BD%95%E8%BD%AF%E4%BB%B6/</guid>
     <description>
         &lt;h3 id=&#34;一simplescreenrecorder&#34;&gt;一、SimpleScreenRecorder&lt;/h3&gt;
 &lt;p&gt;可以记录其他的应用程序和你的屏幕上运行的游戏。这是一个简单但功能强大，功能丰富的屏幕记录软件，包括一个易于使用的界面。
@@ -4127,10 +4257,10 @@ Windows需要从官网下载（https://obsproject.com/），Linux系统包含在
     
     <item>
     <title>adduser&amp;addgroup添加用户&amp;用户组</title>
-    <link>https://blog.wiseai.cn/post/adduseraddgroup%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E7%94%A8%E6%88%B7%E7%BB%84/</link>
+    <link>https://wiseai.cn/post/adduseraddgroup%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E7%94%A8%E6%88%B7%E7%BB%84/</link>
     <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/adduseraddgroup%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E7%94%A8%E6%88%B7%E7%BB%84/</guid>
+    <guid>https://wiseai.cn/post/adduseraddgroup%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E7%94%A8%E6%88%B7%E7%BB%84/</guid>
     <description>
         &lt;ul&gt;
 &lt;li&gt;添加一个普通用户&lt;/li&gt;
@@ -4168,10 +4298,10 @@ Windows需要从官网下载（https://obsproject.com/），Linux系统包含在
     
     <item>
     <title>docker学习笔记</title>
-    <link>https://blog.wiseai.cn/post/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+    <link>https://wiseai.cn/post/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
     <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+    <guid>https://wiseai.cn/post/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
     <description>
         &lt;p&gt;现在docker分企业版和社区版，如果自己用的话，还是社区版吧！！！&lt;/p&gt;
 &lt;h2 id=&#34;安装&#34;&gt;安装：&lt;/h2&gt;
@@ -4274,10 +4404,10 @@ Windows需要从官网下载（https://obsproject.com/），Linux系统包含在
     
     <item>
     <title>efi和grub2相关配置文件及命令</title>
-    <link>https://blog.wiseai.cn/post/efi%E5%92%8Cgrub2%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8F%8A%E5%91%BD%E4%BB%A4/</link>
+    <link>https://wiseai.cn/post/efi%E5%92%8Cgrub2%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8F%8A%E5%91%BD%E4%BB%A4/</link>
     <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/efi%E5%92%8Cgrub2%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8F%8A%E5%91%BD%E4%BB%A4/</guid>
+    <guid>https://wiseai.cn/post/efi%E5%92%8Cgrub2%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8F%8A%E5%91%BD%E4%BB%A4/</guid>
     <description>
         &lt;h3 id=&#34;一配置文件目录&#34;&gt;一、配置文件目录&lt;/h3&gt;
 &lt;p&gt;/etc/grub2/目录下
@@ -4345,10 +4475,10 @@ BootOptionName是你启动项的名字，修改为自己的
     
     <item>
     <title>filebrowser的安装和使用</title>
-    <link>https://blog.wiseai.cn/post/filebrowser%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</link>
+    <link>https://wiseai.cn/post/filebrowser%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</link>
     <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/filebrowser%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</guid>
+    <guid>https://wiseai.cn/post/filebrowser%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</guid>
     <description>
         &lt;h2 id=&#34;编译安装&#34;&gt;编译安装&lt;/h2&gt;
 &lt;p&gt;可以自己编译，必须安装golang v1.16以上和nodejs，最好是最新版本，否则会出现一些问题。&lt;/p&gt;
@@ -4391,10 +4521,10 @@ WantedBy=multi-user.target```
     
     <item>
     <title>FTP服务器架设（vsftpd）</title>
-    <link>https://blog.wiseai.cn/post/ftp%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9E%B6%E8%AE%BEvsftpd/</link>
+    <link>https://wiseai.cn/post/ftp%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9E%B6%E8%AE%BEvsftpd/</link>
     <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/ftp%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9E%B6%E8%AE%BEvsftpd/</guid>
+    <guid>https://wiseai.cn/post/ftp%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9E%B6%E8%AE%BEvsftpd/</guid>
     <description>
         &lt;h2 id=&#34;安装&#34;&gt;安装：&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;# dnf install vsftpd&lt;/code&gt;&lt;/p&gt;
@@ -4866,10 +4996,10 @@ download_enable=YES/NO（YES）
     
     <item>
     <title>git的使用</title>
-    <link>https://blog.wiseai.cn/post/git/</link>
+    <link>https://wiseai.cn/post/git/</link>
     <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/git/</guid>
+    <guid>https://wiseai.cn/post/git/</guid>
     <description>
         &lt;h2 id=&#34;添加ssh公钥&#34;&gt;添加ssh公钥：&lt;/h2&gt;
 &lt;p&gt;查看&lt;code&gt;~/.ssh/id_rsa.pub&lt;/code&gt;文件，如果有公钥直接添加，没有的话使用这个命令：&lt;/p&gt;
@@ -5185,10 +5315,10 @@ $ git archive
     
     <item>
     <title>golang和nodejs环境配置</title>
-    <link>https://blog.wiseai.cn/post/golang%E5%92%8Cnodejs%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</link>
+    <link>https://wiseai.cn/post/golang%E5%92%8Cnodejs%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</link>
     <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/golang%E5%92%8Cnodejs%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</guid>
+    <guid>https://wiseai.cn/post/golang%E5%92%8Cnodejs%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</guid>
     <description>
         &lt;ol&gt;
 &lt;li&gt;配置golang&lt;/li&gt;
@@ -5243,10 +5373,10 @@ $ git archive
     
     <item>
     <title>golang的build命令</title>
-    <link>https://blog.wiseai.cn/post/golang%E7%9A%84build%E5%91%BD%E4%BB%A4/</link>
+    <link>https://wiseai.cn/post/golang%E7%9A%84build%E5%91%BD%E4%BB%A4/</link>
     <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/golang%E7%9A%84build%E5%91%BD%E4%BB%A4/</guid>
+    <guid>https://wiseai.cn/post/golang%E7%9A%84build%E5%91%BD%E4%BB%A4/</guid>
     <description>
         &lt;p&gt;&lt;code&gt;go build&lt;/code&gt;，是我们非常常用的命令，它可以启动编译，把我们的包和相关的依赖编译成一个可执行的文件。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;usage: go build [-o output] [-i] [build flags] [packages]&lt;/code&gt;&lt;/p&gt;
@@ -5307,10 +5437,10 @@ GOTOOLDIR=&amp;#34;/usr/local/go/pkg/tool/darwin_amd64&amp;#34;
     
     <item>
     <title>GPIO相关知识</title>
-    <link>https://blog.wiseai.cn/post/gpio%E7%9B%B8%E5%85%B3/</link>
+    <link>https://wiseai.cn/post/gpio%E7%9B%B8%E5%85%B3/</link>
     <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/gpio%E7%9B%B8%E5%85%B3/</guid>
+    <guid>https://wiseai.cn/post/gpio%E7%9B%B8%E5%85%B3/</guid>
     <description>
         &lt;h2 id=&#34;linux查看gpio状态&#34;&gt;linux查看gpio状态&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;cat /sys/kernel/debug/gpio&lt;/code&gt;&lt;/p&gt;
@@ -5388,10 +5518,10 @@ cat /tmp/debug/gpio
     
     <item>
     <title>Linux安装hp打印机驱动</title>
-    <link>https://blog.wiseai.cn/post/linux%E5%AE%89%E8%A3%85hp%E6%89%93%E5%8D%B0%E6%9C%BA%E9%A9%B1%E5%8A%A8/</link>
+    <link>https://wiseai.cn/post/linux%E5%AE%89%E8%A3%85hp%E6%89%93%E5%8D%B0%E6%9C%BA%E9%A9%B1%E5%8A%A8/</link>
     <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/linux%E5%AE%89%E8%A3%85hp%E6%89%93%E5%8D%B0%E6%9C%BA%E9%A9%B1%E5%8A%A8/</guid>
+    <guid>https://wiseai.cn/post/linux%E5%AE%89%E8%A3%85hp%E6%89%93%E5%8D%B0%E6%9C%BA%E9%A9%B1%E5%8A%A8/</guid>
     <description>
         &lt;h3 id=&#34;一安装hplip&#34;&gt;一、安装hplip&lt;/h3&gt;
 &lt;p&gt;&lt;code&gt;# dnf install hplip&lt;/code&gt;&lt;/p&gt;
@@ -5408,10 +5538,10 @@ cat /tmp/debug/gpio
     
     <item>
     <title>Linux开机启动的方法</title>
-    <link>https://blog.wiseai.cn/post/linux%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E7%9A%84%E6%96%B9%E6%B3%95/</link>
+    <link>https://wiseai.cn/post/linux%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E7%9A%84%E6%96%B9%E6%B3%95/</link>
     <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/linux%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
+    <guid>https://wiseai.cn/post/linux%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
     <description>
         &lt;h2 id=&#34;一配置rclocal文件实现开机启动&#34;&gt;一、配置rc.local文件实现开机启动：&lt;/h2&gt;
 &lt;p&gt;首先，建立一个文件：&lt;/p&gt;
@@ -5431,10 +5561,10 @@ cat /tmp/debug/gpio
     
     <item>
     <title>Linux更换网卡后网络服务不能启动的问题解决办法</title>
-    <link>https://blog.wiseai.cn/post/linux%E6%9B%B4%E6%8D%A2%E7%BD%91%E5%8D%A1%E5%90%8E%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E4%B8%8D%E8%83%BD%E5%90%AF%E5%8A%A8%E7%9A%84%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
+    <link>https://wiseai.cn/post/linux%E6%9B%B4%E6%8D%A2%E7%BD%91%E5%8D%A1%E5%90%8E%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E4%B8%8D%E8%83%BD%E5%90%AF%E5%8A%A8%E7%9A%84%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
     <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/linux%E6%9B%B4%E6%8D%A2%E7%BD%91%E5%8D%A1%E5%90%8E%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E4%B8%8D%E8%83%BD%E5%90%AF%E5%8A%A8%E7%9A%84%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
+    <guid>https://wiseai.cn/post/linux%E6%9B%B4%E6%8D%A2%E7%BD%91%E5%8D%A1%E5%90%8E%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E4%B8%8D%E8%83%BD%E5%90%AF%E5%8A%A8%E7%9A%84%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
     <description>
         &lt;p&gt;1、迁移以后，会存在其中一个网卡无法启动（eth0 or eth1）&lt;/p&gt;
 &lt;p&gt;[root@ ~]# ifup eth0&lt;/p&gt;
@@ -5457,10 +5587,10 @@ cat /tmp/debug/gpio
     
     <item>
     <title>通过iptables设置防火墙</title>
-    <link>https://blog.wiseai.cn/post/iptables%E8%AE%BE%E7%BD%AEsh/</link>
+    <link>https://wiseai.cn/post/iptables%E8%AE%BE%E7%BD%AEsh/</link>
     <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
-    <guid>https://blog.wiseai.cn/post/iptables%E8%AE%BE%E7%BD%AEsh/</guid>
+    <guid>https://wiseai.cn/post/iptables%E8%AE%BE%E7%BD%AEsh/</guid>
     <description>
         &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;    #!/bin/bash
 
@@ -5578,10 +5708,10 @@ done
     
     <item>
     <title>Footnote test</title>
-    <link>https://blog.wiseai.cn/post/footnote/</link>
+    <link>https://wiseai.cn/post/footnote/</link>
     <pubDate>Mon, 31 May 2021 00:00:00 +0000</pubDate>
     
-    <guid>https://blog.wiseai.cn/post/footnote/</guid>
+    <guid>https://wiseai.cn/post/footnote/</guid>
     <description>
         &lt;p&gt;Lorem ipsum dolor sit amet&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt; consectetur adipisicing elit. Nemo tempora eum cumque neque voluptatum, odit ipsum consequatur animi.&lt;/p&gt;
 &lt;p&gt;Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo tempora eum cumque neque voluptatum, odit ipsum&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt; consequatur animi.&lt;/p&gt;
@@ -5604,10 +5734,10 @@ done
     
     <item>
     <title>Katex support</title>
-    <link>https://blog.wiseai.cn/post/test-katex/</link>
+    <link>https://wiseai.cn/post/test-katex/</link>
     <pubDate>Sat, 22 May 2021 00:00:00 +0000</pubDate>
     <author>Hugo Authors</author>
-    <guid>https://blog.wiseai.cn/post/test-katex/</guid>
+    <guid>https://wiseai.cn/post/test-katex/</guid>
     <description>
         &lt;p&gt;The following&lt;/p&gt;
 &lt;p&gt;$$ \int_{a}^{b} x^2 dx $$&lt;/p&gt;
@@ -5644,10 +5774,10 @@ done
     
     <item>
     <title>MathJax support</title>
-    <link>https://blog.wiseai.cn/post/test-mathjax/</link>
+    <link>https://wiseai.cn/post/test-mathjax/</link>
     <pubDate>Sat, 22 May 2021 00:00:00 +0000</pubDate>
     <author>Hugo Authors</author>
-    <guid>https://blog.wiseai.cn/post/test-mathjax/</guid>
+    <guid>https://wiseai.cn/post/test-mathjax/</guid>
     <description>
         &lt;p&gt;The following&lt;/p&gt;
 &lt;p&gt;$$ \int_{a}^{b} x^2 dx $$&lt;/p&gt;
@@ -5683,10 +5813,10 @@ done
     
     <item>
     <title>Markdown Syntax Guide</title>
-    <link>https://blog.wiseai.cn/post/markdown-syntax/</link>
+    <link>https://wiseai.cn/post/markdown-syntax/</link>
     <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
     <author>Hugo Authors</author>
-    <guid>https://blog.wiseai.cn/post/markdown-syntax/</guid>
+    <guid>https://wiseai.cn/post/markdown-syntax/</guid>
     <description>
         &lt;p&gt;This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.&lt;/p&gt;
 &lt;h2 id=&#34;headings&#34;&gt;Headings&lt;/h2&gt;
@@ -5864,10 +5994,10 @@ done
     
     <item>
     <title>Example Lazy Load Image</title>
-    <link>https://blog.wiseai.cn/post/example-lazy-load-image/</link>
+    <link>https://wiseai.cn/post/example-lazy-load-image/</link>
     <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
     <author>Hugo Authors</author>
-    <guid>https://blog.wiseai.cn/post/example-lazy-load-image/</guid>
+    <guid>https://wiseai.cn/post/example-lazy-load-image/</guid>
     <description>
         &lt;h2 id=&#34;nya-nya-nyan-meow-meow-mama&#34;&gt;Nya nya nyan meow meow mama&lt;/h2&gt;
 &lt;p&gt;&lt;img src=&#34;https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;amp;ixlib=rb-1.2.1&amp;amp;auto=format&amp;amp;fit=crop&amp;amp;w=1327&amp;amp;q=80&#34; alt=&#34;Cute CAT&#34;&gt;&lt;/p&gt;
@@ -5893,10 +6023,10 @@ done
     
     <item>
     <title>Placeholder Text</title>
-    <link>https://blog.wiseai.cn/post/placeholder-text/</link>
+    <link>https://wiseai.cn/post/placeholder-text/</link>
     <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
     <author>Hugo Authors</author>
-    <guid>https://blog.wiseai.cn/post/placeholder-text/</guid>
+    <guid>https://wiseai.cn/post/placeholder-text/</guid>
     <description>
         &lt;p&gt;Lorem est tota propiore conpellat pectoribus de pectora summo.&lt;/p&gt;
 &lt;p&gt;Redit teque digerit hominumque toris verebor lumina non cervice subde tollit usus habet Arctonque, furores quas nec ferunt. Quoque montibus nunc caluere tempus inhospita parcite confusaque translucet patri vestro qui optatis lumine cognoscere flos nubis! Fronde ipsamque patulos Dryopen deorum.&lt;/p&gt;
@@ -5926,10 +6056,10 @@ done
     
     <item>
     <title>Emoji Support</title>
-    <link>https://blog.wiseai.cn/post/emoji-support/</link>
+    <link>https://wiseai.cn/post/emoji-support/</link>
     <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate>
     <author>Hugo Authors</author>
-    <guid>https://blog.wiseai.cn/post/emoji-support/</guid>
+    <guid>https://wiseai.cn/post/emoji-support/</guid>
     <description>
         &lt;p&gt;Emoji can be enabled in a Hugo project in a number of ways.&lt;/p&gt;
 &lt;p&gt;The &lt;a href=&#34;https://gohugo.io/functions/emojify/&#34;&gt;&lt;code&gt;emojify&lt;/code&gt;&lt;/a&gt; function can be called directly in templates or &lt;a href=&#34;https://gohugo.io/templates/shortcode-templates/#inline-shortcodes&#34;&gt;Inline Shortcodes&lt;/a&gt;.&lt;/p&gt;

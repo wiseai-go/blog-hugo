@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>c语言 on WiseAI的博客</title>
-    <link>https://blog.wiseai.cn/tags/c%E8%AF%AD%E8%A8%80/</link>
+    <link>https://wiseai.cn/tags/c%E8%AF%AD%E8%A8%80/</link>
     <description>Recent content in c语言 on WiseAI的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Mon, 27 Jun 2022 10:38:51 +0800</lastBuildDate><atom:link href="https://blog.wiseai.cn/tags/c%E8%AF%AD%E8%A8%80/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 27 Jun 2022 10:38:51 +0800</lastBuildDate><atom:link href="https://wiseai.cn/tags/c%E8%AF%AD%E8%A8%80/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>大数的阶乘</title>
-      <link>https://blog.wiseai.cn/post/%E5%A4%A7%E6%95%B0%E7%9A%84%E9%98%B6%E4%B9%98/</link>
+      <link>https://wiseai.cn/post/%E5%A4%A7%E6%95%B0%E7%9A%84%E9%98%B6%E4%B9%98/</link>
       <pubDate>Mon, 27 Jun 2022 10:38:51 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/%E5%A4%A7%E6%95%B0%E7%9A%84%E9%98%B6%E4%B9%98/</guid>
+      <guid>https://wiseai.cn/post/%E5%A4%A7%E6%95%B0%E7%9A%84%E9%98%B6%E4%B9%98/</guid>
       <description>直接上代码:
 C语言: #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;time.h&amp;gt; //给计算结果一个数组，并指定大小为4096 //第一次写程序使用的字符串保存大数，但是有个问题，需要char到int来回转换，影响计算性能。 //所以使用数组来保存数据，方便计算 int jieguo[40960] = {0}; //数组长度 int len = 0; //fac为计算阶乘的函数，计算结果存储在jieguo[4096]数组中 int fac(int n) { int v = 0; int f = 0; //初始化jieguo数组和数组长度 jieguo[0] = 1; len = 1; for(int i = 1; i &amp;lt;= n; i++) { for(int j = len - 1; j &amp;gt;= 0; j--) { v = i * jieguo[j]; jieguo[j] = v % 10; v = v / 10; f = j + 1; //如果v大于0，说明还要进位，所以将进位的数加上原来的数，判断进位后存储。 //为了提高效率，使用for进行循环 for(; v &amp;gt; 0 &amp;amp;&amp;amp; f &amp;lt; len; f++) { v = v + jieguo[f]; jieguo[f] = v % 10; v = v / 10; } //如果这时f等于数组的长度len并且v还大于0，说明需要增加jieguo数组的长度 //为了提高效率，仍然使用for进行循环 for(; v &amp;gt; 0;) { jieguo[len] = v % 10; v = v / 10; len++; if(len &amp;gt; 40960 - 2) { //这个时候说明数组长度不够，需要增加jieguo后面的数值 //计算100的阶乘的数组长度为158，计算1000的阶乘的数组长度为2568。 //可以根据实际需要进行设置。 return 1; } } }	} return 0; } //下面写主函数 int main(void) { int num; printf(&amp;#34;请输入需要计算阶乘的数字:&amp;#34;); scanf(&amp;#34;%d&amp;#34;, &amp;amp;num); //计算阶乘结果 int r = fac(num); //如果返回1,则说明数组长度不够，需要增加长度 if(r == 1) { printf(&amp;#34;计算结果太大，请增加数组长度！\n&amp;#34;); return 0; } printf(&amp;#34;%d的阶乘为：&amp;#34;, num); for(int i = len - 1; i &amp;gt;= 0; i--) { printf(&amp;#34;%d&amp;#34;, jieguo[i]); } printf(&amp;#34;\n&amp;#34;); printf(&amp;#34;%d\n&amp;#34;, len); printf(&amp;#34;运行时间:%.</description>
     </item>

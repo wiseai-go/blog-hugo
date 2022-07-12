@@ -2,27 +2,42 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Linux学习 on WiseAI的博客</title>
-    <link>https://blog.wiseai.cn/categories/linux%E5%AD%A6%E4%B9%A0/</link>
+    <link>https://wiseai.cn/categories/linux%E5%AD%A6%E4%B9%A0/</link>
     <description>Recent content in Linux学习 on WiseAI的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Wed, 06 Jul 2022 16:52:16 +0800</lastBuildDate><atom:link href="https://blog.wiseai.cn/categories/linux%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 08 Jul 2022 16:30:38 +0800</lastBuildDate><atom:link href="https://wiseai.cn/categories/linux%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>nohup及重定向</title>
+      <link>https://wiseai.cn/post/nohup%E5%8F%8A%E9%87%8D%E5%AE%9A%E5%90%91/</link>
+      <pubDate>Fri, 08 Jul 2022 16:30:38 +0800</pubDate>
+      
+      <guid>https://wiseai.cn/post/nohup%E5%8F%8A%E9%87%8D%E5%AE%9A%E5%90%91/</guid>
+      <description> 语法：nohup Command [ Arg … ] [　&amp;amp; ]
+描述：nohup 命令运行由 Command 参数和任何相关的 Arg 参数指定的命令，忽略所有挂断（SIGHUP）信号。要在后台运行 nohup 命令，添加 &amp;amp; 到命令的尾部。
+操作系统中有三个常用的流：
+0：标准输入流 stdin 1：标准输出流 stdout 2：标准错误流 stderr &amp;gt; info.txt实际是 1 &amp;gt; info.txt的省略用法；
+&amp;lt; info.txt实际是 0 &amp;lt; info.txt的省略用法。
+下面步入正题： &amp;gt;nohup ./text.sh &amp;gt;output 2&amp;gt;&amp;amp;1 &amp;amp; &amp;gt;su – wiseai -c ‘/usr/local/bin/jupyter notebook &amp;amp;&amp;gt; /dev/null &amp;amp;’ 解释：
+带&amp;amp;的命令行，即使terminal（终端）关闭，或者电脑死机程序依然运行（前提是你把程序递交到服务器上)； 2&amp;gt;&amp;amp;1和&amp;amp;&amp;gt;相同:意思是把标准错误（2）重定向到标准输出中（1），而标准输出又导入文件output里面，所以结果是标准错误和标准输出都导入文件output里面了。 至于为什么需要将标准错误重定向到标准输出的原因，那就归结为标准错误没有缓冲区，而stdout有。这就会导致 &amp;gt;output 2&amp;gt;output 文件output被两次打开，而stdout和stderr将会竞争覆盖，这肯定不是我门想要的。 /dev/null文件的作用，这是一个无底洞，任何东西都可以定向到这里，但是却无法打开。 所以一般很大的stdou和stderr当你不关心的时候可以利用stdout和stderr定向到这里。 </description>
+    </item>
+    
     <item>
       <title>Debian的包管理工具</title>
-      <link>https://blog.wiseai.cn/post/debian%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/</link>
+      <link>https://wiseai.cn/post/debian%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/</link>
       <pubDate>Wed, 06 Jul 2022 16:52:16 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/debian%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/</guid>
+      <guid>https://wiseai.cn/post/debian%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/</guid>
       <description>清除所有已删除包的残余配置文件： #dpkg -l |grep ^rc|awk &#39;{print $2}&#39; |xargs dpkg -P</description>
     </item>
     
     <item>
       <title>Docker容器设置ssh连接</title>
-      <link>https://blog.wiseai.cn/post/docker%E5%AE%B9%E5%99%A8%E8%AE%BE%E7%BD%AEssh%E8%BF%9E%E6%8E%A5/</link>
+      <link>https://wiseai.cn/post/docker%E5%AE%B9%E5%99%A8%E8%AE%BE%E7%BD%AEssh%E8%BF%9E%E6%8E%A5/</link>
       <pubDate>Wed, 06 Jul 2022 16:36:58 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/docker%E5%AE%B9%E5%99%A8%E8%AE%BE%E7%BD%AEssh%E8%BF%9E%E6%8E%A5/</guid>
+      <guid>https://wiseai.cn/post/docker%E5%AE%B9%E5%99%A8%E8%AE%BE%E7%BD%AEssh%E8%BF%9E%E6%8E%A5/</guid>
       <description>这里以debian容器为例：
 一、进入容器、更改更新源及安装openssh-server # docker exec -it debian /bin/bash # sed -i -e &#39;s/deb.debian.org/mirrors.aliyun.com/g&#39; \ -e &#39;s/security.debian.org/mirrors.aliyun.com/g&#39; \ /etc/apt/sources.list # apt install openssh-server 二、添加目录、修改配置文件 # mkdir -p /run/sshd 注：(这个地方看启动服务时的提示信息，运行sshd服务的命令只能使用绝对路径/usr/sbin/sshd -D)
 下面修改/etc/ssh/sshd_config 先说下PermitRootLogin：prohibit-password 允许root登陆但不能使用密码登陆yes 允许root以任何方式登陆,我们这里只允许使用密钥无密码登陆： # sed -i &#39;s/#PermitRootLogin prohibit-password/PermitRootLogin prohibit-password/g&#39; /etc/ssh/sshd_config 下面修改/etc/pam.d/sshd # sed -i &#39;s/session .*required .*pam_loginuid.so/#session required pam_loginuid.so/g&#39; /etc/pam.d/sshd 注：这个是一个pam登陆控制，可以参考ftp服务器设置
@@ -32,10 +47,10 @@ $ ssh-keygen -t rsa -N &amp;#39;&amp;#39; -f /etc/ssh/ sh_host_rsa_key $ ssh-key
     
     <item>
       <title>profile、bashrc、bash_profile详解</title>
-      <link>https://blog.wiseai.cn/post/profilebashrcbash_profile%E8%AF%A6%E8%A7%A3/</link>
+      <link>https://wiseai.cn/post/profilebashrcbash_profile%E8%AF%A6%E8%A7%A3/</link>
       <pubDate>Wed, 06 Jul 2022 16:20:56 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/profilebashrcbash_profile%E8%AF%A6%E8%A7%A3/</guid>
+      <guid>https://wiseai.cn/post/profilebashrcbash_profile%E8%AF%A6%E8%A7%A3/</guid>
       <description>/etc/profile: 此文件为系统的每个用户设置环境信息,当用户第一次登录时,该文件被执行.并从/etc/profile.d目录的配置文件中搜集shell的设置.
 英文描述为：
 # /etc/profile # System wide environment and startup programs, for login setup # Functions and aliases [Go](http://lib.csdn.net/base/go &amp;#34;Go知识库&amp;#34;) in /etc/bashrc # It&amp;#39;s NOT a good idea to change this file unless you know what you # are doing. It&amp;#39;s much better to create a custom.sh shell script in # /etc/profile.d/ to make custom changes to your environment, as this # will prevent the need for merging in future updates.</description>
@@ -43,10 +58,10 @@ $ ssh-keygen -t rsa -N &amp;#39;&amp;#39; -f /etc/ssh/ sh_host_rsa_key $ ssh-key
     
     <item>
       <title>sed和awk命令</title>
-      <link>https://blog.wiseai.cn/post/sed%E5%92%8Cawk%E5%91%BD%E4%BB%A4/</link>
+      <link>https://wiseai.cn/post/sed%E5%92%8Cawk%E5%91%BD%E4%BB%A4/</link>
       <pubDate>Wed, 06 Jul 2022 16:03:36 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/sed%E5%92%8Cawk%E5%91%BD%E4%BB%A4/</guid>
+      <guid>https://wiseai.cn/post/sed%E5%92%8Cawk%E5%91%BD%E4%BB%A4/</guid>
       <description># sed [-nefr] [动作]
 选项与参数：
 -n ：使用安静(silent)模式。在一般sed 的用法中，所有来自STDIN 的资料一般都会被列出到屏幕上。 但如果加上-n 参数后，则只有经过sed 特殊处理的那一行(或者动作)才会被列出来。 -e ：直接在指令列模式上进行sed 的动作编辑； -f ：直接将sed 的动作写在一个档案内， -f filename 则可以执行filename 内的sed 动作； -r ：sed 的动作支援的是延伸型正规表示法的语法。(预设是基础正规表示法语法) -i ：直接修改读取的档案内容，而不是由屏幕输出。 动作说明： [n1[,n2]]function
@@ -56,20 +71,20 @@ sed &amp;#39;2,5d&amp;#39; 删除2-5行 sed &amp;#39;2a abc&amp;#39; 在第二�
     
     <item>
       <title>sftp命令</title>
-      <link>https://blog.wiseai.cn/post/sftp%E5%91%BD%E4%BB%A4/</link>
+      <link>https://wiseai.cn/post/sftp%E5%91%BD%E4%BB%A4/</link>
       <pubDate>Wed, 06 Jul 2022 15:57:22 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/sftp%E5%91%BD%E4%BB%A4/</guid>
+      <guid>https://wiseai.cn/post/sftp%E5%91%BD%E4%BB%A4/</guid>
       <description>常用方式 格式：sftp &amp;lt;host&amp;gt; 通过sftp连接&amp;lt;host&amp;gt;，端口为默认的22，用户为Linux当前登录用户。 格式：sftp -oPort=&amp;lt;port&amp;gt; &amp;lt;host&amp;gt; 通过sftp连接&amp;lt;host&amp;gt;，指定端口&amp;lt;port&amp;gt;，用户为Linux当前登录用户。 格式：sftp &amp;lt;user&amp;gt;@&amp;lt;host&amp;gt; 通过sftp连接&amp;lt;host&amp;gt;，端口为默认的22，指定用户&amp;lt;user&amp;gt;。 格式：sftp -oPort=&amp;lt;port&amp;gt; &amp;lt;user&amp;gt;@&amp;lt;host&amp;gt; 通过sftp连接&amp;lt;host&amp;gt;，端口为&amp;lt;port&amp;gt;，用户为&amp;lt;user&amp;gt;。 sftp连接成功之后常用操作命令如下：
 help/? 打印帮助信息。 pwd 查看远程服务器当前目录； lpwd 查看本地系统的当前目录。 cd &amp;lt;dir&amp;gt; 将远程服务器的当前目录更改为&amp;lt;dir&amp;gt;； lcd &amp;lt;dir&amp;gt; 将本地系统的当前目录更改为&amp;lt;dir&amp;gt;。 ls 显示远程服务器上当前目录的文件名； ls -l 显示远程服务器上当前目录的文件详细列表； ls &amp;lt;pattern&amp;gt; 显示远程服务器上符合指定模式&amp;lt;pattern&amp;gt;的文件名； ls -l &amp;lt;pattern&amp;gt; 显示远程服务器上符合指定模式&amp;lt;pattern&amp;gt;的文件详细列表。 lls 显示本地系统上当前目录的文件名； lls的其他参数与ls命令的类似。 get &amp;lt;file&amp;gt; 下载指定文件&amp;lt;file&amp;gt;； -r参数操作目录 get &amp;lt;pattern&amp;gt; 下载符合指定模式&amp;lt;pattern&amp;gt;的文件。-r参数操作目录 put &amp;lt;file&amp;gt; 上传指定文件&amp;lt;file&amp;gt;；-r参数操作目录 put &amp;lt;pattern&amp;gt; 上传符合指定模式&amp;lt;pattern&amp;gt;的文件。-r参数操作目录 progress 切换是否显示文件传输进度。 mkdir &amp;lt;dir&amp;gt; 在远程服务器上创建目录； lmkdir &amp;lt;dir&amp;gt; 在本地系统上创建目录。 exit/quit/bye 退出sftp。 ! 启动一个本地shell。 ! &amp;lt;commandline&amp;gt; 执行本地命令行。 其他命令还有：chgrp, chmod, chown, ln, lumask, rename, rm, rmdir, symlink, version。</description>
     </item>
     
     <item>
       <title>ssh免密码登陆</title>
-      <link>https://blog.wiseai.cn/post/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86/</link>
+      <link>https://wiseai.cn/post/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86/</link>
       <pubDate>Wed, 06 Jul 2022 15:49:33 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86/</guid>
+      <guid>https://wiseai.cn/post/ssh%E5%85%8D%E5%AF%86%E7%A0%81%E7%99%BB%E9%99%86/</guid>
       <description>在client生成公钥和私钥： ＃ ssh-keygen -t rsa 注:这个命令可以参考下git的使用，rsa也没有问题。
 位置在~/.ssh/下，分别是id_rsa和id_rsa.pub
 将client的公钥上传到server： ＃ ssh-copy-id -p &#39;端口&#39; &#39;用户名@IP或域名&#39; 这个时候client的公钥文件内容会追加写入到server的 .ssh/authorized_keys 文件中。
@@ -79,10 +94,10 @@ help/? 打印帮助信息。 pwd 查看远程服务器当前目录； lpwd 查�
     
     <item>
       <title>U盘启动盘制作</title>
-      <link>https://blog.wiseai.cn/post/u%E7%9B%98%E5%90%AF%E5%8A%A8%E7%9B%98%E5%88%B6%E4%BD%9C/</link>
+      <link>https://wiseai.cn/post/u%E7%9B%98%E5%90%AF%E5%8A%A8%E7%9B%98%E5%88%B6%E4%BD%9C/</link>
       <pubDate>Tue, 05 Jul 2022 10:08:37 +0800</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/u%E7%9B%98%E5%90%AF%E5%8A%A8%E7%9B%98%E5%88%B6%E4%BD%9C/</guid>
+      <guid>https://wiseai.cn/post/u%E7%9B%98%E5%90%AF%E5%8A%A8%E7%9B%98%E5%88%B6%E4%BD%9C/</guid>
       <description>一、Ventoy:制作可启动U盘的开源工具 github
 gitee
 优点 多平台、支持Iso镜像多
@@ -95,10 +110,10 @@ gitee
     
     <item>
       <title>Linux中firefox支持flash</title>
-      <link>https://blog.wiseai.cn/post/linux%E4%B8%ADfirefox%E6%94%AF%E6%8C%81flash/</link>
+      <link>https://wiseai.cn/post/linux%E4%B8%ADfirefox%E6%94%AF%E6%8C%81flash/</link>
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/linux%E4%B8%ADfirefox%E6%94%AF%E6%8C%81flash/</guid>
+      <guid>https://wiseai.cn/post/linux%E4%B8%ADfirefox%E6%94%AF%E6%8C%81flash/</guid>
       <description>这个有点旧了，参考下 进入adobe中下载flash
 解压文件
 cp ./libflashplayer.so /home/wiseai/.mozilla/plugins/
@@ -108,20 +123,20 @@ chmod 755 /home/wiseai/.mozilla/plugins/libflashplayer.so
     
     <item>
       <title>Linux远程连接软件</title>
-      <link>https://blog.wiseai.cn/post/linux%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E8%BD%AF%E4%BB%B6/</link>
+      <link>https://wiseai.cn/post/linux%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E8%BD%AF%E4%BB%B6/</link>
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/linux%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E8%BD%AF%E4%BB%B6/</guid>
+      <guid>https://wiseai.cn/post/linux%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E8%BD%AF%E4%BB%B6/</guid>
       <description>远程桌面客户端:Remmina Remote Desktop Client
 安装：apt install remmina</description>
     </item>
     
     <item>
       <title>NetworkManager网络管理相关问题</title>
-      <link>https://blog.wiseai.cn/post/networkmanager%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</link>
+      <link>https://wiseai.cn/post/networkmanager%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</link>
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/networkmanager%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</guid>
+      <guid>https://wiseai.cn/post/networkmanager%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</guid>
       <description>相关配置文件位置 /etc/dbus-1/system.d/NetworkManager.conf /etc/dbus-1/system.d/nm-avahi-autoipd.conf /etc/dbus-1/system.d/nm-dhcp-client.conf /etc/dbus-1/system.d/nm-dispatcher.conf /etc/dbus-1/system.d/nm-system-settings.conf /etc/rc.d/init.d/NetworkManager
 /etc/dbus-1/system.d/nm-applet.conf
 不使用Network Manager 管理某些网络设备 默认情况下，NetworkManager 管理除 lo（环回）设备以外的所有网络设备，因为一些情况需要将设备设置为 unmanaged，也就是不使用NetworkManager管理这些设备。 查看设备状态 # nmcli device status 在 /etc/NetworkManager/NetworkManager.conf 配置文件的[main] 层级下启用插件 keyfile。 [main] plugins=keyfile 这个一般都启用了。 - 创建 /etc/NetworkManager/conf.d/unmanaged-devices.conf 配置文件（这个文件名没有要求，自己容易识别就可以了），包含以下内容：
@@ -130,10 +145,10 @@ chmod 755 /home/wiseai/.mozilla/plugins/libflashplayer.so
     
     <item>
       <title>php5-fpm.sock failed</title>
-      <link>https://blog.wiseai.cn/post/php5-fpm.sock-failed/</link>
+      <link>https://wiseai.cn/post/php5-fpm.sock-failed/</link>
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/php5-fpm.sock-failed/</guid>
+      <guid>https://wiseai.cn/post/php5-fpm.sock-failed/</guid>
       <description>/etc/php5/fpm/pool.d/www.conf
 里面找到这样一段代码：
 listen = 127.0.0.1:9000
@@ -146,10 +161,10 @@ listen = /var/run/php5-fpm.sock
     
     <item>
       <title>php截取中文字符串乱码问题</title>
-      <link>https://blog.wiseai.cn/post/php%E6%88%AA%E5%8F%96%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</link>
+      <link>https://wiseai.cn/post/php%E6%88%AA%E5%8F%96%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</link>
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/php%E6%88%AA%E5%8F%96%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</guid>
+      <guid>https://wiseai.cn/post/php%E6%88%AA%E5%8F%96%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</guid>
       <description>php截取字符串有两个函数:
 一个是substr()，这个用来截取全字母的字符串，截取UTF-8的汉字就会出错；
 另一个是mb_substr()，这个用来截取汉字，但一定要注明编码方式：mb_substr(&amp;lsquo;我的祖国是中国&amp;rsquo;, 0, 4, &amp;lsquo;utf-8&amp;rsquo;);</description>
@@ -157,10 +172,10 @@ listen = /var/run/php5-fpm.sock
     
     <item>
       <title>samba服务器配置和使用</title>
-      <link>https://blog.wiseai.cn/post/samba%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/</link>
+      <link>https://wiseai.cn/post/samba%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/</link>
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/samba%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/</guid>
+      <guid>https://wiseai.cn/post/samba%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/</guid>
       <description>安装：
 #dnf install samba
 端口：
@@ -179,10 +194,10 @@ config file = /etc/samba/conf/smb.conf.%m
     
     <item>
       <title>ssh加密算法的启用禁用方法</title>
-      <link>https://blog.wiseai.cn/post/ssh%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E7%9A%84%E5%90%AF%E7%94%A8%E7%A6%81%E7%94%A8%E6%96%B9%E6%B3%95/</link>
+      <link>https://wiseai.cn/post/ssh%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E7%9A%84%E5%90%AF%E7%94%A8%E7%A6%81%E7%94%A8%E6%96%B9%E6%B3%95/</link>
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/ssh%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E7%9A%84%E5%90%AF%E7%94%A8%E7%A6%81%E7%94%A8%E6%96%B9%E6%B3%95/</guid>
+      <guid>https://wiseai.cn/post/ssh%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E7%9A%84%E5%90%AF%E7%94%A8%E7%A6%81%E7%94%A8%E6%96%B9%E6%B3%95/</guid>
       <description>“手机ES文件浏览器”不能连接sftp的问题解决方法 首先，说说为什么学习这个东西，在使用“手机ES文件浏览器”这个软件的时候，出现了不能连接的情况，在网上查询后发现是KexAlgorithms 密钥交换算法的问题，在/etc/ssh/sshd_config后添加: KexAlgorithms +diffie-hellman-group14-sha1 后问题解决。 出现no matching host key type found.Their offer: ssh-rsa,ssh-dss这个问题时,在/etc/ssh/sshd_config后添加： HostKeyAlgorithms ssh-rsa 配置位置：/etc/ssh/sshd_config Ciphers Ciphers 指定 ssh 使用的加密算法。多个加密算法之间使用逗号分隔。当 Ciphers 的值以 + 字符开始时，指定的加密算法将附加到默认集合，不影响默认集合中的其它算法。当 Ciphers 的值以 ‘-’ 字符开始时，指定的加密算法将会从默认集合中移除，不影响默认集合中的其它项目。 比如，在 sshd_config 文件的最后添加如下行： Ciphers +3des-cbc,aes128-cbc 这样就添加了两个加密算法。 Ciphers -3des-cbc,aes128-cbc 这样就删除了两个加密算法。
 MACs MACs 选项指定可用的 MAC（消息认证代码）算法，用于数据完整性保护。配置方法与 Ciphers 一致。
 KexAlgorithms KexAlgorithms 选项指定可用的密钥交换算法。配置方法与 Ciphers 一致。
@@ -192,10 +207,10 @@ PubkeyAcceptedKeyTypes PubkeyAcceptedKeyTypes 指定公钥认证允许的密钥�
     
     <item>
       <title>使用OpenSSL生成证书</title>
-      <link>https://blog.wiseai.cn/post/%E4%BD%BF%E7%94%A8openssl%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6/</link>
+      <link>https://wiseai.cn/post/%E4%BD%BF%E7%94%A8openssl%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6/</link>
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/%E4%BD%BF%E7%94%A8openssl%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6/</guid>
+      <guid>https://wiseai.cn/post/%E4%BD%BF%E7%94%A8openssl%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6/</guid>
       <description>下载安装OpenSSL，进入/bin/下面，执行命令（把ssl目录下的openssl.cnf 拷贝到bin目录下）
 1.首先要生成服务器端的私钥(key文件):
 openssl genrsa -des3 -out server.key 1024 [root@airwaySSL openssl]# cd ssl/ [root@airwaySSL ssl]# pwd /home/openssl/ssl [root@airwaySSL ssl]# ls certs man misc openssl.cnf private server.csr server.key 运行时会提示输入密码,此密码用于加密key文件(参数des3便是指加密算法,当然也可以选用其他你认为安全的算法.),以后每当需读取此文件(通过openssl提供的命令或API)都需输入口令.如果觉得不方便,也可以去除这个口令,但一定要采取其他的保护措施!
@@ -206,19 +221,19 @@ openssl rsa -in server.key -out server.key 2.openssl req -new -key server.key -o
     
     <item>
       <title>更改ubuntu源</title>
-      <link>https://blog.wiseai.cn/post/%E6%9B%B4%E6%94%B9ubuntu%E6%BA%90/</link>
+      <link>https://wiseai.cn/post/%E6%9B%B4%E6%94%B9ubuntu%E6%BA%90/</link>
       <pubDate>Sun, 19 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/%E6%9B%B4%E6%94%B9ubuntu%E6%BA%90/</guid>
+      <guid>https://wiseai.cn/post/%E6%9B%B4%E6%94%B9ubuntu%E6%BA%90/</guid>
       <description>sed -i &#39;s#http://archive.ubuntu.com/ubuntu/#mirror://mirrors.ubuntu.com/mirrors.txt#&#39; /etc/apt/sources.list</description>
     </item>
     
     <item>
       <title>整站或网页下载软件httrack</title>
-      <link>https://blog.wiseai.cn/post/%E6%95%B4%E7%AB%99%E6%88%96%E7%BD%91%E9%A1%B5%E4%B8%8B%E8%BD%BD%E8%BD%AF%E4%BB%B6httrack/</link>
+      <link>https://wiseai.cn/post/%E6%95%B4%E7%AB%99%E6%88%96%E7%BD%91%E9%A1%B5%E4%B8%8B%E8%BD%BD%E8%BD%AF%E4%BB%B6httrack/</link>
       <pubDate>Fri, 17 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/%E6%95%B4%E7%AB%99%E6%88%96%E7%BD%91%E9%A1%B5%E4%B8%8B%E8%BD%BD%E8%BD%AF%E4%BB%B6httrack/</guid>
+      <guid>https://wiseai.cn/post/%E6%95%B4%E7%AB%99%E6%88%96%E7%BD%91%E9%A1%B5%E4%B8%8B%E8%BD%BD%E8%BD%AF%E4%BB%B6httrack/</guid>
       <description>首先安装httrack:
 ＃dnf install httrack
 使用说明：
@@ -231,27 +246,24 @@ openssl rsa -in server.key -out server.key 2.openssl req -new -key server.key -o
     
     <item>
       <title>搭建apt本地源</title>
-      <link>https://blog.wiseai.cn/post/%E6%90%AD%E5%BB%BAapt%E6%9C%AC%E5%9C%B0%E6%BA%90/</link>
+      <link>https://wiseai.cn/post/%E6%90%AD%E5%BB%BAapt%E6%9C%AC%E5%9C%B0%E6%BA%90/</link>
       <pubDate>Thu, 16 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/%E6%90%AD%E5%BB%BAapt%E6%9C%AC%E5%9C%B0%E6%BA%90/</guid>
+      <guid>https://wiseai.cn/post/%E6%90%AD%E5%BB%BAapt%E6%9C%AC%E5%9C%B0%E6%BA%90/</guid>
       <description>一、安装apt-mirror命令 # apt install apt-mirror
 二、 修改apt-mirror配置文件 首先， 确定自己系统的版本 ，root权限执行：
 # lsb_release -a
 我的系统是ubuntu的bionic，从阿里云下载源，一般有5个目录，前三个常用，后两个是预发布软件，不常用，我一般用前三个
 deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse 然后，编辑apt-mirror的配置文件/etc/apt/mirror.list
-配置镜像下载目录 set base_path /var/spool/apt-mirror
-架构配置，i386/amd64，默认的话会下载跟本机相同的架构的源 set defaultarch amd64
-下载线程数 set nthreads 20 set _tilde 0
-阿里云的源（这里没有添加deb-src的源码源） deb http://mirrors.aliyun.com/ubuntu/ xenial main restricted universe multiverse deb http://mirrors.</description>
+### 配置镜像下载目录 set base_path /var/spool/apt-mirror # 架构配置，i386/amd64，默认的话会下载跟本机相同的架构的源 set defaultarch amd64 # 下载线程数 set nthreads 20 set _tilde 0 # 阿里云的源（这里没有添加deb-src的源码源） deb http://mirrors.</description>
     </item>
     
     <item>
       <title>yum时出现error的解决办法</title>
-      <link>https://blog.wiseai.cn/post/yum%E6%97%B6%E5%87%BA%E7%8E%B0error%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
+      <link>https://wiseai.cn/post/yum%E6%97%B6%E5%87%BA%E7%8E%B0error%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
       <pubDate>Wed, 15 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/yum%E6%97%B6%E5%87%BA%E7%8E%B0error%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
+      <guid>https://wiseai.cn/post/yum%E6%97%B6%E5%87%BA%E7%8E%B0error%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
       <description>错误内容： Unable to detect release version (use ‘–releasever’ to specify release version) error: rpmdb: damaged header #173 retrieved — skipping. error: rpmdbNextIterator: skipping h# 173 blob size(55540): BAD, 8 + 16 * il(78) + dl(54284) 解决办法： 首先：删除/var/lib/下的rpm文件夹
 之后：执行命令rpm --rebuilddb
 最后：安装一个提供版本号的包yum --releasever 8 install centos-release
@@ -260,10 +272,10 @@ deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
     
     <item>
       <title>MarkDown在线编辑器</title>
-      <link>https://blog.wiseai.cn/post/markdown%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91%E5%99%A8/</link>
+      <link>https://wiseai.cn/post/markdown%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91%E5%99%A8/</link>
       <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/markdown%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91%E5%99%A8/</guid>
+      <guid>https://wiseai.cn/post/markdown%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91%E5%99%A8/</guid>
       <description>使用开源项目editor.md我的gitee仓库下也有。
 安装 # npm install editor.md
 使用 &amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;&amp;lt;meta charset=&amp;#34;utf-8&amp;#34;&amp;gt;&amp;lt;link rel=&amp;#34;stylesheet&amp;#34; href=&amp;#34;editor.md/css/editormd.min.css&amp;#34; /&amp;gt;&amp;lt;title&amp;gt;Markdown 编辑在线器&amp;lt;/title&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;body&amp;gt;&amp;lt;div id=&amp;#34;text&amp;#34; style=&amp;#34;width: 100%;&amp;#34;&amp;gt;&amp;lt;div id=&amp;#34;editor&amp;#34; style=&amp;#34;height: 100%;&amp;#34;&amp;gt;&amp;lt;!-- Tips: Editor.md can auto append a `&amp;lt;textarea&amp;gt;` tag --&amp;gt;&amp;lt;textarea style=&amp;#34;display:none;&amp;#34; placeholder=&amp;#34;欢迎使用&amp;#34;&amp;gt;&amp;lt;/textarea&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;/div&amp;gt;&amp;lt;script src=&amp;#34;jquery.min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt;&amp;lt;script src=&amp;#34;editor.md/editormd.min.js&amp;#34;&amp;gt;&amp;lt;/script&amp;gt;&amp;lt;script type=&amp;#34;text/javascript&amp;#34;&amp;gt;// 设置div与窗口高度一致window.onload = function () {var h = window.innerHeight - 25 ; //获取当前窗口的高度; document.getElementById(&amp;#34;text&amp;#34;).style.height = h + &amp;#34;px&amp;#34;; //设置div的高度}// 设置textarea参数$(function() {var h = window.</description>
@@ -271,28 +283,28 @@ deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
     
     <item>
       <title>Nginx出现问题的解决办法</title>
-      <link>https://blog.wiseai.cn/post/nginx%E5%87%BA%E7%8E%B0%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
+      <link>https://wiseai.cn/post/nginx%E5%87%BA%E7%8E%B0%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
       <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/nginx%E5%87%BA%E7%8E%B0%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
+      <guid>https://wiseai.cn/post/nginx%E5%87%BA%E7%8E%B0%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
       <description>最近遇到Permission denied这个问题，经过排查，是目录权限的问题，server的root目录必须要有写权限才行，只有读权限还是会出现Permission denied的问题，并且要给nginx的执行用户，比如默认的www-data用户。 待续</description>
     </item>
     
     <item>
       <title>sublime使用</title>
-      <link>https://blog.wiseai.cn/post/sublime%E4%BD%BF%E7%94%A8/</link>
+      <link>https://wiseai.cn/post/sublime%E4%BD%BF%E7%94%A8/</link>
       <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/sublime%E4%BD%BF%E7%94%A8/</guid>
+      <guid>https://wiseai.cn/post/sublime%E4%BD%BF%E7%94%A8/</guid>
       <description>安装Package Control Tools-&amp;gt;Install Package Control 选项，即可调出 Package Control “Tools-&amp;gt;Command Palette&amp;hellip;”选项，快捷键Ctrl+Shift +P 输入 ipc ,点击 Install Package Control，即可调出 Package Control 设置中文 Preferences-&amp;gt;Package Control，快捷键Ctrl+Shift +P 选项弹出命令行输入框，输入ip，点击“install Package” 弹出命令行输入框，输入clz，点击“ChineseLocalizations” “帮助-&amp;gt;Language ”切换语言。 </description>
     </item>
     
     <item>
       <title>systemd的服务管理程序systemctl</title>
-      <link>https://blog.wiseai.cn/post/systemd%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemctl/</link>
+      <link>https://wiseai.cn/post/systemd%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemctl/</link>
       <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/systemd%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemctl/</guid>
+      <guid>https://wiseai.cn/post/systemd%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemctl/</guid>
       <description>systemctl融合service和chkconfig的功能于一体,可以使用它永久性或只在当前会话中启用/禁用服务。
 一、启动/关闭、启用/禁用服务 运行一个服务：
 #systemctl start firewalld
@@ -322,10 +334,10 @@ deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
     
     <item>
       <title>玩玩LFS-从源码构建Linux系统</title>
-      <link>https://blog.wiseai.cn/post/%E7%8E%A9%E7%8E%A9lfs-%E4%BB%8E%E6%BA%90%E7%A0%81%E6%9E%84%E5%BB%BAlinux%E7%B3%BB%E7%BB%9F/</link>
+      <link>https://wiseai.cn/post/%E7%8E%A9%E7%8E%A9lfs-%E4%BB%8E%E6%BA%90%E7%A0%81%E6%9E%84%E5%BB%BAlinux%E7%B3%BB%E7%BB%9F/</link>
       <pubDate>Fri, 10 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/%E7%8E%A9%E7%8E%A9lfs-%E4%BB%8E%E6%BA%90%E7%A0%81%E6%9E%84%E5%BB%BAlinux%E7%B3%BB%E7%BB%9F/</guid>
+      <guid>https://wiseai.cn/post/%E7%8E%A9%E7%8E%A9lfs-%E4%BB%8E%E6%BA%90%E7%A0%81%E6%9E%84%E5%BB%BAlinux%E7%B3%BB%E7%BB%9F/</guid>
       <description>官方网站：http://www.linuxfromscratch.org/
 LFS Book 翻译项目:https://github.com/LCTT/LFS-BOOK
 Linux From Scratch （简体中文版） Version 8.3-systemd
@@ -336,20 +348,20 @@ ALFS：Automated Linux From Scratch提供了自动化和管理LFS和BLFS构建�
     
     <item>
       <title>Linux下合并文件</title>
-      <link>https://blog.wiseai.cn/post/linux%E4%B8%8B%E5%90%88%E5%B9%B6%E6%96%87%E4%BB%B6/</link>
+      <link>https://wiseai.cn/post/linux%E4%B8%8B%E5%90%88%E5%B9%B6%E6%96%87%E4%BB%B6/</link>
       <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/linux%E4%B8%8B%E5%90%88%E5%B9%B6%E6%96%87%E4%BB%B6/</guid>
+      <guid>https://wiseai.cn/post/linux%E4%B8%8B%E5%90%88%E5%B9%B6%E6%96%87%E4%BB%B6/</guid>
       <description>#!/bin/bashfor ((i=0; i&amp;lt;700; i++))do cat $i.ts &amp;gt;&amp;gt; all.tsdone 某视频APP下载位置：手机存储/Android/data/com.tencent.qqlive/files/videos_***/
 在这个目录下找下载的视频文件(以.hls结束的），找找就好了。</description>
     </item>
     
     <item>
       <title>Linux中修改limits值</title>
-      <link>https://blog.wiseai.cn/post/linux%E4%B8%AD%E4%BF%AE%E6%94%B9limits%E5%80%BC/</link>
+      <link>https://wiseai.cn/post/linux%E4%B8%AD%E4%BF%AE%E6%94%B9limits%E5%80%BC/</link>
       <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/linux%E4%B8%AD%E4%BF%AE%E6%94%B9limits%E5%80%BC/</guid>
+      <guid>https://wiseai.cn/post/linux%E4%B8%AD%E4%BF%AE%E6%94%B9limits%E5%80%BC/</guid>
       <description>在/etc/security/limits.conf 最后增加:
 * soft nofile 65535
 * hard nofile 65535
@@ -358,10 +370,10 @@ ALFS：Automated Linux From Scratch提供了自动化和管理LFS和BLFS构建�
     
     <item>
       <title>Linux中的搜索</title>
-      <link>https://blog.wiseai.cn/post/linux%E4%B8%AD%E7%9A%84%E6%90%9C%E7%B4%A2/</link>
+      <link>https://wiseai.cn/post/linux%E4%B8%AD%E7%9A%84%E6%90%9C%E7%B4%A2/</link>
       <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/linux%E4%B8%AD%E7%9A%84%E6%90%9C%E7%B4%A2/</guid>
+      <guid>https://wiseai.cn/post/linux%E4%B8%AD%E7%9A%84%E6%90%9C%E7%B4%A2/</guid>
       <description>一、whereis
 二、which
 三、locate
@@ -374,10 +386,10 @@ ALFS：Automated Linux From Scratch提供了自动化和管理LFS和BLFS构建�
     
     <item>
       <title>Linux中缺少运行库的解决办法</title>
-      <link>https://blog.wiseai.cn/post/linux%E4%B8%AD%E7%BC%BA%E5%B0%91%E8%BF%90%E8%A1%8C%E5%BA%93%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
+      <link>https://wiseai.cn/post/linux%E4%B8%AD%E7%BC%BA%E5%B0%91%E8%BF%90%E8%A1%8C%E5%BA%93%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
       <pubDate>Wed, 01 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/linux%E4%B8%AD%E7%BC%BA%E5%B0%91%E8%BF%90%E8%A1%8C%E5%BA%93%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
+      <guid>https://wiseai.cn/post/linux%E4%B8%AD%E7%BC%BA%E5%B0%91%E8%BF%90%E8%A1%8C%E5%BA%93%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
       <description>编辑 vi /etc/ld.so.conf root权限执行 /sbin/ldconfig -v命令 这样 ldd 才能找到这个库
 /etc/ld.so.conf:
 这个文件记录了编译时使用的动态链接库的路径。 默认情况下，编译器只会使用/lib和/usr/lib这两个目录下的库文件 如果你安装了某些库，没有指定 –prefix=/usr 这样lib库就装到了/usr/local下，而又没有在/etc/ld.so.conf中添加/usr/local/lib，就会报错了 ldconfig是个什么东东吧 ：
@@ -386,10 +398,10 @@ ALFS：Automated Linux From Scratch提供了自动化和管理LFS和BLFS构建�
     
     <item>
       <title>Linux屏录软件</title>
-      <link>https://blog.wiseai.cn/post/linux%E5%B1%8F%E5%BD%95%E8%BD%AF%E4%BB%B6/</link>
+      <link>https://wiseai.cn/post/linux%E5%B1%8F%E5%BD%95%E8%BD%AF%E4%BB%B6/</link>
       <pubDate>Tue, 31 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/linux%E5%B1%8F%E5%BD%95%E8%BD%AF%E4%BB%B6/</guid>
+      <guid>https://wiseai.cn/post/linux%E5%B1%8F%E5%BD%95%E8%BD%AF%E4%BB%B6/</guid>
       <description>一、SimpleScreenRecorder 可以记录其他的应用程序和你的屏幕上运行的游戏。这是一个简单但功能强大，功能丰富的屏幕记录软件，包括一个易于使用的界面。 只支持Linux系统，包含在rpmfusion中。
 # yum install simplescreenrecorder
 # apt install simplescreenrecorder
@@ -407,10 +419,10 @@ ALFS：Automated Linux From Scratch提供了自动化和管理LFS和BLFS构建�
     
     <item>
       <title>docker学习笔记</title>
-      <link>https://blog.wiseai.cn/post/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+      <link>https://wiseai.cn/post/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+      <guid>https://wiseai.cn/post/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
       <description>现在docker分企业版和社区版，如果自己用的话，还是社区版吧！！！
 安装： centos7：
 1.卸载旧版本
@@ -427,10 +439,10 @@ $ sudo apt-get update $ sudo apt-get install apt-transport-https ca-certificates
     
     <item>
       <title>efi和grub2相关配置文件及命令</title>
-      <link>https://blog.wiseai.cn/post/efi%E5%92%8Cgrub2%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8F%8A%E5%91%BD%E4%BB%A4/</link>
+      <link>https://wiseai.cn/post/efi%E5%92%8Cgrub2%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8F%8A%E5%91%BD%E4%BB%A4/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/efi%E5%92%8Cgrub2%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8F%8A%E5%91%BD%E4%BB%A4/</guid>
+      <guid>https://wiseai.cn/post/efi%E5%92%8Cgrub2%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8F%8A%E5%91%BD%E4%BB%A4/</guid>
       <description>一、配置文件目录 /etc/grub2/目录下 /etc/default/grub
 二、更新引导项目 根据配置文件目录下的顺序更新启动项，命令：
 # grub2-mkconfig -o /boot/grub2/grub.cfg
@@ -447,10 +459,10 @@ efi下的/boot/efi/EFI/centos/grub.cfg文件一般调用/boot/grub2/grub.cfg这�
     
     <item>
       <title>filebrowser的安装和使用</title>
-      <link>https://blog.wiseai.cn/post/filebrowser%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</link>
+      <link>https://wiseai.cn/post/filebrowser%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/filebrowser%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</guid>
+      <guid>https://wiseai.cn/post/filebrowser%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</guid>
       <description>编译安装 可以自己编译，必须安装golang v1.16以上和nodejs，最好是最新版本，否则会出现一些问题。
 $ git clone https://github.com/filebrowser/filebrowser 注：如果有gitee的可以改，速度快
 $ make help 注：编译帮助
@@ -472,10 +484,10 @@ $ make build 注：开始编译，完成后在当前目录下filebrowser
     
     <item>
       <title>FTP服务器架设（vsftpd）</title>
-      <link>https://blog.wiseai.cn/post/ftp%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9E%B6%E8%AE%BEvsftpd/</link>
+      <link>https://wiseai.cn/post/ftp%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9E%B6%E8%AE%BEvsftpd/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/ftp%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9E%B6%E8%AE%BEvsftpd/</guid>
+      <guid>https://wiseai.cn/post/ftp%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9E%B6%E8%AE%BEvsftpd/</guid>
       <description>安装： # dnf install vsftpd
 **FTP主动模式：客户端从一个任意的非特权端口N（N&amp;gt;1024）连接到FTP服务器的port 21命令端口。然后客户端开始监听端口N+1，**并发送FTP命令&amp;quot;port N+1&amp;quot;到FTP服务器。接着服务器会从它自己的数据端口（20）连接到客户端指定的数据端口（N+1）。
 **FTP被动模式：客户端从一个任意的非特权端口N（N&amp;gt;1024）连接到FTP服务器的port 21命令端口。然后客户端开始监听端口N+1，**同时客户端提交 PASV命令。服务器会开启一个任意的非特权端口（P &amp;gt;1024），并发送PORT P命令给客户端。然后客户端发起从本地端口N+1到服务器的端口P的连接用来传送数据。
@@ -496,10 +508,10 @@ $ make build 注：开始编译，完成后在当前目录下filebrowser
     
     <item>
       <title>Linux安装hp打印机驱动</title>
-      <link>https://blog.wiseai.cn/post/linux%E5%AE%89%E8%A3%85hp%E6%89%93%E5%8D%B0%E6%9C%BA%E9%A9%B1%E5%8A%A8/</link>
+      <link>https://wiseai.cn/post/linux%E5%AE%89%E8%A3%85hp%E6%89%93%E5%8D%B0%E6%9C%BA%E9%A9%B1%E5%8A%A8/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/linux%E5%AE%89%E8%A3%85hp%E6%89%93%E5%8D%B0%E6%9C%BA%E9%A9%B1%E5%8A%A8/</guid>
+      <guid>https://wiseai.cn/post/linux%E5%AE%89%E8%A3%85hp%E6%89%93%E5%8D%B0%E6%9C%BA%E9%A9%B1%E5%8A%A8/</guid>
       <description>一、安装hplip # dnf install hplip
 或者官网下载
 安装hplip-gui,
@@ -511,10 +523,10 @@ $ make build 注：开始编译，完成后在当前目录下filebrowser
     
     <item>
       <title>Linux开机启动的方法</title>
-      <link>https://blog.wiseai.cn/post/linux%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E7%9A%84%E6%96%B9%E6%B3%95/</link>
+      <link>https://wiseai.cn/post/linux%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E7%9A%84%E6%96%B9%E6%B3%95/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/linux%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
+      <guid>https://wiseai.cn/post/linux%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
       <description>一、配置rc.local文件实现开机启动： 首先，建立一个文件：
 $ sudo touch /etc/rc.local
 给予可执行权限：
@@ -526,10 +538,10 @@ $ sudo chmod +x /etc/rc.local
     
     <item>
       <title>Linux更换网卡后网络服务不能启动的问题解决办法</title>
-      <link>https://blog.wiseai.cn/post/linux%E6%9B%B4%E6%8D%A2%E7%BD%91%E5%8D%A1%E5%90%8E%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E4%B8%8D%E8%83%BD%E5%90%AF%E5%8A%A8%E7%9A%84%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
+      <link>https://wiseai.cn/post/linux%E6%9B%B4%E6%8D%A2%E7%BD%91%E5%8D%A1%E5%90%8E%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E4%B8%8D%E8%83%BD%E5%90%AF%E5%8A%A8%E7%9A%84%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/linux%E6%9B%B4%E6%8D%A2%E7%BD%91%E5%8D%A1%E5%90%8E%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E4%B8%8D%E8%83%BD%E5%90%AF%E5%8A%A8%E7%9A%84%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
+      <guid>https://wiseai.cn/post/linux%E6%9B%B4%E6%8D%A2%E7%BD%91%E5%8D%A1%E5%90%8E%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E4%B8%8D%E8%83%BD%E5%90%AF%E5%8A%A8%E7%9A%84%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
       <description>1、迁移以后，会存在其中一个网卡无法启动（eth0 or eth1）
 [root@ ~]# ifup eth0
 WARNING: Deprecated config file /etc/modprobe.conf, all config files belong into /etc/modprobe.d/.
@@ -549,10 +561,10 @@ TYPE=Ethernet
     
     <item>
       <title>通过iptables设置防火墙</title>
-      <link>https://blog.wiseai.cn/post/iptables%E8%AE%BE%E7%BD%AEsh/</link>
+      <link>https://wiseai.cn/post/iptables%E8%AE%BE%E7%BD%AEsh/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/iptables%E8%AE%BE%E7%BD%AEsh/</guid>
+      <guid>https://wiseai.cn/post/iptables%E8%AE%BE%E7%BD%AEsh/</guid>
       <description>#!/bin/bash PATH=/sbin:/bin:/usr/sbin:/usr/bin #设置网卡 wk=&amp;#34;eth1&amp;#34; # 1. 清除规则 iptables -F iptables -X iptables -Z # 2. 设定政策 iptables -P INPUT DROP iptables -P OUTPUT ACCEPT iptables -P FORWARD ACCEPT # 3~5. 制订各项规则 iptables -A INPUT -i lo -j ACCEPT iptables -A INPUT -i $wk -m state --state RELATED,ESTABLISHED -j ACCEPT #samba服务 iptables -A INPUT -i $wk -p tcp --dport 139 -j ACCEPT iptables -A INPUT -i $wk -p tcp --dport 445 -j ACCEPT iptables -A INPUT -i $wk -p udp --dport 137:138 -j ACCEPT #vsftp服务 iptables -A INPUT -i $wk -p tcp --dport 21 -j ACCEPT iptables -A INPUT -i $wk -p tcp --dport 1024:65535 -j ACCEPT #iptables -A INPUT -i $wk -s 192.</description>
     </item>
     

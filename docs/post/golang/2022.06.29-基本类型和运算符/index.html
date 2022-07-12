@@ -408,7 +408,6 @@ func main() {
 <p>不过 Go 同样支持 Unicode（UTF-8），因此字符同样称为 Unicode 代码点或者 runes，并在内存中使用 <code>int</code> 来表示。在文档中，一般使用格式 <code>U+hhhh</code> 来表示，其中 <code>h</code> 表示一个 16 进制数。其实 <code>rune</code> 也是 Go 当中的一个类型，并且是 <code>int32</code> 的别名。</p>
 <p>在书写 Unicode 字符时，需要在 16 进制数之前加上前缀 <code>\u</code> 或者 <code>\U</code>。</p>
 <p>因为 Unicode 至少占用 2 个字节，所以我们使用 <code>int16</code> 或者 <code>int</code> 类型来表示。如果需要使用到 4 字节，则会加上 <code>\U</code> 前缀；前缀 <code>\u</code> 则总是紧跟着长度为 4 的 16 进制数，前缀 <code>\U</code> 紧跟着长度为 8 的 16 进制数。</p>
-<p>示例 4.12 <a href="examples/chapter_4/char.go">char.go</a></p>
 <pre tabindex="0"><code>var ch int = &#39;\u0041&#39;
 var ch2 int = &#39;\u03B2&#39;
 var ch3 int = &#39;\U00101234&#39;

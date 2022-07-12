@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>录屏 on WiseAI的博客</title>
-    <link>https://blog.wiseai.cn/tags/%E5%BD%95%E5%B1%8F/</link>
+    <link>https://wiseai.cn/tags/%E5%BD%95%E5%B1%8F/</link>
     <description>Recent content in 录屏 on WiseAI的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Tue, 31 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/tags/%E5%BD%95%E5%B1%8F/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 31 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wiseai.cn/tags/%E5%BD%95%E5%B1%8F/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Linux屏录软件</title>
-      <link>https://blog.wiseai.cn/post/linux%E5%B1%8F%E5%BD%95%E8%BD%AF%E4%BB%B6/</link>
+      <link>https://wiseai.cn/post/linux%E5%B1%8F%E5%BD%95%E8%BD%AF%E4%BB%B6/</link>
       <pubDate>Tue, 31 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/linux%E5%B1%8F%E5%BD%95%E8%BD%AF%E4%BB%B6/</guid>
+      <guid>https://wiseai.cn/post/linux%E5%B1%8F%E5%BD%95%E8%BD%AF%E4%BB%B6/</guid>
       <description>一、SimpleScreenRecorder 可以记录其他的应用程序和你的屏幕上运行的游戏。这是一个简单但功能强大，功能丰富的屏幕记录软件，包括一个易于使用的界面。 只支持Linux系统，包含在rpmfusion中。
 # yum install simplescreenrecorder
 # apt install simplescreenrecorder

@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>环境配置 on WiseAI的博客</title>
-    <link>https://blog.wiseai.cn/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</link>
+    <link>https://wiseai.cn/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</link>
     <description>Recent content in 环境配置 on WiseAI的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Mon, 30 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 30 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wiseai.cn/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>golang和nodejs环境配置</title>
-      <link>https://blog.wiseai.cn/post/golang%E5%92%8Cnodejs%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</link>
+      <link>https://wiseai.cn/post/golang%E5%92%8Cnodejs%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/golang%E5%92%8Cnodejs%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</guid>
+      <guid>https://wiseai.cn/post/golang%E5%92%8Cnodejs%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</guid>
       <description>配置golang 下载文件：golang官网下载 解压文件至/usr/local/目录下： # rm -rf /usr/local/go &amp;amp;&amp;amp; tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz
 （第一个命令是删除golang的残余文件）
 建立软链接至/usr/bin/目录下： # ln -s /usr/local/go/bin/go /usr/bin/

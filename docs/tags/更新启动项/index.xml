@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>更新启动项 on WiseAI的博客</title>
-    <link>https://blog.wiseai.cn/tags/%E6%9B%B4%E6%96%B0%E5%90%AF%E5%8A%A8%E9%A1%B9/</link>
+    <link>https://wiseai.cn/tags/%E6%9B%B4%E6%96%B0%E5%90%AF%E5%8A%A8%E9%A1%B9/</link>
     <description>Recent content in 更新启动项 on WiseAI的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Sun, 19 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wiseai.cn/tags/%E6%9B%B4%E6%96%B0%E5%90%AF%E5%8A%A8%E9%A1%B9/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 19 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wiseai.cn/tags/%E6%9B%B4%E6%96%B0%E5%90%AF%E5%8A%A8%E9%A1%B9/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Raspberry Pi 4 boot EEPROM</title>
-      <link>https://blog.wiseai.cn/post/raspberry-pi-4-boot-eeprom/</link>
+      <link>https://wiseai.cn/post/raspberry-pi-4-boot-eeprom/</link>
       <pubDate>Sun, 19 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.wiseai.cn/post/raspberry-pi-4-boot-eeprom/</guid>
+      <guid>https://wiseai.cn/post/raspberry-pi-4-boot-eeprom/</guid>
       <description>Raspberry Pi 4 boot EEPROM 官方文档：https://www.raspberrypi.org/documentation/hardware/raspberrypi/booteeprom.md
 升级 Updating from Raspberry Pi OS Bootloader updates are instigated during a normal apt update, apt full-upgrade cycle, this means you will get new features and bug fixes during your normal updates.
 Bootloader updates are performed by rpi-eeprom-update service provided by the rpi-eeprom package. This service runs at boot and updates the bootloader at the next reboot if a new production release is available. The service automatically migrates the current boot settings to the new bootloader release.</description>
