@@ -1,4 +1,4 @@
-baseurl: "https://wiseai.cn/"
+baseurl: "http://wiseai.cn/"
 languageCode: "zh-cn"
 title: "WiseAI的博客"
 theme: "wiseai"
