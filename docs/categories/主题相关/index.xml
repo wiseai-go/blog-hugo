@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>主题相关 on WiseAI的博客</title>
-    <link>https://wiseai.cn/categories/%E4%B8%BB%E9%A2%98%E7%9B%B8%E5%85%B3/</link>
+    <link>http://wiseai.cn/categories/%E4%B8%BB%E9%A2%98%E7%9B%B8%E5%85%B3/</link>
     <description>Recent content in 主题相关 on WiseAI的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Mon, 31 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://wiseai.cn/categories/%E4%B8%BB%E9%A2%98%E7%9B%B8%E5%85%B3/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 31 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="http://wiseai.cn/categories/%E4%B8%BB%E9%A2%98%E7%9B%B8%E5%85%B3/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Footnote test</title>
-      <link>https://wiseai.cn/post/footnote/</link>
+      <link>http://wiseai.cn/post/footnote/</link>
       <pubDate>Mon, 31 May 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://wiseai.cn/post/footnote/</guid>
+      <guid>http://wiseai.cn/post/footnote/</guid>
       <description>Lorem ipsum dolor sit amet1 consectetur adipisicing elit. Nemo tempora eum cumque neque voluptatum, odit ipsum consequatur animi.
 Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo tempora eum cumque neque voluptatum, odit ipsum2 consequatur animi.
 Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo tempora eum cumque neque voluptatum, odit ipsum consequatur animi.
@@ -22,10 +22,10 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo tempora eum cumque
     
     <item>
       <title>Katex support</title>
-      <link>https://wiseai.cn/post/test-katex/</link>
+      <link>http://wiseai.cn/post/test-katex/</link>
       <pubDate>Sat, 22 May 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://wiseai.cn/post/test-katex/</guid>
+      <guid>http://wiseai.cn/post/test-katex/</guid>
       <description>The following
 $$ \int_{a}^{b} x^2 dx $$
 Is an integral
@@ -38,10 +38,10 @@ See the online reference of supported TeX functions.
     
     <item>
       <title>MathJax support</title>
-      <link>https://wiseai.cn/post/test-mathjax/</link>
+      <link>http://wiseai.cn/post/test-mathjax/</link>
       <pubDate>Sat, 22 May 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://wiseai.cn/post/test-mathjax/</guid>
+      <guid>http://wiseai.cn/post/test-mathjax/</guid>
       <description>The following
 $$ \int_{a}^{b} x^2 dx $$
 Is an integral
@@ -53,37 +53,37 @@ Enable MathJax in the config file by setting the mathjax param to true. This wil
     
     <item>
       <title>Markdown Syntax Guide</title>
-      <link>https://wiseai.cn/post/markdown-syntax/</link>
+      <link>http://wiseai.cn/post/markdown-syntax/</link>
       <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://wiseai.cn/post/markdown-syntax/</guid>
+      <guid>http://wiseai.cn/post/markdown-syntax/</guid>
       <description>&lt;p&gt;This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Example Lazy Load Image</title>
-      <link>https://wiseai.cn/post/example-lazy-load-image/</link>
+      <link>http://wiseai.cn/post/example-lazy-load-image/</link>
       <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://wiseai.cn/post/example-lazy-load-image/</guid>
+      <guid>http://wiseai.cn/post/example-lazy-load-image/</guid>
       <description>Nya nya nyan meow meow mama More napping, more napping all the napping is exhausting stretch out on bed you are a captive audience while sitting on the toilet, pet me slap the dog because cats rule bleghbleghvomit my furball really tie the room together always hungry. Humans,humans, humans oh how much they love us felines we are the center of attention they feed, they clean miaow then turn around and show you my bum.</description>
     </item>
     
     <item>
       <title>Placeholder Text</title>
-      <link>https://wiseai.cn/post/placeholder-text/</link>
+      <link>http://wiseai.cn/post/placeholder-text/</link>
       <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://wiseai.cn/post/placeholder-text/</guid>
+      <guid>http://wiseai.cn/post/placeholder-text/</guid>
       <description>&lt;p&gt;Lorem est tota propiore conpellat pectoribus de pectora summo.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Emoji Support</title>
-      <link>https://wiseai.cn/post/emoji-support/</link>
+      <link>http://wiseai.cn/post/emoji-support/</link>
       <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://wiseai.cn/post/emoji-support/</guid>
+      <guid>http://wiseai.cn/post/emoji-support/</guid>
       <description>&lt;p&gt;Emoji can be enabled in a Hugo project in a number of ways.&lt;/p&gt;</description>
     </item>
     

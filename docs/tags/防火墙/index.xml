@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>防火墙 on WiseAI的博客</title>
-    <link>https://wiseai.cn/tags/%E9%98%B2%E7%81%AB%E5%A2%99/</link>
+    <link>http://wiseai.cn/tags/%E9%98%B2%E7%81%AB%E5%A2%99/</link>
     <description>Recent content in 防火墙 on WiseAI的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Mon, 30 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wiseai.cn/tags/%E9%98%B2%E7%81%AB%E5%A2%99/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 30 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://wiseai.cn/tags/%E9%98%B2%E7%81%AB%E5%A2%99/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>通过iptables设置防火墙</title>
-      <link>https://wiseai.cn/post/iptables%E8%AE%BE%E7%BD%AEsh/</link>
+      <link>http://wiseai.cn/post/iptables%E8%AE%BE%E7%BD%AEsh/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://wiseai.cn/post/iptables%E8%AE%BE%E7%BD%AEsh/</guid>
+      <guid>http://wiseai.cn/post/iptables%E8%AE%BE%E7%BD%AEsh/</guid>
       <description>#!/bin/bash PATH=/sbin:/bin:/usr/sbin:/usr/bin #设置网卡 wk=&amp;#34;eth1&amp;#34; # 1. 清除规则 iptables -F iptables -X iptables -Z # 2. 设定政策 iptables -P INPUT DROP iptables -P OUTPUT ACCEPT iptables -P FORWARD ACCEPT # 3~5. 制订各项规则 iptables -A INPUT -i lo -j ACCEPT iptables -A INPUT -i $wk -m state --state RELATED,ESTABLISHED -j ACCEPT #samba服务 iptables -A INPUT -i $wk -p tcp --dport 139 -j ACCEPT iptables -A INPUT -i $wk -p tcp --dport 445 -j ACCEPT iptables -A INPUT -i $wk -p udp --dport 137:138 -j ACCEPT #vsftp服务 iptables -A INPUT -i $wk -p tcp --dport 21 -j ACCEPT iptables -A INPUT -i $wk -p tcp --dport 1024:65535 -j ACCEPT #iptables -A INPUT -i $wk -s 192.</description>
     </item>
     

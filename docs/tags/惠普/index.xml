@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>惠普 on WiseAI的博客</title>
-    <link>https://wiseai.cn/tags/%E6%83%A0%E6%99%AE/</link>
+    <link>http://wiseai.cn/tags/%E6%83%A0%E6%99%AE/</link>
     <description>Recent content in 惠普 on WiseAI的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Mon, 30 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wiseai.cn/tags/%E6%83%A0%E6%99%AE/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 30 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://wiseai.cn/tags/%E6%83%A0%E6%99%AE/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Linux安装hp打印机驱动</title>
-      <link>https://wiseai.cn/post/linux%E5%AE%89%E8%A3%85hp%E6%89%93%E5%8D%B0%E6%9C%BA%E9%A9%B1%E5%8A%A8/</link>
+      <link>http://wiseai.cn/post/linux%E5%AE%89%E8%A3%85hp%E6%89%93%E5%8D%B0%E6%9C%BA%E9%A9%B1%E5%8A%A8/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://wiseai.cn/post/linux%E5%AE%89%E8%A3%85hp%E6%89%93%E5%8D%B0%E6%9C%BA%E9%A9%B1%E5%8A%A8/</guid>
+      <guid>http://wiseai.cn/post/linux%E5%AE%89%E8%A3%85hp%E6%89%93%E5%8D%B0%E6%9C%BA%E9%A9%B1%E5%8A%A8/</guid>
       <description>一、安装hplip # dnf install hplip
 或者官网下载
 安装hplip-gui,

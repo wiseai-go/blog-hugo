@@ -2,63 +2,63 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>categories on WiseAI的博客</title>
-    <link>https://wiseai.cn/categories/</link>
+    <link>http://wiseai.cn/categories/</link>
     <description>Recent content in categories on WiseAI的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Fri, 08 Jul 2022 16:30:38 +0800</lastBuildDate><atom:link href="https://wiseai.cn/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 08 Jul 2022 16:30:38 +0800</lastBuildDate><atom:link href="http://wiseai.cn/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Linux命令</title>
-      <link>https://wiseai.cn/categories/linux%E5%91%BD%E4%BB%A4/</link>
+      <link>http://wiseai.cn/categories/linux%E5%91%BD%E4%BB%A4/</link>
       <pubDate>Fri, 08 Jul 2022 16:30:38 +0800</pubDate>
       
-      <guid>https://wiseai.cn/categories/linux%E5%91%BD%E4%BB%A4/</guid>
+      <guid>http://wiseai.cn/categories/linux%E5%91%BD%E4%BB%A4/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Linux学习</title>
-      <link>https://wiseai.cn/categories/linux%E5%AD%A6%E4%B9%A0/</link>
+      <link>http://wiseai.cn/categories/linux%E5%AD%A6%E4%B9%A0/</link>
       <pubDate>Fri, 08 Jul 2022 16:30:38 +0800</pubDate>
       
-      <guid>https://wiseai.cn/categories/linux%E5%AD%A6%E4%B9%A0/</guid>
+      <guid>http://wiseai.cn/categories/linux%E5%AD%A6%E4%B9%A0/</guid>
       <description></description>
     </item>
     
     <item>
       <title>golang学习</title>
-      <link>https://wiseai.cn/categories/golang%E5%AD%A6%E4%B9%A0/</link>
+      <link>http://wiseai.cn/categories/golang%E5%AD%A6%E4%B9%A0/</link>
       <pubDate>Fri, 08 Jul 2022 16:06:32 +0800</pubDate>
       
-      <guid>https://wiseai.cn/categories/golang%E5%AD%A6%E4%B9%A0/</guid>
+      <guid>http://wiseai.cn/categories/golang%E5%AD%A6%E4%B9%A0/</guid>
       <description></description>
     </item>
     
     <item>
       <title>杂谈</title>
-      <link>https://wiseai.cn/categories/%E6%9D%82%E8%B0%88/</link>
+      <link>http://wiseai.cn/categories/%E6%9D%82%E8%B0%88/</link>
       <pubDate>Fri, 08 Jul 2022 15:21:22 +0800</pubDate>
       
-      <guid>https://wiseai.cn/categories/%E6%9D%82%E8%B0%88/</guid>
+      <guid>http://wiseai.cn/categories/%E6%9D%82%E8%B0%88/</guid>
       <description></description>
     </item>
     
     <item>
       <title>树莓派</title>
-      <link>https://wiseai.cn/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/</link>
+      <link>http://wiseai.cn/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/</link>
       <pubDate>Sun, 19 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://wiseai.cn/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/</guid>
+      <guid>http://wiseai.cn/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/</guid>
       <description></description>
     </item>
     
     <item>
       <title>主题相关</title>
-      <link>https://wiseai.cn/categories/%E4%B8%BB%E9%A2%98%E7%9B%B8%E5%85%B3/</link>
+      <link>http://wiseai.cn/categories/%E4%B8%BB%E9%A2%98%E7%9B%B8%E5%85%B3/</link>
       <pubDate>Mon, 31 May 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://wiseai.cn/categories/%E4%B8%BB%E9%A2%98%E7%9B%B8%E5%85%B3/</guid>
+      <guid>http://wiseai.cn/categories/%E4%B8%BB%E9%A2%98%E7%9B%B8%E5%85%B3/</guid>
       <description></description>
     </item>
     

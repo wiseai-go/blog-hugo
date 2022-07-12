@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>无线 on WiseAI的博客</title>
-    <link>https://wiseai.cn/tags/%E6%97%A0%E7%BA%BF/</link>
+    <link>http://wiseai.cn/tags/%E6%97%A0%E7%BA%BF/</link>
     <description>Recent content in 无线 on WiseAI的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Wed, 15 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wiseai.cn/tags/%E6%97%A0%E7%BA%BF/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 15 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://wiseai.cn/tags/%E6%97%A0%E7%BA%BF/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>树莓派蓝牙相关问题</title>
-      <link>https://wiseai.cn/post/%E6%A0%91%E8%8E%93%E6%B4%BE%E8%93%9D%E7%89%99%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</link>
+      <link>http://wiseai.cn/post/%E6%A0%91%E8%8E%93%E6%B4%BE%E8%93%9D%E7%89%99%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</link>
       <pubDate>Wed, 15 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://wiseai.cn/post/%E6%A0%91%E8%8E%93%E6%B4%BE%E8%93%9D%E7%89%99%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</guid>
+      <guid>http://wiseai.cn/post/%E6%A0%91%E8%8E%93%E6%B4%BE%E8%93%9D%E7%89%99%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</guid>
       <description>因系统更新快，这里的操作仅供参考!!
 升级安装蓝牙相关软件包 # sudo apt-get install pi-bluetooth bluez bluez-firmware blueman
 添加pi用户到蓝牙组 # sudo usermod -G bluetooth -a pi

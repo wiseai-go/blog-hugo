@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>网络 on WiseAI的博客</title>
-    <link>https://wiseai.cn/tags/%E7%BD%91%E7%BB%9C/</link>
+    <link>http://wiseai.cn/tags/%E7%BD%91%E7%BB%9C/</link>
     <description>Recent content in 网络 on WiseAI的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Mon, 20 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wiseai.cn/tags/%E7%BD%91%E7%BB%9C/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 20 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://wiseai.cn/tags/%E7%BD%91%E7%BB%9C/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>NetworkManager网络管理相关问题</title>
-      <link>https://wiseai.cn/post/networkmanager%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</link>
+      <link>http://wiseai.cn/post/networkmanager%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</link>
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://wiseai.cn/post/networkmanager%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</guid>
+      <guid>http://wiseai.cn/post/networkmanager%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</guid>
       <description>相关配置文件位置 /etc/dbus-1/system.d/NetworkManager.conf /etc/dbus-1/system.d/nm-avahi-autoipd.conf /etc/dbus-1/system.d/nm-dhcp-client.conf /etc/dbus-1/system.d/nm-dispatcher.conf /etc/dbus-1/system.d/nm-system-settings.conf /etc/rc.d/init.d/NetworkManager
 /etc/dbus-1/system.d/nm-applet.conf
 不使用Network Manager 管理某些网络设备 默认情况下，NetworkManager 管理除 lo（环回）设备以外的所有网络设备，因为一些情况需要将设备设置为 unmanaged，也就是不使用NetworkManager管理这些设备。 查看设备状态 # nmcli device status 在 /etc/NetworkManager/NetworkManager.conf 配置文件的[main] 层级下启用插件 keyfile。 [main] plugins=keyfile 这个一般都启用了。 - 创建 /etc/NetworkManager/conf.d/unmanaged-devices.conf 配置文件（这个文件名没有要求，自己容易识别就可以了），包含以下内容：
@@ -22,10 +22,10 @@
     
     <item>
       <title>Linux更换网卡后网络服务不能启动的问题解决办法</title>
-      <link>https://wiseai.cn/post/linux%E6%9B%B4%E6%8D%A2%E7%BD%91%E5%8D%A1%E5%90%8E%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E4%B8%8D%E8%83%BD%E5%90%AF%E5%8A%A8%E7%9A%84%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
+      <link>http://wiseai.cn/post/linux%E6%9B%B4%E6%8D%A2%E7%BD%91%E5%8D%A1%E5%90%8E%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E4%B8%8D%E8%83%BD%E5%90%AF%E5%8A%A8%E7%9A%84%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://wiseai.cn/post/linux%E6%9B%B4%E6%8D%A2%E7%BD%91%E5%8D%A1%E5%90%8E%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E4%B8%8D%E8%83%BD%E5%90%AF%E5%8A%A8%E7%9A%84%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
+      <guid>http://wiseai.cn/post/linux%E6%9B%B4%E6%8D%A2%E7%BD%91%E5%8D%A1%E5%90%8E%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E4%B8%8D%E8%83%BD%E5%90%AF%E5%8A%A8%E7%9A%84%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</guid>
       <description>1、迁移以后，会存在其中一个网卡无法启动（eth0 or eth1）
 [root@ ~]# ifup eth0
 WARNING: Deprecated config file /etc/modprobe.conf, all config files belong into /etc/modprobe.d/.

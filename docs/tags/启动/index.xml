@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>启动 on WiseAI的博客</title>
-    <link>https://wiseai.cn/tags/%E5%90%AF%E5%8A%A8/</link>
+    <link>http://wiseai.cn/tags/%E5%90%AF%E5%8A%A8/</link>
     <description>Recent content in 启动 on WiseAI的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Mon, 30 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wiseai.cn/tags/%E5%90%AF%E5%8A%A8/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 30 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://wiseai.cn/tags/%E5%90%AF%E5%8A%A8/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>efi和grub2相关配置文件及命令</title>
-      <link>https://wiseai.cn/post/efi%E5%92%8Cgrub2%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8F%8A%E5%91%BD%E4%BB%A4/</link>
+      <link>http://wiseai.cn/post/efi%E5%92%8Cgrub2%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8F%8A%E5%91%BD%E4%BB%A4/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://wiseai.cn/post/efi%E5%92%8Cgrub2%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8F%8A%E5%91%BD%E4%BB%A4/</guid>
+      <guid>http://wiseai.cn/post/efi%E5%92%8Cgrub2%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8F%8A%E5%91%BD%E4%BB%A4/</guid>
       <description>一、配置文件目录 /etc/grub2/目录下 /etc/default/grub
 二、更新引导项目 根据配置文件目录下的顺序更新启动项，命令：
 # grub2-mkconfig -o /boot/grub2/grub.cfg

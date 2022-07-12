@@ -2,27 +2,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Projects on WiseAI的博客</title>
-    <link>https://wiseai.cn/projects/</link>
+    <link>http://wiseai.cn/projects/</link>
     <description>Recent content in Projects on WiseAI的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Thu, 26 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://wiseai.cn/projects/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 26 Nov 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://wiseai.cn/projects/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>blog-hugo</title>
-      <link>https://wiseai.cn/projects/blog_wiseai/</link>
+      <link>http://wiseai.cn/projects/blog_wiseai/</link>
       <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://wiseai.cn/projects/blog_wiseai/</guid>
+      <guid>http://wiseai.cn/projects/blog_wiseai/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Hugo Tania Theme</title>
-      <link>https://wiseai.cn/projects/tania_theme/</link>
+      <link>http://wiseai.cn/projects/tania_theme/</link>
       <pubDate>Thu, 26 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://wiseai.cn/projects/tania_theme/</guid>
+      <guid>http://wiseai.cn/projects/tania_theme/</guid>
       <description></description>
     </item>
     

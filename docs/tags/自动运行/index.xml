@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>自动运行 on WiseAI的博客</title>
-    <link>https://wiseai.cn/tags/%E8%87%AA%E5%8A%A8%E8%BF%90%E8%A1%8C/</link>
+    <link>http://wiseai.cn/tags/%E8%87%AA%E5%8A%A8%E8%BF%90%E8%A1%8C/</link>
     <description>Recent content in 自动运行 on WiseAI的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Mon, 30 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wiseai.cn/tags/%E8%87%AA%E5%8A%A8%E8%BF%90%E8%A1%8C/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 30 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://wiseai.cn/tags/%E8%87%AA%E5%8A%A8%E8%BF%90%E8%A1%8C/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Linux开机启动的方法</title>
-      <link>https://wiseai.cn/post/linux%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E7%9A%84%E6%96%B9%E6%B3%95/</link>
+      <link>http://wiseai.cn/post/linux%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E7%9A%84%E6%96%B9%E6%B3%95/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://wiseai.cn/post/linux%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
+      <guid>http://wiseai.cn/post/linux%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
       <description>一、配置rc.local文件实现开机启动： 首先，建立一个文件：
 $ sudo touch /etc/rc.local
 给予可执行权限：

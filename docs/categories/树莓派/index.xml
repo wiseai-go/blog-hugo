@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>树莓派 on WiseAI的博客</title>
-    <link>https://wiseai.cn/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/</link>
+    <link>http://wiseai.cn/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/</link>
     <description>Recent content in 树莓派 on WiseAI的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Sun, 19 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wiseai.cn/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 19 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://wiseai.cn/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Raspberry Pi 4 boot EEPROM</title>
-      <link>https://wiseai.cn/post/raspberry-pi-4-boot-eeprom/</link>
+      <link>http://wiseai.cn/post/raspberry-pi-4-boot-eeprom/</link>
       <pubDate>Sun, 19 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://wiseai.cn/post/raspberry-pi-4-boot-eeprom/</guid>
+      <guid>http://wiseai.cn/post/raspberry-pi-4-boot-eeprom/</guid>
       <description>Raspberry Pi 4 boot EEPROM 官方文档：https://www.raspberrypi.org/documentation/hardware/raspberrypi/booteeprom.md
 升级 Updating from Raspberry Pi OS Bootloader updates are instigated during a normal apt update, apt full-upgrade cycle, this means you will get new features and bug fixes during your normal updates.
 Bootloader updates are performed by rpi-eeprom-update service provided by the rpi-eeprom package. This service runs at boot and updates the bootloader at the next reboot if a new production release is available. The service automatically migrates the current boot settings to the new bootloader release.</description>
@@ -21,10 +21,10 @@ Bootloader updates are performed by rpi-eeprom-update service provided by the rp
     
     <item>
       <title>树莓派蓝牙相关问题</title>
-      <link>https://wiseai.cn/post/%E6%A0%91%E8%8E%93%E6%B4%BE%E8%93%9D%E7%89%99%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</link>
+      <link>http://wiseai.cn/post/%E6%A0%91%E8%8E%93%E6%B4%BE%E8%93%9D%E7%89%99%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</link>
       <pubDate>Wed, 15 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://wiseai.cn/post/%E6%A0%91%E8%8E%93%E6%B4%BE%E8%93%9D%E7%89%99%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</guid>
+      <guid>http://wiseai.cn/post/%E6%A0%91%E8%8E%93%E6%B4%BE%E8%93%9D%E7%89%99%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</guid>
       <description>因系统更新快，这里的操作仅供参考!!
 升级安装蓝牙相关软件包 # sudo apt-get install pi-bluetooth bluez bluez-firmware blueman
 添加pi用户到蓝牙组 # sudo usermod -G bluetooth -a pi
@@ -34,10 +34,10 @@ Bootloader updates are performed by rpi-eeprom-update service provided by the rp
     
     <item>
       <title>GPIO相关知识</title>
-      <link>https://wiseai.cn/post/gpio%E7%9B%B8%E5%85%B3/</link>
+      <link>http://wiseai.cn/post/gpio%E7%9B%B8%E5%85%B3/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://wiseai.cn/post/gpio%E7%9B%B8%E5%85%B3/</guid>
+      <guid>http://wiseai.cn/post/gpio%E7%9B%B8%E5%85%B3/</guid>
       <description>linux查看gpio状态 cat /sys/kernel/debug/gpio
 有个blog里有这个方法，去试试：
 mkdir /tmp/debug mount -t debugfs debugfs /tmp/debug cat /tmp/debug/gpio GPIO操作的一些说明 首先，看看系统中有没有“/sys/class/gpio”这个文件夹。如果没有请在编译内核的时候加入 Device Drivers-&amp;gt; GPIO Support -&amp;gt;/sys/class/gpio/… (sysfs interface)

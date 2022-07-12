@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>php on WiseAI的博客</title>
-    <link>https://wiseai.cn/tags/php/</link>
+    <link>http://wiseai.cn/tags/php/</link>
     <description>Recent content in php on WiseAI的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Mon, 20 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wiseai.cn/tags/php/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 20 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://wiseai.cn/tags/php/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>php5-fpm.sock failed</title>
-      <link>https://wiseai.cn/post/php5-fpm.sock-failed/</link>
+      <link>http://wiseai.cn/post/php5-fpm.sock-failed/</link>
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://wiseai.cn/post/php5-fpm.sock-failed/</guid>
+      <guid>http://wiseai.cn/post/php5-fpm.sock-failed/</guid>
       <description>/etc/php5/fpm/pool.d/www.conf
 里面找到这样一段代码：
 listen = 127.0.0.1:9000
@@ -26,10 +26,10 @@ listen = /var/run/php5-fpm.sock
     
     <item>
       <title>php截取中文字符串乱码问题</title>
-      <link>https://wiseai.cn/post/php%E6%88%AA%E5%8F%96%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</link>
+      <link>http://wiseai.cn/post/php%E6%88%AA%E5%8F%96%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</link>
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://wiseai.cn/post/php%E6%88%AA%E5%8F%96%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</guid>
+      <guid>http://wiseai.cn/post/php%E6%88%AA%E5%8F%96%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/</guid>
       <description>php截取字符串有两个函数:
 一个是substr()，这个用来截取全字母的字符串，截取UTF-8的汉字就会出错；
 另一个是mb_substr()，这个用来截取汉字，但一定要注明编码方式：mb_substr(&amp;lsquo;我的祖国是中国&amp;rsquo;, 0, 4, &amp;lsquo;utf-8&amp;rsquo;);</description>
