@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-cn"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link href="http://static.wiseai.cn/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://static.wiseai.cn/img/favicon.ico" />
+
+    <title>Go程序的switch结构 | WiseAI的博客</title>
+</head><body><div class="container-fluid">
+    <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="http://static.wiseai.cn/img/favicon.ico" alt="" width="30" height="24" class="d-inline-block align-text-top">
+                WiseAI的博客
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/articles/">文章</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/categories/">分类</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/tags/">关键字</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/post/golang/">golang编程</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/about/">关于</a>
+                    </li>
+                    
+                </ul>
+                <form class="d-flex">
+                    <input id="search-query" class="form-control me-2" type="search" placeholder="Search for anything..." aria-label="Search">
+                </form>
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+
+
+<div id="content">
+<div class="container article">
+	<h1>Go程序的switch结构</h1>
+	<div class="post-meta">
+		<div>
+			
+			
+			By wiseai | 2022-07-10 | 2 minutes
+		</div>
+		<div class="tags">
+			
+			<a class="btn btn-light links btn-sm" href="/tags/%E7%BC%96%E7%A8%8B/">编程</a>
+			
+		</div>
+	</div>
+	<div>
+		<div class="article-post">
+			<h1 id="53-switch-结构">5.3 switch 结构</h1>
+<p>相比较 C 和 Java 等其它语言而言，Go 语言中的 <code>switch</code> 结构使用上更加灵活。它接受任意形式的表达式：</p>
+<pre tabindex="0"><code>switch var1 {
+	case val1:
+		...
+	case val2:
+		...
+	default:
+		...
+}
+</code></pre><p>变量 <code>var1</code> 可以是任何类型，而 <code>val1</code> 和 <code>val2</code> 则可以是同类型的任意值。类型不被局限于常量或整数，但必须是相同的类型；或者最终结果为相同类型的表达式。前花括号 <code>{</code> 必须和 <code>switch</code> 关键字在同一行。</p>
+<p>您可以同时测试多个可能符合条件的值，使用逗号分割它们，例如：<code>case val1, val2, val3</code>。</p>
+<p>每一个 <code>case</code> 分支都是唯一的，从上至下逐一测试，直到匹配为止。（ Go 语言使用快速的查找算法来测试 <code>switch</code> 条件与 <code>case</code> 分支的匹配情况，直到算法匹配到某个 <code>case</code> 或者进入 <code>default</code> 条件为止。）</p>
+<p>一旦成功地匹配到某个分支，在执行完相应代码后就会退出整个 <code>switch</code> 代码块，也就是说您不需要特别使用 <code>break</code> 语句来表示结束。</p>
+<p>因此，程序也不会自动地去执行下一个分支的代码。如果在执行完每个分支的代码后，还希望继续执行后续分支的代码，可以使用 <code>fallthrough</code> 关键字来达到目的。</p>
+<p>因此：</p>
+<pre tabindex="0"><code>switch i {
+	case 0: // 空分支，只有当 i == 0 时才会进入分支
+	case 1:
+		f() // 当 i == 0 时函数不会被调用
+}
+</code></pre><p>并且：</p>
+<pre tabindex="0"><code>switch i {
+	case 0: fallthrough
+	case 1:
+		f() // 当 i == 0 时函数也会被调用
+}
+</code></pre><p>在 <code>case ...:</code> 语句之后，您不需要使用花括号将多行语句括起来，但您可以在分支中进行任意形式的编码。当代码块只有一行时，可以直接放置在 <code>case</code> 语句之后。</p>
+<p>您同样可以使用 <code>return</code> 语句来提前结束代码块的执行。当您在 <code>switch</code> 语句块中使用 <code>return</code> 语句，并且您的函数是有返回值的，您还需要在 switch 之后添加相应的 <code>return</code> 语句以确保函数始终会返回。</p>
+<p>可选的 <code>default</code> 分支可以出现在任何顺序，但最好将它放在最后。它的作用类似与 if-else 语句中的 <code>else</code>，表示不符合任何已给出条件时，执行相关语句。</p>
+<p>示例 5.4 <a href="examples/chapter_5/switch1.go">switch1.go</a>：</p>
+<pre tabindex="0"><code>package main
+
+import &#34;fmt&#34;
+
+func main() {
+	var num1 int = 100
+
+	switch num1 {
+	case 98, 99:
+		fmt.Println(&#34;It&#39;s equal to 98&#34;)
+	case 100: 
+		fmt.Println(&#34;It&#39;s equal to 100&#34;)
+	default:
+		fmt.Println(&#34;It&#39;s not equal to 98 or 100&#34;)
+	}
+}
+</code></pre><p>输出：</p>
+<pre><code>It's equal to 100
+</code></pre>
+<p>在第 12.1 节，我们会使用 <code>switch</code> 语句判断从键盘输入的字符（详见<a href="12.2.md">第 12.2 节</a> 的 <a href="./examples/chapter_12/switch.go">switch.go</a>）。<code>switch</code> 语句的第二种形式是不提供任何被判断的值（实际上默认为判断是否为 <code>true</code>），然后在每个 <code>case</code> 分支中进行测试不同的条件。当任一分支的测试结果为 <code>true</code> 时，该分支的代码会被执行。这看起来非常像链式的 if-else 语句，但是在测试条件非常多的情况下，提供了可读性更好的书写方式。</p>
+<pre tabindex="0"><code>switch {
+	case condition1:
+		...
+	case condition2:
+		...
+	default:
+		...
+}
+</code></pre><p>例如：</p>
+<pre tabindex="0"><code>switch {
+	case i &lt; 0:
+		f1()
+	case i == 0:
+		f2()
+	case i &gt; 0:
+		f3()
+}
+</code></pre><p>任何支持进行相等判断的类型都可以作为测试表达式的条件，包括 <code>int</code>、<code>string</code>、指针等。</p>
+<p>示例 5.4 <a href="examples/chapter_5/switch2.go">switch2.go</a>：</p>
+<pre tabindex="0"><code>package main
+
+import &#34;fmt&#34;
+
+func main() {
+	var num1 int = 7
+
+	switch {
+	    case num1 &lt; 0:
+		    fmt.Println(&#34;Number is negative&#34;)
+	    case num1 &gt; 0 &amp;&amp; num1 &lt; 10:
+		    fmt.Println(&#34;Number is between 0 and 10&#34;)
+	    default:
+		    fmt.Println(&#34;Number is 10 or greater&#34;)
+	}
+}
+</code></pre><p>输出：</p>
+<pre><code>Number is between 0 and 10
+</code></pre>
+<p>switch 语句的第三种形式是包含一个初始化语句：</p>
+<pre tabindex="0"><code>switch initialization {
+	case val1:
+		...
+	case val2:
+		...
+	default:
+		...
+}
+</code></pre><p>这种形式可以非常优雅地进行条件判断：</p>
+<pre tabindex="0"><code>switch result := calculate(); {
+	case result &lt; 0:
+		...
+	case result &gt; 0:
+		...
+	default:
+		// 0
+}
+</code></pre><p>在下面这个代码片段中，变量 <code>a</code> 和 <code>b</code> 被平行初始化，然后作为判断条件：</p>
+<pre tabindex="0"><code>switch a, b := x[i], y[j]; {
+	case a &lt; b: t = -1
+	case a == b: t = 0
+	case a &gt; b: t = 1
+}
+</code></pre><p><code>switch</code> 语句还可以被用于 type-switch（详见<a href="11.4.md">第 11.4 节</a>）来判断某个 <code>interface</code> 变量中实际存储的变量类型。</p>
+<p><strong>问题 5.1：</strong></p>
+<p>请说出下面代码片段输出的结果：</p>
+<pre tabindex="0"><code>	k := 6
+	switch k {
+	case 4:
+		fmt.Println(&#34;was &lt;= 4&#34;)
+		fallthrough
+	case 5:
+		fmt.Println(&#34;was &lt;= 5&#34;)
+		fallthrough
+	case 6:
+		fmt.Println(&#34;was &lt;= 6&#34;)
+		fallthrough
+	case 7:
+		fmt.Println(&#34;was &lt;= 7&#34;)
+		fallthrough
+	case 8:
+		fmt.Println(&#34;was &lt;= 8&#34;)
+		fallthrough
+	default:
+		fmt.Println(&#34;default case&#34;)
+	}
+</code></pre><p><strong>练习 5.2：</strong> <a href="exercises/chapter_5/season.go">season.go</a>：</p>
+<p>写一个 <code>Season()</code> 函数，要求接受一个代表月份的数字，然后返回所代表月份所在季节的名称（不用考虑月份的日期）。</p>
+
+		</div>
+	</div>
+</div>
+
+
+<div class="container">
+    
+    <div class="row">
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-end dh" href="/post/golang/2022.07.09-%E6%B5%8B%E8%AF%95%E5%A4%9A%E8%BF%94%E5%9B%9E%E5%80%BC%E5%87%BD%E6%95%B0%E7%9A%84%E9%94%99%E8%AF%AF/">
+                <h5>前一篇</h5><br>
+                Go程序的测试多返回值函数的错误
+            </a>            
+        </div>
+        
+        <div class="col-2">
+        </div>
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-start dh" href="/post/golang/2022.07.11-for%E7%BB%93%E6%9E%84/">
+                <h5>后一篇</h5><br>
+                Go程序的for结构
+            </a>            
+        </div>
+        
+    </div>
+    
+</div>
+
+        </div><br><br>
+<footer class="container">
+    <h2>友情链接</h2>
+    <hr>
+    <nav class="nav nav-pills flex-column flex-sm-row">
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/gnzg/index.html" target="_blank">孤鸟之歌</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/mm/index.html" target="_blank">生成随机字符</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/md/index.html" target="_blank">MarkDown</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://gitee.com/" target="_blank">Gitee</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://github.com/" target="_blank">Github</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.oschina.net/" target="_blank">OSCHINA</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/directory.md" target="_blank">the way to go</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://topgoer.com/" target="_blank">golang文档</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://goframe.org/display/gf" target="_blank">GoFrame</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.aliyundrive.com/" target="_blank">阿里云盘</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.bootstrap.cn/" target="_blank">bootstrap文档</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.58pic.com/" target="_blank">千图</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://ifonts.com/" target="_blank">iFonts</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://marketing.qiniu.com/" target="_blank">七牛云</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.ixigua.com/" target="_blank">西瓜视频</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/yugang/index.html" target="_blank">鱼缸计算</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://justcc.mengkang.net/#/" target="_blank">C语言JustCC</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="/index.xml" target="_blank">RSS</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.kancloud.cn/idcpj/python/418553" target="_blank">参考资料</a>
+        
+    </nav>
+
+    <div class="copyright text-center">
+      <span class="power-by">
+        Powered by <a class="links" href="https://gohugo.io" target="_blank">Hugo</a>
+    </span>
+    <span>|</span>
+    <span>
+        Theme - <a class="links" href="https://github.com/wiseai-go/blog-hugo" target="_blank">WiseAI</a>
+    </span>
+    <br>
+    <span class="copyright-year">
+        &copy;
+        
+        2017 -
+        2022<span>
+            陇ICP备15000157号
+            
+        </span></span>
+
+</div>
+</footer>
+<script src="http://static.wiseai.cn/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+</html>

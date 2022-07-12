@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-cn"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link href="http://static.wiseai.cn/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://static.wiseai.cn/img/favicon.ico" />
+
+    <title>Go程序的测试多返回值函数的错误 | WiseAI的博客</title>
+</head><body><div class="container-fluid">
+    <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="http://static.wiseai.cn/img/favicon.ico" alt="" width="30" height="24" class="d-inline-block align-text-top">
+                WiseAI的博客
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/articles/">文章</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/categories/">分类</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/tags/">关键字</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/post/golang/">golang编程</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/about/">关于</a>
+                    </li>
+                    
+                </ul>
+                <form class="d-flex">
+                    <input id="search-query" class="form-control me-2" type="search" placeholder="Search for anything..." aria-label="Search">
+                </form>
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+
+
+<div id="content">
+<div class="container article">
+	<h1>Go程序的测试多返回值函数的错误</h1>
+	<div class="post-meta">
+		<div>
+			
+			
+			By wiseai | 2022-07-09 | 2 minutes
+		</div>
+		<div class="tags">
+			
+			<a class="btn btn-light links btn-sm" href="/tags/%E7%BC%96%E7%A8%8B/">编程</a>
+			
+		</div>
+	</div>
+	<div>
+		<div class="article-post">
+			<h1 id="52-测试多返回值函数的错误">5.2 测试多返回值函数的错误</h1>
+<p>Go 语言的函数经常使用两个返回值来表示执行是否成功：返回某个值以及 <code>true</code> 表示成功；返回零值（或 <code>nil</code>）和 <code>false</code> 表示失败（<a href="04.4.md">第 4.4 节</a>）。当不使用 <code>true</code> 或 <code>false</code> 的时候，也可以使用一个 <code>error</code> 类型的变量来代替作为第二个返回值：成功执行的话，<code>error</code> 的值为 <code>nil</code>，否则就会包含相应的错误信息（Go 语言中的错误类型为 <code>error</code>: <code>var err error</code>，我们将会在<a href="13.0.md">第 13 章</a> 进行更多地讨论）。这样一来，就很明显需要用一个 <code>if</code> 语句来测试执行结果；由于其符号的原因，这样的形式又称之为“逗号 ok 模式”(comma, ok pattern)。</p>
+<p>在<a href="04.7.md">第 4.7 节</a> 的程序 <a href="examples/chapter_4/string_conversion.go">string_conversion.go</a> 中，函数 <code>strconv.Atoi()</code> 的作用是将一个字符串转换为一个整数。之前我们忽略了相关的错误检查：</p>
+<pre tabindex="0"><code>anInt, _ = strconv.Atoi(origStr)
+</code></pre><p>如果 <code>origStr</code> 不能被转换为整数，<code>anInt</code> 的值会变成 <code>0</code> 而 <code>_</code> 无视了错误，程序会继续运行。</p>
+<p>这样做是非常不好的：程序应该在最接近的位置检查所有相关的错误，至少需要暗示用户有错误发生并对函数进行返回，甚至中断程序。</p>
+<p>我们在第二个版本中对代码进行了改进：</p>
+<p>示例 1：</p>
+<p>示例 5.3 <a href="examples/chapter_5/string_conversion2.go">string_conversion2.go</a></p>
+<pre tabindex="0"><code>package main
+
+import (
+	&#34;fmt&#34;
+	&#34;strconv&#34;
+)
+
+func main() {
+	var orig string = &#34;ABC&#34;
+	// var an int
+	var newS string
+	// var err error
+
+	fmt.Printf(&#34;The size of ints is: %d\n&#34;, strconv.IntSize)	  
+	// anInt, err = strconv.Atoi(origStr)
+	an, err := strconv.Atoi(orig)
+	if err != nil {
+		fmt.Printf(&#34;orig %s is not an integer - exiting with error\n&#34;, orig)
+		return
+	} 
+	fmt.Printf(&#34;The integer is %d\n&#34;, an)
+	an = an + 5
+	newS = strconv.Itoa(an)
+	fmt.Printf(&#34;The new string is: %s\n&#34;, newS)
+}
+</code></pre><p>这是测试 <code>err</code> 变量是否包含一个真正的错误（<code>if err != nil</code>）的习惯用法。如果确实存在错误，则会打印相应的错误信息然后通过 <code>return</code> 提前结束函数的执行。我们还可以使用携带返回值的 <code>return</code> 形式，例如 <code>return err</code>。这样一来，函数的调用者就可以检查函数执行过程中是否存在错误了。</p>
+<p><strong>习惯用法</strong></p>
+<pre tabindex="0"><code>value, err := pack1.Function1(param1)
+if err != nil {
+	fmt.Printf(&#34;An error occured in pack1.Function1 with parameter %v&#34;, param1)
+	return err
+}
+// 未发生错误，继续执行：
+</code></pre><p>由于本例的函数调用者属于 <code>main</code> 函数，所以程序会直接停止运行。</p>
+<p>如果我们想要在错误发生的同时终止程序的运行，我们可以使用 <code>os</code> 包的 <code>Exit</code> 函数：</p>
+<p><strong>习惯用法</strong></p>
+<pre tabindex="0"><code>if err != nil {
+	fmt.Printf(&#34;Program stopping with error %v&#34;, err)
+	os.Exit(1)
+}
+</code></pre><p>（此处的退出代码 <code>1</code> 可以使用外部脚本获取到）</p>
+<p>有时候，你会发现这种习惯用法被连续重复地使用在某段代码中。</p>
+<p>当没有错误发生时，代码继续运行就是唯一要做的事情，所以 <code>if</code> 语句块后面不需要使用 <code>else</code> 分支。</p>
+<p>示例 2：我们尝试通过 <code>os.Open</code> 方法打开一个名为 <code>name</code> 的只读文件：</p>
+<pre tabindex="0"><code>f, err := os.Open(name)
+if err != nil {
+	return err
+}
+doSomething(f) // 当没有错误发生时，文件对象被传入到某个函数中
+doSomething
+</code></pre><p><strong>练习 5.1</strong> 尝试改写 <a href="examples/chapter_5/string_conversion2.go">string_conversion2.go</a> 中的代码，要求使用 <code>:=</code> 方法来对 <code>err</code> 进行赋值，哪些地方可以被修改？</p>
+<p>示例 3：可以将错误的获取放置在 <code>if</code> 语句的初始化部分：</p>
+<p><strong>习惯用法</strong></p>
+<pre tabindex="0"><code>if err := file.Chmod(0664); err != nil {
+	fmt.Println(err)
+	return err
+}
+</code></pre><p>示例 4：或者将 ok-pattern 的获取放置在 <code>if</code> 语句的初始化部分，然后进行判断：</p>
+<p><strong>习惯用法</strong></p>
+<pre tabindex="0"><code>if value, ok := readData(); ok {
+…
+}
+</code></pre><p><strong>注意事项</strong></p>
+<p>如果您像下面一样，没有为多返回值的函数准备足够的变量来存放结果：</p>
+<pre tabindex="0"><code>func mySqrt(f float64) (v float64, ok bool) {
+	if f &lt; 0 { return } // error case
+	return math.Sqrt(f),true
+}
+
+func main() {
+	t := mySqrt(25.0)
+	fmt.Println(t)
+}
+</code></pre><p>您会得到一个编译错误：<code>multiple-value mySqrt() in single-value context</code>。</p>
+<p>正确的做法是：</p>
+<pre tabindex="0"><code>t, ok := mySqrt(25.0)
+if ok { fmt.Println(t) }
+</code></pre><p><strong>注意事项 2</strong></p>
+<p>当您将字符串转换为整数时，且确定转换一定能够成功时，可以将 <code>Atoi()</code> 函数进行一层忽略错误的封装：</p>
+<pre tabindex="0"><code>func atoi (s string) (n int) {
+	n, _ = strconv.Atoi(s)
+	return
+}
+</code></pre><p>实际上，<code>fmt</code> 包（<a href="04.4.md">第 4.4.3 节</a>）最简单的打印函数也有 2 个返回值：</p>
+<pre tabindex="0"><code>count, err := fmt.Println(x) // number of bytes printed, nil or 0, error
+</code></pre><p>当打印到控制台时，可以将该函数返回的错误忽略；但当输出到文件流、网络流等具有不确定因素的输出对象时，应该始终检查是否有错误发生（另见<a href="06.1.md">练习 6.1b</a>）。</p>
+
+		</div>
+	</div>
+</div>
+
+
+<div class="container">
+    
+    <div class="row">
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-end dh" href="/post/golang/2022.07.08-if-else%E7%BB%93%E6%9E%84/">
+                <h5>前一篇</h5><br>
+                Go程序的if-else结构
+            </a>            
+        </div>
+        
+        <div class="col-2">
+        </div>
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-start dh" href="/post/golang/2022.07.10-switch%E7%BB%93%E6%9E%84/">
+                <h5>后一篇</h5><br>
+                Go程序的switch结构
+            </a>            
+        </div>
+        
+    </div>
+    
+</div>
+
+        </div><br><br>
+<footer class="container">
+    <h2>友情链接</h2>
+    <hr>
+    <nav class="nav nav-pills flex-column flex-sm-row">
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/gnzg/index.html" target="_blank">孤鸟之歌</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/mm/index.html" target="_blank">生成随机字符</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/md/index.html" target="_blank">MarkDown</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://gitee.com/" target="_blank">Gitee</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://github.com/" target="_blank">Github</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.oschina.net/" target="_blank">OSCHINA</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/directory.md" target="_blank">the way to go</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://topgoer.com/" target="_blank">golang文档</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://goframe.org/display/gf" target="_blank">GoFrame</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.aliyundrive.com/" target="_blank">阿里云盘</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.bootstrap.cn/" target="_blank">bootstrap文档</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.58pic.com/" target="_blank">千图</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://ifonts.com/" target="_blank">iFonts</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://marketing.qiniu.com/" target="_blank">七牛云</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.ixigua.com/" target="_blank">西瓜视频</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/yugang/index.html" target="_blank">鱼缸计算</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://justcc.mengkang.net/#/" target="_blank">C语言JustCC</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="/index.xml" target="_blank">RSS</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.kancloud.cn/idcpj/python/418553" target="_blank">参考资料</a>
+        
+    </nav>
+
+    <div class="copyright text-center">
+      <span class="power-by">
+        Powered by <a class="links" href="https://gohugo.io" target="_blank">Hugo</a>
+    </span>
+    <span>|</span>
+    <span>
+        Theme - <a class="links" href="https://github.com/wiseai-go/blog-hugo" target="_blank">WiseAI</a>
+    </span>
+    <br>
+    <span class="copyright-year">
+        &copy;
+        
+        2017 -
+        2022<span>
+            陇ICP备15000157号
+            
+        </span></span>
+
+</div>
+</footer>
+<script src="http://static.wiseai.cn/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+</html>

@@ -24,23 +24,6 @@ func RandStringBytesRmndr(n int) string { b := make([]byte, n) for i := range b 
     </item>
     
     <item>
-      <title>Go程序的时间和日期</title>
-      <link>http://wiseai.cn/post/golang/2022.07.05-%E6%97%B6%E9%97%B4%E5%92%8C%E6%97%A5%E6%9C%9F/</link>
-      <pubDate>Tue, 05 Jul 2022 11:18:29 +0800</pubDate>
-      
-      <guid>http://wiseai.cn/post/golang/2022.07.05-%E6%97%B6%E9%97%B4%E5%92%8C%E6%97%A5%E6%9C%9F/</guid>
-      <description>4.8 时间和日期 time 包为我们提供了一个数据类型 time.Time（作为值使用）以及显示和测量时间和日期的功能函数。
-当前时间可以使用 time.Now() 获取，或者使用 t.Day()、t.Minute() 等等来获取时间的一部分；你甚至可以自定义时间格式化字符串，例如： fmt.Printf(&amp;quot;%02d.%02d.%4d\n&amp;quot;, t.Day(), t.Month(), t.Year()) 将会输出 21.07.2011。
-Duration 类型表示两个连续时刻所相差的纳秒数，类型为 int64。Location 类型映射某个时区的时间，UTC 表示通用协调世界时间。
-包中的一个预定义函数 func (t Time) Format(layout string) string 可以根据一个格式化字符串来将一个时间 t 转换为相应格式的字符串，你可以使用一些预定义的格式，如：time.ANSIC 或 time.RFC822。
-一般的格式化设计是通过对于一个标准时间的格式化描述来展现的，这听起来很奇怪（02 Jan 2006 15:04 是 Go 语言的诞生时间且自定义格式化时必须以此时间为基准），但看下面这个例子你就会一目了然：
-fmt.Println(t.Format(&amp;#34;02 Jan 2006 15:04&amp;#34;)) 输出：
-21 Jul 2011 10:31 其它有关时间操作的文档请参阅 官方文档（ 译者注：国内用户可访问 该页面 ）。
-示例 4.20 time.go
-package main import ( &amp;#34;fmt&amp;#34; &amp;#34;time&amp;#34; ) var week time.Duration func main() { t := time.</description>
-    </item>
-    
-    <item>
       <title>大数的阶乘</title>
       <link>http://wiseai.cn/post/%E5%A4%A7%E6%95%B0%E7%9A%84%E9%98%B6%E4%B9%98/</link>
       <pubDate>Mon, 27 Jun 2022 10:38:51 +0800</pubDate>
