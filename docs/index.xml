@@ -6,7 +6,161 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Tue, 12 Jul 2022 17:56:39 +0800</lastBuildDate><atom:link href="http://wiseai.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 14 Jul 2022 11:46:19 +0800</lastBuildDate><atom:link href="http://wiseai.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+    <title>Go语言的函数</title>
+    <link>http://wiseai.cn/post/golang/2022.07.14-%E5%87%BD%E6%95%B0%E7%9A%84%E4%BB%8B%E7%BB%8D/</link>
+    <pubDate>Thu, 14 Jul 2022 11:46:19 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>http://wiseai.cn/post/golang/2022.07.14-%E5%87%BD%E6%95%B0%E7%9A%84%E4%BB%8B%E7%BB%8D/</guid>
+    <description>
+        &lt;h1 id=&#34;61-介绍&#34;&gt;6.1 介绍&lt;/h1&gt;
+&lt;p&gt;每一个程序都包含很多的函数：函数是基本的代码块。&lt;/p&gt;
+&lt;p&gt;Go是编译型语言，所以函数编写的顺序是无关紧要的；鉴于可读性的需求，最好把 &lt;code&gt;main()&lt;/code&gt; 函数写在文件的前面，其他函数按照一定逻辑顺序进行编写（例如函数被调用的顺序）。&lt;/p&gt;
+&lt;p&gt;编写多个函数的主要目的是将一个需要很多行代码的复杂问题分解为一系列简单的任务（那就是函数）来解决。而且，同一个任务（函数）可以被调用多次，有助于代码重用。&lt;/p&gt;
+&lt;p&gt;（事实上，好的程序是非常注意 DRY 原则的，即不要重复你自己 (Don&amp;rsquo;t Repeat Yourself)，意思是执行特定任务的代码只能在程序里面出现一次。）&lt;/p&gt;
+&lt;p&gt;当函数执行到代码块最后一行（&lt;code&gt;}&lt;/code&gt; 之前）或者 &lt;code&gt;return&lt;/code&gt; 语句的时候会退出，其中 &lt;code&gt;return&lt;/code&gt; 语句可以带有零个或多个参数；这些参数将作为返回值（参考 &lt;a href=&#34;06.2.md&#34;&gt;第 6.2 节&lt;/a&gt;）供调用者使用。简单的 &lt;code&gt;return&lt;/code&gt; 语句也可以用来结束 &lt;code&gt;for&lt;/code&gt; 死循环，或者结束一个协程 (goroutine)。&lt;/p&gt;
+&lt;p&gt;Go 里面有三种类型的函数：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;普通的带有名字的函数&lt;/li&gt;
+&lt;li&gt;匿名函数或者lambda函数（参考 &lt;a href=&#34;06.8.md&#34;&gt;第 6.8 节&lt;/a&gt;）&lt;/li&gt;
+&lt;li&gt;方法（Methods，参考 &lt;a href=&#34;10.6.md&#34;&gt;第 10.6 节&lt;/a&gt;）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;除了 &lt;code&gt;main()&lt;/code&gt;、&lt;code&gt;init()&lt;/code&gt; 函数外，其它所有类型的函数都可以有参数与返回值。函数参数、返回值以及它们的类型被统称为函数签名。&lt;/p&gt;
+&lt;p&gt;作为提醒，提前介绍一个语法：&lt;/p&gt;
+&lt;p&gt;这样是不正确的 Go 代码：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func g()
+{
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;它必须是这样的：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func g() {
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;函数被调用的基本格式如下：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;pack1.Function(arg1, arg2, …, argn)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;Function&lt;/code&gt; 是 &lt;code&gt;pack1&lt;/code&gt; 包里面的一个函数，括号里的是被调用函数的实参 (argument)：这些值被传递给被调用函数的&lt;em&gt;形参&lt;/em&gt;（parameter，参考&lt;a href=&#34;06.2.md&#34;&gt;第 6.2 节&lt;/a&gt;）。函数被调用的时候，这些实参将被复制（简单而言）然后传递给被调用函数。函数一般是在其他函数里面被调用的，这个其他函数被称为调用函数 (calling function)。函数能多次调用其他函数，这些被调用函数按顺序（简单而言）执行，理论上，函数调用其他函数的次数是无穷的（直到函数调用栈被耗尽）。&lt;/p&gt;
+&lt;p&gt;一个简单的函数调用其他函数的例子：&lt;/p&gt;
+&lt;p&gt;示例 6.1 &lt;a href=&#34;examples/chapter_6/greeting.go&#34;&gt;greeting.go&lt;/a&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+
+func main() {
+    println(&amp;#34;In main before calling greeting&amp;#34;)
+    greeting()
+    println(&amp;#34;In main after calling greeting&amp;#34;)
+}
+
+func greeting() {
+    println(&amp;#34;In greeting: Hi!!!!!&amp;#34;)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;代码输出：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;In main before calling greeting
+In greeting: Hi!!!!!
+In main after calling greeting
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;函数可以将其他函数调用作为它的参数，只要这个被调用函数的返回值个数、返回值类型和返回值的顺序与调用函数所需求的实参是一致的，例如：&lt;/p&gt;
+&lt;p&gt;假设 &lt;code&gt;f1&lt;/code&gt; 需要 3 个参数 &lt;code&gt;f1(a, b, c int)&lt;/code&gt;，同时 &lt;code&gt;f2&lt;/code&gt; 返回 3 个参数 &lt;code&gt;f2(a, b int) (int, int, int)&lt;/code&gt;，就可以这样调用 &lt;code&gt;f1&lt;/code&gt;：&lt;code&gt;f1(f2(a, b))&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;函数重载 (function overloading) 指的是可以编写多个同名函数，只要它们拥有不同的形参/或者不同的返回值，在 Go 里面函数重载是不被允许的。这将导致一个编译错误：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;funcName redeclared in this book, previous declaration at lineno
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Go 语言不支持这项特性的主要原因是函数重载需要进行多余的类型匹配影响性能；没有重载意味着只是一个简单的函数调度。所以你需要给不同的函数使用不同的名字，我们通常会根据函数的特征对函数进行命名（参考 &lt;a href=&#34;11.12.md&#34;&gt;第 11.12.5 节&lt;/a&gt;）。&lt;/p&gt;
+&lt;p&gt;如果需要申明一个在外部定义的函数，你只需要给出函数名与函数签名，不需要给出函数体：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func flushICache(begin, end uintptr) // implemented externally
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;函数也可以以申明的方式被使用，作为一个函数类型&lt;/strong&gt;，就像：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;type binOp func(int, int) int
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;在这里，不需要函数体 &lt;code&gt;{}&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;函数是一等值 (first-class value)：它们可以赋值给变量，就像 &lt;code&gt;add := binOp&lt;/code&gt; 一样。&lt;/p&gt;
+&lt;p&gt;这个变量知道自己指向的函数的签名，所以给它赋一个具有不同签名的函数值是不可能的。&lt;/p&gt;
+&lt;p&gt;函数值 (functions value) 之间可以相互比较：如果它们引用的是相同的函数或者都是 &lt;code&gt;nil&lt;/code&gt; 的话，则认为它们是相同的函数。函数不能在其它函数里面声明（不能嵌套），不过我们可以通过使用匿名函数（参考 &lt;a href=&#34;06.8.md&#34;&gt;第 6.8 节&lt;/a&gt;）来破除这个限制。&lt;/p&gt;
+&lt;p&gt;目前 Go 没有泛型 (generic) 的概念，也就是说它不支持那种支持多种类型的函数。不过在大部分情况下可以通过接口 (interface)，特别是空接口与类型选择（type switch，参考 &lt;a href=&#34;11.12.md&#34;&gt;第 11.12 节&lt;/a&gt;）与/或者通过使用反射（reflection，参考 &lt;a href=&#34;06.8.md&#34;&gt;第 6.8 节&lt;/a&gt;）来实现相似的功能。使用这些技术将导致代码更为复杂、性能更为低下，所以在非常注意性能的的场合，最好是为每一个类型单独创建一个函数，而且代码可读性更强。&lt;/p&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>Go程序的标签与goto</title>
+    <link>http://wiseai.cn/post/golang/2022.07.13-%E6%A0%87%E7%AD%BE%E4%B8%8Egoto/</link>
+    <pubDate>Wed, 13 Jul 2022 17:47:55 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>http://wiseai.cn/post/golang/2022.07.13-%E6%A0%87%E7%AD%BE%E4%B8%8Egoto/</guid>
+    <description>
+        &lt;h1 id=&#34;56-标签与-goto&#34;&gt;5.6 标签与 goto&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;for&lt;/code&gt;、&lt;code&gt;switch&lt;/code&gt; 或 &lt;code&gt;select&lt;/code&gt; 语句都可以配合标签 (label) 形式的标识符使用，即某一行第一个以冒号 (&lt;code&gt;:&lt;/code&gt;) 结尾的单词（gofmt 会将后续代码自动移至下一行）。&lt;/p&gt;
+&lt;p&gt;示例 5.13 &lt;a href=&#34;examples/chapter_5/for6.go&#34;&gt;for6.go&lt;/a&gt;：&lt;/p&gt;
+&lt;p&gt;（标签的名称是大小写敏感的，为了提升可读性，一般建议使用全部大写字母）&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+
+import &amp;#34;fmt&amp;#34;
+
+func main() {
+
+LABEL1:
+	for i := 0; i &amp;lt;= 5; i++ {
+		for j := 0; j &amp;lt;= 5; j++ {
+			if j == 4 {
+				continue LABEL1
+			}
+			fmt.Printf(&amp;#34;i is: %d, and j is: %d\n&amp;#34;, i, j)
+		}
+	}
+
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;本例中，&lt;code&gt;continue&lt;/code&gt; 语句指向 &lt;code&gt;LABEL1&lt;/code&gt;，当执行到该语句的时候，就会跳转到 &lt;code&gt;LABEL1&lt;/code&gt; 标签的位置。&lt;/p&gt;
+&lt;p&gt;您可以看到当 &lt;code&gt;j==4&lt;/code&gt; 和 &lt;code&gt;j==5&lt;/code&gt; 的时候，没有任何输出：标签的作用对象为外部循环，因此 &lt;code&gt;i&lt;/code&gt; 会直接变成下一个循环的值，而此时 &lt;code&gt;j&lt;/code&gt; 的值就被重设为 &lt;code&gt;0&lt;/code&gt;，即它的初始值。如果将 &lt;code&gt;continue&lt;/code&gt; 改为 &lt;code&gt;break&lt;/code&gt;，则不会只退出内层循环，而是直接退出外层循环了。另外，还可以使用 &lt;code&gt;goto&lt;/code&gt; 语句和标签配合使用来模拟循环。&lt;/p&gt;
+&lt;p&gt;示例 5.14 &lt;a href=&#34;examples/chapter_5/goto.go&#34;&gt;goto.go&lt;/a&gt;：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+
+func main() {
+	i:=0
+	HERE:
+		print(i)
+		i++
+		if i==5 {
+			return
+		}
+		goto HERE
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;上面的代码会输出 &lt;code&gt;01234&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;使用逆向的 &lt;code&gt;goto&lt;/code&gt; 会很快导致意大利面条式的代码，所以不应当使用而选择更好的替代方案。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;特别注意&lt;/strong&gt; 使用标签和 &lt;code&gt;goto&lt;/code&gt; 语句是不被鼓励的：它们会很快导致非常糟糕的程序设计，而且总有更加可读的替代方案来实现相同的需求。&lt;/p&gt;
+&lt;p&gt;一个建议使用 &lt;code&gt;goto&lt;/code&gt; 语句的示例会在&lt;a href=&#34;15.1.md&#34;&gt;第 15.1 章&lt;/a&gt; 的 &lt;a href=&#34;./examples/chapter_15/simple_tcp_server.go&#34;&gt;simple_tcp_server.go&lt;/a&gt; 中出现：示例中在发生读取错误时，使用 goto 来跳出无限读取循环并关闭相应的客户端链接。&lt;/p&gt;
+&lt;p&gt;定义但未使用标签会导致编译错误：&lt;code&gt;label … defined and not used&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;如果您必须使用 &lt;code&gt;goto&lt;/code&gt;，应当只使用正序的标签（标签位于 &lt;code&gt;goto&lt;/code&gt; 语句之后），但注意标签和 &lt;code&gt;goto&lt;/code&gt; 语句之间不能出现定义新变量的语句，否则会导致编译失败。&lt;/p&gt;
+&lt;p&gt;示例 5.15 &lt;a href=&#34;examples/chapter_5/got2o.go&#34;&gt;goto2.go&lt;/a&gt;：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;// compile error goto2.go:8: goto TARGET jumps over declaration of b at goto2.go:8
+package main
+
+import &amp;#34;fmt&amp;#34;
+
+func main() {
+		a := 1
+		goto TARGET // compile error
+		b := 9
+	TARGET:  
+		b += a
+		fmt.Printf(&amp;#34;a is %v *** b is %v&amp;#34;, a, b)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;问题 5.3&lt;/strong&gt; 请描述下面 &lt;code&gt;for&lt;/code&gt; 循环的输出：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;i := 0
+for { //since there are no checks, this is an infinite loop
+	if i &amp;gt;= 3 { break }
+	//break out of this for loop when this condition is met
+	fmt.Println(&amp;#34;Value of i is:&amp;#34;, i)
+	i++
+}
+fmt.Println(&amp;#34;A statement just after for loop.&amp;#34;)
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;for i := 0; i&amp;lt;7 ; i++ {
+	if i%2 == 0 { continue }
+	fmt.Println(&amp;#34;Odd:&amp;#34;, i)
+}
+&lt;/code&gt;&lt;/pre&gt;
+    </description>
+    </item>
+    
     <item>
     <title>Go程序执行系统命令</title>
     <link>http://wiseai.cn/post/go%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/</link>

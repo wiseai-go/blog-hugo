@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh-cn"><head>
-	<meta name="generator" content="Hugo 0.101.0" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -10,7 +9,7 @@
 
     <link rel="shortcut icon" type="image/x-icon" href="http://static.wiseai.cn/img/favicon.ico" />
 
-    <title>WiseAI的博客</title>
+    <title>Go程序的标签与goto | WiseAI的博客</title>
 </head><body><div class="container-fluid">
     <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
         <div class="container-fluid">
@@ -57,128 +56,127 @@
 
 
 <div id="content">
-<div id="myjj" class="container-fluid">
-    <div id="carouselIndexSlides" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner text-center">
-            <div class="carousel-item active">
-                
-                <span>✨</span>逼出的成功，强迫的辉煌!
-                
-            </div>
-            
-            <div class="carousel-item text-truncate">
-                <p><span>✨</span>不经他人苦，莫劝他人善。</p>
-            </div>
-            
-            <div class="carousel-item text-truncate">
-                <p><span>✨</span>内心强大到混蛋，比什么都好！</p>
-            </div>
-            
-            <div class="carousel-item text-truncate">
-                <p><span>✨</span>规范流程比制定制度更重要！</p>
-            </div>
-            
-            <div class="carousel-item text-truncate">
-                <p><span>✨</span>祁连卧北雪，大漠壮雄关。</p>
-            </div>
-            
-            <div class="carousel-item text-truncate">
-                <p><span>✨</span>要么忙于生存，要么赶紧去死！</p>
-            </div>
-            
-            <div class="carousel-item text-truncate">
-                <p><span>✨</span>成功和不成功之间，只差一次坚持！</p>
-            </div>
-            
-        </div>
-    </div>
+<div class="container article">
+	<h1>Go程序的标签与goto</h1>
+	<div class="post-meta">
+		<div>
+			
+			
+			By wiseai | 2022-07-13 | 2 minutes
+		</div>
+		<div class="tags">
+			
+			<a class="btn btn-light links btn-sm" href="/tags/%E7%BC%96%E7%A8%8B/">编程</a>
+			
+		</div>
+	</div>
+	<div>
+		<div class="article-post">
+			<h1 id="56-标签与-goto">5.6 标签与 goto</h1>
+<p><code>for</code>、<code>switch</code> 或 <code>select</code> 语句都可以配合标签 (label) 形式的标识符使用，即某一行第一个以冒号 (<code>:</code>) 结尾的单词（gofmt 会将后续代码自动移至下一行）。</p>
+<p>示例 5.13 <a href="examples/chapter_5/for6.go">for6.go</a>：</p>
+<p>（标签的名称是大小写敏感的，为了提升可读性，一般建议使用全部大写字母）</p>
+<pre tabindex="0"><code>package main
+
+import &#34;fmt&#34;
+
+func main() {
+
+LABEL1:
+	for i := 0; i &lt;= 5; i++ {
+		for j := 0; j &lt;= 5; j++ {
+			if j == 4 {
+				continue LABEL1
+			}
+			fmt.Printf(&#34;i is: %d, and j is: %d\n&#34;, i, j)
+		}
+	}
+
+}
+</code></pre><p>本例中，<code>continue</code> 语句指向 <code>LABEL1</code>，当执行到该语句的时候，就会跳转到 <code>LABEL1</code> 标签的位置。</p>
+<p>您可以看到当 <code>j==4</code> 和 <code>j==5</code> 的时候，没有任何输出：标签的作用对象为外部循环，因此 <code>i</code> 会直接变成下一个循环的值，而此时 <code>j</code> 的值就被重设为 <code>0</code>，即它的初始值。如果将 <code>continue</code> 改为 <code>break</code>，则不会只退出内层循环，而是直接退出外层循环了。另外，还可以使用 <code>goto</code> 语句和标签配合使用来模拟循环。</p>
+<p>示例 5.14 <a href="examples/chapter_5/goto.go">goto.go</a>：</p>
+<pre tabindex="0"><code>package main
+
+func main() {
+	i:=0
+	HERE:
+		print(i)
+		i++
+		if i==5 {
+			return
+		}
+		goto HERE
+}
+</code></pre><p>上面的代码会输出 <code>01234</code>。</p>
+<p>使用逆向的 <code>goto</code> 会很快导致意大利面条式的代码，所以不应当使用而选择更好的替代方案。</p>
+<p><strong>特别注意</strong> 使用标签和 <code>goto</code> 语句是不被鼓励的：它们会很快导致非常糟糕的程序设计，而且总有更加可读的替代方案来实现相同的需求。</p>
+<p>一个建议使用 <code>goto</code> 语句的示例会在<a href="15.1.md">第 15.1 章</a> 的 <a href="./examples/chapter_15/simple_tcp_server.go">simple_tcp_server.go</a> 中出现：示例中在发生读取错误时，使用 goto 来跳出无限读取循环并关闭相应的客户端链接。</p>
+<p>定义但未使用标签会导致编译错误：<code>label … defined and not used</code>。</p>
+<p>如果您必须使用 <code>goto</code>，应当只使用正序的标签（标签位于 <code>goto</code> 语句之后），但注意标签和 <code>goto</code> 语句之间不能出现定义新变量的语句，否则会导致编译失败。</p>
+<p>示例 5.15 <a href="examples/chapter_5/got2o.go">goto2.go</a>：</p>
+<pre tabindex="0"><code>// compile error goto2.go:8: goto TARGET jumps over declaration of b at goto2.go:8
+package main
+
+import &#34;fmt&#34;
+
+func main() {
+		a := 1
+		goto TARGET // compile error
+		b := 9
+	TARGET:  
+		b += a
+		fmt.Printf(&#34;a is %v *** b is %v&#34;, a, b)
+}
+</code></pre><p><strong>问题 5.3</strong> 请描述下面 <code>for</code> 循环的输出：</p>
+<ol>
+<li></li>
+</ol>
+<pre tabindex="0"><code>i := 0
+for { //since there are no checks, this is an infinite loop
+	if i &gt;= 3 { break }
+	//break out of this for loop when this condition is met
+	fmt.Println(&#34;Value of i is:&#34;, i)
+	i++
+}
+fmt.Println(&#34;A statement just after for loop.&#34;)
+</code></pre><ol start="2">
+<li></li>
+</ol>
+<pre tabindex="0"><code>for i := 0; i&lt;7 ; i++ {
+	if i%2 == 0 { continue }
+	fmt.Println(&#34;Odd:&#34;, i)
+}
+</code></pre>
+		</div>
+	</div>
 </div>
 
 
-
-
-
-
 <div class="container">
-    <h2>最新文章<span class="badge bg-light">
-        
-        <a class="link-dark links" href="/articles/">查看所有</a>
-        
-    </span><hr></h2>
+    
     <div class="row">
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/golang/2022.07.14-%E5%87%BD%E6%95%B0%E7%9A%84%E4%BB%8B%E7%BB%8D/"><time>2022-07-14</time>Go语言的函数</a>
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-end dh" href="/post/golang/2022.07.12-break%E4%B8%8Econtinue/">
+                <h5>前一篇</h5><br>
+                Go程序的Break与continue
+            </a>            
         </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/golang/2022.07.13-%E6%A0%87%E7%AD%BE%E4%B8%8Egoto/"><time>2022-07-13</time>Go程序的标签与goto</a>
+        
+        <div class="col-2">
         </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/go%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/"><time>2022-07-12</time>Go程序执行系统命令</a>
-        </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/golang/2022.07.12-break%E4%B8%8Econtinue/"><time>2022-07-12</time>Go程序的Break与continue</a>
-        </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/golang/2022.07.11-for%E7%BB%93%E6%9E%84/"><time>2022-07-11</time>Go程序的for结构</a>
-        </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/golang/2022.07.10-switch%E7%BB%93%E6%9E%84/"><time>2022-07-10</time>Go程序的switch结构</a>
-        </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/golang/2022.07.09-%E6%B5%8B%E8%AF%95%E5%A4%9A%E8%BF%94%E5%9B%9E%E5%80%BC%E5%87%BD%E6%95%B0%E7%9A%84%E9%94%99%E8%AF%AF/"><time>2022-07-09</time>Go程序的测试多返回值函数的错误</a>
-        </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/golang/2022.07.08-if-else%E7%BB%93%E6%9E%84/"><time>2022-07-08</time>Go程序的if-else结构</a>
-        </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/nohup%E5%8F%8A%E9%87%8D%E5%AE%9A%E5%90%91/"><time>2022-07-08</time>nohup及重定向</a>
-        </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/golang%E6%89%A7%E8%A1%8C%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/"><time>2022-07-08</time>Golang执行系统命令</a>
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-start dh" href="/post/golang/2022.07.14-%E5%87%BD%E6%95%B0%E7%9A%84%E4%BB%8B%E7%BB%8D/">
+                <h5>后一篇</h5><br>
+                Go语言的函数
+            </a>            
         </div>
         
     </div>
-</div>
-
-
-<div class="container">
-    <h2>项目</h2><hr>
-    
-    <div class="card xm">
-        <div class="card-header">
-            blog-hugo
-        </div>
-        <div class="card-body">
-            
-            <p class="card-text">My blog build with hugo tania theme!</p>
-            <a href="https://github.com/wiseai-go/blog-hugo.git" target="_blank" class="btn btn-primary">Source</a>
-        </div>
-    </div>
-    
-    <div class="card xm">
-        <div class="card-header">
-            Hugo Tania Theme
-        </div>
-        <div class="card-body">
-            
-            <p class="card-text">Make a blog with hugo tania theme!</p>
-            <a href="https://github.com/WingLim/hugo-tania" target="_blank" class="btn btn-primary">Source</a>
-        </div>
-    </div>
     
 </div>
-
-
 
         </div><br><br>
 <footer class="container">
