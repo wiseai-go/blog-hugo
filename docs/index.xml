@@ -6,9 +6,635 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Thu, 14 Jul 2022 11:46:19 +0800</lastBuildDate><atom:link href="http://wiseai.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 21 Jul 2022 22:37:24 +0800</lastBuildDate><atom:link href="http://wiseai.cn/index.xml" rel="self" type="application/rss+xml" />
     <item>
-    <title>Go语言的函数</title>
+    <title>Go程序的内置函数</title>
+    <link>http://wiseai.cn/post/golang/2022.07.21-%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0/</link>
+    <pubDate>Thu, 21 Jul 2022 22:37:24 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>http://wiseai.cn/post/golang/2022.07.21-%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0/</guid>
+    <description>
+        &lt;h1 id=&#34;65-内置函数&#34;&gt;6.5 内置函数&lt;/h1&gt;
+&lt;p&gt;Go 语言拥有一些不需要进行导入操作就可以使用的内置函数。它们有时可以针对不同的类型进行操作，例如：&lt;code&gt;len()&lt;/code&gt;、&lt;code&gt;cap()&lt;/code&gt; 和 &lt;code&gt;append()&lt;/code&gt;，或必须用于系统级的操作，例如：&lt;code&gt;panic()&lt;/code&gt;。因此，它们需要直接获得编译器的支持。&lt;/p&gt;
+&lt;p&gt;以下是一个简单的列表，我们会在后面的章节中对它们进行逐个深入的讲解。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;名称&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;close()&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;用于管道通信&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;len()&lt;/code&gt;、&lt;code&gt;cap()&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;len()&lt;/code&gt; 用于返回某个类型的长度或数量（字符串、数组、切片、&lt;code&gt;map&lt;/code&gt; 和管道）；&lt;code&gt;cap()&lt;/code&gt; 是容量的意思，用于返回某个类型的最大容量（只能用于数组、切片和管道，不能用于 &lt;code&gt;map&lt;/code&gt;）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;new()&lt;/code&gt;、&lt;code&gt;make()&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;new()&lt;/code&gt; 和 &lt;code&gt;make()&lt;/code&gt; 均是用于分配内存：&lt;code&gt;new()&lt;/code&gt; 用于值类型和用户定义的类型，如自定义结构，&lt;code&gt;make&lt;/code&gt; 用于内置引用类型（切片、&lt;code&gt;map&lt;/code&gt; 和管道）。它们的用法就像是函数，但是将类型作为参数：&lt;code&gt;new(type)&lt;/code&gt;、&lt;code&gt;make(type)&lt;/code&gt;。&lt;code&gt;new(T)&lt;/code&gt; 分配类型 &lt;code&gt;T&lt;/code&gt; 的零值并返回其地址，也就是指向类型 &lt;code&gt;T&lt;/code&gt; 的指针（详见&lt;a href=&#34;10.1.md&#34;&gt;第 10.1 节&lt;/a&gt;）。它也可以被用于基本类型：&lt;code&gt;v := new(int)&lt;/code&gt;。&lt;code&gt;make(T)&lt;/code&gt; 返回类型 &lt;code&gt;T&lt;/code&gt; 的初始化之后的值，因此它比 &lt;code&gt;new()&lt;/code&gt; 进行更多的工作（详见&lt;a href=&#34;07.2.md&#34;&gt;第 7.2.3/4 节&lt;/a&gt;、&lt;a href=&#34;08.1.md&#34;&gt;第 8.1.1 节&lt;/a&gt;和&lt;a href=&#34;14.2.md&#34;&gt;第 14.2.1 节&lt;/a&gt;）。&lt;strong&gt;&lt;code&gt;new()&lt;/code&gt; 是一个函数，不要忘记它的括号&lt;/strong&gt;。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;copy()&lt;/code&gt;、&lt;code&gt;append()&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;用于复制和连接切片&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;panic()&lt;/code&gt;、&lt;code&gt;recover()&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;两者均用于错误处理机制&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;print()&lt;/code&gt;、&lt;code&gt;println()&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;底层打印函数（详见&lt;a href=&#34;04.2.md&#34;&gt;第 4.2 节&lt;/a&gt;），在部署环境中建议使用 &lt;code&gt;fmt&lt;/code&gt; 包&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;complex()&lt;/code&gt;、&lt;code&gt;real ()&lt;/code&gt;、&lt;code&gt;imag()&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;用于创建和操作复数（详见&lt;a href=&#34;04.5.md&#34;&gt;第 4.5.2.2 节&lt;/a&gt;）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>Go程序的Defer和追踪</title>
+    <link>http://wiseai.cn/post/golang/2022.07.20-defer%E5%92%8C%E8%BF%BD%E8%B8%AA/</link>
+    <pubDate>Wed, 20 Jul 2022 22:35:40 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>http://wiseai.cn/post/golang/2022.07.20-defer%E5%92%8C%E8%BF%BD%E8%B8%AA/</guid>
+    <description>
+        &lt;h1 id=&#34;64-defer-和追踪&#34;&gt;6.4 defer 和追踪&lt;/h1&gt;
+&lt;p&gt;关键字 &lt;code&gt;defer&lt;/code&gt; 允许我们推迟到函数返回之前（或任意位置执行 &lt;code&gt;return&lt;/code&gt; 语句之后）一刻才执行某个语句或函数（为什么要在返回之后才执行这些语句？因为 &lt;code&gt;return&lt;/code&gt; 语句同样可以包含一些操作，而不是单纯地返回某个值）。&lt;/p&gt;
+&lt;p&gt;关键字 &lt;code&gt;defer&lt;/code&gt; 的用法类似于面向对象编程语言 Java 和 C# 的 finally 语句块，它一般用于释放某些已分配的资源。&lt;/p&gt;
+&lt;p&gt;示例 6.8 &lt;a href=&#34;examples/chapter_6/defer.go&#34;&gt;defer.go&lt;/a&gt;：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+import &amp;#34;fmt&amp;#34;
+
+func main() {
+	function1()
+}
+
+func function1() {
+	fmt.Printf(&amp;#34;In function1 at the top\n&amp;#34;)
+	defer function2()
+	fmt.Printf(&amp;#34;In function1 at the bottom!\n&amp;#34;)
+}
+
+func function2() {
+	fmt.Printf(&amp;#34;Function2: Deferred until the end of the calling function!&amp;#34;)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;输出：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;In Function1 at the top
+In Function1 at the bottom!
+Function2: Deferred until the end of the calling function!
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;请将 &lt;code&gt;defer&lt;/code&gt; 关键字去掉并对比输出结果。&lt;/p&gt;
+&lt;p&gt;使用 &lt;code&gt;defer&lt;/code&gt; 的语句同样可以接受参数，下面这个例子就会在执行 &lt;code&gt;defer&lt;/code&gt; 语句时打印 &lt;code&gt;0&lt;/code&gt;：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func a() {
+	i := 0
+	defer fmt.Println(i)
+	i++
+	return
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;当有多个 &lt;code&gt;defer&lt;/code&gt; 行为被注册时，它们会以逆序执行（类似栈，即后进先出）：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func f() {
+	for i := 0; i &amp;lt; 5; i++ {
+		defer fmt.Printf(&amp;#34;%d &amp;#34;, i)
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;上面的代码将会输出：&lt;code&gt;4 3 2 1 0&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;关键字 &lt;code&gt;defer&lt;/code&gt; 允许我们进行一些函数执行完成后的收尾工作，例如：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;关闭文件流 （详见 &lt;a href=&#34;12.2.md&#34;&gt;第 12.2 节&lt;/a&gt;）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;// open a file  
+defer file.Close()
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;解锁一个加锁的资源 （详见 &lt;a href=&#34;09.3.md&#34;&gt;第 9.3 节&lt;/a&gt;）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;mu.Lock()  
+defer mu.Unlock() 
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;打印最终报告&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;printHeader()  
+defer printFooter()
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;关闭数据库链接&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;// open a database connection  
+defer disconnectFromDB()
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;合理使用 &lt;code&gt;defer&lt;/code&gt; 语句能够使得代码更加简洁。&lt;/p&gt;
+&lt;p&gt;以下代码模拟了上面描述的第 4 种情况：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+
+import &amp;#34;fmt&amp;#34;
+
+func main() {
+	doDBOperations()
+}
+
+func connectToDB() {
+	fmt.Println(&amp;#34;ok, connected to db&amp;#34;)
+}
+
+func disconnectFromDB() {
+	fmt.Println(&amp;#34;ok, disconnected from db&amp;#34;)
+}
+
+func doDBOperations() {
+	connectToDB()
+	fmt.Println(&amp;#34;Defering the database disconnect.&amp;#34;)
+	defer disconnectFromDB() //function called here with defer
+	fmt.Println(&amp;#34;Doing some DB operations ...&amp;#34;)
+	fmt.Println(&amp;#34;Oops! some crash or network error ...&amp;#34;)
+	fmt.Println(&amp;#34;Returning from function here!&amp;#34;)
+	return //terminate the program
+	// deferred function executed here just before actually returning, even if
+	// there is a return or abnormal termination before
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;输出：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ok, connected to db
+Defering the database disconnect.
+Doing some DB operations ...
+Oops! some crash or network error ...
+Returning from function here!
+ok, disconnected from db
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;使用 &lt;code&gt;defer&lt;/code&gt; 语句实现代码追踪&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;一个基础但十分实用的实现代码执行追踪的方案就是在进入和离开某个函数打印相关的消息，即可以提炼为下面两个函数：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func trace(s string) { fmt.Println(&amp;#34;entering:&amp;#34;, s) }
+func untrace(s string) { fmt.Println(&amp;#34;leaving:&amp;#34;, s) }
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;以下代码展示了何时调用这两个函数：&lt;/p&gt;
+&lt;p&gt;示例 6.10 &lt;a href=&#34;examples/chapter_6/defer_tracing.go&#34;&gt;defer_tracing.go&lt;/a&gt;:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+
+import &amp;#34;fmt&amp;#34;
+
+func trace(s string)   { fmt.Println(&amp;#34;entering:&amp;#34;, s) }
+func untrace(s string) { fmt.Println(&amp;#34;leaving:&amp;#34;, s) }
+
+func a() {
+	trace(&amp;#34;a&amp;#34;)
+	defer untrace(&amp;#34;a&amp;#34;)
+	fmt.Println(&amp;#34;in a&amp;#34;)
+}
+
+func b() {
+	trace(&amp;#34;b&amp;#34;)
+	defer untrace(&amp;#34;b&amp;#34;)
+	fmt.Println(&amp;#34;in b&amp;#34;)
+	a()
+}
+
+func main() {
+	b()
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;输出：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;entering: b
+in b
+entering: a
+in a
+leaving: a
+leaving: b
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;上面的代码还可以修改为更加简便的版本（示例 6.11 &lt;a href=&#34;examples/chapter_6/defer_tracing2.go&#34;&gt;defer_tracing2.go&lt;/a&gt;）：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+
+import &amp;#34;fmt&amp;#34;
+
+func trace(s string) string {
+	fmt.Println(&amp;#34;entering:&amp;#34;, s)
+	return s
+}
+
+func un(s string) {
+	fmt.Println(&amp;#34;leaving:&amp;#34;, s)
+}
+
+func a() {
+	defer un(trace(&amp;#34;a&amp;#34;))
+	fmt.Println(&amp;#34;in a&amp;#34;)
+}
+
+func b() {
+	defer un(trace(&amp;#34;b&amp;#34;))
+	fmt.Println(&amp;#34;in b&amp;#34;)
+	a()
+}
+
+func main() {
+	b()
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;使用 &lt;code&gt;defer&lt;/code&gt; 语句来记录函数的参数与返回值&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;下面的代码展示了另一种在调试时使用 &lt;code&gt;defer&lt;/code&gt; 语句的手法（示例 6.12 &lt;a href=&#34;examples/chapter_6/defer_logvalues.go&#34;&gt;defer_logvalues.go&lt;/a&gt;）：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+
+import (
+	&amp;#34;io&amp;#34;
+	&amp;#34;log&amp;#34;
+)
+
+func func1(s string) (n int, err error) {
+	defer func() {
+		log.Printf(&amp;#34;func1(%q) = %d, %v&amp;#34;, s, n, err)
+	}()
+	return 7, io.EOF
+}
+
+func main() {
+	func1(&amp;#34;Go&amp;#34;)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;输出：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Output: 2011/10/04 10:46:11 func1(&amp;quot;Go&amp;quot;) = 7, EOF&lt;/code&gt;&lt;/pre&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>Go程序传递变长参数</title>
+    <link>http://wiseai.cn/post/golang/2022.07.19-%E4%BC%A0%E9%80%92%E5%8F%98%E9%95%BF%E5%8F%82%E6%95%B0/</link>
+    <pubDate>Tue, 19 Jul 2022 22:34:09 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>http://wiseai.cn/post/golang/2022.07.19-%E4%BC%A0%E9%80%92%E5%8F%98%E9%95%BF%E5%8F%82%E6%95%B0/</guid>
+    <description>
+        &lt;h1 id=&#34;63-传递变长参数&#34;&gt;6.3 传递变长参数&lt;/h1&gt;
+&lt;p&gt;如果函数的最后一个参数是采用 &lt;code&gt;...type&lt;/code&gt; 的形式，那么这个函数就可以处理一个变长的参数，这个长度可以为 0，这样的函数称为变参函数。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func myFunc(a, b, arg ...int) {}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这个函数接受一个类似于切片 (slice) 的参数（详见&lt;a href=&#34;07.0.md&#34;&gt;第 7 章&lt;/a&gt;），该参数可以通过&lt;a href=&#34;05.4.md&#34;&gt;第 5.4.4 节&lt;/a&gt; 中提到的 &lt;code&gt;for&lt;/code&gt; 循环结构迭代。&lt;/p&gt;
+&lt;p&gt;示例函数和调用：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func Greeting(prefix string, who ...string)
+Greeting(&amp;#34;hello:&amp;#34;, &amp;#34;Joe&amp;#34;, &amp;#34;Anna&amp;#34;, &amp;#34;Eileen&amp;#34;)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;在 &lt;code&gt;Greeting()&lt;/code&gt; 函数中，变量 &lt;code&gt;who&lt;/code&gt; 的值为 &lt;code&gt;[]string{&amp;quot;Joe&amp;quot;, &amp;quot;Anna&amp;quot;, &amp;quot;Eileen&amp;quot;}&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;如果参数被存储在一个 slice 类型的变量 &lt;code&gt;slice&lt;/code&gt; 中，则可以通过 &lt;code&gt;slice...&lt;/code&gt; 的形式来传递参数，调用变参函数。&lt;/p&gt;
+&lt;p&gt;示例 6.7 &lt;a href=&#34;examples/chapter_6/varnumpar.go&#34;&gt;varnumpar.go&lt;/a&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+
+import &amp;#34;fmt&amp;#34;
+
+func main() {
+	x := min(1, 3, 2, 0)
+	fmt.Printf(&amp;#34;The minimum is: %d\n&amp;#34;, x)
+	slice := []int{7,9,3,5,1}
+	x = min(slice...)
+	fmt.Printf(&amp;#34;The minimum in the slice is: %d&amp;#34;, x)
+}
+
+func min(s ...int) int {
+	if len(s)==0 {
+		return 0
+	}
+	min := s[0]
+	for _, v := range s {
+		if v &amp;lt; min {
+			min = v
+		}
+	}
+	return min
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;输出：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;The minimum is: 0
+The minimum in the slice is: 1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;练习 6.3&lt;/strong&gt; &lt;a href=&#34;exercises/chapter_6/varargs.go&#34;&gt;varargs.go&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;写一个函数，该函数接受一个变长参数并对每个元素进行换行打印。&lt;/p&gt;
+&lt;p&gt;一个接受变长参数的函数可以将这个参数作为其它函数的参数进行传递：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func F1(s ...string) {
+	F2(s...)
+	F3(s)
+}
+
+func F2(s ...string) { }
+func F3(s []string) { }
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;变长参数可以作为对应类型的 slice 进行二次传递。&lt;/p&gt;
+&lt;p&gt;但是如果变长参数的类型并不是都相同的呢？使用 5 个参数来进行传递并不是很明智的选择，有 2 种方案可以解决这个问题：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;使用结构（详见&lt;a href=&#34;10.0.md&#34;&gt;第 10 章&lt;/a&gt;）：&lt;/p&gt;
+&lt;p&gt;定义一个结构类型，假设它叫 &lt;code&gt;Options&lt;/code&gt;，用以存储所有可能的参数：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;type Options struct {
+	par1 type1,
+	par2 type2,
+	...
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;``&lt;/p&gt;
+&lt;p&gt;函数 &lt;code&gt;F1()&lt;/code&gt; 可以使用正常的参数 &lt;code&gt;a&lt;/code&gt; 和 &lt;code&gt;b&lt;/code&gt;，以及一个没有任何初始化的 &lt;code&gt;Options&lt;/code&gt; 结构： &lt;code&gt;F1(a, b, Options {})&lt;/code&gt;。如果需要对选项进行初始化，则可以使用 &lt;code&gt;F1(a, b, Options {par1:val1, par2:val2})&lt;/code&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;使用空接口：&lt;/p&gt;
+&lt;p&gt;如果一个变长参数的类型没有被指定，则可以使用默认的空接口 &lt;code&gt;interface{}&lt;/code&gt;，这样就可以接受任何类型的参数（详见&lt;a href=&#34;11.9.md&#34;&gt;第 11.9 节&lt;/a&gt; ）。该方案不仅可以用于长度未知的参数，还可以用于任何不确定类型的参数。一般而言我们会使用一个 for-range 循环以及 &lt;code&gt;switch&lt;/code&gt; 结构对每个参数的类型进行判断：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func typecheck(..,..,values … interface{}) {
+	for _, value := range values {
+		switch v := value.(type) {
+			case int: …
+			case float: …
+			case string: …
+			case bool: …
+			default: …
+		}
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;``&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>Go程序的函数参数与返回值</title>
+    <link>http://wiseai.cn/post/golang/2022.07.18-%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E4%B8%8E%E8%BF%94%E5%9B%9E%E5%80%BC/</link>
+    <pubDate>Mon, 18 Jul 2022 22:32:36 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>http://wiseai.cn/post/golang/2022.07.18-%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E4%B8%8E%E8%BF%94%E5%9B%9E%E5%80%BC/</guid>
+    <description>
+        &lt;h1 id=&#34;62-函数参数与返回值&#34;&gt;6.2 函数参数与返回值&lt;/h1&gt;
+&lt;p&gt;函数能够接收参数供自己使用，也可以返回零个或多个值（我们通常把返回多个值称为返回一组值）。相比与 C、C++、Java 和 C#，多值返回是 Go 的一大特性，为我们判断一个函数是否正常执行（参考 &lt;a href=&#34;05.2.md&#34;&gt;第 5.2 节&lt;/a&gt;）提供了方便。&lt;/p&gt;
+&lt;p&gt;我们通过 &lt;code&gt;return&lt;/code&gt; 关键字返回一组值。事实上，任何一个有返回值（单个或多个）的函数都必须以 &lt;code&gt;return&lt;/code&gt; 或 &lt;code&gt;panic&lt;/code&gt;（参考 &lt;a href=&#34;13.0.md&#34;&gt;第 13 章&lt;/a&gt;）结尾。&lt;/p&gt;
+&lt;p&gt;在函数块里面，&lt;code&gt;return&lt;/code&gt; 之后的语句都不会执行。如果一个函数需要返回值，那么这个函数里面的每一个代码分支 (code-path) 都要有 &lt;code&gt;return&lt;/code&gt; 语句。&lt;/p&gt;
+&lt;p&gt;问题 6.1：下面的函数将不会被编译，为什么呢？大家可以试着纠正过来。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func (st *Stack) Pop() int {
+    v := 0
+    for ix := len(st) - 1; ix &amp;gt;= 0; ix-- {
+        if v = st[ix]; v != 0 {
+            st[ix] = 0
+            return v
+        }
+    }
+}    
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;函数定义时，它的形参一般是有名字的，不过我们也可以定义没有形参名的函数，只有相应的形参类型，就像这样：&lt;code&gt;func f(int, int, float64)&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;没有参数的函数通常被称为 &lt;strong&gt;niladic&lt;/strong&gt; 函数 (niladic function)，就像 &lt;code&gt;main.main()&lt;/code&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;621-按值传递-call-by-value-按引用传递-call-by-reference&#34;&gt;6.2.1 按值传递 (call by value) 按引用传递 (call by reference)&lt;/h2&gt;
+&lt;p&gt;Go 默认使用按值传递来传递参数，也就是传递参数的副本。函数接收参数副本之后，在使用变量的过程中可能对副本的值进行更改，但不会影响到原来的变量，比如 &lt;code&gt;Function(arg1)&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;如果你希望函数可以直接修改参数的值，而不是对参数的副本进行操作，你需要将参数的地址（变量名前面添加 &lt;code&gt;&amp;amp;&lt;/code&gt; 符号，比如 &lt;code&gt;&amp;amp;variable&lt;/code&gt;）传递给函数，这就是按引用传递，比如 &lt;code&gt;Function(&amp;amp;arg1)&lt;/code&gt;，此时传递给函数的是一个指针。如果传递给函数的是一个指针，指针的值（一个地址）会被复制，但指针的值所指向的地址上的值不会被复制；我们可以通过这个指针的值来修改这个值所指向的地址上的值。（&lt;strong&gt;译者注：指针也是变量类型，有自己的地址和值，通常指针的值指向一个变量的地址。所以，按引用传递也是按值传递。&lt;/strong&gt;）&lt;/p&gt;
+&lt;p&gt;几乎在任何情况下，传递指针（一个32位或者64位的值）的消耗都比传递副本来得少。&lt;/p&gt;
+&lt;p&gt;在函数调用时，像切片 (slice)、字典 (map)、接口 (interface)、通道 (channel) 这样的引用类型都是默认使用引用传递（即使没有显式的指出指针）。&lt;/p&gt;
+&lt;p&gt;有些函数只是完成一个任务，并没有返回值。我们仅仅是利用了这种函数的副作用 (side-effect)，就像输出文本到终端，发送一个邮件或者是记录一个错误等。&lt;/p&gt;
+&lt;p&gt;但是绝大部分的函数还是带有返回值的。&lt;/p&gt;
+&lt;p&gt;如下，simple_function.go 里的 &lt;code&gt;MultiPly3Nums&lt;/code&gt; 函数带有三个形参，分别是 &lt;code&gt;a&lt;/code&gt;、&lt;code&gt;b&lt;/code&gt;、&lt;code&gt;c&lt;/code&gt;，还有一个 &lt;code&gt;int&lt;/code&gt; 类型的返回值（被注释的代码具有和未注释部分同样的功能，只是多引入了一个本地变量）：&lt;/p&gt;
+&lt;p&gt;示例 6.2 &lt;a href=&#34;examples/chapter_6/simple_function.go&#34;&gt;simple_function.go&lt;/a&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+
+import &amp;#34;fmt&amp;#34;
+
+func main() {
+    fmt.Printf(&amp;#34;Multiply 2 * 5 * 6 = %d\n&amp;#34;, MultiPly3Nums(2, 5, 6))
+    // var i1 int = MultiPly3Nums(2, 5, 6)
+    // fmt.Printf(&amp;#34;MultiPly 2 * 5 * 6 = %d\n&amp;#34;, i1)
+}
+
+func MultiPly3Nums(a int, b int, c int) int {
+    // var product int = a * b * c
+    // return product
+    return a * b * c
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;输出显示：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Multiply 2 * 5 * 6 = 60
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;如果一个函数需要返回四到五个值，我们可以传递一个切片给函数（如果返回值具有相同类型）或者是传递一个结构体（如果返回值具有不同的类型）。因为传递一个指针允许直接修改变量的值，消耗也更少。&lt;/p&gt;
+&lt;p&gt;问题 6.2：&lt;/p&gt;
+&lt;p&gt;如下的两个函数调用有什么不同：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;(A) func DoSomething(a *A) {
+        b = a
+    }
+
+(B) func DoSomething(a A) {
+        b = &amp;amp;a
+    }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;622-命名的返回值-named-return-variables&#34;&gt;6.2.2 命名的返回值 (named return variables)&lt;/h2&gt;
+&lt;p&gt;如下 multiple_return.go 里的函数带有一个 &lt;code&gt;int&lt;/code&gt; 参数，返回两个 &lt;code&gt;int&lt;/code&gt; 值；其中一个函数的返回值在函数调用时就已经被赋予了一个初始零值。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;getX2AndX3&lt;/code&gt; 与 &lt;code&gt;getX2AndX3_2&lt;/code&gt; 两个函数演示了如何使用非命名返回值与命名返回值的特性。当需要返回多个非命名返回值时，需要使用 &lt;code&gt;()&lt;/code&gt; 把它们括起来，比如 &lt;code&gt;(int, int)&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;命名返回值作为结果形参 (result parameters) 被初始化为相应类型的零值，当需要返回的时候，我们只需要一条简单的不带参数的 &lt;code&gt;return&lt;/code&gt; 语句。需要注意的是，即使只有一个命名返回值，也需要使用 &lt;code&gt;()&lt;/code&gt; 括起来（参考&lt;a href=&#34;06.6.md&#34;&gt;第 6.6 节&lt;/a&gt; 的 &lt;a href=&#34;./examples/chapter_6/fibonacci.go&#34;&gt;fibonacci.go&lt;/a&gt; 函数）。&lt;/p&gt;
+&lt;p&gt;示例 6.3 &lt;a href=&#34;examples/chapter_6/multiple_return.go&#34;&gt;multiple_return.go&lt;/a&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+
+import &amp;#34;fmt&amp;#34;
+
+var num int = 10
+var numx2, numx3 int
+
+func main() {
+    numx2, numx3 = getX2AndX3(num)
+    PrintValues()
+    numx2, numx3 = getX2AndX3_2(num)
+    PrintValues()
+}
+
+func PrintValues() {
+    fmt.Printf(&amp;#34;num = %d, 2x num = %d, 3x num = %d\n&amp;#34;, num, numx2, numx3)
+}
+
+func getX2AndX3(input int) (int, int) {
+    return 2 * input, 3 * input
+}
+
+func getX2AndX3_2(input int) (x2 int, x3 int) {
+    x2 = 2 * input
+    x3 = 3 * input
+    // return x2, x3
+    return
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;输出结果：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;num = 10, 2x num = 20, 3x num = 30    
+num = 10, 2x num = 20, 3x num = 30 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;提示：&lt;/p&gt;
+&lt;p&gt;虽然 &lt;code&gt;return&lt;/code&gt; 或 &lt;code&gt;return var&lt;/code&gt; 都是可以的，但是 &lt;code&gt;return var = expression&lt;/code&gt;（表达式） 会引发一个编译错误：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;syntax error: unexpected =, expecting semicolon or newline or }&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;即使函数使用了命名返回值，你依旧可以无视它而返回明确的值。&lt;/p&gt;
+&lt;p&gt;任何一个非命名返回值（使用非命名返回值是很糟的编程习惯）在 &lt;code&gt;return&lt;/code&gt; 语句里面都要明确指出包含返回值的变量或是一个可计算的值（就像上面警告所指出的那样）。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;尽量使用命名返回值：会使代码更清晰、更简短，同时更加容易读懂。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;练习 6.1 &lt;a href=&#34;exercises/chapter_6/mult_returnval.go&#34;&gt;mult_returnval.go&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;编写一个函数，接收两个整数，然后返回它们的和、积与差。编写两个版本，一个是非命名返回值，一个是命名返回值。&lt;/p&gt;
+&lt;p&gt;练习 6.2 &lt;a href=&#34;exercises/chapter_6/error_returnval.go&#34;&gt;error_returnval.go&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;编写一个名字为 &lt;code&gt;MySqrt()&lt;/code&gt; 的函数，计算一个 &lt;code&gt;float64&lt;/code&gt; 类型浮点数的平方根，如果参数是一个负数的话将返回一个错误。编写两个版本，一个是非命名返回值，一个是命名返回值。&lt;/p&gt;
+&lt;h2 id=&#34;623-空白符-blank-identifier&#34;&gt;6.2.3 空白符 (blank identifier)&lt;/h2&gt;
+&lt;p&gt;空白符用来匹配一些不需要的值，然后丢弃掉，下面的 blank_identifier.go 就是很好的例子。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ThreeValues&lt;/code&gt; 是拥有三个返回值的不需要任何参数的函数，在下面的例子中，我们将第一个与第三个返回值赋给了 &lt;code&gt;i1&lt;/code&gt; 与 &lt;code&gt;f1&lt;/code&gt;。第二个返回值赋给了空白符 &lt;code&gt;_&lt;/code&gt;，然后自动丢弃掉。&lt;/p&gt;
+&lt;p&gt;示例 6.4 &lt;a href=&#34;examples/chapter_6/blank_identifier.go&#34;&gt;blank_identifier.go&lt;/a&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+
+import &amp;#34;fmt&amp;#34;
+
+func main() {
+    var i1 int
+    var f1 float32
+    i1, _, f1 = ThreeValues()
+    fmt.Printf(&amp;#34;The int: %d, the float: %f \n&amp;#34;, i1, f1)
+}
+
+func ThreeValues() (int, int, float32) {
+    return 5, 6, 7.5
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;输出结果：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;The int: 5, the float: 7.500000
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;另外一个示例，函数接收两个参数，比较它们的大小，然后按小-大的顺序返回这两个数，示例代码为 minmax.go。&lt;/p&gt;
+&lt;p&gt;示例 6.5 &lt;a href=&#34;examples/chapter_6/minmax.go&#34;&gt;minmax.go&lt;/a&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+
+import &amp;#34;fmt&amp;#34;
+
+func main() {
+    var min, max int
+    min, max = MinMax(78, 65)
+    fmt.Printf(&amp;#34;Minmium is: %d, Maximum is: %d\n&amp;#34;, min, max)
+}
+
+func MinMax(a int, b int) (min int, max int) {
+    if a &amp;lt; b {
+        min = a
+        max = b
+    } else { // a = b or a &amp;lt; b
+        min = b
+        max = a
+    }
+    return
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;输出结果：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Minimum is: 65, Maximum is 78
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;624-改变外部变量-outside-variable&#34;&gt;6.2.4 改变外部变量 (outside variable)&lt;/h2&gt;
+&lt;p&gt;传递指针给函数不但可以节省内存（因为没有复制变量的值），而且赋予了函数直接修改外部变量的能力，所以被修改的变量不再需要使用 &lt;code&gt;return&lt;/code&gt; 返回。如下的例子，&lt;code&gt;reply&lt;/code&gt; 是一个指向 &lt;code&gt;int&lt;/code&gt; 变量的指针，通过这个指针，我们在函数内修改了这个 &lt;code&gt;int&lt;/code&gt; 变量的数值。&lt;/p&gt;
+&lt;p&gt;示例 6.6 &lt;a href=&#34;examples/chapter_6/side_effect.go&#34;&gt;side_effect.go&lt;/a&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+
+import (
+    &amp;#34;fmt&amp;#34;
+)
+
+// this function changes reply:
+func Multiply(a, b int, reply *int) {
+    *reply = a * b
+}
+
+func main() {
+    n := 0
+    reply := &amp;amp;n
+    Multiply(10, 5, reply)
+    fmt.Println(&amp;#34;Multiply:&amp;#34;, *reply) // Multiply: 50
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这仅仅是个指导性的例子，当需要在函数内改变一个占用内存比较大的变量时，性能优势就更加明显了。然而，如果不小心使用的话，传递一个指针很容易引发一些不确定的事，所以，我们要十分小心那些可以改变外部变量的函数，在必要时，需要添加注释以便其他人能够更加清楚的知道函数里面到底发生了什么。&lt;/p&gt;
+&lt;h2 id=&#34;链接&#34;&gt;链接&lt;/h2&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>Go程序通过内存缓存来提升性能</title>
+    <link>http://wiseai.cn/post/golang/2022.07.17-%E9%80%9A%E8%BF%87%E5%86%85%E5%AD%98%E7%BC%93%E5%AD%98%E6%9D%A5%E6%8F%90%E5%8D%87%E6%80%A7%E8%83%BD/</link>
+    <pubDate>Sun, 17 Jul 2022 22:29:35 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>http://wiseai.cn/post/golang/2022.07.17-%E9%80%9A%E8%BF%87%E5%86%85%E5%AD%98%E7%BC%93%E5%AD%98%E6%9D%A5%E6%8F%90%E5%8D%87%E6%80%A7%E8%83%BD/</guid>
+    <description>
+        &lt;h1 id=&#34;612-通过内存缓存来提升性能&#34;&gt;6.12 通过内存缓存来提升性能&lt;/h1&gt;
+&lt;p&gt;当在进行大量的计算时，提升性能最直接有效的一种方式就是避免重复计算。通过在内存中缓存和重复利用相同计算的结果，称之为内存缓存。最明显的例子就是生成斐波那契数列的程序（详见第 &lt;a href=&#34;06.6.md&#34;&gt;6.6&lt;/a&gt; 和 &lt;a href=&#34;06.11.md&#34;&gt;6.11&lt;/a&gt; 节）：&lt;/p&gt;
+&lt;p&gt;要计算数列中第 n 个数字，需要先得到之前两个数的值，但很明显绝大多数情况下前两个数的值都是已经计算过的。即每个更后面的数都是基于之前计算结果的重复计算，正如示例 6.11 &lt;a href=&#34;examples/chapter_6/fibonacci.go&#34;&gt;fibonnaci.go&lt;/a&gt; 所展示的那样。&lt;/p&gt;
+&lt;p&gt;而我们要做就是将第 n 个数的值存在数组中索引为 n 的位置（详见&lt;a href=&#34;07.0.md&#34;&gt;第 7 章&lt;/a&gt;），然后在数组中查找是否已经计算过，如果没有找到，则再进行计算。&lt;/p&gt;
+&lt;p&gt;程序 Listing 6.17 - &lt;a href=&#34;examples/chapter_6/fibonacci_memoization.go&#34;&gt;fibonacci_memoization.go&lt;/a&gt; 就是依照这个原则实现的，下面是计算到第 40 位数字的性能对比：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;普通写法：4.730270 秒&lt;/li&gt;
+&lt;li&gt;内存缓存：0.001000 秒&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;内存缓存的优势显而易见，而且您还可以将它应用到其它类型的计算中，例如使用 &lt;code&gt;map&lt;/code&gt;（详见&lt;a href=&#34;07.0.md&#34;&gt;第 7 章&lt;/a&gt;）而不是数组或切片（Listing 6.21 - &lt;a href=&#34;examples/chapter_6/fibonacci_memoization.go&#34;&gt;fibonacci_memoization.go&lt;/a&gt;）：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+
+import (
+	&amp;#34;fmt&amp;#34;
+	&amp;#34;time&amp;#34;
+)
+
+const LIM = 41
+
+var fibs [LIM]uint64
+
+func main() {
+	var result uint64 = 0
+	start := time.Now()
+	for i := 0; i &amp;lt; LIM; i++ {
+		result = fibonacci(i)
+		fmt.Printf(&amp;#34;fibonacci(%d) is: %d\n&amp;#34;, i, result)
+	}
+	end := time.Now()
+	delta := end.Sub(start)
+	fmt.Printf(&amp;#34;longCalculation took this amount of time: %s\n&amp;#34;, delta)
+}
+func fibonacci(n int) (res uint64) {
+	// memoization: check if fibonacci(n) is already known in array:
+	if fibs[n] != 0 {
+		res = fibs[n]
+		return
+	}
+	if n &amp;lt;= 1 {
+		res = 1
+	} else {
+		res = fibonacci(n-1) + fibonacci(n-2)
+	}
+	fibs[n] = res
+	return
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;内存缓存的技术在使用计算成本相对昂贵的函数时非常有用（不仅限于例子中的递归），譬如大量进行相同参数的运算。这种技术还可以应用于纯函数中，即相同输入必定获得相同输出的函数。&lt;/p&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>Go程序计算函数执行时间</title>
+    <link>http://wiseai.cn/post/golang/2022.07.16-%E8%AE%A1%E7%AE%97%E5%87%BD%E6%95%B0%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4/</link>
+    <pubDate>Sat, 16 Jul 2022 22:27:37 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>http://wiseai.cn/post/golang/2022.07.16-%E8%AE%A1%E7%AE%97%E5%87%BD%E6%95%B0%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4/</guid>
+    <description>
+        &lt;h1 id=&#34;611-计算函数执行时间&#34;&gt;6.11 计算函数执行时间&lt;/h1&gt;
+&lt;p&gt;有时候，能够知道一个计算执行消耗的时间是非常有意义的，尤其是在对比和基准测试中。最简单的一个办法就是在计算开始之前设置一个起始时间，再记录计算结束时的结束时间，最后计算它们的差值，就是这个计算所消耗的时间。想要实现这样的做法，可以使用 &lt;code&gt;time&lt;/code&gt; 包中的 &lt;code&gt;Now()&lt;/code&gt; 和 &lt;code&gt;Sub()&lt;/code&gt; 函数：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;start := time.Now()
+longCalculation()
+end := time.Now()
+delta := end.Sub(start)
+fmt.Printf(&amp;#34;longCalculation took this amount of time: %s\n&amp;#34;, delta)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;您可以查看示例 6.20 &lt;a href=&#34;examples/chapter_6/fibonacci.go&#34;&gt;fibonacci.go&lt;/a&gt; 作为实例学习。&lt;/p&gt;
+&lt;p&gt;如果您对一段代码进行了所谓的优化，请务必对它们之间的效率进行对比再做出最后的判断。在接下来的章节中，我们会学习如何进行有价值的优化操作。&lt;/p&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>Go程序使用闭包调试</title>
+    <link>http://wiseai.cn/post/golang/2022.07.15-%E4%BD%BF%E7%94%A8%E9%97%AD%E5%8C%85%E8%B0%83%E8%AF%95/</link>
+    <pubDate>Fri, 15 Jul 2022 22:25:10 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>http://wiseai.cn/post/golang/2022.07.15-%E4%BD%BF%E7%94%A8%E9%97%AD%E5%8C%85%E8%B0%83%E8%AF%95/</guid>
+    <description>
+        &lt;h1 id=&#34;610-使用闭包调试&#34;&gt;6.10 使用闭包调试&lt;/h1&gt;
+&lt;p&gt;当您在分析和调试复杂的程序时，无数个函数在不同的代码文件中相互调用，如果这时候能够准确地知道哪个文件中的具体哪个函数正在执行，对于调试是十分有帮助的。您可以使用 &lt;code&gt;runtime&lt;/code&gt; 或 &lt;code&gt;log&lt;/code&gt; 包中的特殊函数来实现这样的功能。包 &lt;code&gt;runtime&lt;/code&gt; 中的函数 &lt;code&gt;Caller()&lt;/code&gt; 提供了相应的信息，因此可以在需要的时候实现一个 &lt;code&gt;where()&lt;/code&gt; 闭包函数来打印函数执行的位置：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;where := func() {
+	_, file, line, _ := runtime.Caller(1)
+	log.Printf(&amp;#34;%s:%d&amp;#34;, file, line)
+}
+where()
+// some code
+where()
+// some more code
+where()
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;您也可以设置 &lt;code&gt;log&lt;/code&gt; 包中的 &lt;code&gt;flag&lt;/code&gt; 参数来实现：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;log.SetFlags(log.Llongfile)
+log.Print(&amp;#34;&amp;#34;)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;或使用一个更加简短版本的 &lt;code&gt;where()&lt;/code&gt; 函数：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;var where = log.Print
+func func1() {
+where()
+... some code
+where()
+... some code
+where()
+}
+&lt;/code&gt;&lt;/pre&gt;
+    </description>
+    </item>
+    
+    <item>
+    <title>Go程序的函数</title>
     <link>http://wiseai.cn/post/golang/2022.07.14-%E5%87%BD%E6%95%B0%E7%9A%84%E4%BB%8B%E7%BB%8D/</link>
     <pubDate>Thu, 14 Jul 2022 11:46:19 +0800</pubDate>
     <author>wiseai</author>
@@ -1901,7 +2527,7 @@ SYN_SENT&lt;/pre&gt;
     </item>
     
     <item>
-    <title>Debian的包管理工具</title>
+    <title>Debian的包管理工具apt</title>
     <link>http://wiseai.cn/post/debian%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/</link>
     <pubDate>Wed, 06 Jul 2022 16:52:16 +0800</pubDate>
     <author>wiseai</author>

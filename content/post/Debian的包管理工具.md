@@ -1,6 +1,6 @@
 ---
 author: "wiseai"
-title: "Debian的包管理工具"
+title: "Debian的包管理工具apt"
 date: 2022-07-06T16:52:16+08:00
 description: ""
 tags:

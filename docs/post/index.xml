@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Thu, 14 Jul 2022 11:46:19 +0800</lastBuildDate><atom:link href="http://wiseai.cn/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 21 Jul 2022 22:37:24 +0800</lastBuildDate><atom:link href="http://wiseai.cn/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Go程序执行系统命令</title>
       <link>http://wiseai.cn/post/go%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/</link>
@@ -132,7 +132,7 @@ Active Internet connections (w/o servers) Proto Recv-Q Send-Q Local Address Fore
     </item>
     
     <item>
-      <title>Debian的包管理工具</title>
+      <title>Debian的包管理工具apt</title>
       <link>http://wiseai.cn/post/debian%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/</link>
       <pubDate>Wed, 06 Jul 2022 16:52:16 +0800</pubDate>
       

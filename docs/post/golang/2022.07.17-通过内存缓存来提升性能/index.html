@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-cn"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link href="http://static.wiseai.cn/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://static.wiseai.cn/img/favicon.ico" />
+
+    <title>Go程序通过内存缓存来提升性能 | WiseAI的博客</title>
+</head><body><div class="container-fluid">
+    <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="http://static.wiseai.cn/img/favicon.ico" alt="" width="30" height="24" class="d-inline-block align-text-top">
+                WiseAI的博客
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/articles/">文章</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/categories/">分类</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/tags/">关键字</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/post/golang/">golang编程</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/about/">关于</a>
+                    </li>
+                    
+                </ul>
+                <form class="d-flex">
+                    <input id="search-query" class="form-control me-2" type="search" placeholder="Search for anything..." aria-label="Search">
+                </form>
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+
+
+<div id="content">
+<div class="container article">
+	<h1>Go程序通过内存缓存来提升性能</h1>
+	<div class="post-meta">
+		<div>
+			
+			
+			By wiseai | 2022-07-17 | 1 minutes
+		</div>
+		<div class="tags">
+			
+			<a class="btn btn-light links btn-sm" href="/tags/%E7%BC%96%E7%A8%8B/">编程</a>
+			
+		</div>
+	</div>
+	<div>
+		<div class="article-post">
+			<h1 id="612-通过内存缓存来提升性能">6.12 通过内存缓存来提升性能</h1>
+<p>当在进行大量的计算时，提升性能最直接有效的一种方式就是避免重复计算。通过在内存中缓存和重复利用相同计算的结果，称之为内存缓存。最明显的例子就是生成斐波那契数列的程序（详见第 <a href="06.6.md">6.6</a> 和 <a href="06.11.md">6.11</a> 节）：</p>
+<p>要计算数列中第 n 个数字，需要先得到之前两个数的值，但很明显绝大多数情况下前两个数的值都是已经计算过的。即每个更后面的数都是基于之前计算结果的重复计算，正如示例 6.11 <a href="examples/chapter_6/fibonacci.go">fibonnaci.go</a> 所展示的那样。</p>
+<p>而我们要做就是将第 n 个数的值存在数组中索引为 n 的位置（详见<a href="07.0.md">第 7 章</a>），然后在数组中查找是否已经计算过，如果没有找到，则再进行计算。</p>
+<p>程序 Listing 6.17 - <a href="examples/chapter_6/fibonacci_memoization.go">fibonacci_memoization.go</a> 就是依照这个原则实现的，下面是计算到第 40 位数字的性能对比：</p>
+<ul>
+<li>普通写法：4.730270 秒</li>
+<li>内存缓存：0.001000 秒</li>
+</ul>
+<p>内存缓存的优势显而易见，而且您还可以将它应用到其它类型的计算中，例如使用 <code>map</code>（详见<a href="07.0.md">第 7 章</a>）而不是数组或切片（Listing 6.21 - <a href="examples/chapter_6/fibonacci_memoization.go">fibonacci_memoization.go</a>）：</p>
+<pre tabindex="0"><code>package main
+
+import (
+	&#34;fmt&#34;
+	&#34;time&#34;
+)
+
+const LIM = 41
+
+var fibs [LIM]uint64
+
+func main() {
+	var result uint64 = 0
+	start := time.Now()
+	for i := 0; i &lt; LIM; i++ {
+		result = fibonacci(i)
+		fmt.Printf(&#34;fibonacci(%d) is: %d\n&#34;, i, result)
+	}
+	end := time.Now()
+	delta := end.Sub(start)
+	fmt.Printf(&#34;longCalculation took this amount of time: %s\n&#34;, delta)
+}
+func fibonacci(n int) (res uint64) {
+	// memoization: check if fibonacci(n) is already known in array:
+	if fibs[n] != 0 {
+		res = fibs[n]
+		return
+	}
+	if n &lt;= 1 {
+		res = 1
+	} else {
+		res = fibonacci(n-1) + fibonacci(n-2)
+	}
+	fibs[n] = res
+	return
+}
+</code></pre><p>内存缓存的技术在使用计算成本相对昂贵的函数时非常有用（不仅限于例子中的递归），譬如大量进行相同参数的运算。这种技术还可以应用于纯函数中，即相同输入必定获得相同输出的函数。</p>
+
+		</div>
+	</div>
+</div>
+
+
+<div class="container">
+    
+    <div class="row">
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-end dh" href="/post/golang/2022.07.16-%E8%AE%A1%E7%AE%97%E5%87%BD%E6%95%B0%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4/">
+                <h5>前一篇</h5><br>
+                Go程序计算函数执行时间
+            </a>            
+        </div>
+        
+        <div class="col-2">
+        </div>
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-start dh" href="/post/golang/2022.07.18-%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E4%B8%8E%E8%BF%94%E5%9B%9E%E5%80%BC/">
+                <h5>后一篇</h5><br>
+                Go程序的函数参数与返回值
+            </a>            
+        </div>
+        
+    </div>
+    
+</div>
+
+        </div><br><br>
+<footer class="container">
+    <h2>友情链接</h2>
+    <hr>
+    <nav class="nav nav-pills flex-column flex-sm-row">
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/gnzg/index.html" target="_blank">孤鸟之歌</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/mm/index.html" target="_blank">生成随机字符</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/md/index.html" target="_blank">MarkDown</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://gitee.com/" target="_blank">Gitee</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://github.com/" target="_blank">Github</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.oschina.net/" target="_blank">OSCHINA</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/directory.md" target="_blank">the way to go</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://topgoer.com/" target="_blank">golang文档</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://goframe.org/display/gf" target="_blank">GoFrame</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.aliyundrive.com/" target="_blank">阿里云盘</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.bootstrap.cn/" target="_blank">bootstrap文档</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.58pic.com/" target="_blank">千图</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://ifonts.com/" target="_blank">iFonts</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://marketing.qiniu.com/" target="_blank">七牛云</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.ixigua.com/" target="_blank">西瓜视频</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/yugang/index.html" target="_blank">鱼缸计算</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://justcc.mengkang.net/#/" target="_blank">C语言JustCC</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="/index.xml" target="_blank">RSS</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.kancloud.cn/idcpj/python/418553" target="_blank">参考资料</a>
+        
+    </nav>
+
+    <div class="copyright text-center">
+      <span class="power-by">
+        Powered by <a class="links" href="https://gohugo.io" target="_blank">Hugo</a>
+    </span>
+    <span>|</span>
+    <span>
+        Theme - <a class="links" href="https://github.com/wiseai-go/blog-hugo" target="_blank">WiseAI</a>
+    </span>
+    <br>
+    <span class="copyright-year">
+        &copy;
+        
+        2017 -
+        2022<span>
+            陇ICP备15000157号
+            
+        </span></span>
+
+</div>
+</footer>
+<script src="http://static.wiseai.cn/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+</html>

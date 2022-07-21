@@ -110,7 +110,7 @@ Active Internet connections (w/o servers) Proto Recv-Q Send-Q Local Address Fore
     </item>
     
     <item>
-      <title>Debian的包管理工具</title>
+      <title>Debian的包管理工具apt</title>
       <link>http://wiseai.cn/post/debian%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/</link>
       <pubDate>Wed, 06 Jul 2022 16:52:16 +0800</pubDate>
       
