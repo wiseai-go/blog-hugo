@@ -17,7 +17,7 @@ draft: false
 ```
 $ git clone https://github.com/filebrowser/filebrowser
 ```
-注：如果有gitee的可以改，速度快
+注：如果有gitee的可以改，速度快，可以直接下载对应版本
 
 ```
 $ make help

@@ -6293,7 +6293,7 @@ BootOptionName是你启动项的名字，修改为自己的
         &lt;h2 id=&#34;编译安装&#34;&gt;编译安装&lt;/h2&gt;
 &lt;p&gt;可以自己编译，必须安装golang v1.16以上和nodejs，最好是最新版本，否则会出现一些问题。&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ git clone https://github.com/filebrowser/filebrowser
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;注：如果有gitee的可以改，速度快&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;注：如果有gitee的可以改，速度快，可以直接下载对应版本&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ make help
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;注：编译帮助&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ make build

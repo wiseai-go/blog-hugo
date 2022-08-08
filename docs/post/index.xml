@@ -722,7 +722,7 @@ efi下的/boot/efi/EFI/centos/grub.cfg文件一般调用/boot/grub2/grub.cfg这�
       
       <guid>http://wiseai.cn/post/filebrowser%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</guid>
       <description>编译安装 可以自己编译，必须安装golang v1.16以上和nodejs，最好是最新版本，否则会出现一些问题。
-$ git clone https://github.com/filebrowser/filebrowser 注：如果有gitee的可以改，速度快
+$ git clone https://github.com/filebrowser/filebrowser 注：如果有gitee的可以改，速度快，可以直接下载对应版本
 $ make help 注：编译帮助
 $ make build 注：开始编译，完成后在当前目录下filebrowser
 使用简介： 直接输入命令： ./filebrowser 会在当前目录下生成数据库文件，并开启服务
