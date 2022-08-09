@@ -6,7 +6,60 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Fri, 22 Jul 2022 16:19:22 +0800</lastBuildDate><atom:link href="http://wiseai.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 23 Jul 2022 18:06:32 +0800</lastBuildDate><atom:link href="http://wiseai.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+    <title>Go程序中将函数作为参数</title>
+    <link>http://wiseai.cn/post/golang/2022.07.23-%E5%B0%86%E5%87%BD%E6%95%B0%E4%BD%9C%E4%B8%BA%E5%8F%82%E6%95%B0/</link>
+    <pubDate>Sat, 23 Jul 2022 18:06:32 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>http://wiseai.cn/post/golang/2022.07.23-%E5%B0%86%E5%87%BD%E6%95%B0%E4%BD%9C%E4%B8%BA%E5%8F%82%E6%95%B0/</guid>
+    <description>
+        &lt;h1 id=&#34;67-将函数作为参数&#34;&gt;6.7 将函数作为参数&lt;/h1&gt;
+&lt;p&gt;函数可以作为其它函数的参数进行传递，然后在其它函数内调用执行，一般称之为回调。下面是一个将函数作为参数的简单例子（&lt;a href=&#34;examples/chapter_6/function_parameter.go&#34;&gt;function_parameter.go&lt;/a&gt;）：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+
+import (
+	&amp;#34;fmt&amp;#34;
+)
+
+func main() {
+	callback(1, Add)
+}
+
+func Add(a, b int) {
+	fmt.Printf(&amp;#34;The sum of %d and %d is: %d\n&amp;#34;, a, b, a+b)
+}
+
+func callback(y int, f func(int, int)) {
+	f(y, 2) // this becomes Add(1, 2)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;输出：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;The sum of 1 and 2 is: 3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;将函数作为参数的最好的例子是函数 &lt;code&gt;strings.IndexFunc()&lt;/code&gt;：&lt;/p&gt;
+&lt;p&gt;该函数的签名是 &lt;code&gt;func IndexFunc(s string, f func(c rune) bool) int&lt;/code&gt;，它的返回值是字符串 s 中第一个使函数 &lt;code&gt;f(c)&lt;/code&gt; 返回 &lt;code&gt;true&lt;/code&gt; 的 Unicode 字符的索引值。如果找不到，则返回 -1。&lt;/p&gt;
+&lt;p&gt;例如 &lt;code&gt;strings.IndexFunc(line, unicode.IsSpace)&lt;/code&gt; 就会返回 &lt;code&gt;line&lt;/code&gt; 中第一个空白字符的索引值。当然，您也可以书写自己的函数：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func IsAscii(c int) bool {
+	if c &amp;gt; 255 {
+		return false
+	}
+	return true
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;在&lt;a href=&#34;14.10.md&#34;&gt;第 14.10.1 节&lt;/a&gt; 中，我们将会根据一个客户端/服务端程序作为示例对这个用法进行深入讨论。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;type binOp func(a, b int) int
+func run(op binOp, req *Request) { … }
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;练习 6.7&lt;/strong&gt; &lt;a href=&#34;exercises/chapter_6/strings_map.go&#34;&gt;strings_map.go&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;包 &lt;code&gt;strings&lt;/code&gt; 中的 &lt;code&gt;Map()&lt;/code&gt; 函数和 &lt;code&gt;strings.IndexFunc()&lt;/code&gt; 一样都是非常好的使用例子。请学习它的源代码并基于该函数书写一个程序，要求将指定文本内的所有非 ASCII 字符替换成问号 &lt;code&gt;&#39;?&#39;&lt;/code&gt; 或空格 &lt;code&gt;&#39; &#39;&lt;/code&gt;。您需要怎么做才能删除这些字符呢？&lt;/p&gt;
+&lt;h2 id=&#34;链接&#34;&gt;链接&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;directory.md&#34;&gt;目录&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;上一节：&lt;a href=&#34;06.6.md&#34;&gt;递归函数&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;下一节：&lt;a href=&#34;06.8.md&#34;&gt;闭包&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+    </description>
+    </item>
+    
     <item>
     <title>Go程序的递归函数</title>
     <link>http://wiseai.cn/post/golang/2022.07.22-%E9%80%92%E5%BD%92%E5%87%BD%E6%95%B0/</link>

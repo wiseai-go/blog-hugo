@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh-cn"><head>
-	<meta name="generator" content="Hugo 0.101.0" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -10,7 +9,7 @@
 
     <link rel="shortcut icon" type="image/x-icon" href="http://static.wiseai.cn/img/favicon.ico" />
 
-    <title>WiseAI的博客</title>
+    <title>Go程序中将函数作为参数 | WiseAI的博客</title>
 </head><body><div class="container-fluid">
     <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
         <div class="container-fluid">
@@ -57,128 +56,93 @@
 
 
 <div id="content">
-<div id="myjj" class="container-fluid">
-    <div id="carouselIndexSlides" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner text-center">
-            <div class="carousel-item active">
-                
-                <span>✨</span>逼出的成功，强迫的辉煌!
-                
-            </div>
-            
-            <div class="carousel-item text-truncate">
-                <p><span>✨</span>不经他人苦，莫劝他人善</p>
-            </div>
-            
-            <div class="carousel-item text-truncate">
-                <p><span>✨</span>内心强大到混蛋，比什么都好！</p>
-            </div>
-            
-            <div class="carousel-item text-truncate">
-                <p><span>✨</span>规范流程比制定制度更重要！</p>
-            </div>
-            
-            <div class="carousel-item text-truncate">
-                <p><span>✨</span>祁连卧北雪，大漠壮雄关</p>
-            </div>
-            
-            <div class="carousel-item text-truncate">
-                <p><span>✨</span>要么忙于生存，要么赶紧去死！</p>
-            </div>
-            
-            <div class="carousel-item text-truncate">
-                <p><span>✨</span>成功和不成功之间，只差一次坚持！</p>
-            </div>
-            
-        </div>
-    </div>
+<div class="container article">
+	<h1>Go程序中将函数作为参数</h1>
+	<div class="post-meta">
+		<div>
+			
+			
+			By wiseai | 2022-07-23 | 1 minutes
+		</div>
+		<div class="tags">
+			
+			<a class="btn btn-light links btn-sm" href="/tags/%E7%BC%96%E7%A8%8B/">编程</a>
+			
+		</div>
+	</div>
+	<div>
+		<div class="article-post">
+			<h1 id="67-将函数作为参数">6.7 将函数作为参数</h1>
+<p>函数可以作为其它函数的参数进行传递，然后在其它函数内调用执行，一般称之为回调。下面是一个将函数作为参数的简单例子（<a href="examples/chapter_6/function_parameter.go">function_parameter.go</a>）：</p>
+<pre tabindex="0"><code>package main
+
+import (
+	&#34;fmt&#34;
+)
+
+func main() {
+	callback(1, Add)
+}
+
+func Add(a, b int) {
+	fmt.Printf(&#34;The sum of %d and %d is: %d\n&#34;, a, b, a+b)
+}
+
+func callback(y int, f func(int, int)) {
+	f(y, 2) // this becomes Add(1, 2)
+}
+</code></pre><p>输出：</p>
+<pre><code>The sum of 1 and 2 is: 3
+</code></pre>
+<p>将函数作为参数的最好的例子是函数 <code>strings.IndexFunc()</code>：</p>
+<p>该函数的签名是 <code>func IndexFunc(s string, f func(c rune) bool) int</code>，它的返回值是字符串 s 中第一个使函数 <code>f(c)</code> 返回 <code>true</code> 的 Unicode 字符的索引值。如果找不到，则返回 -1。</p>
+<p>例如 <code>strings.IndexFunc(line, unicode.IsSpace)</code> 就会返回 <code>line</code> 中第一个空白字符的索引值。当然，您也可以书写自己的函数：</p>
+<pre tabindex="0"><code>func IsAscii(c int) bool {
+	if c &gt; 255 {
+		return false
+	}
+	return true
+}
+</code></pre><p>在<a href="14.10.md">第 14.10.1 节</a> 中，我们将会根据一个客户端/服务端程序作为示例对这个用法进行深入讨论。</p>
+<pre tabindex="0"><code>type binOp func(a, b int) int
+func run(op binOp, req *Request) { … }
+</code></pre><p><strong>练习 6.7</strong> <a href="exercises/chapter_6/strings_map.go">strings_map.go</a></p>
+<p>包 <code>strings</code> 中的 <code>Map()</code> 函数和 <code>strings.IndexFunc()</code> 一样都是非常好的使用例子。请学习它的源代码并基于该函数书写一个程序，要求将指定文本内的所有非 ASCII 字符替换成问号 <code>'?'</code> 或空格 <code>' '</code>。您需要怎么做才能删除这些字符呢？</p>
+<h2 id="链接">链接</h2>
+<ul>
+<li><a href="directory.md">目录</a></li>
+<li>上一节：<a href="06.6.md">递归函数</a></li>
+<li>下一节：<a href="06.8.md">闭包</a></li>
+</ul>
+
+		</div>
+	</div>
 </div>
 
 
-
-
-
-
 <div class="container">
-    <h2>最新文章<span class="badge bg-light">
-        
-        <a class="link-dark links" href="/articles/">查看所有</a>
-        
-    </span><hr></h2>
+    
     <div class="row">
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/golang/2022.06.29-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/"><time>2022-06-29</time>Go程序的基本类型和运算符</a>
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-end dh" href="/post/golang/2022.07.22-%E9%80%92%E5%BD%92%E5%87%BD%E6%95%B0/">
+                <h5>前一篇</h5><br>
+                Go程序的递归函数
+            </a>            
         </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/golang/2022.06.27-%E5%8F%98%E9%87%8F/"><time>2022-06-27</time>Go程序的变量</a>
+        
+        <div class="col-2">
         </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/golang/2022.06.27-%E5%B8%B8%E9%87%8F/"><time>2022-06-27</time>Go程序的常量</a>
-        </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/%E5%A4%A7%E6%95%B0%E7%9A%84%E9%98%B6%E4%B9%98/"><time>2022-06-27</time>大数的阶乘</a>
-        </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/golang/2022.06.22-go%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84%E5%92%8C%E8%A6%81%E7%B4%A0/"><time>2022-06-22</time>Go程序的基本结构和要素</a>
-        </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/linux%E4%B8%ADfirefox%E6%94%AF%E6%8C%81flash/"><time>2022-06-20</time>Linux中firefox支持flash</a>
-        </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/linux%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E8%BD%AF%E4%BB%B6/"><time>2022-06-20</time>Linux远程连接软件</a>
-        </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/networkmanager%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/"><time>2022-06-20</time>NetworkManager网络管理相关问题</a>
-        </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/php5-fpm.sock-failed/"><time>2022-06-20</time>php5-fpm.sock failed</a>
-        </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/php%E6%88%AA%E5%8F%96%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/"><time>2022-06-20</time>php截取中文字符串乱码问题</a>
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-start dh" href="">
+                <h5>没有了</h5><br>
+            </a>            
         </div>
         
     </div>
-</div>
-
-
-<div class="container">
-    <h2>项目</h2><hr>
-    
-    <div class="card xm">
-        <div class="card-header">
-            blog-hugo
-        </div>
-        <div class="card-body">
-            
-            <p class="card-text">My blog build with hugo tania theme!</p>
-            <a href="https://github.com/wiseai-go/blog-hugo.git" target="_blank" class="btn btn-primary">Source</a>
-        </div>
-    </div>
-    
-    <div class="card xm">
-        <div class="card-header">
-            Hugo Tania Theme
-        </div>
-        <div class="card-body">
-            
-            <p class="card-text">Make a blog with hugo tania theme!</p>
-            <a href="https://github.com/WingLim/hugo-tania" target="_blank" class="btn btn-primary">Source</a>
-        </div>
-    </div>
     
 </div>
-
-
 
         </div><br><br>
 <footer class="container">
