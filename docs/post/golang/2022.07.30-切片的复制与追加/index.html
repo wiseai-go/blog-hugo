@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-cn"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link href="http://static.wiseai.cn/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://static.wiseai.cn/img/favicon.ico" />
+
+    <title>Go程序的切片的复制与追加 | WiseAI的博客</title>
+</head><body><div class="container-fluid">
+    <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="http://static.wiseai.cn/img/favicon.ico" alt="" width="30" height="24" class="d-inline-block align-text-top">
+                WiseAI的博客
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/articles/">文章</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/categories/">分类</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/tags/">关键字</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/post/golang/">golang编程</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/about/">关于</a>
+                    </li>
+                    
+                </ul>
+                <form class="d-flex">
+                    <input id="search-query" class="form-control me-2" type="search" placeholder="Search for anything..." aria-label="Search">
+                </form>
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+
+
+<div id="content">
+<div class="container article">
+	<h1>Go程序的切片的复制与追加</h1>
+	<div class="post-meta">
+		<div>
+			
+			
+			By wiseai | 2022-07-30 | 1 minutes
+		</div>
+		<div class="tags">
+			
+			<a class="btn btn-light links btn-sm" href="/tags/%E7%BC%96%E7%A8%8B/">编程</a>
+			
+		</div>
+	</div>
+	<div>
+		<div class="article-post">
+			<h1 id="75-切片的复制与追加">7.5 切片的复制与追加</h1>
+<p>如果想增加切片的容量，我们必须创建一个新的更大的切片并把原分片的内容都拷贝过来。下面的代码描述了从拷贝切片的 <code>copy</code> 函数和向切片追加新元素的 <code>append()</code> 函数。</p>
+<p>示例 7.12 <a href="examples/chapter_7/copy_append_slice.go">copy_append_slice.go</a></p>
+<pre tabindex="0"><code>package main
+import &#34;fmt&#34;
+
+func main() {
+	slFrom := []int{1, 2, 3}
+	slTo := make([]int, 10)
+
+	n := copy(slTo, slFrom)
+	fmt.Println(slTo)
+	fmt.Printf(&#34;Copied %d elements\n&#34;, n) // n == 3
+
+	sl3 := []int{1, 2, 3}
+	sl3 = append(sl3, 4, 5, 6)
+	fmt.Println(sl3)
+}
+</code></pre><p><code>func append(s[]T, x ...T) []T</code> 其中 <code>append()</code> 方法将 0 个或多个具有相同类型 <code>s</code> 的元素追加到切片后面并且返回新的切片；追加的元素必须和原切片的元素是同类型。如果 <code>s</code> 的容量不足以存储新增元素，<code>append()</code> 会分配新的切片来保证已有切片元素和新增元素的存储。因此，返回的切片可能已经指向一个不同的相关数组了。<code>append()</code> 方法总是返回成功，除非系统内存耗尽了。</p>
+<p>如果你想将切片 <code>y</code> 追加到切片 <code>x</code> 后面，只要将第二个参数扩展成一个列表即可：<code>x = append(x, y...)</code>。</p>
+<p><strong>注意</strong>： <code>append()</code> 在大多数情况下很好用，但是如果你想完全掌控整个追加过程，你可以实现一个这样的 <code>AppendByte()</code> 方法：</p>
+<pre tabindex="0"><code>func AppendByte(slice []byte, data ...byte) []byte {
+	m := len(slice)
+	n := m + len(data)
+	if n &gt; cap(slice) { // if necessary, reallocate
+		// allocate double what&#39;s needed, for future growth.
+		newSlice := make([]byte, (n+1)*2)
+		copy(newSlice, slice)
+		slice = newSlice
+	}
+	slice = slice[0:n]
+	copy(slice[m:n], data)
+	return slice
+}
+</code></pre><p><code>func copy(dst, src []T) int</code> 方法将类型为 <code>T</code> 的切片从源地址 <code>src</code> 拷贝到目标地址 <code>dst</code>，覆盖 <code>dst</code> 的相关元素，并且返回拷贝的元素个数。源地址和目标地址可能会有重叠。拷贝个数是 <code>src</code> 和 <code>dst</code> 的长度最小值。如果 <code>src</code> 是字符串那么元素类型就是 <code>byte</code>。如果你还想继续使用 <code>src</code>，在拷贝结束后执行 <code>src = dst</code>。</p>
+<p><strong>练习 7.9</strong> <a href="exercises/chapter_7/magnify_slice.go">magnify_slice.go</a></p>
+<p>给定一个切片 <code>s []int</code> 和一个 <code>int</code> 类型的因子 <code>factor</code>，扩展 <code>s</code> 使其长度为 <code>len(s) * factor</code>。</p>
+<p>**练习 7.10 ** <a href="exercises/chapter_7/filter_slice.go">filter_slice.go</a></p>
+<p>用顺序函数过滤容器：<code>s</code> 是前 10 个整型的切片。构造一个函数 <code>Filter</code>，第一个参数是 <code>s</code>，第二个参数是一个 <code>fn func(int) bool</code>，返回满足函数 <code>fn</code> 的元素切片。通过 <code>fn</code> 测试方法测试当整型值是偶数时的情况。</p>
+<p><strong>练习 7.11</strong>  <a href="exercises/chapter_7/insert_slice.go">insert_slice.go</a></p>
+<p>写一个函数 <code>InsertStringSlice()</code> 将切片插入到另一个切片的指定位置。</p>
+<p><strong>练习 7.12</strong> <a href="exercises/chapter_7/remove_slice.go">remove_slice.go</a></p>
+<p>写一个函数 <code>RemoveStringSlice()</code> 将从 <code>start</code> 到 <code>end</code> 索引的元素从切片中移除。</p>
+
+		</div>
+	</div>
+</div>
+
+
+<div class="container">
+    
+    <div class="row">
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-end dh" href="/post/golang/2022.07.29-%E5%88%87%E7%89%87%E9%87%8D%E7%BB%84reslice/">
+                <h5>前一篇</h5><br>
+                Go程序的切片重组reslice
+            </a>            
+        </div>
+        
+        <div class="col-2">
+        </div>
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-start dh" href="/post/golang/2022.07.31-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%95%B0%E7%BB%84%E5%92%8C%E5%88%87%E7%89%87%E7%9A%84%E5%BA%94%E7%94%A8/">
+                <h5>后一篇</h5><br>
+                Go程序的字符串、数组和切片的应用
+            </a>            
+        </div>
+        
+    </div>
+    
+</div>
+
+        </div><br><br>
+<footer class="container">
+    <h2>友情链接</h2>
+    <hr>
+    <nav class="nav nav-pills flex-column flex-sm-row">
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/gnzg/index.html" target="_blank">孤鸟之歌</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/mm/index.html" target="_blank">生成随机字符</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/md/index.html" target="_blank">MarkDown</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://gitee.com/" target="_blank">Gitee</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://github.com/" target="_blank">Github</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.oschina.net/" target="_blank">OSCHINA</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/directory.md" target="_blank">the way to go</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://topgoer.com/" target="_blank">golang文档</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://goframe.org/display/gf" target="_blank">GoFrame</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.aliyundrive.com/" target="_blank">阿里云盘</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.bootstrap.cn/" target="_blank">bootstrap文档</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.58pic.com/" target="_blank">千图</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://ifonts.com/" target="_blank">iFonts</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://marketing.qiniu.com/" target="_blank">七牛云</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.ixigua.com/" target="_blank">西瓜视频</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/yugang/index.html" target="_blank">鱼缸计算</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://justcc.mengkang.net/#/" target="_blank">C语言JustCC</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="/index.xml" target="_blank">RSS</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.kancloud.cn/idcpj/python/418553" target="_blank">参考资料</a>
+        
+    </nav>
+
+    <div class="copyright text-center">
+      <span class="power-by">
+        Powered by <a class="links" href="https://gohugo.io" target="_blank">Hugo</a>
+    </span>
+    <span>|</span>
+    <span>
+        Theme - <a class="links" href="https://github.com/wiseai-go/blog-hugo" target="_blank">WiseAI</a>
+    </span>
+    <br>
+    <span class="copyright-year">
+        &copy;
+        
+        2017 -
+        2022<span>
+            陇ICP备15000157号
+            
+        </span></span>
+
+</div>
+</footer>
+<script src="http://static.wiseai.cn/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+</html>

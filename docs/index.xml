@@ -6,7 +6,955 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Sat, 23 Jul 2022 18:06:32 +0800</lastBuildDate><atom:link href="http://wiseai.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 31 Jul 2022 11:53:44 +0800</lastBuildDate><atom:link href="http://wiseai.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+    <title>Go程序的字符串、数组和切片的应用</title>
+    <link>http://wiseai.cn/post/golang/2022.07.31-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%95%B0%E7%BB%84%E5%92%8C%E5%88%87%E7%89%87%E7%9A%84%E5%BA%94%E7%94%A8/</link>
+    <pubDate>Sun, 31 Jul 2022 11:53:44 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>http://wiseai.cn/post/golang/2022.07.31-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%95%B0%E7%BB%84%E5%92%8C%E5%88%87%E7%89%87%E7%9A%84%E5%BA%94%E7%94%A8/</guid>
+    <description>
+        &lt;h1 id=&#34;76-字符串数组和切片的应用&#34;&gt;7.6 字符串、数组和切片的应用&lt;/h1&gt;
+&lt;h2 id=&#34;761-从字符串生成字节切片&#34;&gt;7.6.1 从字符串生成字节切片&lt;/h2&gt;
+&lt;p&gt;假设 &lt;code&gt;s&lt;/code&gt; 是一个字符串（本质上是一个字节数组），那么就可以直接通过 &lt;code&gt;c := []byte(s)&lt;/code&gt; 来获取一个字节的切片 &lt;code&gt;c&lt;/code&gt; 。另外，您还可以通过 &lt;code&gt;copy()&lt;/code&gt; 函数来达到相同的目的：&lt;code&gt;copy(dst []byte, src string)&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;同样的，还可以使用 for-range 来获得每个元素（Listing 7.13 — &lt;a href=&#34;examples/chapter_7/for_string.go&#34;&gt;for_string.go&lt;/a&gt;）：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+
+import &amp;#34;fmt&amp;#34;
+
+func main() {
+    s := &amp;#34;\u00ff\u754c&amp;#34;
+    for i, c := range s {
+        fmt.Printf(&amp;#34;%d:%c &amp;#34;, i, c)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;输出：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;0:ÿ 2:界
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;我们知道，Unicode 字符会占用 2 个字节，有些甚至需要 3 个或者 4 个字节来进行表示。如果发现错误的 UTF8 字符，则该字符会被设置为 &lt;code&gt;U+FFFD&lt;/code&gt; 并且索引向前移动一个字节。和字符串转换一样，您同样可以使用 &lt;code&gt;c := []int32(s)&lt;/code&gt; 语法，这样切片中的每个 &lt;code&gt;int&lt;/code&gt; 都会包含对应的 Unicode 代码，因为字符串中的每次字符都会对应一个整数。类似的，您也可以将字符串转换为元素类型为 &lt;code&gt;rune&lt;/code&gt; 的切片：&lt;code&gt;r := []rune(s)&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;可以通过代码 &lt;code&gt;len([]int32(s))&lt;/code&gt; 来获得字符串中字符的数量，但使用 &lt;code&gt;utf8.RuneCountInString(s)&lt;/code&gt; 效率会更高一点。(参考 &lt;a href=&#34;exercises/chapter_4/count_characters.go&#34;&gt;count_characters.go&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;您还可以将一个字符串追加到某一个字节切片的尾部：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;var b []byte
+var s string
+b = append(b, s...)
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;762-获取字符串的某一部分&#34;&gt;7.6.2 获取字符串的某一部分&lt;/h2&gt;
+&lt;p&gt;使用 &lt;code&gt;substr := str[start:end]&lt;/code&gt; 可以从字符串 str 获取到从索引 &lt;code&gt;start&lt;/code&gt; 开始到 &lt;code&gt;end-1&lt;/code&gt; 位置的子字符串。同样的，&lt;code&gt;str[start:]&lt;/code&gt; 则表示获取从 &lt;code&gt;start&lt;/code&gt; 开始到 &lt;code&gt;len(str)-1&lt;/code&gt; 位置的子字符串。而 &lt;code&gt;str[:end]&lt;/code&gt; 表示获取从 0 开始到 &lt;code&gt;end-1&lt;/code&gt; 的子字符串。&lt;/p&gt;
+&lt;h2 id=&#34;763-字符串和切片的内存结构&#34;&gt;7.6.3 字符串和切片的内存结构&lt;/h2&gt;
+&lt;p&gt;在内存中，一个字符串实际上是一个双字结构，即一个指向实际数据的指针和记录字符串长度的整数（见图 7.4）。因为指针对用户来说是完全不可见，因此我们可以依旧把字符串看做是一个值类型，也就是一个字符数组。&lt;/p&gt;
+&lt;p&gt;字符串 &lt;code&gt;string s = &amp;quot;hello&amp;quot;&lt;/code&gt; 和子字符串 &lt;code&gt;t = s[2:3]&lt;/code&gt; 在内存中的结构可以用下图表示：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;images/7.6_fig7.4.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;764-修改字符串中的某个字符&#34;&gt;7.6.4 修改字符串中的某个字符&lt;/h2&gt;
+&lt;p&gt;Go 语言中的字符串是不可变的，也就是说 &lt;code&gt;str[index]&lt;/code&gt; 这样的表达式是不可以被放在等号左侧的。如果尝试运行 &lt;code&gt;str[i] = &#39;D&#39;&lt;/code&gt; 会得到错误：&lt;code&gt;cannot assign to str[i]&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;因此，您必须先将字符串转换成字节数组，然后再通过修改数组中的元素值来达到修改字符串的目的，最后将字节数组转换回字符串格式。&lt;/p&gt;
+&lt;p&gt;例如，将字符串 &lt;code&gt;&amp;quot;hello&amp;quot;&lt;/code&gt; 转换为 &lt;code&gt;&amp;quot;cello&amp;quot;&lt;/code&gt;：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;s := &amp;#34;hello&amp;#34;
+c := []byte(s)
+c[0] = &amp;#39;c&amp;#39;
+s2 := string(c) // s2 == &amp;#34;cello&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;所以，您可以通过操作切片来完成对字符串的操作。&lt;/p&gt;
+&lt;h2 id=&#34;765-字节数组对比函数&#34;&gt;7.6.5 字节数组对比函数&lt;/h2&gt;
+&lt;p&gt;下面的 &lt;code&gt;Compare()&lt;/code&gt; 函数会返回两个字节数组字典顺序的整数对比结果，即 &lt;code&gt;0 if a == b, -1 if a &amp;lt; b, 1 if a &amp;gt; b&lt;/code&gt;。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func Compare(a, b[]byte) int {
+    for i:=0; i &amp;lt; len(a) &amp;amp;&amp;amp; i &amp;lt; len(b); i++ {
+        switch {
+        case a[i] &amp;gt; b[i]:
+            return 1
+        case a[i] &amp;lt; b[i]:
+            return -1
+        }
+    }
+    // 数组的长度可能不同
+    switch {
+    case len(a) &amp;lt; len(b):
+        return -1
+    case len(a) &amp;gt; len(b):
+        return 1
+    }
+    return 0 // 数组相等
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;766-搜索及排序切片和数组&#34;&gt;7.6.6 搜索及排序切片和数组&lt;/h2&gt;
+&lt;p&gt;标准库提供了 &lt;code&gt;sort&lt;/code&gt; 包来实现常见的搜索和排序操作。您可以使用 &lt;code&gt;sort&lt;/code&gt; 包中的函数 &lt;code&gt;func Ints(a []int)&lt;/code&gt; 来实现对 &lt;code&gt;int&lt;/code&gt; 类型的切片排序。例如 &lt;code&gt;sort.Ints(arri)&lt;/code&gt;，其中变量 &lt;code&gt;arri&lt;/code&gt; 就是需要被升序排序的数组或切片。为了检查某个数组是否已经被排序，可以通过函数 &lt;code&gt;IntsAreSorted(a []int) bool&lt;/code&gt; 来检查，如果返回 &lt;code&gt;true&lt;/code&gt; 则表示已经被排序。&lt;/p&gt;
+&lt;p&gt;类似的，可以使用函数 &lt;code&gt;func Float64s(a []float64)&lt;/code&gt; 来排序 &lt;code&gt;float64&lt;/code&gt; 的元素，或使用函数 &lt;code&gt;func Strings(a []string)&lt;/code&gt; 排序字符串元素。&lt;/p&gt;
+&lt;p&gt;想要在数组或切片中搜索一个元素，该数组或切片必须先被排序（因为标准库的搜索算法使用的是二分法）。然后，您就可以使用函数 &lt;code&gt;func SearchInts(a []int, n int) int&lt;/code&gt; 进行搜索，并返回对应结果的索引值。&lt;/p&gt;
+&lt;p&gt;当然，还可以搜索 &lt;code&gt;float64&lt;/code&gt; 和字符串：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func SearchFloat64s(a []float64, x float64) int
+func SearchStrings(a []string, x string) int
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;您可以通过查看 &lt;a href=&#34;http://golang.org/pkg/sort/&#34;&gt;官方文档&lt;/a&gt; 来获取更详细的信息。&lt;/p&gt;
+&lt;p&gt;这就是如何使用 &lt;code&gt;sort&lt;/code&gt; 包的方法，我们会在&lt;a href=&#34;11.7.md&#34;&gt;第 11.7 节&lt;/a&gt; 对它的细节进行深入，并实现一个属于我们自己的版本。&lt;/p&gt;
+&lt;h2 id=&#34;767-append-函数常见操作&#34;&gt;7.6.7 append() 函数常见操作&lt;/h2&gt;
+&lt;p&gt;我们在&lt;a href=&#34;07.5.md&#34;&gt;第 7.5 节&lt;/a&gt;提到的 &lt;code&gt;append()&lt;/code&gt; 非常有用，它能够用于各种方面的操作：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;将切片 &lt;code&gt;b&lt;/code&gt; 的元素追加到切片 &lt;code&gt;a&lt;/code&gt; 之后：&lt;code&gt;a = append(a, b...)&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;复制切片 &lt;code&gt;a&lt;/code&gt; 的元素到新的切片 &lt;code&gt;b&lt;/code&gt; 上：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;b = make([]T, len(a))
+copy(b, a)
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;删除位于索引 &lt;code&gt;i&lt;/code&gt; 的元素：&lt;code&gt;a = append(a[:i], a[i+1:]...)&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;切除切片 &lt;code&gt;a&lt;/code&gt; 中从索引 &lt;code&gt;i&lt;/code&gt; 至 &lt;code&gt;j&lt;/code&gt; 位置的元素：&lt;code&gt;a = append(a[:i], a[j:]...)&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;为切片 &lt;code&gt;a&lt;/code&gt; 扩展 &lt;code&gt;j&lt;/code&gt; 个元素长度：&lt;code&gt;a = append(a, make([]T, j)...)&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在索引 &lt;code&gt;i&lt;/code&gt; 的位置插入元素 &lt;code&gt;x&lt;/code&gt;：&lt;code&gt;a = append(a[:i], append([]T{x}, a[i:]...)...)&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在索引 &lt;code&gt;i&lt;/code&gt; 的位置插入长度为 &lt;code&gt;j&lt;/code&gt; 的新切片：&lt;code&gt;a = append(a[:i], append(make([]T, j), a[i:]...)...)&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在索引 &lt;code&gt;i&lt;/code&gt; 的位置插入切片 &lt;code&gt;b&lt;/code&gt; 的所有元素：&lt;code&gt;a = append(a[:i], append(b, a[i:]...)...)&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;取出位于切片 &lt;code&gt;a&lt;/code&gt; 最末尾的元素 &lt;code&gt;x&lt;/code&gt;：&lt;code&gt;x, a = a[len(a)-1], a[:len(a)-1]&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;将元素 &lt;code&gt;x&lt;/code&gt; 追加到切片 &lt;code&gt;a&lt;/code&gt;：&lt;code&gt;a = append(a, x)&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;因此，您可以使用切片和 &lt;code&gt;append()&lt;/code&gt; 操作来表示任意可变长度的序列。&lt;/p&gt;
+&lt;p&gt;从数学的角度来看，切片相当于向量，如果需要的话可以定义一个向量作为切片的别名来进行操作。&lt;/p&gt;
+&lt;p&gt;如果您需要更加完整的方案，可以学习一下 Eleanor McHugh 编写的几个包：&lt;a href=&#34;http://github.com/feyeleanor/slices&#34;&gt;&lt;code&gt;slices&lt;/code&gt;&lt;/a&gt;、&lt;a href=&#34;http://github.com/feyeleanor/chain&#34;&gt;&lt;code&gt;chain&lt;/code&gt;&lt;/a&gt; 和 &lt;a href=&#34;http://github.com/feyeleanor/lists&#34;&gt;&lt;code&gt;lists&lt;/code&gt;&lt;/a&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;768-切片和垃圾回收&#34;&gt;7.6.8 切片和垃圾回收&lt;/h2&gt;
+&lt;p&gt;切片的底层指向一个数组，该数组的实际容量可能要大于切片所定义的容量。只有在没有任何切片指向的时候，底层的数组内存才会被释放，这种特性有时会导致程序占用多余的内存。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;示例&lt;/strong&gt; 函数 &lt;code&gt;FindDigits()&lt;/code&gt; 将一个文件加载到内存，然后搜索其中所有的数字并返回一个切片。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;var digitRegexp = regexp.MustCompile(&amp;#34;[0-9]+&amp;#34;)
+
+func FindDigits(filename string) []byte {
+    b, _ := ioutil.ReadFile(filename)
+    return digitRegexp.Find(b)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这段代码可以顺利运行，但返回的 &lt;code&gt;[]byte&lt;/code&gt; 指向的底层是整个文件的数据。只要该返回的切片不被释放，垃圾回收器就不能释放整个文件所占用的内存。换句话说，一点点有用的数据却占用了整个文件的内存。&lt;/p&gt;
+&lt;p&gt;想要避免这个问题，可以通过拷贝我们需要的部分到一个新的切片中：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func FindDigits(filename string) []byte {
+   b, _ := ioutil.ReadFile(filename)
+   b = digitRegexp.Find(b)
+   c := make([]byte, len(b))
+   copy(c, b)
+   return c
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;事实上，上面这段代码只能找到第一个匹配正则表达式的数字串。要想找到所有的数字，可以尝试下面这段代码：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func FindFileDigits(filename string) []byte {
+   fileBytes, _ := ioutil.ReadFile(filename)
+   b := digitRegexp.FindAll(fileBytes, len(fileBytes))
+   c := make([]byte, 0)
+   for _, bytes := range b {
+      c = append(c, bytes...)
+   }
+   return c
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;练习 7.12&lt;/strong&gt; &lt;a href=&#34;exercises/chapter_7/split_string.go&#34;&gt;split_string.go&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;编写一个函数，要求其接受两个参数，原始字符串 &lt;code&gt;str&lt;/code&gt; 和分割索引 &lt;code&gt;i&lt;/code&gt;，然后返回两个分割后的字符串。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;练习 7.13&lt;/strong&gt; &lt;a href=&#34;exercises/chapter_7/string_split2.go&#34;&gt;string_split2.go&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;假设有字符串 &lt;code&gt;str&lt;/code&gt;，那么 &lt;code&gt;str[len(str)/2:] + str[:len(str)/2]&lt;/code&gt; 的结果是什么？&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;练习 7.14&lt;/strong&gt; &lt;a href=&#34;exercises/chapter_7/string_reverse.go&#34;&gt;string_reverse.go&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;编写一个程序，要求能够反转字符串，即将 &lt;code&gt;&amp;quot;Google&amp;quot;&lt;/code&gt; 转换成 &lt;code&gt;&amp;quot;elgooG&amp;quot;&lt;/code&gt;（提示：使用 &lt;code&gt;[]byte&lt;/code&gt; 类型的切片）。&lt;/p&gt;
+&lt;p&gt;如果您使用两个切片来实现反转，请再尝试使用一个切片（提示：使用交换法）。&lt;/p&gt;
+&lt;p&gt;如果您想要反转 Unicode 编码的字符串，请使用 &lt;code&gt;[]int32&lt;/code&gt; 类型的切片。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;练习 7.15&lt;/strong&gt; &lt;a href=&#34;exercises/chapter_7/uniq.go&#34;&gt;Q29_uniq.go&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;编写一个程序，要求能够遍历一个字符数组，并将当前字符和前一个字符不相同的字符拷贝至另一个数组。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;练习 7.16&lt;/strong&gt; &lt;a href=&#34;exercises/chapter_7/bubblesort.go&#34;&gt;bubblesort.go&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;编写一个程序，使用冒泡排序的方法排序一个包含整数的切片（算法的定义可参考 &lt;a href=&#34;http://en.wikipedia.org/wiki/Bubble_sort&#34;&gt;维基百科&lt;/a&gt;）。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;练习 7.17&lt;/strong&gt; &lt;a href=&#34;exercises/chapter_7/map_function.go&#34;&gt;map_function.go&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;在函数式编程语言中，一个 map-function 是指能够接受一个函数原型和一个列表，并使用列表中的值依次执行函数原型，公式为：&lt;code&gt;map ( F(), (e1,e2, . . . ,en) ) = ( F(e1), F(e2), ... F(en) )&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;编写一个函数 &lt;code&gt;mapFunc&lt;/code&gt; 要求接受以下 2 个参数：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一个将整数乘以 10 的函数&lt;/li&gt;
+&lt;li&gt;一个整数列表&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;最后返回保存运行结果的整数列表。&lt;/p&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>Go程序的切片的复制与追加</title>
+    <link>http://wiseai.cn/post/golang/2022.07.30-%E5%88%87%E7%89%87%E7%9A%84%E5%A4%8D%E5%88%B6%E4%B8%8E%E8%BF%BD%E5%8A%A0/</link>
+    <pubDate>Sat, 30 Jul 2022 11:52:29 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>http://wiseai.cn/post/golang/2022.07.30-%E5%88%87%E7%89%87%E7%9A%84%E5%A4%8D%E5%88%B6%E4%B8%8E%E8%BF%BD%E5%8A%A0/</guid>
+    <description>
+        &lt;h1 id=&#34;75-切片的复制与追加&#34;&gt;7.5 切片的复制与追加&lt;/h1&gt;
+&lt;p&gt;如果想增加切片的容量，我们必须创建一个新的更大的切片并把原分片的内容都拷贝过来。下面的代码描述了从拷贝切片的 &lt;code&gt;copy&lt;/code&gt; 函数和向切片追加新元素的 &lt;code&gt;append()&lt;/code&gt; 函数。&lt;/p&gt;
+&lt;p&gt;示例 7.12 &lt;a href=&#34;examples/chapter_7/copy_append_slice.go&#34;&gt;copy_append_slice.go&lt;/a&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+import &amp;#34;fmt&amp;#34;
+
+func main() {
+	slFrom := []int{1, 2, 3}
+	slTo := make([]int, 10)
+
+	n := copy(slTo, slFrom)
+	fmt.Println(slTo)
+	fmt.Printf(&amp;#34;Copied %d elements\n&amp;#34;, n) // n == 3
+
+	sl3 := []int{1, 2, 3}
+	sl3 = append(sl3, 4, 5, 6)
+	fmt.Println(sl3)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;func append(s[]T, x ...T) []T&lt;/code&gt; 其中 &lt;code&gt;append()&lt;/code&gt; 方法将 0 个或多个具有相同类型 &lt;code&gt;s&lt;/code&gt; 的元素追加到切片后面并且返回新的切片；追加的元素必须和原切片的元素是同类型。如果 &lt;code&gt;s&lt;/code&gt; 的容量不足以存储新增元素，&lt;code&gt;append()&lt;/code&gt; 会分配新的切片来保证已有切片元素和新增元素的存储。因此，返回的切片可能已经指向一个不同的相关数组了。&lt;code&gt;append()&lt;/code&gt; 方法总是返回成功，除非系统内存耗尽了。&lt;/p&gt;
+&lt;p&gt;如果你想将切片 &lt;code&gt;y&lt;/code&gt; 追加到切片 &lt;code&gt;x&lt;/code&gt; 后面，只要将第二个参数扩展成一个列表即可：&lt;code&gt;x = append(x, y...)&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;： &lt;code&gt;append()&lt;/code&gt; 在大多数情况下很好用，但是如果你想完全掌控整个追加过程，你可以实现一个这样的 &lt;code&gt;AppendByte()&lt;/code&gt; 方法：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func AppendByte(slice []byte, data ...byte) []byte {
+	m := len(slice)
+	n := m + len(data)
+	if n &amp;gt; cap(slice) { // if necessary, reallocate
+		// allocate double what&amp;#39;s needed, for future growth.
+		newSlice := make([]byte, (n+1)*2)
+		copy(newSlice, slice)
+		slice = newSlice
+	}
+	slice = slice[0:n]
+	copy(slice[m:n], data)
+	return slice
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;func copy(dst, src []T) int&lt;/code&gt; 方法将类型为 &lt;code&gt;T&lt;/code&gt; 的切片从源地址 &lt;code&gt;src&lt;/code&gt; 拷贝到目标地址 &lt;code&gt;dst&lt;/code&gt;，覆盖 &lt;code&gt;dst&lt;/code&gt; 的相关元素，并且返回拷贝的元素个数。源地址和目标地址可能会有重叠。拷贝个数是 &lt;code&gt;src&lt;/code&gt; 和 &lt;code&gt;dst&lt;/code&gt; 的长度最小值。如果 &lt;code&gt;src&lt;/code&gt; 是字符串那么元素类型就是 &lt;code&gt;byte&lt;/code&gt;。如果你还想继续使用 &lt;code&gt;src&lt;/code&gt;，在拷贝结束后执行 &lt;code&gt;src = dst&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;练习 7.9&lt;/strong&gt; &lt;a href=&#34;exercises/chapter_7/magnify_slice.go&#34;&gt;magnify_slice.go&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;给定一个切片 &lt;code&gt;s []int&lt;/code&gt; 和一个 &lt;code&gt;int&lt;/code&gt; 类型的因子 &lt;code&gt;factor&lt;/code&gt;，扩展 &lt;code&gt;s&lt;/code&gt; 使其长度为 &lt;code&gt;len(s) * factor&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;**练习 7.10 ** &lt;a href=&#34;exercises/chapter_7/filter_slice.go&#34;&gt;filter_slice.go&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;用顺序函数过滤容器：&lt;code&gt;s&lt;/code&gt; 是前 10 个整型的切片。构造一个函数 &lt;code&gt;Filter&lt;/code&gt;，第一个参数是 &lt;code&gt;s&lt;/code&gt;，第二个参数是一个 &lt;code&gt;fn func(int) bool&lt;/code&gt;，返回满足函数 &lt;code&gt;fn&lt;/code&gt; 的元素切片。通过 &lt;code&gt;fn&lt;/code&gt; 测试方法测试当整型值是偶数时的情况。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;练习 7.11&lt;/strong&gt;  &lt;a href=&#34;exercises/chapter_7/insert_slice.go&#34;&gt;insert_slice.go&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;写一个函数 &lt;code&gt;InsertStringSlice()&lt;/code&gt; 将切片插入到另一个切片的指定位置。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;练习 7.12&lt;/strong&gt; &lt;a href=&#34;exercises/chapter_7/remove_slice.go&#34;&gt;remove_slice.go&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;写一个函数 &lt;code&gt;RemoveStringSlice()&lt;/code&gt; 将从 &lt;code&gt;start&lt;/code&gt; 到 &lt;code&gt;end&lt;/code&gt; 索引的元素从切片中移除。&lt;/p&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>Go程序的切片重组reslice</title>
+    <link>http://wiseai.cn/post/golang/2022.07.29-%E5%88%87%E7%89%87%E9%87%8D%E7%BB%84reslice/</link>
+    <pubDate>Fri, 29 Jul 2022 11:51:11 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>http://wiseai.cn/post/golang/2022.07.29-%E5%88%87%E7%89%87%E9%87%8D%E7%BB%84reslice/</guid>
+    <description>
+        &lt;h1 id=&#34;74-切片重组-reslice&#34;&gt;7.4 切片重组 (reslice)&lt;/h1&gt;
+&lt;p&gt;我们已经知道切片创建的时候通常比相关数组小，例如：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;slice1 := make([]type, start_length, capacity)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;其中 &lt;code&gt;start_length&lt;/code&gt; 作为切片初始长度而 &lt;code&gt;capacity&lt;/code&gt; 作为相关数组的长度。&lt;/p&gt;
+&lt;p&gt;这么做的好处是我们的切片在达到容量上限后可以扩容。改变切片长度的过程称之为切片重组 &lt;strong&gt;reslicing&lt;/strong&gt;，做法如下：&lt;code&gt;slice1 = slice1[0:end]&lt;/code&gt;，其中 &lt;code&gt;end&lt;/code&gt; 是新的末尾索引（即长度）。&lt;/p&gt;
+&lt;p&gt;将切片扩展 1 位可以这么做：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sl = sl[0:len(sl)+1]
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;切片可以反复扩展直到占据整个相关数组。&lt;/p&gt;
+&lt;p&gt;示例 7.11 &lt;a href=&#34;examples/chapter_7/reslicing.go&#34;&gt;reslicing.go&lt;/a&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+import &amp;#34;fmt&amp;#34;
+
+func main() {
+	slice1 := make([]int, 0, 10)
+	// load the slice, cap(slice1) is 10:
+	for i := 0; i &amp;lt; cap(slice1); i++ {
+		slice1 = slice1[0:i+1]
+		slice1[i] = i
+		fmt.Printf(&amp;#34;The length of slice is %d\n&amp;#34;, len(slice1))
+	}
+
+	// print the slice:
+	for i := 0; i &amp;lt; len(slice1); i++ {
+		fmt.Printf(&amp;#34;Slice at %d is %d\n&amp;#34;, i, slice1[i])
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;输出结果：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;The length of slice is 1
+The length of slice is 2
+The length of slice is 3
+The length of slice is 4
+The length of slice is 5
+The length of slice is 6
+The length of slice is 7
+The length of slice is 8
+The length of slice is 9
+The length of slice is 10
+Slice at 0 is 0
+Slice at 1 is 1
+Slice at 2 is 2
+Slice at 3 is 3
+Slice at 4 is 4
+Slice at 5 is 5
+Slice at 6 is 6
+Slice at 7 is 7
+Slice at 8 is 8
+Slice at 9 is 9
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;另一个例子：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;var ar = [10]int{0,1,2,3,4,5,6,7,8,9}
+var a = ar[5:7] // reference to subarray {5,6} - len(a) is 2 and cap(a) is 5
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;将 &lt;code&gt;a&lt;/code&gt; 重新分片：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;a = a[0:4] // ref of subarray {5,6,7,8} - len(a) is now 4 but cap(a) is still 5
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;问题 7.7&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;如果 &lt;code&gt;a&lt;/code&gt; 是一个切片，那么 &lt;code&gt;a[n:n]&lt;/code&gt; 的长度是多少？&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;a[n:n+1]&lt;/code&gt; 的长度又是多少？&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>Go程序的for Range结构</title>
+    <link>http://wiseai.cn/post/golang/2022.07.28-for-range%E7%BB%93%E6%9E%84/</link>
+    <pubDate>Thu, 28 Jul 2022 11:49:16 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>http://wiseai.cn/post/golang/2022.07.28-for-range%E7%BB%93%E6%9E%84/</guid>
+    <description>
+        &lt;h1 id=&#34;73-for-range-结构&#34;&gt;7.3 For-range 结构&lt;/h1&gt;
+&lt;p&gt;这种构建方法可以应用于数组和切片:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;for ix, value := range slice1 {
+	...
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;第一个返回值 &lt;code&gt;ix&lt;/code&gt; 是数组或者切片的索引，第二个是在该索引位置的值；他们都是仅在 &lt;code&gt;for&lt;/code&gt; 循环内部可见的局部变量。&lt;code&gt;value&lt;/code&gt; 只是 &lt;code&gt;slice1&lt;/code&gt; 某个索引位置的值的一个拷贝，不能用来修改 &lt;code&gt;slice1&lt;/code&gt; 该索引位置的值。&lt;/p&gt;
+&lt;p&gt;示例 7.9 &lt;a href=&#34;examples/chapter_7/slices_forrange.go&#34;&gt;slices_forrange.go&lt;/a&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+
+import &amp;#34;fmt&amp;#34;
+
+func main() {
+	var slice1 []int = make([]int, 4)
+
+	slice1[0] = 1
+	slice1[1] = 2
+	slice1[2] = 3
+	slice1[3] = 4
+
+	for ix, value := range slice1 {
+		fmt.Printf(&amp;#34;Slice at %d is: %d\n&amp;#34;, ix, value)
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;示例 7.10 &lt;a href=&#34;examples/chapter_7/slices_forrange2.go&#34;&gt;slices_forrange2.go&lt;/a&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+import &amp;#34;fmt&amp;#34;
+
+func main() {
+	seasons := []string{&amp;#34;Spring&amp;#34;, &amp;#34;Summer&amp;#34;, &amp;#34;Autumn&amp;#34;, &amp;#34;Winter&amp;#34;}
+	for ix, season := range seasons {
+		fmt.Printf(&amp;#34;Season %d is: %s\n&amp;#34;, ix, season)
+	}
+
+	var season string
+	for _, season = range seasons {
+		fmt.Printf(&amp;#34;%s\n&amp;#34;, season)
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;slices_forrange2.go 给出了一个关于字符串的例子， &lt;code&gt;_&lt;/code&gt; 可以用于忽略索引。&lt;/p&gt;
+&lt;p&gt;如果你只需要索引，你可以忽略第二个变量，例如：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;for ix := range seasons {
+	fmt.Printf(&amp;#34;%d&amp;#34;, ix)
+}
+// Output: 0 1 2 3
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;如果你需要修改 &lt;code&gt;seasons[ix]&lt;/code&gt; 的值可以使用这个版本。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;多维切片下的 for-range：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;通过计算行数和矩阵值可以很方便的写出如（参考&lt;a href=&#34;07.1.md&#34;&gt;第 7.1.3 节&lt;/a&gt;）的 &lt;code&gt;for&lt;/code&gt; 循环来，例如（参考&lt;a href=&#34;07.5.md&#34;&gt;第 7.5 节&lt;/a&gt;的例子 &lt;a href=&#34;exercises/chapter_7/multidim_array.go&#34;&gt;multidim_array.go&lt;/a&gt;）：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;for row := range screen {
+	for column := range screen[row] {
+		screen[row][column] = 1
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;问题 7.5&lt;/strong&gt; 假设我们有如下数组：&lt;code&gt;items := [...]int{10, 20, 30, 40, 50}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;a) 如果我们写了如下的 &lt;code&gt;for&lt;/code&gt; 循环，那么执行完 &lt;code&gt;for&lt;/code&gt; 循环后的 &lt;code&gt;items&lt;/code&gt; 的值是多少？如果你不确定的话可以测试一下:)&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;for _, item := range items {
+	item *= 2
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;b) 如果 a) 无法正常工作，写一个 &lt;code&gt;for&lt;/code&gt; 循环让值可以变成自身的两倍。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;问题 7.6&lt;/strong&gt; 通过使用省略号操作符 &lt;code&gt;...&lt;/code&gt; 来实现累加方法。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;练习 7.7&lt;/strong&gt; &lt;a href=&#34;exercises/chapter_7/sum_array.go&#34;&gt;sum_array.go&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;a) 写一个 &lt;code&gt;Sum()&lt;/code&gt; 函数，传入参数为一个 &lt;code&gt;float32&lt;/code&gt; 数组成的数组 &lt;code&gt;arrF&lt;/code&gt;，返回该数组的所有数字和。&lt;/p&gt;
+&lt;p&gt;如果把数组修改为切片的话代码要做怎样的修改？如果用切片形式方法实现不同长度数组的的和呢？&lt;/p&gt;
+&lt;p&gt;b) 写一个 &lt;code&gt;SumAndAverage()&lt;/code&gt; 方法，返回两个 int 和 &lt;code&gt;float32&lt;/code&gt; 类型的未命名变量的和与平均值。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;练习 7.8&lt;/strong&gt; &lt;a href=&#34;exercises/chapter_7/min_max.go&#34;&gt;min_max.go&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;写一个 &lt;code&gt;minSlice()&lt;/code&gt; 方法，传入一个 &lt;code&gt;int&lt;/code&gt; 的切片并且返回最小值，再写一个 &lt;code&gt;maxSlice()&lt;/code&gt; 方法返回最大值。&lt;/p&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>Go程序的切片</title>
+    <link>http://wiseai.cn/post/golang/2022.07.27-%E5%88%87%E7%89%87/</link>
+    <pubDate>Wed, 27 Jul 2022 11:47:31 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>http://wiseai.cn/post/golang/2022.07.27-%E5%88%87%E7%89%87/</guid>
+    <description>
+        &lt;h1 id=&#34;72-切片&#34;&gt;7.2 切片&lt;/h1&gt;
+&lt;h2 id=&#34;721-概念&#34;&gt;7.2.1 概念&lt;/h2&gt;
+&lt;p&gt;切片 (slice) 是对数组一个连续片段的引用（该数组我们称之为相关数组，通常是匿名的），所以切片是一个引用类型（因此更类似于 C/C++ 中的数组类型，或者 Python 中的 list 类型）。这个片段可以是整个数组，或者是由起始和终止索引标识的一些项的子集。需要注意的是，终止索引标识的项不包括在切片内。切片提供了一个相关数组的动态窗口。&lt;/p&gt;
+&lt;p&gt;切片是可索引的，并且可以由 &lt;code&gt;len()&lt;/code&gt; 函数获取长度。&lt;/p&gt;
+&lt;p&gt;给定项的切片索引可能比相关数组的相同元素的索引小。和数组不同的是，切片的长度可以在运行时修改，最小为 0， 最大为相关数组的长度：切片是一个 &lt;strong&gt;长度可变的数组&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;切片提供了计算容量的函数 &lt;code&gt;cap()&lt;/code&gt; 可以测量切片最长可以达到多少：它等于切片的长度 + 数组除切片之外的长度。如果 &lt;code&gt;s&lt;/code&gt; 是一个切片，&lt;code&gt;cap(s)&lt;/code&gt; 就是从 &lt;code&gt;s[0]&lt;/code&gt; 到数组末尾的数组长度。切片的长度永远不会超过它的容量，所以对于切片 &lt;code&gt;s&lt;/code&gt; 来说该不等式永远成立：&lt;code&gt;0 &amp;lt;= len(s) &amp;lt;= cap(s)&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;多个切片如果表示同一个数组的片段，它们可以共享数据；因此一个切片和相关数组的其他切片是共享存储的，相反，不同的数组总是代表不同的存储。数组实际上是切片的构建块。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;优点&lt;/strong&gt; 因为切片是引用，所以它们不需要使用额外的内存并且比使用数组更有效率，所以在 Go 代码中切片比数组更常用。&lt;/p&gt;
+&lt;p&gt;声明切片的格式是： &lt;code&gt;var identifier []type&lt;/code&gt;（不需要说明长度）。&lt;/p&gt;
+&lt;p&gt;一个切片在未初始化之前默认为 &lt;code&gt;nil&lt;/code&gt;，长度为 0。&lt;/p&gt;
+&lt;p&gt;切片的初始化格式是：&lt;code&gt;var slice1 []type = arr1[start:end]&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;这表示 &lt;code&gt;slice1&lt;/code&gt; 是由数组 &lt;code&gt;arr1&lt;/code&gt; 从 &lt;code&gt;start&lt;/code&gt; 索引到 &lt;code&gt;end-1&lt;/code&gt; 索引之间的元素构成的子集（切分数组，&lt;code&gt;start:end&lt;/code&gt; 被称为切片表达式）。所以 &lt;code&gt;slice1[0]&lt;/code&gt; 就等于 &lt;code&gt;arr1[start]&lt;/code&gt;。这可以在 &lt;code&gt;arr1&lt;/code&gt; 被填充前就定义好。&lt;/p&gt;
+&lt;p&gt;如果某个人写：&lt;code&gt;var slice1 []type = arr1[:]&lt;/code&gt; 那么 &lt;code&gt;slice1&lt;/code&gt; 就等于完整的 &lt;code&gt;arr1&lt;/code&gt; 数组（所以这种表示方式是 &lt;code&gt;arr1[0:len(arr1)]&lt;/code&gt; 的一种缩写）。另外一种表述方式是：&lt;code&gt;slice1 = &amp;amp;arr1&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;arr1[2:]&lt;/code&gt; 和 &lt;code&gt;arr1[2:len(arr1)]&lt;/code&gt; 相同，都包含了数组从第三个到最后的所有元素。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;arr1[:3]&lt;/code&gt; 和 &lt;code&gt;arr1[0:3]&lt;/code&gt; 相同，包含了从第一个到第三个元素（不包括第四个）。&lt;/p&gt;
+&lt;p&gt;如果你想去掉 &lt;code&gt;slice1&lt;/code&gt; 的最后一个元素，只要 &lt;code&gt;slice1 = slice1[:len(slice1)-1]&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;一个由数字 1、2、3 组成的切片可以这么生成：&lt;code&gt;s := [3]int{1,2,3}[:]&lt;/code&gt;（注：应先用 &lt;code&gt;s := [3]int{1, 2, 3}&lt;/code&gt; 生成数组, 再使用 &lt;code&gt;s[:]&lt;/code&gt; 转成切片）甚至更简单的 &lt;code&gt;s := []int{1,2,3}&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;s2 := s[:]&lt;/code&gt; 是用切片组成的切片，拥有相同的元素，但是仍然指向相同的相关数组。&lt;/p&gt;
+&lt;p&gt;一个切片 &lt;code&gt;s&lt;/code&gt; 可以这样扩展到它的大小上限：&lt;code&gt;s = s[:cap(s)]&lt;/code&gt;，如果再扩大的话就会导致运行时错误（参见第 7.7 节）。&lt;/p&gt;
+&lt;p&gt;对于每一个切片（包括 &lt;code&gt;string&lt;/code&gt;），以下状态总是成立的：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;s == s[:i] + s[i:] // i是一个整数且: 0 &amp;lt;= i &amp;lt;= len(s)
+len(s) &amp;lt;= cap(s)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;切片也可以用类似数组的方式初始化：&lt;code&gt;var x = []int{2, 3, 5, 7, 11}&lt;/code&gt;。这样就创建了一个长度为 5 的数组并且创建了一个相关切片。&lt;/p&gt;
+&lt;p&gt;切片在内存中的组织方式实际上是一个有 3 个域的结构体：指向相关数组的指针，切片长度以及切片容量。下图给出了一个长度为 2，容量为 4 的切片 &lt;code&gt;y&lt;/code&gt;。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;y[0] = 3&lt;/code&gt; 且 &lt;code&gt;y[1] = 5&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;切片 &lt;code&gt;y[0:4]&lt;/code&gt; 由 元素 &lt;code&gt;3&lt;/code&gt;，&lt;code&gt;5&lt;/code&gt;，&lt;code&gt;7&lt;/code&gt; 和 &lt;code&gt;11&lt;/code&gt; 组成。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;img src=&#34;images/7.2_fig7.2.png?raw=true&#34; style=&#34;zoom: 50%;&#34; /&gt;
+&lt;p&gt;示例 7.7 &lt;a href=&#34;examples/chapter_7/array_slices.go&#34;&gt;array_slices.go&lt;/a&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+import &amp;#34;fmt&amp;#34;
+
+func main() {
+	var arr1 [6]int
+	var slice1 []int = arr1[2:5] // item at index 5 not included!
+
+	// load the array with integers: 0,1,2,3,4,5
+	for i := 0; i &amp;lt; len(arr1); i++ {
+		arr1[i] = i
+	}
+
+	// print the slice
+	for i := 0; i &amp;lt; len(slice1); i++ {
+		fmt.Printf(&amp;#34;Slice at %d is %d\n&amp;#34;, i, slice1[i])
+	}
+
+	fmt.Printf(&amp;#34;The length of arr1 is %d\n&amp;#34;, len(arr1))
+	fmt.Printf(&amp;#34;The length of slice1 is %d\n&amp;#34;, len(slice1))
+	fmt.Printf(&amp;#34;The capacity of slice1 is %d\n&amp;#34;, cap(slice1))
+
+	// grow the slice
+	slice1 = slice1[0:4]
+	for i := 0; i &amp;lt; len(slice1); i++ {
+		fmt.Printf(&amp;#34;Slice at %d is %d\n&amp;#34;, i, slice1[i])
+	}
+	fmt.Printf(&amp;#34;The length of slice1 is %d\n&amp;#34;, len(slice1))
+	fmt.Printf(&amp;#34;The capacity of slice1 is %d\n&amp;#34;, cap(slice1))
+
+	// grow the slice beyond capacity
+	//slice1 = slice1[0:7 ] // panic: runtime error: slice bound out of range
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;输出：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Slice at 0 is 2  
+Slice at 1 is 3  
+Slice at 2 is 4  
+The length of arr1 is 6  
+The length of slice1 is 3  
+The capacity of slice1 is 4  
+Slice at 0 is 2  
+Slice at 1 is 3  
+Slice at 2 is 4  
+Slice at 3 is 5  
+The length of slice1 is 4  
+The capacity of slice1 is 4  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;如果 &lt;code&gt;s2&lt;/code&gt; 是一个切片，你可以将 &lt;code&gt;s2&lt;/code&gt; 向后移动一位 &lt;code&gt;s2 = s2[1:]&lt;/code&gt;，但是末尾没有移动。切片只能向后移动，&lt;code&gt;s2 = s2[-1:]&lt;/code&gt; 会导致编译错误。切片不能被重新分片以获取数组的前一个元素。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt; 绝对不要用指针指向切片。切片本身已经是一个引用类型，所以它本身就是一个指针！！&lt;/p&gt;
+&lt;p&gt;问题 7.2： 给定切片 &lt;code&gt;b:= []byte{&#39;g&#39;, &#39;o&#39;, &#39;l&#39;, &#39;a&#39;, &#39;n&#39;, &#39;g&#39;}&lt;/code&gt;，那么 &lt;code&gt;b[1:4]&lt;/code&gt;、&lt;code&gt;b[:2]&lt;/code&gt;、&lt;code&gt;b[2:]&lt;/code&gt; 和 &lt;code&gt;b[:]&lt;/code&gt; 分别是什么？&lt;/p&gt;
+&lt;h2 id=&#34;722-将切片传递给函数&#34;&gt;7.2.2 将切片传递给函数&lt;/h2&gt;
+&lt;p&gt;如果你有一个函数需要对数组做操作，你可能总是需要把参数声明为切片。当你调用该函数时，把数组分片，创建为一个切片引用并传递给该函数。这里有一个计算数组元素和的方法:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func sum(a []int) int {
+	s := 0
+	for i := 0; i &amp;lt; len(a); i++ {
+		s += a[i]
+	}
+	return s
+}
+
+func main() {
+	var arr = [5]int{0, 1, 2, 3, 4}
+	sum(arr[:])
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;723-用-make-创建一个切片&#34;&gt;7.2.3 用 make() 创建一个切片&lt;/h2&gt;
+&lt;p&gt;当相关数组还没有定义时，我们可以使用 &lt;code&gt;make()&lt;/code&gt; 函数来创建一个切片，同时创建好相关数组：&lt;code&gt;var slice1 []type = make([]type, len)&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;也可以简写为 &lt;code&gt;slice1 := make([]type, len)&lt;/code&gt;，这里 &lt;code&gt;len&lt;/code&gt; 是数组的长度并且也是 &lt;code&gt;slice&lt;/code&gt; 的初始长度。&lt;/p&gt;
+&lt;p&gt;所以定义 &lt;code&gt;s2 := make([]int, 10)&lt;/code&gt;，那么 &lt;code&gt;cap(s2) == len(s2) == 10&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;make()&lt;/code&gt; 接受 2 个参数：元素的类型以及切片的元素个数。&lt;/p&gt;
+&lt;p&gt;如果你想创建一个 &lt;code&gt;slice1&lt;/code&gt;，它不占用整个数组，而只是占用以 &lt;code&gt;len&lt;/code&gt; 为个数个项，那么只要：&lt;code&gt;slice1 := make([]type, len, cap)&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;make()&lt;/code&gt; 的使用方式是：&lt;code&gt;func make([]T, len, cap)&lt;/code&gt;，其中 &lt;code&gt;cap&lt;/code&gt; 是可选参数。&lt;/p&gt;
+&lt;p&gt;所以下面两种方法可以生成相同的切片:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;make([]int, 50, 100)
+new([100]int)[0:50]
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;下图描述了使用 &lt;code&gt;make()&lt;/code&gt; 方法生成的切片的内存结构：&lt;/p&gt;
+&lt;img src=&#34;images/7.2_fig7.2.1.png?raw=true&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;p&gt;示例 7.8 &lt;a href=&#34;examples/chapter_7/make_slice.go&#34;&gt;make_slice.go&lt;/a&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+import &amp;#34;fmt&amp;#34;
+
+func main() {
+	var slice1 []int = make([]int, 10)
+	// load the array/slice:
+	for i := 0; i &amp;lt; len(slice1); i++ {
+		slice1[i] = 5 * i
+	}
+
+	// print the slice:
+	for i := 0; i &amp;lt; len(slice1); i++ {
+		fmt.Printf(&amp;#34;Slice at %d is %d\n&amp;#34;, i, slice1[i])
+	}
+	fmt.Printf(&amp;#34;\nThe length of slice1 is %d\n&amp;#34;, len(slice1))
+	fmt.Printf(&amp;#34;The capacity of slice1 is %d\n&amp;#34;, cap(slice1))
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;输出：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Slice at 0 is 0  
+Slice at 1 is 5  
+Slice at 2 is 10  
+Slice at 3 is 15  
+Slice at 4 is 20  
+Slice at 5 is 25  
+Slice at 6 is 30  
+Slice at 7 is 35  
+Slice at 8 is 40  
+Slice at 9 is 45  
+
+The length of slice1 is 10  
+The capacity of slice1 is 10  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;因为字符串是纯粹不可变的字节数组，它们也可以被切分成切片。&lt;/p&gt;
+&lt;p&gt;练习 7.4： &lt;a href=&#34;examples/chapter_7/fibonacci_funcarray.go&#34;&gt;fibonacci_funcarray.go&lt;/a&gt;: 为练习 7.3 写一个新的版本，主函数调用一个使用序列个数作为参数的函数，该函数返回一个大小为序列个数的 Fibonacci 切片。&lt;/p&gt;
+&lt;h2 id=&#34;724-new-和-make-的区别&#34;&gt;7.2.4 new() 和 make() 的区别&lt;/h2&gt;
+&lt;p&gt;看起来二者没有什么区别，都在堆上分配内存，但是它们的行为不同，适用于不同的类型。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;new(T)&lt;/code&gt; 为每个新的类型 &lt;code&gt;T&lt;/code&gt; 分配一片内存，初始化为 &lt;code&gt;0&lt;/code&gt; 并且返回类型为 &lt;code&gt;*T&lt;/code&gt; 的内存地址：这种方法 &lt;strong&gt;返回一个指向类型为 &lt;code&gt;T&lt;/code&gt;，值为 &lt;code&gt;0&lt;/code&gt; 的地址的指针&lt;/strong&gt;，它适用于值类型如数组和结构体（参见&lt;a href=&#34;10.0.md&#34;&gt;第 10 章&lt;/a&gt;）；它相当于 &lt;code&gt;&amp;amp;T{}&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;make(T)&lt;/code&gt; &lt;strong&gt;返回一个类型为 T 的初始值&lt;/strong&gt;，它只适用于 3 种内建的引用类型：切片、&lt;code&gt;map&lt;/code&gt; 和 &lt;code&gt;channel&lt;/code&gt;（参见&lt;a href=&#34;08.0.md&#34;&gt;第 8 章&lt;/a&gt;和&lt;a href=&#34;13.0.md&#34;&gt;第 13 章&lt;/a&gt;）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;换言之，&lt;code&gt;new()&lt;/code&gt; 函数分配内存，&lt;code&gt;make()&lt;/code&gt; 函数初始化；下图给出了区别：&lt;/p&gt;
+&lt;img src=&#34;images/7.2_fig7.3.png?raw=true&#34; style=&#34;zoom:50%;&#34; /&gt;
+&lt;p&gt;在图 7.3 的第一幅图中：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;var p *[]int = new([]int) // *p == nil; with len and cap 0
+p := new([]int)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;在第二幅图中， &lt;code&gt;p := make([]int, 0)&lt;/code&gt; ，切片 已经被初始化，但是指向一个空的数组。&lt;/p&gt;
+&lt;p&gt;以上两种方式实用性都不高。下面的方法：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;var v []int = make([]int, 10, 50)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;或者&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;v := make([]int, 10, 50)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这样分配一个有 50 个 &lt;code&gt;int&lt;/code&gt; 值的数组，并且创建了一个长度为 10，容量为 50 的切片 &lt;code&gt;v&lt;/code&gt;，该切片指向数组的前 10 个元素。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;问题 7.3&lt;/strong&gt; 给定 &lt;code&gt;s := make([]byte, 5)&lt;/code&gt;，&lt;code&gt;len(s)&lt;/code&gt; 和 &lt;code&gt;cap(s)&lt;/code&gt; 分别是多少？&lt;code&gt;s = s[2:4]&lt;/code&gt;，&lt;code&gt;len(s)&lt;/code&gt; 和 &lt;code&gt;cap(s)&lt;/code&gt; 又分别是多少？&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;问题 7.4&lt;/strong&gt; 假设 &lt;code&gt;s1 := []byte{&#39;p&#39;, &#39;o&#39;, &#39;e&#39;, &#39;m&#39;}&lt;/code&gt; 且 &lt;code&gt;s2 := s1[2:]&lt;/code&gt;，&lt;code&gt;s2&lt;/code&gt; 的值是多少？如果我们执行 &lt;code&gt;s2[1] = &#39;t&#39;&lt;/code&gt;，&lt;code&gt;s1&lt;/code&gt; 和 &lt;code&gt;s2&lt;/code&gt; 现在的值又分别是多少？&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;译者注：如何理解 new、make、slice、map、channel 的关系&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;1.slice、map 以及 channel 都是 golang 内建的一种引用类型，三者在内存中存在多个组成部分，
+需要对内存组成部分初始化后才能使用，而 make 就是对三者进行初始化的一种操作方式&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;2. new 获取的是存储指定变量内存地址的一个变量，对于变量内部结构并不会执行相应的初始化操作，
+所以 slice、map、channel 需要 make 进行初始化并获取对应的内存地址，而非 new 简单的获取内存地址&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id=&#34;725-多维切片&#34;&gt;7.2.5 多维切片&lt;/h2&gt;
+&lt;p&gt;和数组一样，切片通常也是一维的，但是也可以由一维组合成高维。通过分片的分片（或者切片的数组），长度可以任意动态变化，所以 Go 语言的多维切片可以任意切分。而且，内层的切片必须单独分配（通过 &lt;code&gt;make()&lt;/code&gt; 函数）。&lt;/p&gt;
+&lt;h2 id=&#34;726-bytes-包&#34;&gt;7.2.6 bytes 包&lt;/h2&gt;
+&lt;p&gt;类型 &lt;code&gt;[]byte&lt;/code&gt; 的切片十分常见，Go 语言有一个 &lt;code&gt;bytes&lt;/code&gt; 包专门用来提供这种类型的操作方法。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;bytes&lt;/code&gt; 包和字符串包十分类似（参见&lt;a href=&#34;04.7.md&#34;&gt;第 4.7 节&lt;/a&gt;）。而且它还包含一个十分有用的类型 &lt;code&gt;Buffer&lt;/code&gt;:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import &amp;#34;bytes&amp;#34;
+
+type Buffer struct {
+	...
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这是一个长度可变的 &lt;code&gt;bytes&lt;/code&gt; 的 buffer，提供 &lt;code&gt;Read()&lt;/code&gt; 和 &lt;code&gt;Write()&lt;/code&gt; 方法，因为读写长度未知的 &lt;code&gt;bytes&lt;/code&gt; 最好使用 &lt;code&gt;buffer&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Buffer&lt;/code&gt; 可以这样定义：&lt;code&gt;var buffer bytes.Buffer&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;或者使用 &lt;code&gt;new()&lt;/code&gt; 获得一个指针：&lt;code&gt;var r *bytes.Buffer = new(bytes.Buffer)&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;或者通过函数：&lt;code&gt;func NewBuffer(buf []byte) *Buffer&lt;/code&gt;，创建一个 &lt;code&gt;Buffer&lt;/code&gt; 对象并且用 &lt;code&gt;buf&lt;/code&gt; 初始化好；&lt;code&gt;NewBuffer&lt;/code&gt; 最好用在从 &lt;code&gt;buf&lt;/code&gt; 读取的时候使用。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;通过 buffer 串联字符串&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;类似于 Java 的 StringBuilder 类。&lt;/p&gt;
+&lt;p&gt;在下面的代码段中，我们创建一个 &lt;code&gt;buffer&lt;/code&gt;，通过 &lt;code&gt;buffer.WriteString(s)&lt;/code&gt; 方法将字符串 &lt;code&gt;s&lt;/code&gt; 追加到后面，最后再通过 &lt;code&gt;buffer.String()&lt;/code&gt; 方法转换为 &lt;code&gt;string&lt;/code&gt;：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;var buffer bytes.Buffer
+for {
+	if s, ok := getNextString(); ok { //method getNextString() not shown here
+		buffer.WriteString(s)
+	} else {
+		break
+	}
+}
+fmt.Print(buffer.String(), &amp;#34;\n&amp;#34;)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这种实现方式比使用 &lt;code&gt;+=&lt;/code&gt; 要更节省内存和 CPU，尤其是要串联的字符串数目特别多的时候。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;练习 7.5&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;给定切片 &lt;code&gt;sl&lt;/code&gt;，将一个 &lt;code&gt;[]byte&lt;/code&gt; 数组追加到 &lt;code&gt;sl&lt;/code&gt; 后面。写一个函数 &lt;code&gt;Append(slice, data []byte) []byte&lt;/code&gt;，该函数在 &lt;code&gt;sl&lt;/code&gt; 不能存储更多数据的时候自动扩容。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;练习 7.6&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;把一个缓存 &lt;code&gt;buf&lt;/code&gt; 分片成两个切片：第一个是前 &lt;code&gt;n&lt;/code&gt; 个 bytes，后一个是剩余的，用一行代码实现。&lt;/p&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>Go程序的数组声明和初始化</title>
+    <link>http://wiseai.cn/post/golang/2022.07.26-%E6%95%B0%E7%BB%84%E5%A3%B0%E6%98%8E%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96/</link>
+    <pubDate>Tue, 26 Jul 2022 11:45:21 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>http://wiseai.cn/post/golang/2022.07.26-%E6%95%B0%E7%BB%84%E5%A3%B0%E6%98%8E%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96/</guid>
+    <description>
+        &lt;h1 id=&#34;71-声明和初始化&#34;&gt;7.1 声明和初始化&lt;/h1&gt;
+&lt;h2 id=&#34;711-概念&#34;&gt;7.1.1 概念&lt;/h2&gt;
+&lt;p&gt;数组是具有相同 &lt;strong&gt;唯一类型&lt;/strong&gt; 的一组已编号且长度固定的数据项序列（这是一种同构的数据结构）；这种类型可以是任意的原始类型例如整型、字符串或者自定义类型。数组长度必须是一个常量表达式，并且必须是一个非负整数。数组长度也是数组类型的一部分，所以 &lt;code&gt;[5]int&lt;/code&gt; 和 &lt;code&gt;[10]int&lt;/code&gt; 是属于不同类型的。数组的编译时值初始化是按照数组顺序完成的（如下）。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意事项&lt;/strong&gt; 如果我们想让数组元素类型为任意类型的话可以使用空接口作为类型（参考 &lt;a href=&#34;11.9.md&#34;&gt;第 11 章&lt;/a&gt;）。当使用值时我们必须先做一个类型判断（参考 &lt;a href=&#34;11.3.md&#34;&gt;第 11 章&lt;/a&gt;）。&lt;/p&gt;
+&lt;p&gt;数组元素可以通过 &lt;strong&gt;索引&lt;/strong&gt;（位置）来读取（或者修改），索引从 &lt;code&gt;0&lt;/code&gt; 开始，第一个元素索引为 &lt;code&gt;0&lt;/code&gt;，第二个索引为 &lt;code&gt;1&lt;/code&gt;，以此类推（数组以 0 开始在所有类 C 语言中是相似的）。元素的数目（也称为长度或者数组大小）必须是固定的并且在声明该数组时就给出（编译时需要知道数组长度以便分配内存）；数组长度最大为 2GB。&lt;/p&gt;
+&lt;p&gt;声明的格式是：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;var identifier [len]type
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;例如：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;var arr1 [5]int
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;在内存中的结构是：&lt;img src=&#34;images/7.1_fig7.1.png?raw=true&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;每个元素是一个整型值，当声明数组时所有的元素都会被自动初始化为默认值 0。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;arr1&lt;/code&gt; 的长度是 5，索引范围从 &lt;code&gt;0&lt;/code&gt; 到 &lt;code&gt;len(arr1)-1&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;第一个元素是 &lt;code&gt;arr1[0]&lt;/code&gt;，第三个元素是 &lt;code&gt;arr1[2]&lt;/code&gt;；总体来说索引 &lt;code&gt;i&lt;/code&gt; 代表的元素是 &lt;code&gt;arr1[i]&lt;/code&gt;，最后一个元素是 &lt;code&gt;arr1[len(arr1)-1]&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;对索引项为 &lt;code&gt;i&lt;/code&gt; 的数组元素赋值可以这么操作：&lt;code&gt;arr[i] = value&lt;/code&gt;，所以数组是 &lt;strong&gt;可变的&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;只有有效的索引可以被使用，当使用等于或者大于 &lt;code&gt;len(arr1)&lt;/code&gt; 的索引时：如果编译器可以检测到，会给出索引超限的提示信息；如果检测不到的话编译会通过而运行时会 &lt;code&gt;panic()&lt;/code&gt;:（参考&lt;a href=&#34;13.0.md&#34;&gt;第 13 章&lt;/a&gt;）&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;runtime error: index out of range
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;由于索引的存在，遍历数组的方法自然就是使用 &lt;code&gt;for&lt;/code&gt; 结构：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;通过 &lt;code&gt;for&lt;/code&gt; 初始化数组项&lt;/li&gt;
+&lt;li&gt;通过 &lt;code&gt;for&lt;/code&gt; 打印数组元素&lt;/li&gt;
+&lt;li&gt;通过 &lt;code&gt;for&lt;/code&gt; 依次处理元素&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;示例 7.1 &lt;a href=&#34;examples/chapter_7/for_arrays.go&#34;&gt;for_arrays.go&lt;/a&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+import &amp;#34;fmt&amp;#34;
+
+func main() {
+	var arr1 [5]int
+
+	for i:=0; i &amp;lt; len(arr1); i++ {
+		arr1[i] = i * 2
+	}
+
+	for i:=0; i &amp;lt; len(arr1); i++ {
+		fmt.Printf(&amp;#34;Array at index %d is %d\n&amp;#34;, i, arr1[i])
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;输出结果：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Array at index 0 is 0
+Array at index 1 is 2
+Array at index 2 is 4
+Array at index 3 is 6
+Array at index 4 is 8
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;for&lt;/code&gt; 循环中的条件非常重要：&lt;code&gt;i &amp;lt; len(arr1)&lt;/code&gt;，如果写成 &lt;code&gt;i &amp;lt;= len(arr1)&lt;/code&gt; 的话会产生越界错误。&lt;/p&gt;
+&lt;p&gt;IDIOM:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;for i:=0; i &amp;lt; len(arr1); i++｛
+	arr1[i] = ...
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;也可以使用 for-range 的生成方式：&lt;/p&gt;
+&lt;p&gt;IDIOM:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;for i,_:= range arr1 {
+...
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;在这里 &lt;code&gt;i&lt;/code&gt; 也是数组的索引。当然这两种 &lt;code&gt;for&lt;/code&gt; 结构对于切片（&lt;code&gt;slices&lt;/code&gt;）（参考 &lt;a href=&#34;07.2.md&#34;&gt;第 7 章&lt;/a&gt;）来说也同样适用。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;问题 7.1&lt;/strong&gt; 下面代码段的输出是什么？&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;a := [...]string{&amp;#34;a&amp;#34;, &amp;#34;b&amp;#34;, &amp;#34;c&amp;#34;, &amp;#34;d&amp;#34;}
+for i := range a {
+	fmt.Println(&amp;#34;Array item&amp;#34;, i, &amp;#34;is&amp;#34;, a[i])
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Go 语言中的数组是一种 &lt;strong&gt;值类型&lt;/strong&gt;（不像 C/C++ 中是指向首元素的指针），所以可以通过 &lt;code&gt;new()&lt;/code&gt; 来创建： &lt;code&gt;var arr1 = new([5]int)&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;那么这种方式和 &lt;code&gt;var arr2 [5]int&lt;/code&gt; 的区别是什么呢？&lt;code&gt;arr1&lt;/code&gt; 的类型是 &lt;code&gt;*[5]int&lt;/code&gt;，而 &lt;code&gt;arr2&lt;/code&gt; 的类型是 &lt;code&gt;[5]int&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;这样的结果就是当把一个数组赋值给另一个时，需要再做一次数组内存的拷贝操作。例如：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;arr2 := *arr1
+arr2[2] = 100
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这样两个数组就有了不同的值，在赋值后修改 &lt;code&gt;arr2&lt;/code&gt; 不会对 &lt;code&gt;arr1&lt;/code&gt; 生效。&lt;/p&gt;
+&lt;p&gt;所以在函数中数组作为参数传入时，如 &lt;code&gt;func1(arr2)&lt;/code&gt;，会产生一次数组拷贝，&lt;code&gt;func1()&lt;/code&gt; 方法不会修改原始的数组 &lt;code&gt;arr2&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;如果你想修改原数组，那么 &lt;code&gt;arr2&lt;/code&gt; 必须通过 &lt;code&gt;&amp;amp;&lt;/code&gt; 操作符以引用方式传过来，例如 &lt;code&gt;func1(&amp;amp;arr2)&lt;/code&gt;，下面是一个例子：&lt;/p&gt;
+&lt;p&gt;示例 7.2 &lt;a href=&#34;examples/chapter_7/pointer_array.go&#34;&gt;pointer_array.go&lt;/a&gt;:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+import &amp;#34;fmt&amp;#34;
+func f(a [3]int) { fmt.Println(a) }
+func fp(a *[3]int) { fmt.Println(a) }
+
+func main() {
+	var ar [3]int
+	f(ar) 	// passes a copy of ar
+	fp(&amp;amp;ar) // passes a pointer to ar
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;输出结果：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[0 0 0]
+&amp;amp;[0 0 0]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;另一种方法就是生成数组切片并将其传递给函数（详见&lt;a href=&#34;07.1.md&#34;&gt;第 7.1.4 节&lt;/a&gt;）。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;练习&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;练习7.1：&lt;a href=&#34;examples/chapter_7/array_value.go&#34;&gt;array_value.go&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;证明当数组赋值时，发生了数组内存拷贝。&lt;/p&gt;
+&lt;p&gt;练习7.2：&lt;a href=&#34;examples/chapter_7/for_array.go&#34;&gt;for_array.go&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;写一个循环并用下标给数组赋值（从 0 到 15）并且将数组打印在屏幕上。&lt;/p&gt;
+&lt;p&gt;练习7.3：&lt;a href=&#34;examples/chapter_7/fibonacci_array.go&#34;&gt;fibonacci_array.go&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;在&lt;a href=&#34;06.6.md&#34;&gt;第 6.6 节&lt;/a&gt; 我们看到了一个递归计算 Fibonacci 数值的方法。但是通过数组我们可以更快的计算出 Fibonacci 数。完成该方法并打印出前 50 个 Fibonacci 数字。&lt;/p&gt;
+&lt;h2 id=&#34;712-数组常量&#34;&gt;7.1.2 数组常量&lt;/h2&gt;
+&lt;p&gt;如果数组值已经提前知道了，那么可以通过 &lt;strong&gt;数组常量&lt;/strong&gt; 的方法来初始化数组，而不用依次使用 &lt;code&gt;[]=&lt;/code&gt; 方法（所有的组成元素都有相同的常量语法）。&lt;/p&gt;
+&lt;p&gt;示例 7.3 &lt;a href=&#34;examples/chapter_7/array_literals.go&#34;&gt;array_literals.go&lt;/a&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+import &amp;#34;fmt&amp;#34;
+
+func main() {
+	// var arrAge = [5]int{18, 20, 15, 22, 16}
+	// var arrLazy = [...]int{5, 6, 7, 8, 22}
+	// var arrLazy = []int{5, 6, 7, 8, 22}	//注：初始化得到的实际上是切片slice
+	var arrKeyValue = [5]string{3: &amp;#34;Chris&amp;#34;, 4: &amp;#34;Ron&amp;#34;}
+	// var arrKeyValue = []string{3: &amp;#34;Chris&amp;#34;, 4: &amp;#34;Ron&amp;#34;}	//注：初始化得到的实际上是切片slice
+
+	for i:=0; i &amp;lt; len(arrKeyValue); i++ {
+		fmt.Printf(&amp;#34;Person at %d is %s\n&amp;#34;, i, arrKeyValue[i])
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;第一种变化：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;var arrAge = [5]int{18, 20, 15, 22, 16}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;注意 &lt;code&gt;[5]int&lt;/code&gt; 可以从左边起开始忽略：&lt;code&gt;[10]int {1, 2, 3}&lt;/code&gt; :这是一个有 10 个元素的数组，除了前三个元素外其他元素都为 &lt;code&gt;0&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;第二种变化：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;var arrLazy = [...]int{5, 6, 7, 8, 22}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;...&lt;/code&gt; 同样可以忽略，从技术上说它们其实变成了切片。&lt;/p&gt;
+&lt;p&gt;第三种变化：&lt;code&gt;key: value 语法&lt;/code&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;var arrKeyValue = [5]string{3: &amp;#34;Chris&amp;#34;, 4: &amp;#34;Ron&amp;#34;}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;只有索引 3 和 4 被赋予实际的值，其他元素都被设置为空的字符串，所以输出结果为：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Person at 0 is
+Person at 1 is
+Person at 2 is
+Person at 3 is Chris
+Person at 4 is Ron
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;在这里数组长度同样可以写成 &lt;code&gt;...&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;你可以取任意数组常量的地址来作为指向新实例的指针。&lt;/p&gt;
+&lt;p&gt;示例 7.4 &lt;a href=&#34;examples/chapter_7/pointer_array2.go&#34;&gt;pointer_array2.go&lt;/a&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+import &amp;#34;fmt&amp;#34;
+
+func fp(a *[3]int) { fmt.Println(a) }
+
+func main() {
+	for i := 0; i &amp;lt; 3; i++ {
+		fp(&amp;amp;[3]int{i, i * i, i * i * i})
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;输出结果：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;amp;[0 0 0]
+&amp;amp;[1 1 1]
+&amp;amp;[2 4 8]
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;几何点（或者数学向量）是一个使用数组的经典例子。为了简化代码通常使用一个别名：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;type Vector3D [3]float32
+var vec Vector3D
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;713-多维数组&#34;&gt;7.1.3 多维数组&lt;/h2&gt;
+&lt;p&gt;数组通常是一维的，但是可以用来组装成多维数组，例如：&lt;code&gt;[3][5]int&lt;/code&gt;，&lt;code&gt;[2][2][2]float64&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;内部数组总是长度相同的。Go 语言的多维数组是矩形式的（唯一的例外是切片的数组，参见&lt;a href=&#34;07.2.md&#34;&gt;第 7.2.5 节&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;示例 7.5 &lt;a href=&#34;examples/chapter_7/multidim_array.go&#34;&gt;multidim_array.go&lt;/a&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+const (
+	WIDTH  = 1920
+	HEIGHT = 1080
+)
+
+type pixel int
+var screen [WIDTH][HEIGHT]pixel
+
+func main() {
+	for y := 0; y &amp;lt; HEIGHT; y++ {
+		for x := 0; x &amp;lt; WIDTH; x++ {
+			screen[x][y] = 0
+		}
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;714-将数组传递给函数&#34;&gt;7.1.4 将数组传递给函数&lt;/h2&gt;
+&lt;p&gt;把一个大数组传递给函数会消耗很多内存。有两种方法可以避免这种情况：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;传递数组的指针&lt;/li&gt;
+&lt;li&gt;使用数组的切片&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;接下来的例子阐明了第一种方法：&lt;/p&gt;
+&lt;p&gt;示例 7.6 &lt;a href=&#34;examples/chapter_7/array_sum.go&#34;&gt;array_sum.go&lt;/a&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+import &amp;#34;fmt&amp;#34;
+
+func main() {
+	array := [3]float64{7.0, 8.5, 9.1}
+	x := Sum(&amp;amp;array) // Note the explicit address-of operator
+	// to pass a pointer to the array
+	fmt.Printf(&amp;#34;The sum of the array is: %f&amp;#34;, x)
+}
+
+func Sum(a *[3]float64) (sum float64) {
+	for _, v := range a { // derefencing *a to get back to the array is not necessary!
+		sum += v
+	}
+	return
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;输出结果：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;The sum of the array is: 24.600000
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;但这在 Go 中并不常用，通常使用切片（参考 &lt;a href=&#34;07.2.md&#34;&gt;第 7.2 节&lt;/a&gt;）。&lt;/p&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>Go程序的应用闭包：将函数作为返回值</title>
+    <link>http://wiseai.cn/post/golang/2022.07.25-%E5%BA%94%E7%94%A8%E9%97%AD%E5%8C%85%E5%B0%86%E5%87%BD%E6%95%B0%E4%BD%9C%E4%B8%BA%E8%BF%94%E5%9B%9E%E5%80%BC/</link>
+    <pubDate>Mon, 25 Jul 2022 11:41:39 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>http://wiseai.cn/post/golang/2022.07.25-%E5%BA%94%E7%94%A8%E9%97%AD%E5%8C%85%E5%B0%86%E5%87%BD%E6%95%B0%E4%BD%9C%E4%B8%BA%E8%BF%94%E5%9B%9E%E5%80%BC/</guid>
+    <description>
+        &lt;h1 id=&#34;69-应用闭包将函数作为返回值&#34;&gt;6.9 应用闭包：将函数作为返回值&lt;/h1&gt;
+&lt;p&gt;在程序 &lt;a href=&#34;examples/chapter_6/function_return.go&#34;&gt;function_return.go&lt;/a&gt; 中我们将会看到函数 &lt;code&gt;Add2()&lt;/code&gt; 和 &lt;code&gt;Adder()&lt;/code&gt; 均会返回签名为 &lt;code&gt;func(b int) int&lt;/code&gt; 的函数：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func Add2() (func(b int) int)
+func Adder(a int) (func(b int) int)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;函数 &lt;code&gt;Add2()&lt;/code&gt; 不接受任何参数，但函数 &lt;code&gt;Adder()&lt;/code&gt; 接受一个 &lt;code&gt;int&lt;/code&gt; 类型的整数作为参数。&lt;/p&gt;
+&lt;p&gt;我们也可以将 &lt;code&gt;Adder()&lt;/code&gt; 返回的函数存到变量中 (&lt;a href=&#34;examples/chapter_6/function_return.go&#34;&gt;function_return.go&lt;/a&gt;)。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+
+import &amp;#34;fmt&amp;#34;
+
+func main() {
+	// make an Add2 function, give it a name p2, and call it:
+	p2 := Add2()
+	fmt.Printf(&amp;#34;Call Add2 for 3 gives: %v\n&amp;#34;, p2(3))
+	// make a special Adder function, a gets value 2:
+	TwoAdder := Adder(2)
+	fmt.Printf(&amp;#34;The result is: %v\n&amp;#34;, TwoAdder(3))
+}
+
+func Add2() func(b int) int {
+	return func(b int) int {
+		return b + 2
+	}
+}
+
+func Adder(a int) func(b int) int {
+	return func(b int) int {
+		return a + b
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;输出：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Call Add2 for 3 gives: 5
+The result is: 5
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;下例为一个略微不同的实现 (&lt;a href=&#34;examples/chapter_6/function_closure.go&#34;&gt;function_closure.go&lt;/a&gt;)：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+
+import &amp;#34;fmt&amp;#34;
+
+func main() {
+	var f = Adder()
+	fmt.Print(f(1), &amp;#34; - &amp;#34;)
+	fmt.Print(f(20), &amp;#34; - &amp;#34;)
+	fmt.Print(f(300))
+}
+
+func Adder() func(int) int {
+	var x int
+	return func(delta int) int {
+		x += delta
+		return x
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;函数 &lt;code&gt;Adder()&lt;/code&gt; 现在被赋值到变量 &lt;code&gt;f&lt;/code&gt; 中（类型为 &lt;code&gt;func(int) int&lt;/code&gt;）。&lt;/p&gt;
+&lt;p&gt;输出：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;1 - 21 - 321
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;三次调用函数 &lt;code&gt;f&lt;/code&gt; 的过程中函数 &lt;code&gt;Adder()&lt;/code&gt; 中变量 &lt;code&gt;delta&lt;/code&gt; 的值分别为：1、20 和 300。&lt;/p&gt;
+&lt;p&gt;我们可以看到，在多次调用中，变量 &lt;code&gt;x&lt;/code&gt; 的值是被保留的，即 &lt;code&gt;0 + 1 = 1&lt;/code&gt;，然后 &lt;code&gt;1 + 20 = 21&lt;/code&gt;，最后 &lt;code&gt;21 + 300 = 321&lt;/code&gt;：闭包函数保存并积累其中的变量的值，不管外部函数退出与否，它都能够继续操作外部函数中的局部变量。&lt;/p&gt;
+&lt;p&gt;这些局部变量同样可以是参数，例如之前例子中的 &lt;code&gt;Adder(as int)&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;这些例子清楚地展示了如何在 Go 语言中使用闭包。&lt;/p&gt;
+&lt;p&gt;在闭包中使用到的变量可以是在闭包函数体内声明的，也可以是在外部函数声明的：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;var g int
+go func(i int) {
+	s := 0
+	for j := 0; j &amp;lt; i; j++ { s += j }
+	g = s
+}(1000) // Passes argument 1000 to the function literal.
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这样闭包函数就能够被应用到整个集合的元素上，并修改它们的值。然后这些变量就可以用于表示或计算全局或平均值。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;练习 6.9&lt;/strong&gt; &lt;a href=&#34;exercises/chapter_6/fibonacci_closure.go&#34;&gt;fibonacci_closure&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;不使用递归但使用闭包改写第 6.6 节中的斐波那契数列程序。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;练习 6.10&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;学习并理解以下程序的工作原理：&lt;/p&gt;
+&lt;p&gt;一个返回值为另一个函数的函数可以被称之为工厂函数，这在您需要创建一系列相似的函数的时候非常有用：书写一个工厂函数而不是针对每种情况都书写一个函数。下面的函数演示了如何动态返回追加后缀的函数：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func MakeAddSuffix(suffix string) func(string) string {
+	return func(name string) string {
+		if !strings.HasSuffix(name, suffix) {
+			return name + suffix
+		}
+		return name
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;现在，我们可以生成如下函数：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;addBmp := MakeAddSuffix(&amp;#34;.bmp&amp;#34;)
+addJpeg := MakeAddSuffix(&amp;#34;.jpeg&amp;#34;)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然后调用它们：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;addBmp(&amp;#34;file&amp;#34;) // returns: file.bmp
+addJpeg(&amp;#34;file&amp;#34;) // returns: file.jpeg
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;可以返回其它函数的函数和接受其它函数作为参数的函数均被称之为高阶函数，是函数式语言的特点。我们已经在&lt;a href=&#34;06.7.md&#34;&gt;第 6.7 节&lt;/a&gt;中得知函数也是一种值，因此很显然 Go 语言具有一些函数式语言的特性。闭包在 Go 语言中非常常见，常用于 goroutine 和管道操作（详见第 &lt;a href=&#34;14.8.md&#34;&gt;14.8&lt;/a&gt;-&lt;a href=&#34;14.9.md&#34;&gt;14.9&lt;/a&gt; 节）。在&lt;a href=&#34;11.14.md&#34;&gt;第 11.14 节&lt;/a&gt;的程序中，我们将会看到 Go 语言中的函数在处理混合对象时的强大能力。&lt;/p&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>Go程序的闭包</title>
+    <link>http://wiseai.cn/post/golang/2022.07.24-%E9%97%AD%E5%8C%85/</link>
+    <pubDate>Sun, 24 Jul 2022 11:40:02 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>http://wiseai.cn/post/golang/2022.07.24-%E9%97%AD%E5%8C%85/</guid>
+    <description>
+        &lt;h1 id=&#34;68-闭包&#34;&gt;6.8 闭包&lt;/h1&gt;
+&lt;p&gt;当我们不希望给函数起名字的时候，可以使用匿名函数，例如：&lt;code&gt;func(x, y int) int { return x + y }&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;这样的一个函数不能够独立存在（编译器会返回错误：&lt;code&gt;non-declaration statement outside function body&lt;/code&gt;），但可以被赋值于某个变量，即保存函数的地址到变量中：&lt;code&gt;fplus := func(x, y int) int { return x + y }&lt;/code&gt;，然后通过变量名对函数进行调用：&lt;code&gt;fplus(3,4)&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;当然，您也可以直接对匿名函数进行调用：&lt;code&gt;func(x, y int) int { return x + y } (3, 4)&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;下面是一个计算从 1 到 100 万整数的总和的匿名函数：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func() {
+	sum := 0
+	for i := 1; i &amp;lt;= 1e6; i++ {
+		sum += i
+	}
+}()
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;表示参数列表的第一对括号必须紧挨着关键字 &lt;code&gt;func&lt;/code&gt;，因为匿名函数没有名称。花括号 &lt;code&gt;{}&lt;/code&gt; 涵盖着函数体，最后的一对括号表示对该匿名函数的调用。&lt;/p&gt;
+&lt;p&gt;下面的例子展示了如何将匿名函数赋值给变量并对其进行调用（&lt;a href=&#34;examples/chapter_6/function_literal.go&#34;&gt;function_literal.go&lt;/a&gt;）：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+
+import &amp;#34;fmt&amp;#34;
+
+func main() {
+	f()
+}
+func f() {
+	for i := 0; i &amp;lt; 4; i++ {
+		g := func(i int) { fmt.Printf(&amp;#34;%d &amp;#34;, i) }
+		g(i)
+		fmt.Printf(&amp;#34; - g is of type %T and has value %v\n&amp;#34;, g, g)
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;输出：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;0 - g is of type func(int) and has value 0x681a80
+1 - g is of type func(int) and has value 0x681b00
+2 - g is of type func(int) and has value 0x681ac0
+3 - g is of type func(int) and has value 0x681400
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;我们可以看到变量 &lt;code&gt;g&lt;/code&gt; 代表的是 &lt;code&gt;func(int)&lt;/code&gt;，变量的值是一个内存地址。&lt;/p&gt;
+&lt;p&gt;所以我们实际上拥有的是一个函数值：匿名函数可以被赋值给变量并作为值使用。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;练习 6.8&lt;/strong&gt; 在 &lt;code&gt;main()&lt;/code&gt; 函数中写一个用于打印 &lt;code&gt;Hello World&lt;/code&gt; 字符串的匿名函数并赋值给变量 &lt;code&gt;fv&lt;/code&gt;，然后调用该函数并打印变量 &lt;code&gt;fv&lt;/code&gt; 的类型。&lt;/p&gt;
+&lt;p&gt;匿名函数像所有函数一样可以接受或不接受参数。下面的例子展示了如何传递参数到匿名函数中：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func (u string) {
+	fmt.Println(u)
+	…
+}(v)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;请学习以下示例并思考（&lt;a href=&#34;examples/chapter_6/return_defer.go&#34;&gt;return_defer.go&lt;/a&gt;）：函数 &lt;code&gt;f&lt;/code&gt; 返回时，变量 &lt;code&gt;ret&lt;/code&gt; 的值是什么？&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;package main
+
+import &amp;#34;fmt&amp;#34;
+
+func f() (ret int) {
+	defer func() {
+		ret++
+	}()
+	return 1
+}
+func main() {
+	fmt.Println(f())
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;变量 &lt;code&gt;ret&lt;/code&gt; 的值为 &lt;code&gt;2&lt;/code&gt;，因为 &lt;code&gt;ret++&lt;/code&gt; 是在执行 &lt;code&gt;return 1&lt;/code&gt; 语句后发生的。&lt;/p&gt;
+&lt;p&gt;这可用于在返回语句之后修改返回的 &lt;code&gt;error&lt;/code&gt; 时使用。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;defer 语句和匿名函数&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;关键字 &lt;code&gt;defer&lt;/code&gt; （详见&lt;a href=&#34;06.4.md&#34;&gt;第 6.4 节&lt;/a&gt;）经常配合匿名函数使用，它可以用于改变函数的命名返回值。&lt;/p&gt;
+&lt;p&gt;匿名函数还可以配合 &lt;code&gt;go&lt;/code&gt; 关键字来作为 goroutine 使用（详见&lt;a href=&#34;14.0.md&#34;&gt;第 14 章&lt;/a&gt;和&lt;a href=&#34;16.9.md&#34;&gt;第 16.9 节&lt;/a&gt;）。&lt;/p&gt;
+&lt;p&gt;匿名函数同样被称之为闭包（函数式语言的术语）：它们被允许调用定义在其它环境下的变量。闭包可使得某个函数捕捉到一些外部状态，例如：函数被创建时的状态。另一种表示方式为：一个闭包继承了函数所声明时的作用域。这种状态（作用域内的变量）都被共享到闭包的环境中，因此这些变量可以在闭包中被操作，直到被销毁，详见&lt;a href=&#34;06.9.md&#34;&gt;第 6.9 节&lt;/a&gt; 中的示例。闭包经常被用作包装函数：它们会预先定义好 1 个或多个参数以用于包装，详见下一节中的示例。另一个不错的应用就是使用闭包来完成更加简洁的错误检查（详见&lt;a href=&#34;16.10.md&#34;&gt;第 16.10.2 节&lt;/a&gt;）。&lt;/p&gt;
+
+    </description>
+    </item>
+    
     <item>
     <title>Go程序中将函数作为参数</title>
     <link>http://wiseai.cn/post/golang/2022.07.23-%E5%B0%86%E5%87%BD%E6%95%B0%E4%BD%9C%E4%B8%BA%E5%8F%82%E6%95%B0/</link>
@@ -50,12 +998,6 @@ func callback(y int, f func(int, int)) {
 func run(op binOp, req *Request) { … }
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;练习 6.7&lt;/strong&gt; &lt;a href=&#34;exercises/chapter_6/strings_map.go&#34;&gt;strings_map.go&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;包 &lt;code&gt;strings&lt;/code&gt; 中的 &lt;code&gt;Map()&lt;/code&gt; 函数和 &lt;code&gt;strings.IndexFunc()&lt;/code&gt; 一样都是非常好的使用例子。请学习它的源代码并基于该函数书写一个程序，要求将指定文本内的所有非 ASCII 字符替换成问号 &lt;code&gt;&#39;?&#39;&lt;/code&gt; 或空格 &lt;code&gt;&#39; &#39;&lt;/code&gt;。您需要怎么做才能删除这些字符呢？&lt;/p&gt;
-&lt;h2 id=&#34;链接&#34;&gt;链接&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;directory.md&#34;&gt;目录&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;上一节：&lt;a href=&#34;06.6.md&#34;&gt;递归函数&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;下一节：&lt;a href=&#34;06.8.md&#34;&gt;闭包&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
 
     </description>
     </item>

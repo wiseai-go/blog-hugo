@@ -7,7 +7,124 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Sat, 23 Jul 2022 18:06:32 +0800</lastBuildDate><atom:link href="http://wiseai.cn/tags/%E7%BC%96%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 31 Jul 2022 11:53:44 +0800</lastBuildDate><atom:link href="http://wiseai.cn/tags/%E7%BC%96%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go程序的字符串、数组和切片的应用</title>
+      <link>http://wiseai.cn/post/golang/2022.07.31-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%95%B0%E7%BB%84%E5%92%8C%E5%88%87%E7%89%87%E7%9A%84%E5%BA%94%E7%94%A8/</link>
+      <pubDate>Sun, 31 Jul 2022 11:53:44 +0800</pubDate>
+      
+      <guid>http://wiseai.cn/post/golang/2022.07.31-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%95%B0%E7%BB%84%E5%92%8C%E5%88%87%E7%89%87%E7%9A%84%E5%BA%94%E7%94%A8/</guid>
+      <description>7.6 字符串、数组和切片的应用 7.6.1 从字符串生成字节切片 假设 s 是一个字符串（本质上是一个字节数组），那么就可以直接通过 c := []byte(s) 来获取一个字节的切片 c 。另外，您还可以通过 copy() 函数来达到相同的目的：copy(dst []byte, src string)。
+同样的，还可以使用 for-range 来获得每个元素（Listing 7.13 — for_string.go）：
+package main import &amp;#34;fmt&amp;#34; func main() { s := &amp;#34;\u00ff\u754c&amp;#34; for i, c := range s { fmt.Printf(&amp;#34;%d:%c &amp;#34;, i, c) } } 输出：
+0:ÿ 2:界 我们知道，Unicode 字符会占用 2 个字节，有些甚至需要 3 个或者 4 个字节来进行表示。如果发现错误的 UTF8 字符，则该字符会被设置为 U+FFFD 并且索引向前移动一个字节。和字符串转换一样，您同样可以使用 c := []int32(s) 语法，这样切片中的每个 int 都会包含对应的 Unicode 代码，因为字符串中的每次字符都会对应一个整数。类似的，您也可以将字符串转换为元素类型为 rune 的切片：r := []rune(s)。</description>
+    </item>
+    
+    <item>
+      <title>Go程序的切片的复制与追加</title>
+      <link>http://wiseai.cn/post/golang/2022.07.30-%E5%88%87%E7%89%87%E7%9A%84%E5%A4%8D%E5%88%B6%E4%B8%8E%E8%BF%BD%E5%8A%A0/</link>
+      <pubDate>Sat, 30 Jul 2022 11:52:29 +0800</pubDate>
+      
+      <guid>http://wiseai.cn/post/golang/2022.07.30-%E5%88%87%E7%89%87%E7%9A%84%E5%A4%8D%E5%88%B6%E4%B8%8E%E8%BF%BD%E5%8A%A0/</guid>
+      <description>7.5 切片的复制与追加 如果想增加切片的容量，我们必须创建一个新的更大的切片并把原分片的内容都拷贝过来。下面的代码描述了从拷贝切片的 copy 函数和向切片追加新元素的 append() 函数。
+示例 7.12 copy_append_slice.go
+package main import &amp;#34;fmt&amp;#34; func main() { slFrom := []int{1, 2, 3} slTo := make([]int, 10) n := copy(slTo, slFrom) fmt.Println(slTo) fmt.Printf(&amp;#34;Copied %d elements\n&amp;#34;, n) // n == 3 sl3 := []int{1, 2, 3} sl3 = append(sl3, 4, 5, 6) fmt.Println(sl3) } func append(s[]T, x ...T) []T 其中 append() 方法将 0 个或多个具有相同类型 s 的元素追加到切片后面并且返回新的切片；追加的元素必须和原切片的元素是同类型。如果 s 的容量不足以存储新增元素，append() 会分配新的切片来保证已有切片元素和新增元素的存储。因此，返回的切片可能已经指向一个不同的相关数组了。append() 方法总是返回成功，除非系统内存耗尽了。
+如果你想将切片 y 追加到切片 x 后面，只要将第二个参数扩展成一个列表即可：x = append(x, y.</description>
+    </item>
+    
+    <item>
+      <title>Go程序的切片重组reslice</title>
+      <link>http://wiseai.cn/post/golang/2022.07.29-%E5%88%87%E7%89%87%E9%87%8D%E7%BB%84reslice/</link>
+      <pubDate>Fri, 29 Jul 2022 11:51:11 +0800</pubDate>
+      
+      <guid>http://wiseai.cn/post/golang/2022.07.29-%E5%88%87%E7%89%87%E9%87%8D%E7%BB%84reslice/</guid>
+      <description>7.4 切片重组 (reslice) 我们已经知道切片创建的时候通常比相关数组小，例如：
+slice1 := make([]type, start_length, capacity) 其中 start_length 作为切片初始长度而 capacity 作为相关数组的长度。
+这么做的好处是我们的切片在达到容量上限后可以扩容。改变切片长度的过程称之为切片重组 reslicing，做法如下：slice1 = slice1[0:end]，其中 end 是新的末尾索引（即长度）。
+将切片扩展 1 位可以这么做：
+sl = sl[0:len(sl)+1] 切片可以反复扩展直到占据整个相关数组。
+示例 7.11 reslicing.go
+package main import &amp;#34;fmt&amp;#34; func main() { slice1 := make([]int, 0, 10) // load the slice, cap(slice1) is 10: for i := 0; i &amp;lt; cap(slice1); i++ { slice1 = slice1[0:i+1] slice1[i] = i fmt.Printf(&amp;#34;The length of slice is %d\n&amp;#34;, len(slice1)) } // print the slice: for i := 0; i &amp;lt; len(slice1); i++ { fmt.</description>
+    </item>
+    
+    <item>
+      <title>Go程序的for Range结构</title>
+      <link>http://wiseai.cn/post/golang/2022.07.28-for-range%E7%BB%93%E6%9E%84/</link>
+      <pubDate>Thu, 28 Jul 2022 11:49:16 +0800</pubDate>
+      
+      <guid>http://wiseai.cn/post/golang/2022.07.28-for-range%E7%BB%93%E6%9E%84/</guid>
+      <description>7.3 For-range 结构 这种构建方法可以应用于数组和切片:
+for ix, value := range slice1 { ... } 第一个返回值 ix 是数组或者切片的索引，第二个是在该索引位置的值；他们都是仅在 for 循环内部可见的局部变量。value 只是 slice1 某个索引位置的值的一个拷贝，不能用来修改 slice1 该索引位置的值。
+示例 7.9 slices_forrange.go
+package main import &amp;#34;fmt&amp;#34; func main() { var slice1 []int = make([]int, 4) slice1[0] = 1 slice1[1] = 2 slice1[2] = 3 slice1[3] = 4 for ix, value := range slice1 { fmt.Printf(&amp;#34;Slice at %d is: %d\n&amp;#34;, ix, value) } } 示例 7.10 slices_forrange2.go</description>
+    </item>
+    
+    <item>
+      <title>Go程序的切片</title>
+      <link>http://wiseai.cn/post/golang/2022.07.27-%E5%88%87%E7%89%87/</link>
+      <pubDate>Wed, 27 Jul 2022 11:47:31 +0800</pubDate>
+      
+      <guid>http://wiseai.cn/post/golang/2022.07.27-%E5%88%87%E7%89%87/</guid>
+      <description>7.2 切片 7.2.1 概念 切片 (slice) 是对数组一个连续片段的引用（该数组我们称之为相关数组，通常是匿名的），所以切片是一个引用类型（因此更类似于 C/C++ 中的数组类型，或者 Python 中的 list 类型）。这个片段可以是整个数组，或者是由起始和终止索引标识的一些项的子集。需要注意的是，终止索引标识的项不包括在切片内。切片提供了一个相关数组的动态窗口。
+切片是可索引的，并且可以由 len() 函数获取长度。
+给定项的切片索引可能比相关数组的相同元素的索引小。和数组不同的是，切片的长度可以在运行时修改，最小为 0， 最大为相关数组的长度：切片是一个 长度可变的数组。
+切片提供了计算容量的函数 cap() 可以测量切片最长可以达到多少：它等于切片的长度 + 数组除切片之外的长度。如果 s 是一个切片，cap(s) 就是从 s[0] 到数组末尾的数组长度。切片的长度永远不会超过它的容量，所以对于切片 s 来说该不等式永远成立：0 &amp;lt;= len(s) &amp;lt;= cap(s)。
+多个切片如果表示同一个数组的片段，它们可以共享数据；因此一个切片和相关数组的其他切片是共享存储的，相反，不同的数组总是代表不同的存储。数组实际上是切片的构建块。
+优点 因为切片是引用，所以它们不需要使用额外的内存并且比使用数组更有效率，所以在 Go 代码中切片比数组更常用。
+声明切片的格式是： var identifier []type（不需要说明长度）。
+一个切片在未初始化之前默认为 nil，长度为 0。
+切片的初始化格式是：var slice1 []type = arr1[start:end]。
+这表示 slice1 是由数组 arr1 从 start 索引到 end-1 索引之间的元素构成的子集（切分数组，start:end 被称为切片表达式）。所以 slice1[0] 就等于 arr1[start]。这可以在 arr1 被填充前就定义好。
+如果某个人写：var slice1 []type = arr1[:] 那么 slice1 就等于完整的 arr1 数组（所以这种表示方式是 arr1[0:len(arr1)] 的一种缩写）。另外一种表述方式是：slice1 = &amp;amp;arr1。</description>
+    </item>
+    
+    <item>
+      <title>Go程序的数组声明和初始化</title>
+      <link>http://wiseai.cn/post/golang/2022.07.26-%E6%95%B0%E7%BB%84%E5%A3%B0%E6%98%8E%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96/</link>
+      <pubDate>Tue, 26 Jul 2022 11:45:21 +0800</pubDate>
+      
+      <guid>http://wiseai.cn/post/golang/2022.07.26-%E6%95%B0%E7%BB%84%E5%A3%B0%E6%98%8E%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96/</guid>
+      <description>7.1 声明和初始化 7.1.1 概念 数组是具有相同 唯一类型 的一组已编号且长度固定的数据项序列（这是一种同构的数据结构）；这种类型可以是任意的原始类型例如整型、字符串或者自定义类型。数组长度必须是一个常量表达式，并且必须是一个非负整数。数组长度也是数组类型的一部分，所以 [5]int 和 [10]int 是属于不同类型的。数组的编译时值初始化是按照数组顺序完成的（如下）。
+注意事项 如果我们想让数组元素类型为任意类型的话可以使用空接口作为类型（参考 第 11 章）。当使用值时我们必须先做一个类型判断（参考 第 11 章）。
+数组元素可以通过 索引（位置）来读取（或者修改），索引从 0 开始，第一个元素索引为 0，第二个索引为 1，以此类推（数组以 0 开始在所有类 C 语言中是相似的）。元素的数目（也称为长度或者数组大小）必须是固定的并且在声明该数组时就给出（编译时需要知道数组长度以便分配内存）；数组长度最大为 2GB。
+声明的格式是：
+var identifier [len]type 例如：
+var arr1 [5]int 在内存中的结构是：
+每个元素是一个整型值，当声明数组时所有的元素都会被自动初始化为默认值 0。
+arr1 的长度是 5，索引范围从 0 到 len(arr1)-1。
+第一个元素是 arr1[0]，第三个元素是 arr1[2]；总体来说索引 i 代表的元素是 arr1[i]，最后一个元素是 arr1[len(arr1)-1]。
+对索引项为 i 的数组元素赋值可以这么操作：arr[i] = value，所以数组是 可变的。
+只有有效的索引可以被使用，当使用等于或者大于 len(arr1) 的索引时：如果编译器可以检测到，会给出索引超限的提示信息；如果检测不到的话编译会通过而运行时会 panic():（参考第 13 章）
+runtime error: index out of range 由于索引的存在，遍历数组的方法自然就是使用 for 结构：</description>
+    </item>
+    
+    <item>
+      <title>Go程序的应用闭包：将函数作为返回值</title>
+      <link>http://wiseai.cn/post/golang/2022.07.25-%E5%BA%94%E7%94%A8%E9%97%AD%E5%8C%85%E5%B0%86%E5%87%BD%E6%95%B0%E4%BD%9C%E4%B8%BA%E8%BF%94%E5%9B%9E%E5%80%BC/</link>
+      <pubDate>Mon, 25 Jul 2022 11:41:39 +0800</pubDate>
+      
+      <guid>http://wiseai.cn/post/golang/2022.07.25-%E5%BA%94%E7%94%A8%E9%97%AD%E5%8C%85%E5%B0%86%E5%87%BD%E6%95%B0%E4%BD%9C%E4%B8%BA%E8%BF%94%E5%9B%9E%E5%80%BC/</guid>
+      <description>6.9 应用闭包：将函数作为返回值 在程序 function_return.go 中我们将会看到函数 Add2() 和 Adder() 均会返回签名为 func(b int) int 的函数：
+func Add2() (func(b int) int) func Adder(a int) (func(b int) int) 函数 Add2() 不接受任何参数，但函数 Adder() 接受一个 int 类型的整数作为参数。
+我们也可以将 Adder() 返回的函数存到变量中 (function_return.go)。
+package main import &amp;#34;fmt&amp;#34; func main() { // make an Add2 function, give it a name p2, and call it: p2 := Add2() fmt.Printf(&amp;#34;Call Add2 for 3 gives: %v\n&amp;#34;, p2(3)) // make a special Adder function, a gets value 2: TwoAdder := Adder(2) fmt.</description>
+    </item>
+    
+    <item>
+      <title>Go程序的闭包</title>
+      <link>http://wiseai.cn/post/golang/2022.07.24-%E9%97%AD%E5%8C%85/</link>
+      <pubDate>Sun, 24 Jul 2022 11:40:02 +0800</pubDate>
+      
+      <guid>http://wiseai.cn/post/golang/2022.07.24-%E9%97%AD%E5%8C%85/</guid>
+      <description>6.8 闭包 当我们不希望给函数起名字的时候，可以使用匿名函数，例如：func(x, y int) int { return x + y }。
+这样的一个函数不能够独立存在（编译器会返回错误：non-declaration statement outside function body），但可以被赋值于某个变量，即保存函数的地址到变量中：fplus := func(x, y int) int { return x + y }，然后通过变量名对函数进行调用：fplus(3,4)。
+当然，您也可以直接对匿名函数进行调用：func(x, y int) int { return x + y } (3, 4)。
+下面是一个计算从 1 到 100 万整数的总和的匿名函数：
+func() { sum := 0 for i := 1; i &amp;lt;= 1e6; i++ { sum += i } }() 表示参数列表的第一对括号必须紧挨着关键字 func，因为匿名函数没有名称。花括号 {} 涵盖着函数体，最后的一对括号表示对该匿名函数的调用。
+下面的例子展示了如何将匿名函数赋值给变量并对其进行调用（function_literal.go）：
+package main import &amp;#34;fmt&amp;#34; func main() { f() } func f() { for i := 0; i &amp;lt; 4; i++ { g := func(i int) { fmt.</description>
+    </item>
+    
     <item>
       <title>Go程序中将函数作为参数</title>
       <link>http://wiseai.cn/post/golang/2022.07.23-%E5%B0%86%E5%87%BD%E6%95%B0%E4%BD%9C%E4%B8%BA%E5%8F%82%E6%95%B0/</link>

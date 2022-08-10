@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-cn"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link href="http://static.wiseai.cn/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://static.wiseai.cn/img/favicon.ico" />
+
+    <title>Go程序的应用闭包：将函数作为返回值 | WiseAI的博客</title>
+</head><body><div class="container-fluid">
+    <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="http://static.wiseai.cn/img/favicon.ico" alt="" width="30" height="24" class="d-inline-block align-text-top">
+                WiseAI的博客
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/articles/">文章</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/categories/">分类</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/tags/">关键字</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/post/golang/">golang编程</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/about/">关于</a>
+                    </li>
+                    
+                </ul>
+                <form class="d-flex">
+                    <input id="search-query" class="form-control me-2" type="search" placeholder="Search for anything..." aria-label="Search">
+                </form>
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+
+
+<div id="content">
+<div class="container article">
+	<h1>Go程序的应用闭包：将函数作为返回值</h1>
+	<div class="post-meta">
+		<div>
+			
+			
+			By wiseai | 2022-07-25 | 2 minutes
+		</div>
+		<div class="tags">
+			
+			<a class="btn btn-light links btn-sm" href="/tags/%E7%BC%96%E7%A8%8B/">编程</a>
+			
+		</div>
+	</div>
+	<div>
+		<div class="article-post">
+			<h1 id="69-应用闭包将函数作为返回值">6.9 应用闭包：将函数作为返回值</h1>
+<p>在程序 <a href="examples/chapter_6/function_return.go">function_return.go</a> 中我们将会看到函数 <code>Add2()</code> 和 <code>Adder()</code> 均会返回签名为 <code>func(b int) int</code> 的函数：</p>
+<pre tabindex="0"><code>func Add2() (func(b int) int)
+func Adder(a int) (func(b int) int)
+</code></pre><p>函数 <code>Add2()</code> 不接受任何参数，但函数 <code>Adder()</code> 接受一个 <code>int</code> 类型的整数作为参数。</p>
+<p>我们也可以将 <code>Adder()</code> 返回的函数存到变量中 (<a href="examples/chapter_6/function_return.go">function_return.go</a>)。</p>
+<pre tabindex="0"><code>package main
+
+import &#34;fmt&#34;
+
+func main() {
+	// make an Add2 function, give it a name p2, and call it:
+	p2 := Add2()
+	fmt.Printf(&#34;Call Add2 for 3 gives: %v\n&#34;, p2(3))
+	// make a special Adder function, a gets value 2:
+	TwoAdder := Adder(2)
+	fmt.Printf(&#34;The result is: %v\n&#34;, TwoAdder(3))
+}
+
+func Add2() func(b int) int {
+	return func(b int) int {
+		return b + 2
+	}
+}
+
+func Adder(a int) func(b int) int {
+	return func(b int) int {
+		return a + b
+	}
+}
+</code></pre><p>输出：</p>
+<pre tabindex="0"><code>Call Add2 for 3 gives: 5
+The result is: 5
+</code></pre><p>下例为一个略微不同的实现 (<a href="examples/chapter_6/function_closure.go">function_closure.go</a>)：</p>
+<pre tabindex="0"><code>package main
+
+import &#34;fmt&#34;
+
+func main() {
+	var f = Adder()
+	fmt.Print(f(1), &#34; - &#34;)
+	fmt.Print(f(20), &#34; - &#34;)
+	fmt.Print(f(300))
+}
+
+func Adder() func(int) int {
+	var x int
+	return func(delta int) int {
+		x += delta
+		return x
+	}
+}
+</code></pre><p>函数 <code>Adder()</code> 现在被赋值到变量 <code>f</code> 中（类型为 <code>func(int) int</code>）。</p>
+<p>输出：</p>
+<pre><code>1 - 21 - 321
+</code></pre>
+<p>三次调用函数 <code>f</code> 的过程中函数 <code>Adder()</code> 中变量 <code>delta</code> 的值分别为：1、20 和 300。</p>
+<p>我们可以看到，在多次调用中，变量 <code>x</code> 的值是被保留的，即 <code>0 + 1 = 1</code>，然后 <code>1 + 20 = 21</code>，最后 <code>21 + 300 = 321</code>：闭包函数保存并积累其中的变量的值，不管外部函数退出与否，它都能够继续操作外部函数中的局部变量。</p>
+<p>这些局部变量同样可以是参数，例如之前例子中的 <code>Adder(as int)</code>。</p>
+<p>这些例子清楚地展示了如何在 Go 语言中使用闭包。</p>
+<p>在闭包中使用到的变量可以是在闭包函数体内声明的，也可以是在外部函数声明的：</p>
+<pre tabindex="0"><code>var g int
+go func(i int) {
+	s := 0
+	for j := 0; j &lt; i; j++ { s += j }
+	g = s
+}(1000) // Passes argument 1000 to the function literal.
+</code></pre><p>这样闭包函数就能够被应用到整个集合的元素上，并修改它们的值。然后这些变量就可以用于表示或计算全局或平均值。</p>
+<p><strong>练习 6.9</strong> <a href="exercises/chapter_6/fibonacci_closure.go">fibonacci_closure</a></p>
+<p>不使用递归但使用闭包改写第 6.6 节中的斐波那契数列程序。</p>
+<p><strong>练习 6.10</strong></p>
+<p>学习并理解以下程序的工作原理：</p>
+<p>一个返回值为另一个函数的函数可以被称之为工厂函数，这在您需要创建一系列相似的函数的时候非常有用：书写一个工厂函数而不是针对每种情况都书写一个函数。下面的函数演示了如何动态返回追加后缀的函数：</p>
+<pre tabindex="0"><code>func MakeAddSuffix(suffix string) func(string) string {
+	return func(name string) string {
+		if !strings.HasSuffix(name, suffix) {
+			return name + suffix
+		}
+		return name
+	}
+}
+</code></pre><p>现在，我们可以生成如下函数：</p>
+<pre tabindex="0"><code>addBmp := MakeAddSuffix(&#34;.bmp&#34;)
+addJpeg := MakeAddSuffix(&#34;.jpeg&#34;)
+</code></pre><p>然后调用它们：</p>
+<pre tabindex="0"><code>addBmp(&#34;file&#34;) // returns: file.bmp
+addJpeg(&#34;file&#34;) // returns: file.jpeg
+</code></pre><p>可以返回其它函数的函数和接受其它函数作为参数的函数均被称之为高阶函数，是函数式语言的特点。我们已经在<a href="06.7.md">第 6.7 节</a>中得知函数也是一种值，因此很显然 Go 语言具有一些函数式语言的特性。闭包在 Go 语言中非常常见，常用于 goroutine 和管道操作（详见第 <a href="14.8.md">14.8</a>-<a href="14.9.md">14.9</a> 节）。在<a href="11.14.md">第 11.14 节</a>的程序中，我们将会看到 Go 语言中的函数在处理混合对象时的强大能力。</p>
+
+		</div>
+	</div>
+</div>
+
+
+<div class="container">
+    
+    <div class="row">
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-end dh" href="/post/golang/2022.07.24-%E9%97%AD%E5%8C%85/">
+                <h5>前一篇</h5><br>
+                Go程序的闭包
+            </a>            
+        </div>
+        
+        <div class="col-2">
+        </div>
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-start dh" href="/post/golang/2022.07.26-%E6%95%B0%E7%BB%84%E5%A3%B0%E6%98%8E%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96/">
+                <h5>后一篇</h5><br>
+                Go程序的数组声明和初始化
+            </a>            
+        </div>
+        
+    </div>
+    
+</div>
+
+        </div><br><br>
+<footer class="container">
+    <h2>友情链接</h2>
+    <hr>
+    <nav class="nav nav-pills flex-column flex-sm-row">
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/gnzg/index.html" target="_blank">孤鸟之歌</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/mm/index.html" target="_blank">生成随机字符</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/md/index.html" target="_blank">MarkDown</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://gitee.com/" target="_blank">Gitee</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://github.com/" target="_blank">Github</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.oschina.net/" target="_blank">OSCHINA</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/directory.md" target="_blank">the way to go</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://topgoer.com/" target="_blank">golang文档</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://goframe.org/display/gf" target="_blank">GoFrame</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.aliyundrive.com/" target="_blank">阿里云盘</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.bootstrap.cn/" target="_blank">bootstrap文档</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.58pic.com/" target="_blank">千图</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://ifonts.com/" target="_blank">iFonts</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://marketing.qiniu.com/" target="_blank">七牛云</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.ixigua.com/" target="_blank">西瓜视频</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/yugang/index.html" target="_blank">鱼缸计算</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://justcc.mengkang.net/#/" target="_blank">C语言JustCC</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="/index.xml" target="_blank">RSS</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.kancloud.cn/idcpj/python/418553" target="_blank">参考资料</a>
+        
+    </nav>
+
+    <div class="copyright text-center">
+      <span class="power-by">
+        Powered by <a class="links" href="https://gohugo.io" target="_blank">Hugo</a>
+    </span>
+    <span>|</span>
+    <span>
+        Theme - <a class="links" href="https://github.com/wiseai-go/blog-hugo" target="_blank">WiseAI</a>
+    </span>
+    <br>
+    <span class="copyright-year">
+        &copy;
+        
+        2017 -
+        2022<span>
+            陇ICP备15000157号
+            
+        </span></span>
+
+</div>
+</footer>
+<script src="http://static.wiseai.cn/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+</html>
