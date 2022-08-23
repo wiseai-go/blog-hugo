@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh-cn"><head>
-	<meta name="generator" content="Hugo 0.101.0" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -10,7 +9,7 @@
 
     <link rel="shortcut icon" type="image/x-icon" href="http://static.wiseai.cn/img/favicon.ico" />
 
-    <title>WiseAI的博客</title>
+    <title>golang使用smtp发送Email | WiseAI的博客</title>
 </head><body><div class="container-fluid">
     <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
         <div class="container-fluid">
@@ -57,100 +56,83 @@
 
 
 <div id="content">
-<div id="myjj" class="container-fluid">
-    <div id="carouselIndexSlides" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner text-center">
-            <div class="carousel-item active">
-                
-                <span>✨</span>逼出的成功，强迫的辉煌!
-                
-            </div>
-            
-            <div class="carousel-item text-truncate">
-                <p><span>✨</span>不经他人苦，莫劝他人善</p>
-            </div>
-            
-            <div class="carousel-item text-truncate">
-                <p><span>✨</span>内心强大到混蛋，比什么都好！</p>
-            </div>
-            
-            <div class="carousel-item text-truncate">
-                <p><span>✨</span>规范流程比制定制度更重要！</p>
-            </div>
-            
-            <div class="carousel-item text-truncate">
-                <p><span>✨</span>祁连卧北雪，大漠壮雄关</p>
-            </div>
-            
-            <div class="carousel-item text-truncate">
-                <p><span>✨</span>要么忙于生存，要么赶紧去死！</p>
-            </div>
-            
-            <div class="carousel-item text-truncate">
-                <p><span>✨</span>成功和不成功之间，只差一次坚持！</p>
-            </div>
-            
-        </div>
-    </div>
+<div class="container article">
+	<h1>golang使用smtp发送Email</h1>
+	<div class="post-meta">
+		<div>
+			
+			
+			By wiseai | 2022-08-23 | 1 minutes
+		</div>
+		<div class="tags">
+			
+			<a class="btn btn-light links btn-sm" href="/tags/%E7%BC%96%E7%A8%8B/">编程</a>
+			
+			<a class="btn btn-light links btn-sm" href="/tags/golang/">golang</a>
+			
+		</div>
+	</div>
+	<div>
+		<div class="article-post">
+			<p>几个开源的代码：</p>
+<ul>
+<li><a href="https://github.com/jordan-wright/email.git" title="email">email</a>
+这个代码比较清晰，我现在用的就是这个，Star2.1k</li>
+<li><a href="https://github.com/go-gomail/gomail.git" title="gomail">gomail</a>
+没用过，Star3.7k</li>
+<li><a href="https://github.com/mailhog/MailHog.git" title="mailhog">mailhog</a>
+这个Star10.7，看着是不错功能强大，但是依赖太多，没深入学习</li>
+<li><a href="https://www.mianshigee.com/project/t/go-email-creation-and-sending" title="邮件相关汇总">邮件相关汇总</a>
+这个是一个邮件相关代码汇总的帖子，内容比较旧了，但是可以参考学习下</li>
+</ul>
+<p>使用ssl的例子：</p>
+<pre tabindex="0"><code>import (
+	&#34;tls.Config&#34;
+	&#34;email&#34;//引入包，看怎么引入了
+	)
+func SendMail(s string) error {
+	e := NewEmail()
+	e.From = &#34;发送邮箱&#34;
+	e.To = []string{&#34;目标邮箱&#34;}
+	// e.Bcc = []string{&#34;bcc@junzhe.net&#34;}
+	// e.Cc = []string{&#34;cc@junzhe.net&#34;}
+	//这两个基本不用
+	e.Subject = &#34;这个是主题&#34;
+	// e.Text = []byte(&#34;这里是内容&#34;)
+	e.HTML = []byte(&#34;这是HTML格式的内容&#34;)
+	t := &amp;tls.Config{InsecureSkipVerify: true, ServerName: &#34;这里是smtp服务器&#34;}
+	err := e.SendWithTLS(&#34;smtp服务器:465&#34;, smtp.PlainAuth(&#34;&#34;, &#34;邮箱名&#34;, &#34;密码&#34;, &#34;smtp服务器&#34;), t)
+	return err
+}
+</code></pre>
+		</div>
+	</div>
 </div>
 
 
-
-
-
-
 <div class="container">
-    <h2>最新文章<span class="badge bg-light">
-        
-        <a class="link-dark links" href="/articles/">查看所有</a>
-        
-    </span><hr></h2>
+    
     <div class="row">
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/example-lazy-load-image/"><time>2019-03-09</time>Example Lazy Load Image</a>
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-end dh" href="/post/go%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/">
+                <h5>前一篇</h5><br>
+                Go程序执行系统命令
+            </a>            
         </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/placeholder-text/"><time>2019-03-09</time>Placeholder Text</a>
+        
+        <div class="col-2">
         </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/emoji-support/"><time>2019-03-05</time>Emoji Support</a>
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-start dh" href="">
+                <h5>没有了</h5><br>
+            </a>            
         </div>
         
     </div>
-</div>
-
-
-<div class="container">
-    <h2>项目</h2><hr>
-    
-    <div class="card xm">
-        <div class="card-header">
-            blog-hugo
-        </div>
-        <div class="card-body">
-            
-            <p class="card-text">My blog build with hugo tania theme!</p>
-            <a href="https://github.com/wiseai-go/blog-hugo.git" target="_blank" class="btn btn-primary">Source</a>
-        </div>
-    </div>
-    
-    <div class="card xm">
-        <div class="card-header">
-            Hugo Tania Theme
-        </div>
-        <div class="card-body">
-            
-            <p class="card-text">Make a blog with hugo tania theme!</p>
-            <a href="https://github.com/WingLim/hugo-tania" target="_blank" class="btn btn-primary">Source</a>
-        </div>
-    </div>
     
 </div>
-
-
 
         </div><br><br>
 <footer class="container">

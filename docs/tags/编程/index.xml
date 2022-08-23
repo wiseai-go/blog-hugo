@@ -7,7 +7,18 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Sun, 31 Jul 2022 11:53:44 +0800</lastBuildDate><atom:link href="http://wiseai.cn/tags/%E7%BC%96%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 23 Aug 2022 10:33:39 +0800</lastBuildDate><atom:link href="http://wiseai.cn/tags/%E7%BC%96%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>golang使用smtp发送Email</title>
+      <link>http://wiseai.cn/post/email/</link>
+      <pubDate>Tue, 23 Aug 2022 10:33:39 +0800</pubDate>
+      
+      <guid>http://wiseai.cn/post/email/</guid>
+      <description>几个开源的代码：
+email 这个代码比较清晰，我现在用的就是这个，Star2.1k gomail 没用过，Star3.7k mailhog 这个Star10.7，看着是不错功能强大，但是依赖太多，没深入学习 邮件相关汇总 这个是一个邮件相关代码汇总的帖子，内容比较旧了，但是可以参考学习下 使用ssl的例子：
+import ( &amp;#34;tls.Config&amp;#34; &amp;#34;email&amp;#34;//引入包，看怎么引入了 ) func SendMail(s string) error { e := NewEmail() e.From = &amp;#34;发送邮箱&amp;#34; e.To = []string{&amp;#34;目标邮箱&amp;#34;} // e.Bcc = []string{&amp;#34;bcc@junzhe.net&amp;#34;} // e.Cc = []string{&amp;#34;cc@junzhe.net&amp;#34;} //这两个基本不用 e.Subject = &amp;#34;这个是主题&amp;#34; // e.Text = []byte(&amp;#34;这里是内容&amp;#34;) e.HTML = []byte(&amp;#34;这是HTML格式的内容&amp;#34;) t := &amp;amp;tls.Config{InsecureSkipVerify: true, ServerName: &amp;#34;这里是smtp服务器&amp;#34;} err := e.SendWithTLS(&amp;#34;smtp服务器:465&amp;#34;, smtp.PlainAuth(&amp;#34;&amp;#34;, &amp;#34;邮箱名&amp;#34;, &amp;#34;密码&amp;#34;, &amp;#34;smtp服务器&amp;#34;), t) return err } </description>
+    </item>
+    
     <item>
       <title>Go程序的字符串、数组和切片的应用</title>
       <link>http://wiseai.cn/post/golang/2022.07.31-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%95%B0%E7%BB%84%E5%92%8C%E5%88%87%E7%89%87%E7%9A%84%E5%BA%94%E7%94%A8/</link>

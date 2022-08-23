@@ -7,11 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Sun, 31 Jul 2022 11:53:44 +0800</lastBuildDate><atom:link href="http://wiseai.cn/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 23 Aug 2022 10:33:39 +0800</lastBuildDate><atom:link href="http://wiseai.cn/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>golang</title>
+      <link>http://wiseai.cn/tags/golang/</link>
+      <pubDate>Tue, 23 Aug 2022 10:33:39 +0800</pubDate>
+      
+      <guid>http://wiseai.cn/tags/golang/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>编程</title>
       <link>http://wiseai.cn/tags/%E7%BC%96%E7%A8%8B/</link>
-      <pubDate>Sun, 31 Jul 2022 11:53:44 +0800</pubDate>
+      <pubDate>Tue, 23 Aug 2022 10:33:39 +0800</pubDate>
       
       <guid>http://wiseai.cn/tags/%E7%BC%96%E7%A8%8B/</guid>
       <description></description>
@@ -59,15 +68,6 @@
       <pubDate>Wed, 06 Jul 2022 16:36:58 +0800</pubDate>
       
       <guid>http://wiseai.cn/tags/%E5%AE%B9%E5%99%A8/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>golang</title>
-      <link>http://wiseai.cn/tags/golang/</link>
-      <pubDate>Wed, 06 Jul 2022 08:54:04 +0800</pubDate>
-      
-      <guid>http://wiseai.cn/tags/golang/</guid>
       <description></description>
     </item>
     
