@@ -7,7 +7,26 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Tue, 23 Aug 2022 10:33:39 +0800</lastBuildDate><atom:link href="http://wiseai.cn/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 25 Aug 2022 10:25:07 +0800</lastBuildDate><atom:link href="http://wiseai.cn/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go程序的时间</title>
+      <link>http://wiseai.cn/post/go%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%97%B6%E9%97%B4/</link>
+      <pubDate>Thu, 25 Aug 2022 10:25:07 +0800</pubDate>
+      
+      <guid>http://wiseai.cn/post/go%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%97%B6%E9%97%B4/</guid>
+      <description>Time包定义的类型
+Time: 时间类型, 包含了秒和纳秒以及 Location
+Month: type Month int 月份.
+定义了十二个月的常量
+const ( January Month = 1 + iota February March April May June July August September October November December ) Weekday 类型: type Weekday int 周
+定义了一周的七天
+const ( Sunday Weekday = iota Monday Tuesday Wednesday Thursday Friday Saturday ) Duration： type Duration int64 持续时间.
+定义了以下持续时间类型.
+多用于时间的加减 需要传入Duration做为参数的时候.
+可以直接传入 time.Second
+const ( Nanosecond Duration = 1 Microsecond = 1000 * Nanosecond Millisecond = 1000 * Microsecond Second = 1000 * Millisecond Minute = 60 * Second Hour = 60 * Minute ) Location</description>
+    </item>
+    
     <item>
       <title>golang使用smtp发送Email</title>
       <link>http://wiseai.cn/post/email/</link>

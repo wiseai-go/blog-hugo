@@ -6,7 +6,124 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Tue, 23 Aug 2022 10:33:39 +0800</lastBuildDate><atom:link href="http://wiseai.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 25 Aug 2022 10:25:07 +0800</lastBuildDate><atom:link href="http://wiseai.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+    <title>Go程序的时间</title>
+    <link>http://wiseai.cn/post/go%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%97%B6%E9%97%B4/</link>
+    <pubDate>Thu, 25 Aug 2022 10:25:07 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>http://wiseai.cn/post/go%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%97%B6%E9%97%B4/</guid>
+    <description>
+        &lt;p&gt;&lt;strong&gt;Time包定义的类型&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Time: 时间类型, 包含了秒和纳秒以及 Location&lt;/p&gt;
+&lt;p&gt;Month: type Month int 月份.&lt;/p&gt;
+&lt;p&gt;定义了十二个月的常量&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;const (
+	January Month = 1 + iota
+	February
+	March
+	April
+	May
+	June
+	July
+	August
+	September
+	October
+	November
+	December
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Weekday 类型: type Weekday int 周&lt;/p&gt;
+&lt;p&gt;定义了一周的七天&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;const (
+	Sunday Weekday = iota
+	Monday
+	Tuesday
+	Wednesday
+	Thursday
+	Friday
+	Saturday
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Duration： type Duration int64 持续时间.&lt;/p&gt;
+&lt;p&gt;定义了以下持续时间类型.&lt;/p&gt;
+&lt;p&gt;多用于时间的加减 需要传入Duration做为参数的时候.&lt;/p&gt;
+&lt;p&gt;可以直接传入 time.Second&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;const (
+ Nanosecond Duration = 1
+ Microsecond   = 1000 * Nanosecond
+ Millisecond   = 1000 * Microsecond
+ Second    = 1000 * Millisecond
+ Minute    = 60 * Second
+ Hour     = 60 * Minute
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Location&lt;/p&gt;
+&lt;p&gt;在time包里有两个时区变量:&lt;/p&gt;
+&lt;p&gt;time.UTC utc时间&lt;/p&gt;
+&lt;p&gt;time.Local 本地时间&lt;/p&gt;
+&lt;p&gt;时间格式化&lt;/p&gt;
+&lt;p&gt;时间格式Time:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;fmt.Println(time.Now())
+// 输出: 2019-04-30 14:41:59.661602 +0800 CST m=+0.000225294
+
+fmt.Println(time.Now().String())
+// 输出: 2019-04-30 14:41:59.661826 +0800 CST m=+0.000448434
+获取当前时间戳：
+
+// 获取当前unix时间戳（秒）
+fmt.Println(time.Now().Unix()) // 输出: 1556615702
+
+// 获取当前unix时间戳（毫秒）
+fmt.Println(time.Now().UnixNano() / 1e6) // 输出: 1556615702009
+
+// 获取当前unix时间戳（纳秒）
+fmt.Println(time.Now().UnixNano()) // 输出: 1556615702009257000
+字符串转化成时间戳:
+
+x := &amp;#34;2018-12-27 18:44:55&amp;#34;
+p, _ := time.Parse(&amp;#34;2006-01-02 15:04:05&amp;#34;, x)
+fmt.Println( p.Unix() ) // 输出: 1545936295
+将当前时间转成年月日时分秒格式:
+
+t = time.Now()
+fmt.Println(t.Format(&amp;#34;2006-01-02&amp;#34;))   // 输出: 2019-04-30
+fmt.Println(t.Format(&amp;#34;2006-01-02 15:04:05&amp;#34;)) // 输出: 2019-04-30 14:43:26
+fmt.Println(t.Format(&amp;#34;2006-01-02 00:00:00&amp;#34;)) // 输出: 2019-04-30 00:00:00
+fmt.Println(t.Format(&amp;#34;2006/01/02 15:04&amp;#34;)) // 输出: 2019-04-30 14:43
+fmt.Println(t.Format(&amp;#34;2006/Jan/02 15:04&amp;#34;)) // 输出: 2019/Apr/30 17:28
+
+// 指定时间
+t2 := time.Date(2019, time.November, 28, 11, 35, 46, 0, time.UTC)
+// 返回 Time 类型
+
+fmt.Printf(&amp;#34;=&amp;gt;日期格式: %s\n&amp;#34;, t2.Format(&amp;#34;06/01/02 15:04:05&amp;#34;))
+// 输出: =&amp;gt;日期格式: 19/11/28 11:35:46
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;注意：
+在Go语言中，&amp;ldquo;Y-m-d H:i:s&amp;quot;&amp;ldquo;yyyy-MM-dd HH:mm:ss&amp;rdquo; 为特定的数字 “2006-01-02 15:04:05”是Go语言的创建时间，且必须为这几个准确的数字。&lt;/p&gt;
+&lt;p&gt;使用 time.Now().Date() 获取年月日：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;// Date()返回三个参数: 年月日
+year1, month1, day1 := time.Now().Date()
+ 
+fmt.Printf(&amp;#34;year: %v, type: %T \n&amp;#34;, year1, year1)
+// 输出: year: 2019, type: int
+ 
+fmt.Printf(&amp;#34;month: %v, type: %T \n&amp;#34;, month1, month1)
+// 输出: month: April, type: time.Month
+ 
+fmt.Printf(&amp;#34;day: %v, type: %T \n&amp;#34;, day1, day1)
+// 输出: day: 30, type: int
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;golang的time.Format设计的和其他语言都不一样, 其他语言总是使用一些格式化字符进行标示, 而golang使用&amp;quot;2006-01-02 15:04:05.999999999 -0700 MST&amp;rdquo;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;// String returns the time formatted using the format string
+// &amp;#34;2006-01-02 15:04:05.999999999 -0700 MST&amp;#34;
+func (t Time) String() string {
+ return t.Format(&amp;#34;2006-01-02 15:04:05.999999999 -0700 MST&amp;#34;)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;例子:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func nowTime() string {
+ return time.Now().Format(&amp;#34;2006-01-02 15:04:05&amp;#34;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+    </description>
+    </item>
+    
     <item>
     <title>golang使用smtp发送Email</title>
     <link>http://wiseai.cn/post/email/</link>
