@@ -54,3 +54,11 @@ draft: false
 * 查看配置
 
 `# npm config get`
+
+3. go mod
+
+在项目目录下，要执行两个命令自动生成相关文件
+
+`# go mod init`
+
+`# go mod tidy`
