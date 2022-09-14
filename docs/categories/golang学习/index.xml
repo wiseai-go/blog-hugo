@@ -596,7 +596,7 @@ Go 的标准库包含了大量的包（如：fmt 和 os），但是你也可以�
     </item>
     
     <item>
-      <title>golang的build命令</title>
+      <title>golang的build命令编译</title>
       <link>http://wiseai.cn/post/golang%E7%9A%84build%E5%91%BD%E4%BB%A4/</link>
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
@@ -608,11 +608,11 @@ go build go build . go build hello.go 以上这三种写法，都是使用当前
 go build flysnow.org/tools
 这种方式是指定包的方式，这样会明确地编译我们这个包。当然我们也可以使用通配符
 go build flysnow.org/tools/...
-** 3个点表示匹配所有字符串，这样go build就会编译tools目录下的所有包。**
+3个点表示匹配所有字符串，这样go build就会编译tools目录下的所有包。
 讲到go build编译，不能不提跨平台编译，Go提供了编译链工具，可以让我们在任何一个开发平台上，编译出其他平台的可执行文件。
 默认情况下，都是根据我们当前的机器生成的可执行文件，比如你的是Linux 64位，就会生成Linux 64位下的可执行文件，比如我的Mac；可以使用go env查看编译环境,以下截取重要的部分。
-go env GOARCH=&amp;#34;amd64&amp;#34; GOEXE=&amp;#34;&amp;#34; GOHOSTARCH=&amp;#34;amd64&amp;#34; GOHOSTOS=&amp;#34;darwin&amp;#34; GOOS=&amp;#34;darwin&amp;#34; GOROOT=&amp;#34;/usr/local/go&amp;#34; GOTOOLDIR=&amp;#34;/usr/local/go/pkg/tool/darwin_amd64&amp;#34; ** 注意里面两个重要的环境变量GOOS和GOARCH,其中GOOS指的是目标操作系统，它的可用值为：**
-darwin freebsd linux windows android dragonfly netbsd openbsd plan9 solaris ** 一共支持10种操作系统。GOARCH指的是目标处理器的架构，目前支持的有：**
+go env GOARCH=&amp;#34;amd64&amp;#34; GOEXE=&amp;#34;&amp;#34; GOHOSTARCH=&amp;#34;amd64&amp;#34; GOHOSTOS=&amp;#34;darwin&amp;#34; GOOS=&amp;#34;darwin&amp;#34; GOROOT=&amp;#34;/usr/local/go&amp;#34; GOTOOLDIR=&amp;#34;/usr/local/go/pkg/tool/darwin_amd64&amp;#34; 注意里面两个重要的环境变量GOOS和GOARCH,其中GOOS指的是目标操作系统，它的可用值为：
+darwin freebsd linux windows android dragonfly netbsd openbsd plan9 solaris 一共支持10种操作系统。GOARCH指的是目标处理器的架构，目前支持的有：
 arm arm64 386 amd64 ppc64 ppc64le mips64 mips64le s390x 一共支持9种处理器的架构</description>
     </item>
     

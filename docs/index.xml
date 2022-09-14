@@ -8419,7 +8419,7 @@ $ git archive
     </item>
     
     <item>
-    <title>golang的build命令</title>
+    <title>golang的build命令编译</title>
     <link>http://wiseai.cn/post/golang%E7%9A%84build%E5%91%BD%E4%BB%A4/</link>
     <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
     <author>wiseai</author>
@@ -8437,7 +8437,7 @@ go build hello.go
 &lt;p&gt;&lt;code&gt;go build flysnow.org/tools&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;这种方式是指定包的方式，这样会明确地编译我们这个包。当然我们也可以使用通配符&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;go build flysnow.org/tools/...&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;** 3个点表示匹配所有字符串，这样&lt;code&gt;go build&lt;/code&gt;就会编译tools目录下的所有包。**&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3个点表示匹配所有字符串，这样&lt;code&gt;go build&lt;/code&gt;就会编译tools目录下的所有包。&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;讲到&lt;code&gt;go build&lt;/code&gt;编译，不能不提跨平台编译，Go提供了编译链工具，可以让我们在任何一个开发平台上，编译出其他平台的可执行文件。&lt;/p&gt;
 &lt;p&gt;默认情况下，都是根据我们当前的机器生成的可执行文件，比如你的是Linux 64位，就会生成Linux 64位下的可执行文件，比如我的Mac；可以使用go env查看编译环境,以下截取重要的部分。&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;go env
@@ -8448,7 +8448,7 @@ GOHOSTOS=&amp;#34;darwin&amp;#34;
 GOOS=&amp;#34;darwin&amp;#34;
 GOROOT=&amp;#34;/usr/local/go&amp;#34;
 GOTOOLDIR=&amp;#34;/usr/local/go/pkg/tool/darwin_amd64&amp;#34;
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;** 注意里面两个重要的环境变量GOOS和GOARCH,其中GOOS指的是目标操作系统，它的可用值为：**&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;注意里面两个重要的环境变量GOOS和GOARCH,其中GOOS指的是目标操作系统，它的可用值为：&lt;/strong&gt;&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;darwin&lt;/li&gt;
 &lt;li&gt;freebsd&lt;/li&gt;
@@ -8461,7 +8461,7 @@ GOTOOLDIR=&amp;#34;/usr/local/go/pkg/tool/darwin_amd64&amp;#34;
 &lt;li&gt;plan9&lt;/li&gt;
 &lt;li&gt;solaris&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;** 一共支持10种操作系统。GOARCH指的是目标处理器的架构，目前支持的有：**&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;一共支持10种操作系统。GOARCH指的是目标处理器的架构，目前支持的有：&lt;/strong&gt;&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;arm&lt;/li&gt;
 &lt;li&gt;arm64&lt;/li&gt;
@@ -8478,6 +8478,10 @@ GOTOOLDIR=&amp;#34;/usr/local/go/pkg/tool/darwin_amd64&amp;#34;
 &lt;p&gt;&lt;code&gt;GOOS=linux GOARCH=amd64 go build flysnow.org/hello&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;前面两个赋值，是更改环境变量，这样的好处是只针对本次运行有效，不会更改我们默认的配置。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;go help build&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;CGO_ENABLED 环境变量&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;当CGO_ENABLED=1，进行编译时会将文件中引用libc的库（比如常用的net包），以动态链接的方式生成目标文件。&lt;/p&gt;
+&lt;p&gt;当CGO_ENABLED=0，进行编译时则会把在目标文件中未定义的符号（外部函数）一起链接到可执行文件中。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# CGO_ENABLED=0 go build hello.go&lt;/code&gt;&lt;/p&gt;
 
     </description>
     </item>

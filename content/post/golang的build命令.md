@@ -1,6 +1,6 @@
 ---
 author: "wiseai"
-title: "golang的build命令"
+title: "golang的build命令编译"
 date: "2022-05-30"
 description: "golang生成可执行文件"
 tags:
@@ -30,7 +30,7 @@ go build hello.go
 
 `go build flysnow.org/tools/...`
 
-** 3个点表示匹配所有字符串，这样`go build`就会编译tools目录下的所有包。**
+**3个点表示匹配所有字符串，这样`go build`就会编译tools目录下的所有包。**
 
 讲到`go build`编译，不能不提跨平台编译，Go提供了编译链工具，可以让我们在任何一个开发平台上，编译出其他平台的可执行文件。
 
@@ -45,7 +45,7 @@ GOOS="darwin"
 GOROOT="/usr/local/go"
 GOTOOLDIR="/usr/local/go/pkg/tool/darwin_amd64"
 ```
-** 注意里面两个重要的环境变量GOOS和GOARCH,其中GOOS指的是目标操作系统，它的可用值为：**
+**注意里面两个重要的环境变量GOOS和GOARCH,其中GOOS指的是目标操作系统，它的可用值为：**
 1.  darwin
 2.  freebsd
 3.  linux
@@ -57,7 +57,7 @@ GOTOOLDIR="/usr/local/go/pkg/tool/darwin_amd64"
 9.  plan9
 10.  solaris
 
-** 一共支持10种操作系统。GOARCH指的是目标处理器的架构，目前支持的有：**
+**一共支持10种操作系统。GOARCH指的是目标处理器的架构，目前支持的有：**
 
 1.  arm
 2.  arm64
@@ -78,3 +78,11 @@ GOTOOLDIR="/usr/local/go/pkg/tool/darwin_amd64"
 前面两个赋值，是更改环境变量，这样的好处是只针对本次运行有效，不会更改我们默认的配置。
 
 `go help build`
+
+**CGO_ENABLED 环境变量**
+
+当CGO_ENABLED=1，进行编译时会将文件中引用libc的库（比如常用的net包），以动态链接的方式生成目标文件。 
+
+当CGO_ENABLED=0，进行编译时则会把在目标文件中未定义的符号（外部函数）一起链接到可执行文件中。
+
+`# CGO_ENABLED=0 go build hello.go`
