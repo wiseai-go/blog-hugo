@@ -14,7 +14,8 @@
     <author>wiseai</author>
     <guid>http://wiseai.cn/post/goframe%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7gf%E7%9A%84%E7%BC%96%E8%AF%91%E6%96%B9%E6%B3%95/</guid>
     <description>
-        &lt;h3 id=&#34;这里主要说明自行编译的方法&#34;&gt;这里主要说明自行编译的方法&lt;/h3&gt;
+        &lt;h4 id=&#34;这里主要说明自行编译的方法&#34;&gt;这里主要说明自行编译的方法&lt;/h4&gt;
+&lt;hr&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/gogf/gf&#34;&gt;点击下载源码&lt;/a&gt; ，这里最好放在&lt;code&gt;~/go/src/github/&lt;/code&gt;下，方便导入。&lt;/p&gt;
@@ -27,7 +28,7 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;code&gt;# go build main.go&lt;/code&gt;或者&lt;code&gt;gf build main.go&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;&lt;strong&gt;这里说明几个需要注意的事项:&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;这里说明几个需要注意的事项:&lt;/strong&gt;&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;编译的时候最好使用以前编译的gf编译，用&lt;code&gt;go build&lt;/code&gt;不能写入gf的信息&lt;/li&gt;
 &lt;/ol&gt;
@@ -50,10 +51,12 @@ Git Commit怎么用go语言取值没有去找，比较直接的方法是修改�
     info.Git = &amp;#34;none&amp;#34;
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;意思是如果这个值为空，就为none，最直接的就是把none改为Git Commit的值。&lt;/p&gt;
+&lt;hr&gt;
 &lt;ol start=&#34;2&#34;&gt;
 &lt;li&gt;如果使用sqlite和oracle数据库，必需使用cgo环境编译。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;code&gt;# CGO_ENABLED=0 gf build main.go&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# CGO_ENABLED=1 go build main.go&lt;/code&gt;&lt;/p&gt;
+&lt;hr&gt;
 &lt;ol start=&#34;3&#34;&gt;
 &lt;li&gt;涉及gf编译的文件有以下几个：&lt;/li&gt;
 &lt;/ol&gt;
@@ -8715,9 +8718,10 @@ GOTOOLDIR=&amp;#34;/usr/local/go/pkg/tool/darwin_amd64&amp;#34;
 &lt;p&gt;前面两个赋值，是更改环境变量，这样的好处是只针对本次运行有效，不会更改我们默认的配置。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;go help build&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;CGO_ENABLED 环境变量&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;系统默认为1，可以使用&lt;code&gt;go env&lt;/code&gt;命令查看。&lt;/p&gt;
 &lt;p&gt;当CGO_ENABLED=1，进行编译时会将文件中引用libc的库（比如常用的net包），以动态链接的方式生成目标文件。&lt;/p&gt;
 &lt;p&gt;当CGO_ENABLED=0，进行编译时则会把在目标文件中未定义的符号（外部函数）一起链接到可执行文件中。&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;# CGO_ENABLED=0 go build hello.go&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# CGO_ENABLED=1 go build hello.go&lt;/code&gt;&lt;/p&gt;
 
     </description>
     </item>

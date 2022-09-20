@@ -9,7 +9,8 @@ categories:
 - goframe学习
 draft: false
 ---
-### 这里主要说明自行编译的方法
+#### 这里主要说明自行编译的方法
+-------
 
 - [点击下载源码](https://github.com/gogf/gf) ，这里最好放在`~/go/src/github/`下，方便导入。
 
@@ -19,7 +20,7 @@ draft: false
 
 `# go build main.go`或者`gf build main.go`
 
-***这里说明几个需要注意的事项:***
+**这里说明几个需要注意的事项:**
 1. 编译的时候最好使用以前编译的gf编译，用`go build`不能写入gf的信息
 ```
 GoFrame CLI Tool v2.1.4, https://goframe.org
@@ -47,10 +48,12 @@ if info.Git == "" {
 ```
 意思是如果这个值为空，就为none，最直接的就是把none改为Git Commit的值。
 
+-------
 2. 如果使用sqlite和oracle数据库，必需使用cgo环境编译。
 
-`# CGO_ENABLED=0 gf build main.go`
+`# CGO_ENABLED=1 go build main.go`
 
+-------
 3. 涉及gf编译的文件有以下几个：
 ```
 github.com/gogf/gf/cmd/gf/internal/cmd/cmd_gen_dao.go

@@ -72,7 +72,8 @@
 	</div>
 	<div>
 		<div class="article-post">
-			<h3 id="这里主要说明自行编译的方法">这里主要说明自行编译的方法</h3>
+			<h4 id="这里主要说明自行编译的方法">这里主要说明自行编译的方法</h4>
+<hr>
 <ul>
 <li>
 <p><a href="https://github.com/gogf/gf">点击下载源码</a> ，这里最好放在<code>~/go/src/github/</code>下，方便导入。</p>
@@ -85,7 +86,7 @@
 </li>
 </ul>
 <p><code># go build main.go</code>或者<code>gf build main.go</code></p>
-<p><em><strong>这里说明几个需要注意的事项:</strong></em></p>
+<p><strong>这里说明几个需要注意的事项:</strong></p>
 <ol>
 <li>编译的时候最好使用以前编译的gf编译，用<code>go build</code>不能写入gf的信息</li>
 </ol>
@@ -108,10 +109,12 @@ Git Commit怎么用go语言取值没有去找，比较直接的方法是修改�
     info.Git = &#34;none&#34;
 }
 </code></pre><p>意思是如果这个值为空，就为none，最直接的就是把none改为Git Commit的值。</p>
+<hr>
 <ol start="2">
 <li>如果使用sqlite和oracle数据库，必需使用cgo环境编译。</li>
 </ol>
-<p><code># CGO_ENABLED=0 gf build main.go</code></p>
+<p><code># CGO_ENABLED=1 go build main.go</code></p>
+<hr>
 <ol start="3">
 <li>涉及gf编译的文件有以下几个：</li>
 </ol>
