@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-cn"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link href="http://static.wiseai.cn/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://static.wiseai.cn/img/favicon.ico" />
+
+    <title>Goframe中数据库配置 | WiseAI的博客</title>
+</head><body><div class="container-fluid">
+    <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="http://static.wiseai.cn/img/favicon.ico" alt="" width="30" height="24" class="d-inline-block align-text-top">
+                WiseAI的博客
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/articles/">文章</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/categories/">分类</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/tags/">关键字</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/post/golang/">golang编程</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/about/">关于</a>
+                    </li>
+                    
+                </ul>
+                <form class="d-flex">
+                    <input id="search-query" class="form-control me-2" type="search" placeholder="Search for anything..." aria-label="Search">
+                </form>
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+
+
+<div id="content">
+<div class="container article">
+	<h1>Goframe中数据库配置</h1>
+	<div class="post-meta">
+		<div>
+			
+			
+			By wiseai | 2022-09-16 | 1 minutes
+		</div>
+		<div class="tags">
+			
+			<a class="btn btn-light links btn-sm" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+			
+		</div>
+	</div>
+	<div>
+		<div class="article-post">
+			<p>goframe中获取数据库操作对象有三种方式，一种是使用g.DB方法（推荐），一种是使用原生gdb.New方法，还有一种是使用包原生单例方法gdb.Instance</p>
+<h3 id="配置文件">配置文件</h3>
+<pre tabindex="0"><code>{
+	&#34;database&#34;: {
+		&#34;default&#34;: 
+			[{&#34;link&#34;: &#34;sqlite:/home/xjc/go/src/gitee/test-gf/testGf.db&#34;, &#34;debug&#34;: &#34;true&#34;}],
+		&#34;focus&#34;: 
+			[{&#34;link&#34;: &#34;mysql:focus:sadmQHH*i@tcp(192.168.1.1:3306)/focus&#34;, &#34;debug&#34;: &#34;true&#34;, &#34;role&#34;: &#34;master&#34;}]
+			[{&#34;link&#34;: &#34;mysql:focus:sadmQHH*i@tcp(192.168.1.2:3306)/focus&#34;, &#34;debug&#34;: &#34;true&#34;, &#34;role&#34;: &#34;slave&#34;}]
+	}
+}
+</code></pre><p>这里是json格式，也可以使用yaml，这样配置的原因是可以方便配置集群模式，<a href="https://goframe.org/">具体查看文档</a></p>
+<h3 id="加载数据库驱动">加载数据库驱动</h3>
+<p><a href="https://github.com/gogf/gf/tree/master/contrib/drivers">这里找加载方法</a></p>
+<pre tabindex="0"><code>mport (
+    _ &#34;github.com/gogf/gf/contrib/drivers/sqlite/v2&#34; 
+    _ &#34;github.com/gogf/gf/contrib/drivers/mysql/v2&#34;
+)
+</code></pre><h3 id="gdb方法推荐">g.DB方法（推荐）</h3>
+<p>加载数据库驱动，<a href="https://github.com/gogf/gf/tree/master/contrib/drivers">这里找加载方法</a></p>
+<pre tabindex="0"><code>import (
+    &#34;github.com/gogf/gf/v2/frame/g&#34;
+)
+
+// 获取默认配置的数据库对象(配置名称为&#34;default&#34;)
+db := g.DB()
+
+// 获取配置分组名称为&#34;user&#34;的数据库对象
+db := g.DB(&#34;user&#34;)
+</code></pre><p>g.DB对象管理方式获取的是单例对象，整合了配置文件的管理功能，支持配置文件热更新。</p>
+<h3 id="gdbnew是根据给定的数据库节点配置创建一个新的数据库对象非单例无法使用配置文件这里有坑">gdb.New是根据给定的数据库节点配置创建一个新的数据库对象(非单例)，无法使用配置文件。（这里有坑）</h3>
+<pre tabindex="0"><code>db, err := gdb.New(gdb.ConfigNode{
+        Host     : &#34;/home/xjc/go/src/gitee/test-gf/&#34;,
+        Name     : &#34;testGf.db&#34;,
+        Type     : &#34;sqlite&#34;,
+})
+</code></pre><p><strong>这里不支持link写法，注意这里sqlite的写法</strong></p>
+<h3 id="gdbinstance是包原生单例管理方法需要结合配置方法一起使用通过分组名称非必需获取对应配置的数据库单例对象">gdb.Instance是包原生单例管理方法，需要结合配置方法一起使用，通过分组名称(非必需)获取对应配置的数据库单例对象。</h3>
+<pre tabindex="0"><code>gdb.SetConfig(gdb.Config {
+    &#34;default&#34; : gdb.ConfigGroup {
+        gdb.ConfigNode {
+            Link: &#34;sqlite:/home/xjc/go/src/gitee/test-gf/testGf.db&#34;,
+        },
+    },
+    &#34;focus&#34; : gdb.ConfigGroup {
+        gdb.ConfigNode {
+            Link: &#34;mysql:focus:sadmQHH*i@tcp(192.168.1.1:3306)/focus&#34;,
+        },
+    },
+})
+
+//数据库dufault
+db, err := gdb.Instance()
+//数据库focus
+db, err := gdb.Instance(&#34;focus&#34;)
+//或
+//数据库dufault
+db, err := gdb.NewByGroup()
+//数据库focus
+db, err := gdb.NewByGroup(&#34;focus&#34;)
+</code></pre><h3 id="使用该配置方式时为保证数据库安全默认底层不支持多行sql语句执行为了得到更多配置项控制请参考推荐的简化配置同时建议您务必了解清楚简化配置项中每个连接参数的功能作用">使用该配置方式时，为保证数据库安全，默认底层不支持多行SQL语句执行。为了得到更多配置项控制，请参考推荐的简化配置，同时建议您务必了解清楚简化配置项中每个连接参数的功能作用。</h3>
+<pre tabindex="0"><code>database:
+  分组名称:
+    host:                  &#34;地址&#34;
+    port:                  &#34;端口&#34;
+    user:                  &#34;账号&#34;
+    pass:                  &#34;密码&#34;
+    name:                  &#34;数据库名称&#34;
+    type:                  &#34;数据库类型(mysql/pgsql/mssql/sqlite/oracle)&#34;
+    link:                  &#34;(可选)自定义数据库链接信息，当该字段被设置值时，以上链接字段(Host,Port,User,Pass,Name)将失效，但是type必须有值&#34;         
+    role:                  &#34;(可选)数据库主从角色(master/slave)，不使用应用层的主从机制请均设置为master&#34;
+    debug:                 &#34;(可选)开启调试模式&#34;
+    prefix:                &#34;(可选)表名前缀&#34;
+    dryRun:                &#34;(可选)ORM空跑(只读不写)&#34;
+    charset:               &#34;(可选)数据库编码(如: utf8/gbk/gb2312)，一般设置为utf8&#34;
+    weight:                &#34;(可选)负载均衡权重，用于负载均衡控制，不使用应用层的负载均衡机制请置空&#34;
+    timezone:              &#34;(可选)时区配置，例如:local&#34;
+    maxIdle:               &#34;(可选)连接池最大闲置的连接数&#34;
+    maxOpen:               &#34;(可选)连接池最大打开的连接数&#34;
+    maxLifetime:           &#34;(可选)连接对象可重复使用的时间长度&#34;
+    createdAt:             &#34;(可选)自动创建时间字段名称&#34;
+    updatedAt:             &#34;(可选)自动更新时间字段名称&#34;
+    deletedAt:             &#34;(可选)软删除时间字段名称&#34;
+    timeMaintainDisabled:  &#34;(可选)是否完全关闭时间更新特性，true时CreatedAt/UpdatedAt/DeletedAt都将失效&#34;
+</code></pre>
+		</div>
+	</div>
+</div>
+
+
+<div class="container">
+    
+    <div class="row">
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-end dh" href="/post/%E4%BB%80%E4%B9%88%E6%98%AF%E9%AB%98%E7%BA%A7%E7%9A%84%E6%AC%B2%E6%9C%9B/">
+                <h5>前一篇</h5><br>
+                什么是高级的欲望?
+            </a>            
+        </div>
+        
+        <div class="col-2">
+        </div>
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-start dh" href="/post/%E7%AD%94%E9%A2%98/">
+                <h5>后一篇</h5><br>
+                答题
+            </a>            
+        </div>
+        
+    </div>
+    
+</div>
+
+        </div><br><br>
+<footer class="container">
+    <h2>友情链接</h2>
+    <hr>
+    <nav class="nav nav-pills flex-column flex-sm-row">
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/gnzg/index.html" target="_blank">孤鸟之歌</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/mm/index.html" target="_blank">生成随机字符</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/md/index.html" target="_blank">MarkDown</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://gitee.com/" target="_blank">Gitee</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://github.com/" target="_blank">Github</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.oschina.net/" target="_blank">OSCHINA</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://gitee.com/wiseai/the-way-to-go_ZH_CN/blob/master/eBook/directory.md" target="_blank">the way to go</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://topgoer.com/" target="_blank">golang文档</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://goframe.org/display/gf" target="_blank">GoFrame</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.aliyundrive.com/" target="_blank">阿里云盘</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.bootstrap.cn/" target="_blank">bootstrap文档</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.58pic.com/" target="_blank">千图</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://ifonts.com/" target="_blank">iFonts</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://marketing.qiniu.com/" target="_blank">七牛云</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.ixigua.com/" target="_blank">西瓜视频</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/yugang/index.html" target="_blank">鱼缸计算</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://justcc.mengkang.net/#/" target="_blank">C语言JustCC</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="/index.xml" target="_blank">RSS</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.kancloud.cn/idcpj/python/418553" target="_blank">参考资料</a>
+        
+    </nav>
+
+    <div class="copyright text-center">
+      <span class="power-by">
+        Powered by <a class="links" href="https://gohugo.io" target="_blank">Hugo</a>
+    </span>
+    <span>|</span>
+    <span>
+        Theme - <a class="links" href="https://github.com/wiseai-go/blog-hugo" target="_blank">WiseAI</a>
+    </span>
+    <br>
+    <span class="copyright-year">
+        &copy;
+        
+        2017 -
+        2022<span>
+            陇ICP备15000157号
+            
+        </span></span>
+
+</div>
+</footer>
+<script src="http://static.wiseai.cn/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+</html>

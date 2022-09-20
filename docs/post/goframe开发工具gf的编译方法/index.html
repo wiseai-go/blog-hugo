@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-cn"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link href="http://static.wiseai.cn/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://static.wiseai.cn/img/favicon.ico" />
+
+    <title>Goframe开发工具gf的编译方法 | WiseAI的博客</title>
+</head><body><div class="container-fluid">
+    <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="http://static.wiseai.cn/img/favicon.ico" alt="" width="30" height="24" class="d-inline-block align-text-top">
+                WiseAI的博客
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/articles/">文章</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/categories/">分类</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/tags/">关键字</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/post/golang/">golang编程</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"   href="/about/">关于</a>
+                    </li>
+                    
+                </ul>
+                <form class="d-flex">
+                    <input id="search-query" class="form-control me-2" type="search" placeholder="Search for anything..." aria-label="Search">
+                </form>
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+
+
+<div id="content">
+<div class="container article">
+	<h1>Goframe开发工具gf的编译方法</h1>
+	<div class="post-meta">
+		<div>
+			
+			
+			By wiseai | 2022-09-20 | 1 minutes
+		</div>
+		<div class="tags">
+			
+			<a class="btn btn-light links btn-sm" href="/tags/gf/">gf</a>
+			
+		</div>
+	</div>
+	<div>
+		<div class="article-post">
+			<h3 id="这里主要说明自行编译的方法">这里主要说明自行编译的方法</h3>
+<ul>
+<li>
+<p><a href="https://github.com/gogf/gf">点击下载源码</a> ，这里最好放在<code>~/go/src/github/</code>下，方便导入。</p>
+</li>
+<li>
+<p>根据自己的需要修改数据库依赖，文件/cmd/gf/internal/cmd/cmd_gen_dao.go的import。sqlite 和oracle 的驱动需要安装cgo环境。</p>
+</li>
+<li>
+<p>进入到gf cli的源码目录/cmd/gf 编译</p>
+</li>
+</ul>
+<p><code># go build main.go</code>或者<code>gf build main.go</code></p>
+<p><em><strong>这里说明几个需要注意的事项:</strong></em></p>
+<ol>
+<li>编译的时候最好使用以前编译的gf编译，用<code>go build</code>不能写入gf的信息</li>
+</ol>
+<pre tabindex="0"><code>GoFrame CLI Tool v2.1.4, https://goframe.org
+GoFrame Version: v2.1.0 in current go.mod
+CLI Installed At: /home/xjc/go/src/github.com/gogf/gf/cmd/gf/gf
+Current is a custom installed version, no installation information.
+</code></pre><p>用<code>gf build</code>就有编译信息了</p>
+<pre tabindex="0"><code>GoFrame CLI Tool v2.1.4, https://goframe.org
+GoFrame Version: v2.1.0 in current go.mod
+CLI Installed At: /usr/bin/gf
+CLI Built Detail:
+  Go Version:  go1.19.1
+  GF Version:  v2.1.4
+  Git Commit:  none
+  Build Time:  2022-09-20 10:24:57
+</code></pre><p>这里的Git Commit没有内容，主要是懒得去加。
+Git Commit怎么用go语言取值没有去找，比较直接的方法是修改这个文件<code>github.com/gogf/gf/cmd/gf/internal/cmd/cmd_version.go</code></p>
+<pre tabindex="0"><code>if info.Git == &#34;&#34; {
+    info.Git = &#34;none&#34;
+}
+</code></pre><p>意思是如果这个值为空，就为none，最直接的就是把none改为Git Commit的值。</p>
+<ol start="2">
+<li>如果使用sqlite和oracle数据库，必需使用cgo环境编译。</li>
+</ol>
+<p><code># CGO_ENABLED=0 gf build main.go</code></p>
+<ol start="3">
+<li>涉及gf编译的文件有以下几个：</li>
+</ol>
+<pre tabindex="0"><code>github.com/gogf/gf/cmd/gf/internal/cmd/cmd_gen_dao.go
+github.com/gogf/gf/cmd/gf/internal/cmd/cmd_version.go
+github.com/gogf/gf/os/gbuild/gbuild.go
+</code></pre>
+		</div>
+	</div>
+</div>
+
+
+<div class="container">
+    
+    <div class="row">
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-end dh" href="/post/%E7%AD%94%E9%A2%98/">
+                <h5>前一篇</h5><br>
+                答题
+            </a>            
+        </div>
+        
+        <div class="col-2">
+        </div>
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-start dh" href="">
+                <h5>没有了</h5><br>
+            </a>            
+        </div>
+        
+    </div>
+    
+</div>
+
+        </div><br><br>
+<footer class="container">
+    <h2>友情链接</h2>
+    <hr>
+    <nav class="nav nav-pills flex-column flex-sm-row">
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/gnzg/index.html" target="_blank">孤鸟之歌</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/mm/index.html" target="_blank">生成随机字符</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/md/index.html" target="_blank">MarkDown</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://gitee.com/" target="_blank">Gitee</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://github.com/" target="_blank">Github</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.oschina.net/" target="_blank">OSCHINA</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://gitee.com/wiseai/the-way-to-go_ZH_CN/blob/master/eBook/directory.md" target="_blank">the way to go</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://topgoer.com/" target="_blank">golang文档</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://goframe.org/display/gf" target="_blank">GoFrame</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.aliyundrive.com/" target="_blank">阿里云盘</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.bootstrap.cn/" target="_blank">bootstrap文档</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.58pic.com/" target="_blank">千图</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://ifonts.com/" target="_blank">iFonts</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://marketing.qiniu.com/" target="_blank">七牛云</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.ixigua.com/" target="_blank">西瓜视频</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://wiseai.gitee.io/pages/yugang/index.html" target="_blank">鱼缸计算</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://justcc.mengkang.net/#/" target="_blank">C语言JustCC</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="/index.xml" target="_blank">RSS</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.kancloud.cn/idcpj/python/418553" target="_blank">参考资料</a>
+        
+    </nav>
+
+    <div class="copyright text-center">
+      <span class="power-by">
+        Powered by <a class="links" href="https://gohugo.io" target="_blank">Hugo</a>
+    </span>
+    <span>|</span>
+    <span>
+        Theme - <a class="links" href="https://github.com/wiseai-go/blog-hugo" target="_blank">WiseAI</a>
+    </span>
+    <br>
+    <span class="copyright-year">
+        &copy;
+        
+        2017 -
+        2022<span>
+            陇ICP备15000157号
+            
+        </span></span>
+
+</div>
+</footer>
+<script src="http://static.wiseai.cn/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+</html>

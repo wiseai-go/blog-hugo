@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>数据库 on WiseAI的博客</title>
+    <link>http://wiseai.cn/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+    <description>Recent content in 数据库 on WiseAI的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>陇ICP备15000157号</copyright>
+    <lastBuildDate>Fri, 16 Sep 2022 10:55:47 +0800</lastBuildDate><atom:link href="http://wiseai.cn/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Goframe中数据库配置</title>
+      <link>http://wiseai.cn/post/goframe%E4%B8%AD%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Fri, 16 Sep 2022 10:55:47 +0800</pubDate>
+      
+      <guid>http://wiseai.cn/post/goframe%E4%B8%AD%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AE/</guid>
+      <description>goframe中获取数据库操作对象有三种方式，一种是使用g.DB方法（推荐），一种是使用原生gdb.New方法，还有一种是使用包原生单例方法gdb.Instance
+配置文件 { &amp;#34;database&amp;#34;: { &amp;#34;default&amp;#34;: [{&amp;#34;link&amp;#34;: &amp;#34;sqlite:/home/xjc/go/src/gitee/test-gf/testGf.db&amp;#34;, &amp;#34;debug&amp;#34;: &amp;#34;true&amp;#34;}], &amp;#34;focus&amp;#34;: [{&amp;#34;link&amp;#34;: &amp;#34;mysql:focus:sadmQHH*i@tcp(192.168.1.1:3306)/focus&amp;#34;, &amp;#34;debug&amp;#34;: &amp;#34;true&amp;#34;, &amp;#34;role&amp;#34;: &amp;#34;master&amp;#34;}] [{&amp;#34;link&amp;#34;: &amp;#34;mysql:focus:sadmQHH*i@tcp(192.168.1.2:3306)/focus&amp;#34;, &amp;#34;debug&amp;#34;: &amp;#34;true&amp;#34;, &amp;#34;role&amp;#34;: &amp;#34;slave&amp;#34;}] } } 这里是json格式，也可以使用yaml，这样配置的原因是可以方便配置集群模式，具体查看文档
+加载数据库驱动 这里找加载方法
+mport ( _ &amp;#34;github.com/gogf/gf/contrib/drivers/sqlite/v2&amp;#34; _ &amp;#34;github.com/gogf/gf/contrib/drivers/mysql/v2&amp;#34; ) g.DB方法（推荐） 加载数据库驱动，这里找加载方法
+import ( &amp;#34;github.com/gogf/gf/v2/frame/g&amp;#34; ) // 获取默认配置的数据库对象(配置名称为&amp;#34;default&amp;#34;) db := g.DB() // 获取配置分组名称为&amp;#34;user&amp;#34;的数据库对象 db := g.DB(&amp;#34;user&amp;#34;) g.DB对象管理方式获取的是单例对象，整合了配置文件的管理功能，支持配置文件热更新。
+gdb.New是根据给定的数据库节点配置创建一个新的数据库对象(非单例)，无法使用配置文件。（这里有坑） db, err := gdb.New(gdb.ConfigNode{ Host : &amp;#34;/home/xjc/go/src/gitee/test-gf/&amp;#34;, Name : &amp;#34;testGf.db&amp;#34;, Type : &amp;#34;sqlite&amp;#34;, }) 这里不支持link写法，注意这里sqlite的写法
+gdb.Instance是包原生单例管理方法，需要结合配置方法一起使用，通过分组名称(非必需)获取对应配置的数据库单例对象。 gdb.SetConfig(gdb.Config { &amp;#34;default&amp;#34; : gdb.</description>
+    </item>
+    
+  </channel>
+</rss>

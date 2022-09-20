@@ -6,7 +6,243 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Wed, 07 Sep 2022 17:35:02 +0800</lastBuildDate><atom:link href="http://wiseai.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 20 Sep 2022 10:52:06 +0800</lastBuildDate><atom:link href="http://wiseai.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+    <title>Goframe开发工具gf的编译方法</title>
+    <link>http://wiseai.cn/post/goframe%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7gf%E7%9A%84%E7%BC%96%E8%AF%91%E6%96%B9%E6%B3%95/</link>
+    <pubDate>Tue, 20 Sep 2022 10:52:06 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>http://wiseai.cn/post/goframe%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7gf%E7%9A%84%E7%BC%96%E8%AF%91%E6%96%B9%E6%B3%95/</guid>
+    <description>
+        &lt;h3 id=&#34;这里主要说明自行编译的方法&#34;&gt;这里主要说明自行编译的方法&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/gogf/gf&#34;&gt;点击下载源码&lt;/a&gt; ，这里最好放在&lt;code&gt;~/go/src/github/&lt;/code&gt;下，方便导入。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;根据自己的需要修改数据库依赖，文件/cmd/gf/internal/cmd/cmd_gen_dao.go的import。sqlite 和oracle 的驱动需要安装cgo环境。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;进入到gf cli的源码目录/cmd/gf 编译&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;# go build main.go&lt;/code&gt;或者&lt;code&gt;gf build main.go&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;这里说明几个需要注意的事项:&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;编译的时候最好使用以前编译的gf编译，用&lt;code&gt;go build&lt;/code&gt;不能写入gf的信息&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;GoFrame CLI Tool v2.1.4, https://goframe.org
+GoFrame Version: v2.1.0 in current go.mod
+CLI Installed At: /home/xjc/go/src/github.com/gogf/gf/cmd/gf/gf
+Current is a custom installed version, no installation information.
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;用&lt;code&gt;gf build&lt;/code&gt;就有编译信息了&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;GoFrame CLI Tool v2.1.4, https://goframe.org
+GoFrame Version: v2.1.0 in current go.mod
+CLI Installed At: /usr/bin/gf
+CLI Built Detail:
+  Go Version:  go1.19.1
+  GF Version:  v2.1.4
+  Git Commit:  none
+  Build Time:  2022-09-20 10:24:57
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这里的Git Commit没有内容，主要是懒得去加。
+Git Commit怎么用go语言取值没有去找，比较直接的方法是修改这个文件&lt;code&gt;github.com/gogf/gf/cmd/gf/internal/cmd/cmd_version.go&lt;/code&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;if info.Git == &amp;#34;&amp;#34; {
+    info.Git = &amp;#34;none&amp;#34;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;意思是如果这个值为空，就为none，最直接的就是把none改为Git Commit的值。&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;如果使用sqlite和oracle数据库，必需使用cgo环境编译。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;# CGO_ENABLED=0 gf build main.go&lt;/code&gt;&lt;/p&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;涉及gf编译的文件有以下几个：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;github.com/gogf/gf/cmd/gf/internal/cmd/cmd_gen_dao.go
+github.com/gogf/gf/cmd/gf/internal/cmd/cmd_version.go
+github.com/gogf/gf/os/gbuild/gbuild.go
+&lt;/code&gt;&lt;/pre&gt;
+    </description>
+    </item>
+    
+    <item>
+    <title>答题</title>
+    <link>http://wiseai.cn/post/%E7%AD%94%E9%A2%98/</link>
+    <pubDate>Fri, 16 Sep 2022 16:46:23 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>http://wiseai.cn/post/%E7%AD%94%E9%A2%98/</guid>
+    <description>
+        &lt;pre&gt;&lt;code&gt;2016.1.1
+75
+五、五
+五年
+44个
+三农、三农、五个振兴
+四个必须
+两山
+黑山
+长城精神
+一律平等
+党组织
+补短板强弱项
+天下第一雄关
+实现共产主义
+警告、严重警告
+党内民主
+中国特色社会主义道路
+党同人民关系、经济
+形式化、表面化、庸俗化
+民主政治
+改革开放考验，第一个错
+坚持改革开放
+民主集中制
+开除党籍
+通报、改组、检查
+政治制度
+政治建设
+党内政治生活
+执政水平
+总揽全局，协调各方
+5G智慧矿山
+自我--完善、净化、革新、提高
+基本方略
+政治领导力、社会号召力、思想引领办（全选）
+教科书
+脱离群众、能力不足、精神懈怠、消极腐败的（危险）
+权力清单
+党的建设
+党章
+基础性
+改革开放
+发现和解决自身问题的能力
+互联网思想理论
+为什么人的问题
+中国共产党的领导
+有责任有担当、有权必有责（全选）
+错误：又有监督，又有自由
+基本方略
+党的建设
+事业为上
+关键少数、一把手
+强科技、强工业
+开辟了社会治理新境界
+市场经济、改革开放、执政、外部环境的（考验）
+一带一路
+监督权、选举权、参与权
+表决
+家风、家庭、家教
+党中央权威
+科学化
+重在保护、要在治理
+主体责任、监督责任
+党的建设缺失
+系统、整体、协同
+对权力的监督
+监督
+错误：自我批评
+神圣职责
+人一之，我十之
+西柏坡
+系统性、整体性
+&lt;/code&gt;&lt;/pre&gt;
+
+    </description>
+    </item>
+    
+    <item>
+    <title>Goframe中数据库配置</title>
+    <link>http://wiseai.cn/post/goframe%E4%B8%AD%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AE/</link>
+    <pubDate>Fri, 16 Sep 2022 10:55:47 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>http://wiseai.cn/post/goframe%E4%B8%AD%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AE/</guid>
+    <description>
+        &lt;p&gt;goframe中获取数据库操作对象有三种方式，一种是使用g.DB方法（推荐），一种是使用原生gdb.New方法，还有一种是使用包原生单例方法gdb.Instance&lt;/p&gt;
+&lt;h3 id=&#34;配置文件&#34;&gt;配置文件&lt;/h3&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;{
+	&amp;#34;database&amp;#34;: {
+		&amp;#34;default&amp;#34;: 
+			[{&amp;#34;link&amp;#34;: &amp;#34;sqlite:/home/xjc/go/src/gitee/test-gf/testGf.db&amp;#34;, &amp;#34;debug&amp;#34;: &amp;#34;true&amp;#34;}],
+		&amp;#34;focus&amp;#34;: 
+			[{&amp;#34;link&amp;#34;: &amp;#34;mysql:focus:sadmQHH*i@tcp(192.168.1.1:3306)/focus&amp;#34;, &amp;#34;debug&amp;#34;: &amp;#34;true&amp;#34;, &amp;#34;role&amp;#34;: &amp;#34;master&amp;#34;}]
+			[{&amp;#34;link&amp;#34;: &amp;#34;mysql:focus:sadmQHH*i@tcp(192.168.1.2:3306)/focus&amp;#34;, &amp;#34;debug&amp;#34;: &amp;#34;true&amp;#34;, &amp;#34;role&amp;#34;: &amp;#34;slave&amp;#34;}]
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这里是json格式，也可以使用yaml，这样配置的原因是可以方便配置集群模式，&lt;a href=&#34;https://goframe.org/&#34;&gt;具体查看文档&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;加载数据库驱动&#34;&gt;加载数据库驱动&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/gogf/gf/tree/master/contrib/drivers&#34;&gt;这里找加载方法&lt;/a&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;mport (
+    _ &amp;#34;github.com/gogf/gf/contrib/drivers/sqlite/v2&amp;#34; 
+    _ &amp;#34;github.com/gogf/gf/contrib/drivers/mysql/v2&amp;#34;
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;gdb方法推荐&#34;&gt;g.DB方法（推荐）&lt;/h3&gt;
+&lt;p&gt;加载数据库驱动，&lt;a href=&#34;https://github.com/gogf/gf/tree/master/contrib/drivers&#34;&gt;这里找加载方法&lt;/a&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import (
+    &amp;#34;github.com/gogf/gf/v2/frame/g&amp;#34;
+)
+
+// 获取默认配置的数据库对象(配置名称为&amp;#34;default&amp;#34;)
+db := g.DB()
+
+// 获取配置分组名称为&amp;#34;user&amp;#34;的数据库对象
+db := g.DB(&amp;#34;user&amp;#34;)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;g.DB对象管理方式获取的是单例对象，整合了配置文件的管理功能，支持配置文件热更新。&lt;/p&gt;
+&lt;h3 id=&#34;gdbnew是根据给定的数据库节点配置创建一个新的数据库对象非单例无法使用配置文件这里有坑&#34;&gt;gdb.New是根据给定的数据库节点配置创建一个新的数据库对象(非单例)，无法使用配置文件。（这里有坑）&lt;/h3&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;db, err := gdb.New(gdb.ConfigNode{
+        Host     : &amp;#34;/home/xjc/go/src/gitee/test-gf/&amp;#34;,
+        Name     : &amp;#34;testGf.db&amp;#34;,
+        Type     : &amp;#34;sqlite&amp;#34;,
+})
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;这里不支持link写法，注意这里sqlite的写法&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;gdbinstance是包原生单例管理方法需要结合配置方法一起使用通过分组名称非必需获取对应配置的数据库单例对象&#34;&gt;gdb.Instance是包原生单例管理方法，需要结合配置方法一起使用，通过分组名称(非必需)获取对应配置的数据库单例对象。&lt;/h3&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;gdb.SetConfig(gdb.Config {
+    &amp;#34;default&amp;#34; : gdb.ConfigGroup {
+        gdb.ConfigNode {
+            Link: &amp;#34;sqlite:/home/xjc/go/src/gitee/test-gf/testGf.db&amp;#34;,
+        },
+    },
+    &amp;#34;focus&amp;#34; : gdb.ConfigGroup {
+        gdb.ConfigNode {
+            Link: &amp;#34;mysql:focus:sadmQHH*i@tcp(192.168.1.1:3306)/focus&amp;#34;,
+        },
+    },
+})
+
+//数据库dufault
+db, err := gdb.Instance()
+//数据库focus
+db, err := gdb.Instance(&amp;#34;focus&amp;#34;)
+//或
+//数据库dufault
+db, err := gdb.NewByGroup()
+//数据库focus
+db, err := gdb.NewByGroup(&amp;#34;focus&amp;#34;)
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;使用该配置方式时为保证数据库安全默认底层不支持多行sql语句执行为了得到更多配置项控制请参考推荐的简化配置同时建议您务必了解清楚简化配置项中每个连接参数的功能作用&#34;&gt;使用该配置方式时，为保证数据库安全，默认底层不支持多行SQL语句执行。为了得到更多配置项控制，请参考推荐的简化配置，同时建议您务必了解清楚简化配置项中每个连接参数的功能作用。&lt;/h3&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;database:
+  分组名称:
+    host:                  &amp;#34;地址&amp;#34;
+    port:                  &amp;#34;端口&amp;#34;
+    user:                  &amp;#34;账号&amp;#34;
+    pass:                  &amp;#34;密码&amp;#34;
+    name:                  &amp;#34;数据库名称&amp;#34;
+    type:                  &amp;#34;数据库类型(mysql/pgsql/mssql/sqlite/oracle)&amp;#34;
+    link:                  &amp;#34;(可选)自定义数据库链接信息，当该字段被设置值时，以上链接字段(Host,Port,User,Pass,Name)将失效，但是type必须有值&amp;#34;         
+    role:                  &amp;#34;(可选)数据库主从角色(master/slave)，不使用应用层的主从机制请均设置为master&amp;#34;
+    debug:                 &amp;#34;(可选)开启调试模式&amp;#34;
+    prefix:                &amp;#34;(可选)表名前缀&amp;#34;
+    dryRun:                &amp;#34;(可选)ORM空跑(只读不写)&amp;#34;
+    charset:               &amp;#34;(可选)数据库编码(如: utf8/gbk/gb2312)，一般设置为utf8&amp;#34;
+    weight:                &amp;#34;(可选)负载均衡权重，用于负载均衡控制，不使用应用层的负载均衡机制请置空&amp;#34;
+    timezone:              &amp;#34;(可选)时区配置，例如:local&amp;#34;
+    maxIdle:               &amp;#34;(可选)连接池最大闲置的连接数&amp;#34;
+    maxOpen:               &amp;#34;(可选)连接池最大打开的连接数&amp;#34;
+    maxLifetime:           &amp;#34;(可选)连接对象可重复使用的时间长度&amp;#34;
+    createdAt:             &amp;#34;(可选)自动创建时间字段名称&amp;#34;
+    updatedAt:             &amp;#34;(可选)自动更新时间字段名称&amp;#34;
+    deletedAt:             &amp;#34;(可选)软删除时间字段名称&amp;#34;
+    timeMaintainDisabled:  &amp;#34;(可选)是否完全关闭时间更新特性，true时CreatedAt/UpdatedAt/DeletedAt都将失效&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;
+    </description>
+    </item>
+    
     <item>
     <title>什么是高级的欲望?</title>
     <link>http://wiseai.cn/post/%E4%BB%80%E4%B9%88%E6%98%AF%E9%AB%98%E7%BA%A7%E7%9A%84%E6%AC%B2%E6%9C%9B/</link>
