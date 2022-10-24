@@ -35,9 +35,10 @@ draft: false
 
 2. 配置nodejs
 * 下载文件：[nodejs官网](https://nodejs.org/zh-cn/ "nodejs官网")
+* 中文网站：[nodejs中文网](http://nodejs.cn/download/)
 * 解压文件至/usr/local/目录下：
 
-`# rm -rf /usr/local/go && tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz`
+`# rm -rf /usr/local/node && tar -C /usr/local -xzf node-v16.13.2-linux-arm64.tar`
 
 （第一个命令是删除nodejs的残余文件）
 `# npm install yarn`
@@ -50,7 +51,7 @@ draft: false
 `# ln -s /usr/local/node-v16.13.2-linux-arm64/bin/npx /usr/bin/`
 * 修改为国内源
 
-`# npm config set registry https://registry.npm.taobao.org`
+`# npm config set registry https://registry.npmmirror.com`
 * 查看配置
 
 `# npm config get`

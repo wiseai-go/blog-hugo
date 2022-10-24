@@ -140,8 +140,7 @@ return y
 } else { // Unix-like
 	.	..
 }
-</code></pre><p>``</p>
-<p>这段代码一般被放在 <code>init()</code> 函数中执行。这儿还有一段示例来演示如何根据操作系统来决定输入结束的提示：</p>
+</code></pre><p>这段代码一般被放在 <code>init()</code> 函数中执行。这儿还有一段示例来演示如何根据操作系统来决定输入结束的提示：</p>
 <pre tabindex="0"><code>var prompt = &#34;Enter a digit, e.g. 3 &#34;+ &#34;or %s to quit.&#34;
 
 func init() {
@@ -151,8 +150,7 @@ func init() {
 		prompt = fmt.Sprintf(prompt, &#34;Ctrl+D&#34;)
 	}
 }
-</code></pre><p>``</p>
-</li>
+</code></pre></li>
 <li>
 <p>函数 <code>Abs()</code> 用于返回一个整型数字的绝对值:</p>
 <pre tabindex="0"><code>func Abs(x int) int {
@@ -161,8 +159,7 @@ if x &lt; 0 {
 }
 return x	
 }
-</code></pre><p>``</p>
-</li>
+</code></pre></li>
 <li>
 <p><code>isGreater</code> 用于比较两个整型数字的大小:</p>
 <pre tabindex="0"><code>func isGreater(x, y int) bool {
@@ -171,8 +168,7 @@ return x
 	}
 	return false
 }
-</code></pre><p>``</p>
-</li>
+</code></pre></li>
 </ol>
 <p>在第四种情况中，<code>if</code> 可以包含一个初始化语句（如：给一个变量赋值）。这种写法具有固定的格式（在初始化语句后方必须加上分号）：</p>
 <pre tabindex="0"><code>if initialization; condition {
@@ -276,6 +272,10 @@ cond is not greater than 10
         <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.aliyundrive.com/" target="_blank">阿里云盘</a>
         
         <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.bootstrap.cn/" target="_blank">bootstrap文档</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://cn.vuejs.org/" target="_blank">vue3文档</a>
+        
+        <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://element-plus.gitee.io/zh-CN/" target="_blank">element-plus文档</a>
         
         <a class="flex-sm-fill text-sm-center nav-link links link-dark" href="https://www.58pic.com/" target="_blank">千图</a>
         

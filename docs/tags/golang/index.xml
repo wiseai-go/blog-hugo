@@ -75,7 +75,7 @@ C语言: #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;time.h&amp;gt; //给�
 # ln -s /usr/local/go/bin/gofmt /usr/bin/
 修改为国内源 # go env -w GO111MODULE=auto # go env -w GOPROXY=https://goproxy.cn,direct
 查看配置 # go env
-配置nodejs 下载文件：nodejs官网 解压文件至/usr/local/目录下： # rm -rf /usr/local/go &amp;amp;&amp;amp; tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz
+配置nodejs 下载文件：nodejs官网 中文网站：nodejs中文网 解压文件至/usr/local/目录下： # rm -rf /usr/local/node &amp;amp;&amp;amp; tar -C /usr/local -xzf node-v16.13.2-linux-arm64.tar
 （第一个命令是删除nodejs的残余文件） # npm install yarn
 建立软链接至/usr/bin/目录下： # ln -s /usr/local/node-v16.13.2-linux-arm64/bin/node /usr/bin/
 # ln -s /usr/local/node-v16.13.2-linux-arm64/bin/npm /usr/bin/</description>

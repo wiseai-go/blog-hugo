@@ -1800,8 +1800,7 @@ func F3(s []string) { }
 	par2 type2,
 	...
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;``&lt;/p&gt;
-&lt;p&gt;函数 &lt;code&gt;F1()&lt;/code&gt; 可以使用正常的参数 &lt;code&gt;a&lt;/code&gt; 和 &lt;code&gt;b&lt;/code&gt;，以及一个没有任何初始化的 &lt;code&gt;Options&lt;/code&gt; 结构： &lt;code&gt;F1(a, b, Options {})&lt;/code&gt;。如果需要对选项进行初始化，则可以使用 &lt;code&gt;F1(a, b, Options {par1:val1, par2:val2})&lt;/code&gt;。&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;函数 &lt;code&gt;F1()&lt;/code&gt; 可以使用正常的参数 &lt;code&gt;a&lt;/code&gt; 和 &lt;code&gt;b&lt;/code&gt;，以及一个没有任何初始化的 &lt;code&gt;Options&lt;/code&gt; 结构： &lt;code&gt;F1(a, b, Options {})&lt;/code&gt;。如果需要对选项进行初始化，则可以使用 &lt;code&gt;F1(a, b, Options {par1:val1, par2:val2})&lt;/code&gt;。&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;使用空接口：&lt;/p&gt;
@@ -1817,8 +1816,7 @@ func F3(s []string) { }
 		}
 	}
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;``&lt;/p&gt;
-&lt;/li&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
     </description>
@@ -3024,8 +3022,7 @@ return y
 } else { // Unix-like
 	.	..
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;``&lt;/p&gt;
-&lt;p&gt;这段代码一般被放在 &lt;code&gt;init()&lt;/code&gt; 函数中执行。这儿还有一段示例来演示如何根据操作系统来决定输入结束的提示：&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这段代码一般被放在 &lt;code&gt;init()&lt;/code&gt; 函数中执行。这儿还有一段示例来演示如何根据操作系统来决定输入结束的提示：&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;var prompt = &amp;#34;Enter a digit, e.g. 3 &amp;#34;+ &amp;#34;or %s to quit.&amp;#34;
 
 func init() {
@@ -3035,8 +3032,7 @@ func init() {
 		prompt = fmt.Sprintf(prompt, &amp;#34;Ctrl+D&amp;#34;)
 	}
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;``&lt;/p&gt;
-&lt;/li&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;函数 &lt;code&gt;Abs()&lt;/code&gt; 用于返回一个整型数字的绝对值:&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func Abs(x int) int {
@@ -3045,8 +3041,7 @@ if x &amp;lt; 0 {
 }
 return x	
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;``&lt;/p&gt;
-&lt;/li&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;code&gt;isGreater&lt;/code&gt; 用于比较两个整型数字的大小:&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func isGreater(x, y int) bool {
@@ -3055,8 +3050,7 @@ return x
 	}
 	return false
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;``&lt;/p&gt;
-&lt;/li&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;在第四种情况中，&lt;code&gt;if&lt;/code&gt; 可以包含一个初始化语句（如：给一个变量赋值）。这种写法具有固定的格式（在初始化语句后方必须加上分号）：&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;if initialization; condition {
@@ -5130,7 +5124,7 @@ func main() {
 	var y uint8 = 4
 	fmt.Printf(&amp;#34;%08b\n&amp;#34;, x &amp;amp;^ y);  // 00001011
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;一元运算符&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -8544,9 +8538,10 @@ $ git archive
 &lt;/ol&gt;
 &lt;ul&gt;
 &lt;li&gt;下载文件：&lt;a href=&#34;https://nodejs.org/zh-cn/&#34; title=&#34;nodejs官网&#34;&gt;nodejs官网&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;中文网站：&lt;a href=&#34;http://nodejs.cn/download/&#34;&gt;nodejs中文网&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;解压文件至/usr/local/目录下：&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;code&gt;# rm -rf /usr/local/go &amp;amp;&amp;amp; tar -C /usr/local -xzf go1.17.6.linux-amd64.tar.gz&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# rm -rf /usr/local/node &amp;amp;&amp;amp; tar -C /usr/local -xzf node-v16.13.2-linux-arm64.tar&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;（第一个命令是删除nodejs的残余文件）
 &lt;code&gt;# npm install yarn&lt;/code&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -8558,7 +8553,7 @@ $ git archive
 &lt;ul&gt;
 &lt;li&gt;修改为国内源&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;code&gt;# npm config set registry https://registry.npm.taobao.org&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# npm config set registry https://registry.npmmirror.com&lt;/code&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;查看配置&lt;/li&gt;
 &lt;/ul&gt;
