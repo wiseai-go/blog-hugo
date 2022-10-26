@@ -128,8 +128,11 @@ menu:
     - name: 阿里云盘
       weight: 80
       url: "https://www.aliyundrive.com/"
+    - name: bootstrap v5 中文文档
+      weight: 94
+      url: "https://v5.bootcss.com/"
     - name: bootstrap文档
-      weight: 90
+      weight: 95
       url: "https://www.bootstrap.cn/"
     - name: element-plus文档
       weight: 92
