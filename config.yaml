@@ -143,6 +143,9 @@ menu:
     - name: vue3菜鸟教程
       weight: 93
       url: "https://www.runoob.com/vue3/vue3-tutorial.html"
+    - name: caddy中文教程
+      weight: 96
+      url: "https://caddy2.dengxiaolong.com/docs/"
     - name: 千图
       weight: 100
       url: "https://www.58pic.com/"
