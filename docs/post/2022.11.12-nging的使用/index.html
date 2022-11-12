@@ -9,7 +9,7 @@
 
     <link rel="shortcut icon" type="image/x-icon" href="http://static.wiseai.cn/img/favicon.ico" />
 
-    <title>Posts | WiseAI的博客</title>
+    <title>Nging的使用 | WiseAI的博客</title>
 </head><body><div class="container-fluid">
     <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
         <div class="container-fluid">
@@ -56,90 +56,74 @@
 
 
 <div id="content">
+<div class="container article">
+	<h1>Nging的使用</h1>
+	<div class="post-meta">
+		<div>
+			
+			
+			By wiseai | 2022-11-12 | 1 minutes
+		</div>
+		<div class="tags">
+			
+			<a class="btn btn-light links btn-sm" href="/tags/nging/">nging</a>
+			
+			<a class="btn btn-light links btn-sm" href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/">服务器管理</a>
+			
+		</div>
+	</div>
+	<div>
+		<div class="article-post">
+			<p>Nging是一个网站服务程序，可以代替Nginx或Apache来搭建Web开发测试环境，并附带了实用的周边工具，例如：计划任务、MySQL管理、Redis管理、FTP管理、SSH管理、服务器管理等。</p>
+<p>这个软件项目不仅仅实现了一些网站服务工具，本身还是一个具有很好扩展性的通用网站后台管理系统，通过本项目，可以很轻松的构建一个全新的网站项目，省去从头构建项目的麻烦，减少重复性劳动。</p>
+<p>下载地址：https://dl.webx.top/nging/latest/</p>
+<p>使用可以看说明，非常简单，<strong>注意：</strong> 在添加服务的时候要用root权限，其它的操作可以参考systemctl命令，服务名称是Nging，N是大写。</p>
+<ol>
+<li>git clone <a href="https://github.com/admpub/nging.git">https://github.com/admpub/nging.git</a></li>
+</ol>
+<p>这一步必须完整clone，否则会出现找不到文件的错误。</p>
+<p><code>git checkout v4.2.4</code></p>
+<p>checkout到版本号</p>
+<ol start="2">
+<li>将<code>go/bin</code>加入PATH</li>
+</ol>
+<p><code># PATH=PATH:~/go/bin</code></p>
+<ol start="3">
+<li>进入tool目录下使用bash执行</li>
+</ol>
+<p><code># bash build-all-platform.sh linux_amd64</code></p>
+<p>这是如果不加linux_amd64，则编译全平台的。</p>
+<p>最后，如果觉得广告不好可以去掉，但是不建议这么做，毕竟作者开源就很不错了，如果你有强迫症，可以这样做，在template目录下，查找TrackerHTML，这个是自动查检更新的js，作者顺带着加了个广告，去掉就没有广告了，强烈建议不要去。</p>
+<p><strong>手头宽裕的可以支持下作者，支持作者更好开发软件！！！</strong></p>
 
-
-
-
-
-<div class="container archive">
-	<h1>Posts</h1>
-	<p class="subtitle">
-		发布了<span class="count">76</span> 篇文章.
-	</p>
+		</div>
+	</div>
 </div>
 
-<div class="container" id="articles-list">
-    
-    <div class="row">
-        <h2>2022</h2><hr>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/locate%E5%91%BD%E4%BB%A4/"><time>06-18</time>locate命令</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/%E6%95%B4%E7%AB%99%E6%88%96%E7%BD%91%E9%A1%B5%E4%B8%8B%E8%BD%BD%E8%BD%AF%E4%BB%B6httrack/"><time>06-17</time>整站或网页下载软件httrack</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/%E6%90%AD%E5%BB%BAapt%E6%9C%AC%E5%9C%B0%E6%BA%90/"><time>06-16</time>搭建apt本地源</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/yum%E6%97%B6%E5%87%BA%E7%8E%B0error%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"><time>06-15</time>yum时出现error的解决办法</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/%E6%A0%91%E8%8E%93%E6%B4%BE%E8%93%9D%E7%89%99%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/"><time>06-15</time>树莓派蓝牙相关问题</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/markdown%E5%9C%A8%E7%BA%BF%E7%BC%96%E8%BE%91%E5%99%A8/"><time>06-10</time>MarkDown在线编辑器</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/nginx%E5%87%BA%E7%8E%B0%E9%97%AE%E9%A2%98%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"><time>06-10</time>Nginx出现问题的解决办法</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/sublime%E4%BD%BF%E7%94%A8/"><time>06-10</time>sublime使用</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/systemd%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemctl/"><time>06-10</time>systemd的服务管理程序systemctl</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/%E7%8E%A9%E7%8E%A9lfs-%E4%BB%8E%E6%BA%90%E7%A0%81%E6%9E%84%E5%BB%BAlinux%E7%B3%BB%E7%BB%9F/"><time>06-10</time>玩玩LFS-从源码构建Linux系统</a>
-        </div>
-        
-
-    </div>
-    
-</div>
 
 <div class="container">
+    
     <div class="row">
+        
         <div class="col-5">
-            <a class="page-link link-dark text-end dh" href="/post/page/4/">
-                <h5>前一页</h5>
+            <a class="page-link link-dark text-end dh" href="/post/goframe%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7gf%E7%9A%84%E7%BC%96%E8%AF%91%E6%96%B9%E6%B3%95/">
+                <h5>前一篇</h5><br>
+                Goframe开发工具gf的编译方法
             </a>            
         </div>
         
-
         <div class="col-2">
         </div>
+        
         <div class="col-5">
-            <a class="page-link link-dark text-start dh" href="/post/page/6/">
-                <h5>后一页</h5>
+            <a class="page-link link-dark text-start dh" href="">
+                <h5>没有了</h5><br>
             </a>            
         </div>
         
     </div>
+    
 </div>
-
-
-
 
         </div><br><br>
 <footer class="container">

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>nging on WiseAI的博客</title>
+    <link>http://wiseai.cn/tags/nging/</link>
+    <description>Recent content in nging on WiseAI的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>陇ICP备15000157号</copyright>
+    <lastBuildDate>Sat, 12 Nov 2022 14:29:26 +0800</lastBuildDate><atom:link href="http://wiseai.cn/tags/nging/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Nging的使用</title>
+      <link>http://wiseai.cn/post/2022.11.12-nging%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Sat, 12 Nov 2022 14:29:26 +0800</pubDate>
+      
+      <guid>http://wiseai.cn/post/2022.11.12-nging%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+      <description>Nging是一个网站服务程序，可以代替Nginx或Apache来搭建Web开发测试环境，并附带了实用的周边工具，例如：计划任务、MySQL管理、Redis管理、FTP管理、SSH管理、服务器管理等。
+这个软件项目不仅仅实现了一些网站服务工具，本身还是一个具有很好扩展性的通用网站后台管理系统，通过本项目，可以很轻松的构建一个全新的网站项目，省去从头构建项目的麻烦，减少重复性劳动。
+下载地址：https://dl.webx.top/nging/latest/
+使用可以看说明，非常简单，注意： 在添加服务的时候要用root权限，其它的操作可以参考systemctl命令，服务名称是Nging，N是大写。
+git clone https://github.com/admpub/nging.git 这一步必须完整clone，否则会出现找不到文件的错误。
+git checkout v4.2.4
+checkout到版本号
+将go/bin加入PATH # PATH=PATH:~/go/bin
+进入tool目录下使用bash执行 # bash build-all-platform.sh linux_amd64
+这是如果不加linux_amd64，则编译全平台的。
+最后，如果觉得广告不好可以去掉，但是不建议这么做，毕竟作者开源就很不错了，如果你有强迫症，可以这样做，在template目录下，查找TrackerHTML，这个是自动查检更新的js，作者顺带着加了个广告，去掉就没有广告了，强烈建议不要去。
+手头宽裕的可以支持下作者，支持作者更好开发软件！！！</description>
+    </item>
+    
+  </channel>
+</rss>
