@@ -35,6 +35,13 @@
 &lt;p&gt;这是如果不加linux_amd64，则编译全平台的。&lt;/p&gt;
 &lt;p&gt;最后，如果觉得广告不好可以去掉，但是不建议这么做，毕竟作者开源就很不错了，如果你有强迫症，可以这样做，在template目录下，查找TrackerHTML，这个是自动查检更新的js，作者顺带着加了个广告，去掉就没有广告了，强烈建议不要去。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;手头宽裕的可以支持下作者，支持作者更好开发软件！！！&lt;/strong&gt;&lt;/p&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;使用80端口&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;可以使用源码编译，这个需要修改源代码，比较简单的是使用软件自带的网站管理功能。&lt;/p&gt;
+&lt;p&gt;添加个网站，监听80端口&lt;code&gt;:80&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;选择代理转发&lt;code&gt;Proxy&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;选择预置功能中的两个选项，websocket和transparent，用于支持基于浏览器的终端服务pty和xterm&lt;/p&gt;
 
     </description>
     </item>

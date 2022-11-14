@@ -164,6 +164,9 @@ menu:
     - name: C语言JustCC
       weight: 140
       url: "https://justcc.mengkang.net/#/"
+    - name: PPTist
+      weight: 150
+      url: "https://wiseai.gitee.io/pages/pptist/"
     - name: RSS
       weight: 1000
       url: "index.xml"
