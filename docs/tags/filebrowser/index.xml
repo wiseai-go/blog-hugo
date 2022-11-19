@@ -15,6 +15,7 @@
       
       <guid>http://wiseai.cn/post/filebrowser%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</guid>
       <description>编译安装 可以自己编译，必须安装golang v1.16以上和nodejs，最好是最新版本，否则会出现一些问题。
+编译最新版本出现一个问题,&amp;ldquo;opensslErrorStack: [ &amp;rsquo;error:03000086:digital envelope routines::initialization error&amp;rsquo; ]&amp;quot;,出现这个错误是因为 node.js V17以上的版本中最近发布的OpenSSL3.0, 而OpenSSL3.0对允许算法和密钥大小增加了严格的限制，解决办法是# export NODE_OPTIONS=--openssl-legacy-provider后再编译。
 $ git clone https://github.com/filebrowser/filebrowser 注：如果有gitee的可以改，速度快，可以直接下载对应版本
 $ make help 注：编译帮助
 $ make build 注：开始编译，完成后在当前目录下filebrowser
@@ -27,10 +28,7 @@ $ make build 注：开始编译，完成后在当前目录下filebrowser
 ./filebrowser config set --locale zh-cn设置语言
 ./filebrowser config set --log /your/path/filebrowser.log设置日志
 ./filebrowser config set --root /your/path/设置根目录
-./filebrowser users add root password --perm.admin这个是添加用户，其中的root和password分别是用户名和密码
-./filebrowser -d /you/path/filebrowser.db config init这里的-d是指定数据库文件，config init是初始化，这个命令应该一开始就执行，但是什么参数都不带的话，会自己生成。
-设置https访问：
-./filebrowser config set --port 443设置https端口</description>
+./filebrowser users add root password --perm.admin这个是添加用户，其中的root和password分别是用户名和密码</description>
     </item>
     
   </channel>

@@ -14,6 +14,8 @@ draft: false
 编译安装
 --
 可以自己编译，必须安装golang v1.16以上和nodejs，最好是最新版本，否则会出现一些问题。
+
+编译最新版本出现一个问题,"opensslErrorStack: [ 'error:03000086:digital envelope routines::initialization error' ]",出现这个错误是因为 node.js V17以上的版本中最近发布的OpenSSL3.0, 而OpenSSL3.0对允许算法和密钥大小增加了严格的限制，解决办法是`# export NODE_OPTIONS=--openssl-legacy-provider`后再编译。
 ```
 $ git clone https://github.com/filebrowser/filebrowser
 ```

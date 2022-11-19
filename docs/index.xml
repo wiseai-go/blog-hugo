@@ -4546,7 +4546,7 @@ BenchmarkBytesMaskImprSrcSB-4 10000000 134 ns/op 16 B/op 1 allocs/op
 BenchmarkBytesMaskImprSrcUnsafe-4 10000000 115 ns/op 16 B/op 1 allocs/op
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;仅仅从rune到byte的改进，我们就获得了&lt;strong&gt;24%的提升，内存占用降低了三分之一&lt;/strong&gt; 。&lt;/p&gt;
 &lt;p&gt;使用rand.Int63替换掉原来的rand.Intn，我们又获得了近20%的提升。&lt;/p&gt;
-&lt;p&gt;单纯的使用掩码，因为重复获取可用索引的问题，性能下降了**-22%**。&lt;/p&gt;
+&lt;p&gt;单纯的使用掩码，因为重复获取可用索引的问题，性能下降了 &lt;strong&gt;-22%&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;但是当我们对 Masking 掩码 进行改进，分为10部分缓存的时候，我们获得了3倍的提升。&lt;/p&gt;
 &lt;p&gt;使用rand.Source 代替 rand.Rand, 我们再次获得了21%的提升。&lt;/p&gt;
 &lt;p&gt;使用strings.Builder,速度提升虽然只有3.5%,但是内存分配降低了50% 。&lt;/p&gt;
@@ -7711,6 +7711,7 @@ BootOptionName是你启动项的名字，修改为自己的
     <description>
         &lt;h2 id=&#34;编译安装&#34;&gt;编译安装&lt;/h2&gt;
 &lt;p&gt;可以自己编译，必须安装golang v1.16以上和nodejs，最好是最新版本，否则会出现一些问题。&lt;/p&gt;
+&lt;p&gt;编译最新版本出现一个问题,&amp;ldquo;opensslErrorStack: [ &amp;rsquo;error:03000086:digital envelope routines::initialization error&amp;rsquo; ]&amp;quot;,出现这个错误是因为 node.js V17以上的版本中最近发布的OpenSSL3.0, 而OpenSSL3.0对允许算法和密钥大小增加了严格的限制，解决办法是&lt;code&gt;# export NODE_OPTIONS=--openssl-legacy-provider&lt;/code&gt;后再编译。&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ git clone https://github.com/filebrowser/filebrowser
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;注：如果有gitee的可以改，速度快，可以直接下载对应版本&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ make help
