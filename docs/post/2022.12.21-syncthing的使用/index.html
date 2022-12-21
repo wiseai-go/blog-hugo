@@ -9,7 +9,7 @@
 
     <link rel="shortcut icon" type="image/x-icon" href="http://static.wiseai.cn/img/favicon.ico" />
 
-    <title>Linux学习 | WiseAI的博客</title>
+    <title>Syncthing的使用 | WiseAI的博客</title>
 </head><body><div class="container-fluid">
     <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
         <div class="container-fluid">
@@ -56,90 +56,75 @@
 
 
 <div id="content">
+<div class="container article">
+	<h1>Syncthing的使用</h1>
+	<div class="post-meta">
+		<div>
+			
+			
+			By wiseai | 2022-12-21 | 1 minutes
+		</div>
+		<div class="tags">
+			
+			<a class="btn btn-light links btn-sm" href="/tags/linux/">Linux</a>
+			
+			<a class="btn btn-light links btn-sm" href="/tags/golang/">golang</a>
+			
+		</div>
+	</div>
+	<div>
+		<div class="article-post">
+			<h3 id="1下载及编译">1.下载及编译</h3>
+<p>源码下载地址：https://github.com/syncthing/syncthing</p>
+<p>gitee镜像：https://gitee.com/mirrors/syncthing?_from=gitee_search</p>
+<p><code># go build build.go</code></p>
+<p>在bin目录下会编译生成所有程序，我们主要使用syncthing这个程序</p>
+<h3 id="2使用">2.使用</h3>
+<p>直接运行程序</p>
+<p><code># ./syncthing</code></p>
+<p>首次运行会生成配置文件，位置在<code>~/.confing/syncthing/</code>，配置文件主要是<code>config.xml</code></p>
+<p>同时会打开127.0.0.1：8384网站，用于配置软件。</p>
+<p>修改config.xml中的127.0.0.1为0.0.0.0，就可以远程打开配置网站，但是不建议这么做，存在安全隐患，建议设置为固定IP，用于管理。</p>
+<p>必须修改网站登陆密码，<strong>操作-&gt;设置-&gt;图形用户界面</strong>，设置用户名及密码。</p>
+<p><strong>操作-&gt;设置-&gt;连接</strong>，可设置NAT、全局发现、本地发现、中继等，在安全要求较高的情况下，建议全部不要选择。</p>
+<p>添加文件夹，文件夹ID非常重要，共享时必须一致。</p>
+<p>添加远程设备，设备ID在<strong>操作-&gt;显示ID</strong>处查询，在不启用全局发现和本地发现的情况下，必须设置地址列表<strong>添加设备-&gt;高级-&gt;地址列表</strong>为tcp://ip地址:22000</p>
+<p>设置共享，在文件夹和远程设备选项中都可以设置共享，共享文件夹可以双向同步，也可单向同步，文件夹类型只能在文件夹选项中设置。</p>
+<p>加密，如果在共享时设置了密码，远程设备的文件夹必须为加密接收，否则会出现失去同步的问题。</p>
+<p>解密，加密接收的文件夹可以通过</p>
+<p><code># syncthing decrypt (--to=&lt;dir&gt; | --verify-only) [--password=&lt;pw&gt;] [--folder-id=&lt;id&gt;] [--token-path=&lt;file&gt;] [--continue] [--verbose] [--version] [--help] &lt;path&gt;</code></p>
+<p>进行解密。</p>
+<p>主要参数有：<code>	--to  解密位置，	--password 加密的密码，	最后的&lt;path&gt;是需要解密的目录</code></p>
+<p>这样基本使用就没有问题了，其它功能遇到了再添加说明。</p>
 
-
-
-
-
-<div class="container archive">
-	<h1>Linux学习</h1>
-	<p class="subtitle">
-		发布了<span class="count">40</span> 篇文章.
-	</p>
+		</div>
+	</div>
 </div>
 
-<div class="container" id="articles-list">
-    
-    <div class="row">
-        <h2>2022</h2><hr>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/linux%E4%B8%ADfirefox%E6%94%AF%E6%8C%81flash/"><time>06-20</time>Linux中firefox支持flash</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/linux%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E8%BD%AF%E4%BB%B6/"><time>06-20</time>Linux远程连接软件</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/networkmanager%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/"><time>06-20</time>NetworkManager网络管理相关问题</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/php5-fpm.sock-failed/"><time>06-20</time>php5-fpm.sock failed</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/php%E6%88%AA%E5%8F%96%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/"><time>06-20</time>php截取中文字符串乱码问题</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/samba%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/"><time>06-20</time>samba服务器配置和使用</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/ssh%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E7%9A%84%E5%90%AF%E7%94%A8%E7%A6%81%E7%94%A8%E6%96%B9%E6%B3%95/"><time>06-20</time>ssh加密算法的启用禁用方法</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/%E4%BD%BF%E7%94%A8openssl%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6/"><time>06-20</time>使用OpenSSL生成证书</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/%E6%9B%B4%E6%94%B9ubuntu%E6%BA%90/"><time>06-19</time>更改ubuntu源</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/%E6%95%B4%E7%AB%99%E6%88%96%E7%BD%91%E9%A1%B5%E4%B8%8B%E8%BD%BD%E8%BD%AF%E4%BB%B6httrack/"><time>06-17</time>整站或网页下载软件httrack</a>
-        </div>
-        
-
-    </div>
-    
-</div>
 
 <div class="container">
+    
     <div class="row">
+        
         <div class="col-5">
-            <a class="page-link link-dark text-end dh" href="/categories/linux%E5%AD%A6%E4%B9%A0/">
-                <h5>前一页</h5>
+            <a class="page-link link-dark text-end dh" href="/post/2022.11.12-nging%E7%9A%84%E4%BD%BF%E7%94%A8/">
+                <h5>前一篇</h5><br>
+                Nging的使用
             </a>            
         </div>
         
-
         <div class="col-2">
         </div>
+        
         <div class="col-5">
-            <a class="page-link link-dark text-start dh" href="/categories/linux%E5%AD%A6%E4%B9%A0/page/3/">
-                <h5>后一页</h5>
+            <a class="page-link link-dark text-start dh" href="">
+                <h5>没有了</h5><br>
             </a>            
         </div>
         
     </div>
+    
 </div>
-
-
-
 
         </div><br><br>
 <footer class="container">
