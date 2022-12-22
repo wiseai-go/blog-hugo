@@ -9,7 +9,7 @@
 
     <link rel="shortcut icon" type="image/x-icon" href="http://static.wiseai.cn/img/favicon.ico" />
 
-    <title>Posts | WiseAI的博客</title>
+    <title>systemd延时启动服务 | WiseAI的博客</title>
 </head><body><div class="container-fluid">
     <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
         <div class="container-fluid">
@@ -56,90 +56,122 @@
 
 
 <div id="content">
+<div class="container article">
+	<h1>systemd延时启动服务</h1>
+	<div class="post-meta">
+		<div>
+			
+			
+			By wiseai | 2022-12-22 | 1 minutes
+		</div>
+		<div class="tags">
+			
+			<a class="btn btn-light links btn-sm" href="/tags/linux/">Linux</a>
+			
+			<a class="btn btn-light links btn-sm" href="/tags/systemd/">systemd</a>
+			
+		</div>
+	</div>
+	<div>
+		<div class="article-post">
+			<p>原因：我的docker容器链接了硬盘上的一个文件夹，但是docker服务在硬盘没有挂载前就启动，容器在目录下自动生成了链接文件夹，导致系统挂载的硬盘名改变，延时启动可以解决这个问题，方法如下：</p>
+<p>编辑<code>/lib/systemd/system/docker.service</code>文件</p>
+<pre tabindex="0"><code>[Service]
+#在这里添加下面两行，就可以延时5分钟启动服务
+TimeoutStartSec=infinity
+ExecStartPre=/bin/sleep 300
+</code></pre><p>参考：<a href="https://blog.csdn.net/lggirls/article/details/128133815">使用systemd配置一个服务再开机后5分钟再启动</a></p>
+<p><strong>感谢作者！</strong> 原文如下：</p>
+<p>原因：我们的linux服务器上可能会有许多服务要启动，如果再开机后要立即启动的服务过多，很可能会造成开机速度过慢，这时可以对不同的服务进行时间安排，有序的延迟一部分服务的启动。</p>
+<p>这里以透传软件 frpc.service 为例。</p>
+<h3 id="一单配置文件的实现模式">一、单配置文件的实现模式</h3>
+<p>也就是直接对frpc.service进行配置</p>
+<pre tabindex="0"><code>[Unit]
+Description=Frp Client Service
+After=network.target
+ 
+[Service]
+Type=simple
+User=nobody
+# 下面两行设定了再开机后300秒再启动服务
+TimeoutStartSec=infinity
+ExecStartPre=/bin/sleep 300
+ 
+Restart=on-failure
+RestartSec=5s
+ExecStart=/usr/bin/frpc -c /etc/frp/frpc.ini
+ExecReload=/usr/bin/frpc reload -c /etc/frp/frpc.ini
+LimitNOFILE=1048576
+ 
+[Install]
+WantedBy=multi-user.target
+</code></pre><h3 id="二利用额外的timer服务实现">二、利用额外的timer服务实现</h3>
+<p>这样做的好处是，可以额外增加一项设定，配置服务再持续运行24、48小时后重启一次，用于不关机，但需要对某个服务进行定期重启的情况。</p>
+<ol>
+<li>对 frpc.service 进行修改</li>
+</ol>
+<pre tabindex="0"><code>[Unit]
+Description=Frp Client Service
+ 
+[Service]
+Type=simple
+User=nobody
+Restart=on-failure
+RestartSec=5s
+ExecStart=/usr/bin/frpc -c /etc/frp/frpc.ini
+ExecReload=/usr/bin/frpc reload -c /etc/frp/frpc.ini
+LimitNOFILE=1048576
+注意，这里的frpc.service 中没有 [Install] 这一部分的设置！！！
+</code></pre><ol start="2">
+<li>新建一个用于启动frpc.service的timer</li>
+</ol>
+<pre tabindex="0"><code>vim /lib/systemd/system/frpc.timer
 
-
-
-
-
-<div class="container archive">
-	<h1>Posts</h1>
-	<p class="subtitle">
-		发布了<span class="count">78</span> 篇文章.
-	</p>
+[Unit]
+Description=timer for frpc service
+ 
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=24h
+ 
+[Install]
+WantedBy=timers.target
+这里设定了frpc.service 在开机后5分钟再启动，并且运行24小时后重启一次
+</code></pre><ol start="3">
+<li>启动相关的服务</li>
+</ol>
+<pre tabindex="0"><code>systemctl disable frpc.service   # 如果frpc.service 之前不是enable状态，则不需要这一步
+systemctl start frpc.timer
+systemctl enable frpc.timer
+</code></pre>
+		</div>
+	</div>
 </div>
 
-<div class="container" id="articles-list">
-    
-    <div class="row">
-        <h2>2022</h2><hr>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/2022.12.22-systemd%E5%BB%B6%E6%97%B6%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1/"><time>12-22</time>systemd延时启动服务</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/2022.12.21-syncthing%E7%9A%84%E4%BD%BF%E7%94%A8/"><time>12-21</time>文件同步Syncthing的使用</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/2022.11.12-nging%E7%9A%84%E4%BD%BF%E7%94%A8/"><time>11-12</time>Nging的使用</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/goframe%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7gf%E7%9A%84%E7%BC%96%E8%AF%91%E6%96%B9%E6%B3%95/"><time>09-20</time>Goframe开发工具gf的编译方法</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/goframe%E4%B8%AD%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AE/"><time>09-16</time>Goframe中数据库配置</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/%E4%BB%80%E4%B9%88%E6%98%AF%E9%AB%98%E7%BA%A7%E7%9A%84%E6%AC%B2%E6%9C%9B/"><time>09-07</time>什么是高级的欲望?</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/go%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%97%B6%E9%97%B4/"><time>08-25</time>Go程序的时间</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/email/"><time>08-23</time>golang使用smtp发送Email</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/golang/"><time>07-31</time>golang编程</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/go%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/"><time>07-12</time>Go程序执行系统命令</a>
-        </div>
-        
-
-    </div>
-    
-</div>
 
 <div class="container">
+    
     <div class="row">
+        
         <div class="col-5">
-            <a class="page-link link-dark text-end dh" href="">
-                <h5>没有了</h5>
+            <a class="page-link link-dark text-end dh" href="/post/2022.12.21-syncthing%E7%9A%84%E4%BD%BF%E7%94%A8/">
+                <h5>前一篇</h5><br>
+                文件同步Syncthing的使用
             </a>            
         </div>
         
-
         <div class="col-2">
         </div>
+        
         <div class="col-5">
-            <a class="page-link link-dark text-start dh" href="/post/page/2/">
-                <h5>后一页</h5>
+            <a class="page-link link-dark text-start dh" href="">
+                <h5>没有了</h5><br>
             </a>            
         </div>
         
     </div>
+    
 </div>
-
-
-
 
         </div><br><br>
 <footer class="container">

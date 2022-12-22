@@ -118,32 +118,76 @@
 <p><code># iptables -A INPUT -s 172.17.0.0/16 -d 172.17.0.0/16 -j ACCEPT</code></p>
 <p>命令：</p>
 <ul>
-<li>查找镜像：docker search centos</li>
-<li>下载镜像：docker pull centos</li>
-<li>列出本地镜像：docker images</li>
-<li>删除镜像：docker rmi 镜像名</li>
-<li>运行容器：
-<code># docker run -it --name 容器名 --link 链接容器名:别名 -v 本地绝对路径:容器路径  -p ip:本地端口:容器端口/udp -e --restart=always （docker服务启动后容器自动启动，no 不启动；on-failure 容器退出状态非0时重启）MYSQL_ROOT_PASSWORD&lt;span class=&quot;hljs-subst&quot;&gt;=&lt;/span&gt;'passwd'(设置环境变量） --dns=自定义的DNS -d(后台运行) 镜像 运行命令 </code></li>
-<li>列出运行容器：docker container ls</li>
-<li>列出所有容器：docker container ls -a</li>
-<li>运行容器：docker start 容器名（-i参数进入命令行）</li>
-<li>进入运行容器：docker exec -it 容器名 /bin/bash</li>
-<li>停止容器：docker stop 容器名</li>
-<li>kill容器：docker kill 容器名</li>
-<li>删除容器：docker rm 容器名</li>
-<li>查看容器信息：docker inspect 容器名</li>
-<li>查看容器log：docker logs 容器名</li>
-<li>利用已有容器修改或建立新的镜像：docker commit -m &ldquo;说明信息&rdquo; -a &ldquo;用户信息&rdquo; 容器名 centos7/nginx-php:v2</li>
-<li>镜像存出：docker save -o ubuntu_14.04.tar ubuntu:14.04或docker save &gt; ubuntu_14.04.tar ubuntu:14.04</li>
-<li>镜像载入：docker load -i ubuntu_14.04.tar或docker load &lt; ubuntu_14.04.tar</li>
-<li>容器导出：docker export ubuntu &gt; ubuntu.tar</li>
-<li>容器导入：docker import ubuntu.tar test/ubuntu
+<li>
+<p>查找镜像：docker search centos</p>
+</li>
+<li>
+<p>下载镜像：docker pull centos</p>
+</li>
+<li>
+<p>列出本地镜像：docker images</p>
+</li>
+<li>
+<p>删除镜像：docker rmi 镜像名</p>
+</li>
+<li>
+<p>运行容器：
+<code># docker run -it --name 容器名 --link 链接容器名:别名 -v 本地绝对路径:容器路径  -p ip:本地端口:容器端口/udp --restart=always （docker服务启动后容器自动启动，no 不启动；on-failure 容器退出状态非0时重启）-e MYSQL_ROOT_PASSWORD='passwd'(设置环境变量） --dns=自定义的DNS -d(后台运行) 镜像 运行程序(这里的程序可以是/bin/下的程序，可以将shell放到bin下)</code></p>
+</li>
+<li>
+<p>列出运行容器：docker container ls</p>
+</li>
+<li>
+<p>列出所有容器：docker container ls -a</p>
+</li>
+<li>
+<p>运行容器：docker start 容器名（-i参数进入命令行）</p>
+</li>
+<li>
+<p>进入运行容器：docker exec -it 容器名 /bin/bash</p>
+</li>
+<li>
+<p>停止容器：docker stop 容器名</p>
+</li>
+<li>
+<p>kill容器：docker kill 容器名</p>
+</li>
+<li>
+<p>删除容器：docker rm 容器名</p>
+</li>
+<li>
+<p>查看容器信息：docker inspect 容器名</p>
+</li>
+<li>
+<p>查看容器log：docker logs 容器名</p>
+</li>
+<li>
+<p>利用已有容器修改或建立新的镜像：docker commit -m &ldquo;说明信息&rdquo; -a &ldquo;用户信息&rdquo; 容器名 centos7/nginx-php:v2</p>
+</li>
+<li>
+<p>镜像存出：docker save -o ubuntu_14.04.tar ubuntu:14.04或docker save &gt; ubuntu_14.04.tar ubuntu:14.04</p>
+</li>
+<li>
+<p>镜像载入：docker load -i ubuntu_14.04.tar或docker load &lt; ubuntu_14.04.tar</p>
+</li>
+<li>
+<p>容器导出：docker export ubuntu &gt; ubuntu.tar</p>
+</li>
+<li>
+<p>容器导入：docker import ubuntu.tar test/ubuntu
 注意：
 容器导入后就成镜像了，如果容器有运行的命令，在run的时候也一定要加上命令，否则不能成功创建。
-镜像就不存在这个问题</li>
-<li>从主机复制到容器：docker cp host_path containerID:container_path</li>
-<li>从容器复制到主机：docker cp containerID:container_path host_path</li>
-<li>最后添加&quot;运行命令&quot;的shell里，如果没有驻留服务的话，一定要在最后一行写bash，否则无法启动。</li>
+镜像就不存在这个问题</p>
+</li>
+<li>
+<p>从主机复制到容器：docker cp host_path containerID:container_path</p>
+</li>
+<li>
+<p>从容器复制到主机：docker cp containerID:container_path host_path</p>
+</li>
+<li>
+<p>最后添加&quot;运行命令&quot;的shell里，如果没有驻留服务的话，一定要在最后一行写bash，否则无法启动。</p>
+</li>
 </ul>
 <h2 id="docker网络设置">docker网络设置：</h2>
 <p>docker安装后，默认会创建三种网络类型，bridge、host和none，可通过如下命令查看：</p>

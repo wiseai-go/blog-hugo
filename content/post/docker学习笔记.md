@@ -92,8 +92,8 @@ Docker 的配置文件可以设置大部分的后台进程参数，在各个操�
 - 列出本地镜像：docker images
 - 删除镜像：docker rmi 镜像名
 - 运行容器：
-`# docker run -it --name 容器名 --link 链接容器名:别名 -v 本地绝对路径:容器路径  -p ip:本地端口:容器端口/udp -e --restart=always （docker服务启动后容器自动启动，no 不启动；on-failure 容器退出状态非0时重启）MYSQL_ROOT_PASSWORD<span class="hljs-subst">=</span>'passwd'(设置环境变量） --dns=自定义的DNS -d(后台运行) 镜像 运行命令
-`
+`# docker run -it --name 容器名 --link 链接容器名:别名 -v 本地绝对路径:容器路径  -p ip:本地端口:容器端口/udp --restart=always （docker服务启动后容器自动启动，no 不启动；on-failure 容器退出状态非0时重启）-e MYSQL_ROOT_PASSWORD='passwd'(设置环境变量） --dns=自定义的DNS -d(后台运行) 镜像 运行程序(这里的程序可以是/bin/下的程序，可以将shell放到bin下)`
+
 - 列出运行容器：docker container ls
 - 列出所有容器：docker container ls -a
 - 运行容器：docker start 容器名（-i参数进入命令行）

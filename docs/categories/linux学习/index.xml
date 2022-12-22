@@ -7,7 +7,24 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Wed, 21 Dec 2022 09:46:22 +0800</lastBuildDate><atom:link href="http://wiseai.cn/categories/linux%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 22 Dec 2022 09:54:24 +0800</lastBuildDate><atom:link href="http://wiseai.cn/categories/linux%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>systemd延时启动服务</title>
+      <link>http://wiseai.cn/post/2022.12.22-systemd%E5%BB%B6%E6%97%B6%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1/</link>
+      <pubDate>Thu, 22 Dec 2022 09:54:24 +0800</pubDate>
+      
+      <guid>http://wiseai.cn/post/2022.12.22-systemd%E5%BB%B6%E6%97%B6%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1/</guid>
+      <description>原因：我的docker容器链接了硬盘上的一个文件夹，但是docker服务在硬盘没有挂载前就启动，容器在目录下自动生成了链接文件夹，导致系统挂载的硬盘名改变，延时启动可以解决这个问题，方法如下：
+编辑/lib/systemd/system/docker.service文件
+[Service] #在这里添加下面两行，就可以延时5分钟启动服务 TimeoutStartSec=infinity ExecStartPre=/bin/sleep 300 参考：使用systemd配置一个服务再开机后5分钟再启动
+感谢作者！ 原文如下：
+原因：我们的linux服务器上可能会有许多服务要启动，如果再开机后要立即启动的服务过多，很可能会造成开机速度过慢，这时可以对不同的服务进行时间安排，有序的延迟一部分服务的启动。
+这里以透传软件 frpc.service 为例。
+一、单配置文件的实现模式 也就是直接对frpc.service进行配置
+[Unit] Description=Frp Client Service After=network.target [Service] Type=simple User=nobody # 下面两行设定了再开机后300秒再启动服务 TimeoutStartSec=infinity ExecStartPre=/bin/sleep 300 Restart=on-failure RestartSec=5s ExecStart=/usr/bin/frpc -c /etc/frp/frpc.ini ExecReload=/usr/bin/frpc reload -c /etc/frp/frpc.ini LimitNOFILE=1048576 [Install] WantedBy=multi-user.target 二、利用额外的timer服务实现 这样做的好处是，可以额外增加一项设定，配置服务再持续运行24、48小时后重启一次，用于不关机，但需要对某个服务进行定期重启的情况。
+对 frpc.service 进行修改 [Unit] Description=Frp Client Service [Service] Type=simple User=nobody Restart=on-failure RestartSec=5s ExecStart=/usr/bin/frpc -c /etc/frp/frpc.ini ExecReload=/usr/bin/frpc reload -c /etc/frp/frpc.ini LimitNOFILE=1048576 注意，这里的frpc.service 中没有 [Install] 这一部分的设置！！！ 新建一个用于启动frpc.service的timer vim /lib/systemd/system/frpc.timer [Unit] Description=timer for frpc service [Timer] OnBootSec=5min OnUnitActiveSec=24h [Install] WantedBy=timers.</description>
+    </item>
+    
     <item>
       <title>文件同步Syncthing的使用</title>
       <link>http://wiseai.cn/post/2022.12.21-syncthing%E7%9A%84%E4%BD%BF%E7%94%A8/</link>

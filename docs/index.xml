@@ -6,7 +6,87 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Wed, 21 Dec 2022 09:46:22 +0800</lastBuildDate><atom:link href="http://wiseai.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 22 Dec 2022 09:54:24 +0800</lastBuildDate><atom:link href="http://wiseai.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+    <title>systemd延时启动服务</title>
+    <link>http://wiseai.cn/post/2022.12.22-systemd%E5%BB%B6%E6%97%B6%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1/</link>
+    <pubDate>Thu, 22 Dec 2022 09:54:24 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>http://wiseai.cn/post/2022.12.22-systemd%E5%BB%B6%E6%97%B6%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1/</guid>
+    <description>
+        &lt;p&gt;原因：我的docker容器链接了硬盘上的一个文件夹，但是docker服务在硬盘没有挂载前就启动，容器在目录下自动生成了链接文件夹，导致系统挂载的硬盘名改变，延时启动可以解决这个问题，方法如下：&lt;/p&gt;
+&lt;p&gt;编辑&lt;code&gt;/lib/systemd/system/docker.service&lt;/code&gt;文件&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[Service]
+#在这里添加下面两行，就可以延时5分钟启动服务
+TimeoutStartSec=infinity
+ExecStartPre=/bin/sleep 300
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;参考：&lt;a href=&#34;https://blog.csdn.net/lggirls/article/details/128133815&#34;&gt;使用systemd配置一个服务再开机后5分钟再启动&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;感谢作者！&lt;/strong&gt; 原文如下：&lt;/p&gt;
+&lt;p&gt;原因：我们的linux服务器上可能会有许多服务要启动，如果再开机后要立即启动的服务过多，很可能会造成开机速度过慢，这时可以对不同的服务进行时间安排，有序的延迟一部分服务的启动。&lt;/p&gt;
+&lt;p&gt;这里以透传软件 frpc.service 为例。&lt;/p&gt;
+&lt;h3 id=&#34;一单配置文件的实现模式&#34;&gt;一、单配置文件的实现模式&lt;/h3&gt;
+&lt;p&gt;也就是直接对frpc.service进行配置&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[Unit]
+Description=Frp Client Service
+After=network.target
+ 
+[Service]
+Type=simple
+User=nobody
+# 下面两行设定了再开机后300秒再启动服务
+TimeoutStartSec=infinity
+ExecStartPre=/bin/sleep 300
+ 
+Restart=on-failure
+RestartSec=5s
+ExecStart=/usr/bin/frpc -c /etc/frp/frpc.ini
+ExecReload=/usr/bin/frpc reload -c /etc/frp/frpc.ini
+LimitNOFILE=1048576
+ 
+[Install]
+WantedBy=multi-user.target
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;二利用额外的timer服务实现&#34;&gt;二、利用额外的timer服务实现&lt;/h3&gt;
+&lt;p&gt;这样做的好处是，可以额外增加一项设定，配置服务再持续运行24、48小时后重启一次，用于不关机，但需要对某个服务进行定期重启的情况。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;对 frpc.service 进行修改&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[Unit]
+Description=Frp Client Service
+ 
+[Service]
+Type=simple
+User=nobody
+Restart=on-failure
+RestartSec=5s
+ExecStart=/usr/bin/frpc -c /etc/frp/frpc.ini
+ExecReload=/usr/bin/frpc reload -c /etc/frp/frpc.ini
+LimitNOFILE=1048576
+注意，这里的frpc.service 中没有 [Install] 这一部分的设置！！！
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;新建一个用于启动frpc.service的timer&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;vim /lib/systemd/system/frpc.timer
+
+[Unit]
+Description=timer for frpc service
+ 
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=24h
+ 
+[Install]
+WantedBy=timers.target
+这里设定了frpc.service 在开机后5分钟再启动，并且运行24小时后重启一次
+&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;启动相关的服务&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;systemctl disable frpc.service   # 如果frpc.service 之前不是enable状态，则不需要这一步
+systemctl start frpc.timer
+systemctl enable frpc.timer
+&lt;/code&gt;&lt;/pre&gt;
+    </description>
+    </item>
+    
     <item>
     <title>文件同步Syncthing的使用</title>
     <link>http://wiseai.cn/post/2022.12.21-syncthing%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
@@ -7770,32 +7850,76 @@ Windows需要从官网下载（https://obsproject.com/），Linux系统包含在
 &lt;p&gt;&lt;code&gt;# iptables -A INPUT -s 172.17.0.0/16 -d 172.17.0.0/16 -j ACCEPT&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;命令：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;查找镜像：docker search centos&lt;/li&gt;
-&lt;li&gt;下载镜像：docker pull centos&lt;/li&gt;
-&lt;li&gt;列出本地镜像：docker images&lt;/li&gt;
-&lt;li&gt;删除镜像：docker rmi 镜像名&lt;/li&gt;
-&lt;li&gt;运行容器：
-&lt;code&gt;# docker run -it --name 容器名 --link 链接容器名:别名 -v 本地绝对路径:容器路径  -p ip:本地端口:容器端口/udp -e --restart=always （docker服务启动后容器自动启动，no 不启动；on-failure 容器退出状态非0时重启）MYSQL_ROOT_PASSWORD&amp;lt;span class=&amp;quot;hljs-subst&amp;quot;&amp;gt;=&amp;lt;/span&amp;gt;&#39;passwd&#39;(设置环境变量） --dns=自定义的DNS -d(后台运行) 镜像 运行命令 &lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;列出运行容器：docker container ls&lt;/li&gt;
-&lt;li&gt;列出所有容器：docker container ls -a&lt;/li&gt;
-&lt;li&gt;运行容器：docker start 容器名（-i参数进入命令行）&lt;/li&gt;
-&lt;li&gt;进入运行容器：docker exec -it 容器名 /bin/bash&lt;/li&gt;
-&lt;li&gt;停止容器：docker stop 容器名&lt;/li&gt;
-&lt;li&gt;kill容器：docker kill 容器名&lt;/li&gt;
-&lt;li&gt;删除容器：docker rm 容器名&lt;/li&gt;
-&lt;li&gt;查看容器信息：docker inspect 容器名&lt;/li&gt;
-&lt;li&gt;查看容器log：docker logs 容器名&lt;/li&gt;
-&lt;li&gt;利用已有容器修改或建立新的镜像：docker commit -m &amp;ldquo;说明信息&amp;rdquo; -a &amp;ldquo;用户信息&amp;rdquo; 容器名 centos7/nginx-php:v2&lt;/li&gt;
-&lt;li&gt;镜像存出：docker save -o ubuntu_14.04.tar ubuntu:14.04或docker save &amp;gt; ubuntu_14.04.tar ubuntu:14.04&lt;/li&gt;
-&lt;li&gt;镜像载入：docker load -i ubuntu_14.04.tar或docker load &amp;lt; ubuntu_14.04.tar&lt;/li&gt;
-&lt;li&gt;容器导出：docker export ubuntu &amp;gt; ubuntu.tar&lt;/li&gt;
-&lt;li&gt;容器导入：docker import ubuntu.tar test/ubuntu
+&lt;li&gt;
+&lt;p&gt;查找镜像：docker search centos&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;下载镜像：docker pull centos&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;列出本地镜像：docker images&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;删除镜像：docker rmi 镜像名&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;运行容器：
+&lt;code&gt;# docker run -it --name 容器名 --link 链接容器名:别名 -v 本地绝对路径:容器路径  -p ip:本地端口:容器端口/udp --restart=always （docker服务启动后容器自动启动，no 不启动；on-failure 容器退出状态非0时重启）-e MYSQL_ROOT_PASSWORD=&#39;passwd&#39;(设置环境变量） --dns=自定义的DNS -d(后台运行) 镜像 运行程序(这里的程序可以是/bin/下的程序，可以将shell放到bin下)&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;列出运行容器：docker container ls&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;列出所有容器：docker container ls -a&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;运行容器：docker start 容器名（-i参数进入命令行）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;进入运行容器：docker exec -it 容器名 /bin/bash&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;停止容器：docker stop 容器名&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;kill容器：docker kill 容器名&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;删除容器：docker rm 容器名&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;查看容器信息：docker inspect 容器名&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;查看容器log：docker logs 容器名&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;利用已有容器修改或建立新的镜像：docker commit -m &amp;ldquo;说明信息&amp;rdquo; -a &amp;ldquo;用户信息&amp;rdquo; 容器名 centos7/nginx-php:v2&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;镜像存出：docker save -o ubuntu_14.04.tar ubuntu:14.04或docker save &amp;gt; ubuntu_14.04.tar ubuntu:14.04&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;镜像载入：docker load -i ubuntu_14.04.tar或docker load &amp;lt; ubuntu_14.04.tar&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;容器导出：docker export ubuntu &amp;gt; ubuntu.tar&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;容器导入：docker import ubuntu.tar test/ubuntu
 注意：
 容器导入后就成镜像了，如果容器有运行的命令，在run的时候也一定要加上命令，否则不能成功创建。
-镜像就不存在这个问题&lt;/li&gt;
-&lt;li&gt;从主机复制到容器：docker cp host_path containerID:container_path&lt;/li&gt;
-&lt;li&gt;从容器复制到主机：docker cp containerID:container_path host_path&lt;/li&gt;
-&lt;li&gt;最后添加&amp;quot;运行命令&amp;quot;的shell里，如果没有驻留服务的话，一定要在最后一行写bash，否则无法启动。&lt;/li&gt;
+镜像就不存在这个问题&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;从主机复制到容器：docker cp host_path containerID:container_path&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;从容器复制到主机：docker cp containerID:container_path host_path&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;最后添加&amp;quot;运行命令&amp;quot;的shell里，如果没有驻留服务的话，一定要在最后一行写bash，否则无法启动。&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;docker网络设置&#34;&gt;docker网络设置：&lt;/h2&gt;
 &lt;p&gt;docker安装后，默认会创建三种网络类型，bridge、host和none，可通过如下命令查看：&lt;/p&gt;
