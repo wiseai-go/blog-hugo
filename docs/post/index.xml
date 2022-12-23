@@ -7,7 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Thu, 22 Dec 2022 09:54:24 +0800</lastBuildDate><atom:link href="http://wiseai.cn/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 23 Dec 2022 15:58:20 +0800</lastBuildDate><atom:link href="http://wiseai.cn/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Goframe开发工具gf的使用</title>
+      <link>http://wiseai.cn/post/2022.12.23-goframe%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7gf%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Fri, 23 Dec 2022 15:58:20 +0800</pubDate>
+      
+      <guid>http://wiseai.cn/post/2022.12.23-goframe%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7gf%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+      <description>创建项目 在当前目录下初始化 # gf init .
+注：后面那个&amp;quot;.&amp;ldquo;不要忘记
+创建一个单独的项目 # gf init test
+创建一个MonoRepo项目（大仓） # gf init bigtest -m
+升级框架 # gf up -a
+运行程序 # gf run main.go</description>
+    </item>
+    
     <item>
       <title>systemd延时启动服务</title>
       <link>http://wiseai.cn/post/2022.12.22-systemd%E5%BB%B6%E6%97%B6%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1/</link>

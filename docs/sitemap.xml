@@ -9,18 +9,33 @@
     <lastmod>2020-11-26T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://wiseai.cn/</loc>
-    <lastmod>2022-12-22T09:54:24+08:00</lastmod>
+    <lastmod>2022-12-23T15:58:20+08:00</lastmod>
   </url><url>
     <loc>http://wiseai.cn/categories/</loc>
-    <lastmod>2022-12-22T09:54:24+08:00</lastmod>
+    <lastmod>2022-12-23T15:58:20+08:00</lastmod>
+  </url><url>
+    <loc>http://wiseai.cn/post/2022.12.23-goframe%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7gf%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
+    <lastmod>2022-12-23T15:58:20+08:00</lastmod>
+  </url><url>
+    <loc>http://wiseai.cn/tags/golang/</loc>
+    <lastmod>2022-12-23T15:58:20+08:00</lastmod>
+  </url><url>
+    <loc>http://wiseai.cn/categories/golang%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2022-12-23T15:58:20+08:00</lastmod>
   </url><url>
     <loc>http://wiseai.cn/tags/linux/</loc>
-    <lastmod>2022-12-22T09:54:24+08:00</lastmod>
-  </url><url>
-    <loc>http://wiseai.cn/categories/linux%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2022-12-22T09:54:24+08:00</lastmod>
+    <lastmod>2022-12-23T15:58:20+08:00</lastmod>
   </url><url>
     <loc>http://wiseai.cn/post/</loc>
+    <lastmod>2022-12-23T15:58:20+08:00</lastmod>
+  </url><url>
+    <loc>http://wiseai.cn/tags/</loc>
+    <lastmod>2022-12-23T15:58:20+08:00</lastmod>
+  </url><url>
+    <loc>http://wiseai.cn/tags/%E7%BC%96%E7%A8%8B/</loc>
+    <lastmod>2022-12-23T15:58:20+08:00</lastmod>
+  </url><url>
+    <loc>http://wiseai.cn/categories/linux%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2022-12-22T09:54:24+08:00</lastmod>
   </url><url>
     <loc>http://wiseai.cn/tags/systemd/</loc>
@@ -29,17 +44,8 @@
     <loc>http://wiseai.cn/post/2022.12.22-systemd%E5%BB%B6%E6%97%B6%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1/</loc>
     <lastmod>2022-12-22T09:54:24+08:00</lastmod>
   </url><url>
-    <loc>http://wiseai.cn/tags/</loc>
-    <lastmod>2022-12-22T09:54:24+08:00</lastmod>
-  </url><url>
-    <loc>http://wiseai.cn/tags/golang/</loc>
-    <lastmod>2022-12-21T09:46:22+08:00</lastmod>
-  </url><url>
     <loc>http://wiseai.cn/post/2022.12.21-syncthing%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2022-12-21T09:46:22+08:00</lastmod>
-  </url><url>
-    <loc>http://wiseai.cn/categories/golang%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2022-11-12T14:29:26+08:00</lastmod>
   </url><url>
     <loc>http://wiseai.cn/tags/nging/</loc>
     <lastmod>2022-11-12T14:29:26+08:00</lastmod>
@@ -75,9 +81,6 @@
     <lastmod>2022-09-07T17:35:02+08:00</lastmod>
   </url><url>
     <loc>http://wiseai.cn/post/go%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%97%B6%E9%97%B4/</loc>
-    <lastmod>2022-08-25T10:25:07+08:00</lastmod>
-  </url><url>
-    <loc>http://wiseai.cn/tags/%E7%BC%96%E7%A8%8B/</loc>
     <lastmod>2022-08-25T10:25:07+08:00</lastmod>
   </url><url>
     <loc>http://wiseai.cn/post/email/</loc>
