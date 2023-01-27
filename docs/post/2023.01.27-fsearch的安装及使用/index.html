@@ -9,7 +9,7 @@
 
     <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico" />
 
-    <title>Posts | WiseAI的博客</title>
+    <title>Fsearch的安装及使用 | WiseAI的博客</title>
 </head><body><div class="container-fluid">
     <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
         <div class="container-fluid">
@@ -56,90 +56,71 @@
 
 
 <div id="content">
+<div class="container article">
+	<h1>Fsearch的安装及使用</h1>
+	<div class="post-meta">
+		<div>
+			
+			
+			By wiseai | 2023-01-27 | 1 minutes
+		</div>
+		<div class="tags">
+			
+			<a class="btn btn-light links btn-sm" href="/tags/linux/">Linux</a>
+			
+		</div>
+	</div>
+	<div>
+		<div class="article-post">
+			<h3 id="简介">简介：</h3>
+<p>fsearch是一个全平台的，开源的，文件及文件夹搜索软件，它基于GTK3，用C语言编写，可以说是“Everything”的开源免费版本，速度相当快，体会一下就知道了。</p>
+<p>今天主要说一下编译安装的方法，为什么呢？X86平台的直接去官网下载就可以了，但是arm处理器的怎么办？所以记录一下编译安装的方法，编译的版本为0.2.2,如有更新的版本，如果出现问题请查看官网编译安装说明。</p>
+<h3 id="编译安装的方法">编译安装的方法</h3>
+<ul>
+<li>安装依赖软件：</li>
+</ul>
+<pre tabindex="0"><code># sudo apt install git build-essential meson itstool libtool pkg-config intltool libicu-dev libpcre2-dev libglib2.0-dev libgtk-3-dev libxml2-utils appstream-util
+</code></pre><ul>
+<li>拉取源文件</li>
+</ul>
+<pre tabindex="0"><code># git clone https://github.com/cboxdoerfer/fsearch.git
+# git checkout 0.2.2 //选择编译版本
+# cd fsearch
+</code></pre><ul>
+<li>开始编译</li>
+</ul>
+<pre tabindex="0"><code>meson builddir
+ninja -C builddir install
+</code></pre><p>完成！</p>
 
-
-
-
-
-<div class="container archive">
-	<h1>Posts</h1>
-	<p class="subtitle">
-		发布了<span class="count">80</span> 篇文章.
-	</p>
+		</div>
+	</div>
 </div>
 
-<div class="container" id="articles-list">
-    
-    <div class="row">
-        <h2>2022</h2><hr>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/%E5%A4%A7%E6%95%B0%E7%9A%84%E9%98%B6%E4%B9%98/"><time>06-27</time>大数的阶乘</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/linux%E4%B8%ADfirefox%E6%94%AF%E6%8C%81flash/"><time>06-20</time>Linux中firefox支持flash</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/linux%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E8%BD%AF%E4%BB%B6/"><time>06-20</time>Linux远程连接软件</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/networkmanager%E7%BD%91%E7%BB%9C%E7%AE%A1%E7%90%86%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/"><time>06-20</time>NetworkManager网络管理相关问题</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/php5-fpm.sock-failed/"><time>06-20</time>php5-fpm.sock failed</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/php%E6%88%AA%E5%8F%96%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98/"><time>06-20</time>php截取中文字符串乱码问题</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/samba%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/"><time>06-20</time>samba服务器配置和使用</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/ssh%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E7%9A%84%E5%90%AF%E7%94%A8%E7%A6%81%E7%94%A8%E6%96%B9%E6%B3%95/"><time>06-20</time>ssh加密算法的启用禁用方法</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/vi%E5%92%8Cvim%E4%BD%BF%E7%94%A8/"><time>06-20</time>vi和vim使用</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/%E4%B8%8B%E8%BD%BD%E5%91%BD%E4%BB%A4wget/"><time>06-20</time>下载命令wget</a>
-        </div>
-        
-
-    </div>
-    
-</div>
 
 <div class="container">
+    
     <div class="row">
+        
         <div class="col-5">
-            <a class="page-link link-dark text-end dh" href="/post/page/3/">
-                <h5>前一页</h5>
+            <a class="page-link link-dark text-end dh" href="/post/2022.12.23-goframe%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7gf%E7%9A%84%E4%BD%BF%E7%94%A8/">
+                <h5>前一篇</h5><br>
+                Goframe开发工具gf的使用
             </a>            
         </div>
         
-
         <div class="col-2">
         </div>
+        
         <div class="col-5">
-            <a class="page-link link-dark text-start dh" href="/post/page/5/">
-                <h5>后一页</h5>
+            <a class="page-link link-dark text-start dh" href="">
+                <h5>没有了</h5><br>
             </a>            
         </div>
         
     </div>
+    
 </div>
-
-
-
 
         </div><br><br>
 <footer class="container">
