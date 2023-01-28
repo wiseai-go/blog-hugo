@@ -78,10 +78,10 @@ pre {
 	background: lightgray;
 }
 
-@font-face {
+/* @font-face {
 	font-family: qtbf;
 	src: url(http://static.junzhe.net/fonts/千图笔锋手写体.ttf);
-}
+} */
 
 /*@font-face {
 	font-family: yrxk;
@@ -89,7 +89,8 @@ pre {
 }*/
 
 #myjj {
-	font-family: "Times New Roman", Times, serif, qtbf;
+	font-family: "Times New Roman", Times, serif;
+	/* font-family: qtbf, "Times New Roman", Times, serif; */
 	font-size: 1.5em;
 }
 
