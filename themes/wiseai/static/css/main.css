@@ -80,7 +80,7 @@ pre {
 
 @font-face {
 	font-family: qtbf;
-	src: url(/fonts/千图笔锋手写体.ttf);
+	src: url(http://static.junzhe.net/fonts/千图笔锋手写体.ttf);
 }
 
 /*@font-face {
@@ -89,7 +89,7 @@ pre {
 }*/
 
 #myjj {
-	font-family: qtbf;
+	font-family: "Times New Roman", Times, serif, qtbf;
 	font-size: 1.5em;
 }
 
