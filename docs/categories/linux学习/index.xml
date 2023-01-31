@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Fri, 27 Jan 2023 17:40:07 +0800</lastBuildDate><atom:link href="http://wiseai.cn/categories/linux%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 30 Jan 2023 18:04:19 +0800</lastBuildDate><atom:link href="http://wiseai.cn/categories/linux%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux性能分析工具</title>
+      <link>http://wiseai.cn/post/2023.01.30-linux%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7/</link>
+      <pubDate>Mon, 30 Jan 2023 18:04:19 +0800</pubDate>
+      
+      <guid>http://wiseai.cn/post/2023.01.30-linux%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7/</guid>
+      <description>vmstat&amp;ndash;虚拟内存统计 vmstat（VirtualMeomoryStatistics，虚拟内存统计）是 Linux 中监控内存的常用工具,可对操作系统的虚拟内存、进程、CPU 等的整体情况进行监视。vmstat 的常规用法：vmstat interval times 即每隔 interval 秒采样一次，共采样 times 次，如果省略 times，则一直采集数据，直到用户手动停止为止。
+# vmstat 5 procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu----- r b swpd free buff cache si so bi bo in cs us sy id wa st 2 0 1526016 161916 48016 1694424 2 14 257 73 34 90 13 7 80 0 0 4 0 1526016 159584 48044 1694552 0 0 1 108 14151 28405 17 13 70 0 0 1 0 1526016 158608 48064 1694568 0 0 1 426 14277 27948 19 12 69 0 0 4 0 1526016 157600 48072 1694576 3 0 3 19 13744 27644 18 12 69 0 0 可以使用 ctrl+c 停止 vmstat 采集数据。</description>
+    </item>
+    
     <item>
       <title>Fsearch的安装及使用</title>
       <link>http://wiseai.cn/post/2023.01.27-fsearch%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8/</link>

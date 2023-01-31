@@ -6,7 +6,192 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Fri, 27 Jan 2023 17:40:07 +0800</lastBuildDate><atom:link href="http://wiseai.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 30 Jan 2023 18:04:19 +0800</lastBuildDate><atom:link href="http://wiseai.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+    <title>Linux性能分析工具</title>
+    <link>http://wiseai.cn/post/2023.01.30-linux%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7/</link>
+    <pubDate>Mon, 30 Jan 2023 18:04:19 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>http://wiseai.cn/post/2023.01.30-linux%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7/</guid>
+    <description>
+        &lt;img src=&#34;http://wiseai.cn/images/xnfx1.png&#34; /&gt;
+&lt;h3 id=&#34;vmstat--虚拟内存统计&#34;&gt;vmstat&amp;ndash;虚拟内存统计&lt;/h3&gt;
+&lt;p&gt;vmstat（VirtualMeomoryStatistics，虚拟内存统计）是 Linux 中监控内存的常用工具,可对操作系统的虚拟内存、进程、CPU 等的整体情况进行监视。vmstat 的常规用法：&lt;code&gt;vmstat interval times&lt;/code&gt; 即每隔 interval 秒采样一次，共采样 times 次，如果省略 times，则一直采集数据，直到用户手动停止为止。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# vmstat 5
+procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+ 2  0 1526016 161916  48016 1694424    2   14   257    73   34   90 13  7 80  0  0
+ 4  0 1526016 159584  48044 1694552    0    0     1   108 14151 28405 17 13 70  0  0
+ 1  0 1526016 158608  48064 1694568    0    0     1   426 14277 27948 19 12 69  0  0
+ 4  0 1526016 157600  48072 1694576    3    0     3    19 13744 27644 18 12 69  0  0 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;可以使用 ctrl+c 停止 vmstat 采集数据。&lt;/p&gt;
+&lt;p&gt;第一行显示了系统自启动以来的平均值，第二行开始显示现在正在发生的情况，接下来的行会显示每5秒间隔发生了什么，每一列的含义在头部。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;procs：r 这一列显示了多少进程在等待cpu，b列显示多少进程正在不可中断的休眠（等待IO）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;memory：swapd 列显示了多少块被换出了磁盘（页面交换），剩下的列显示了多少块是空闲的（未被使用），多少块正在被用作缓冲区，以及多少正在被用作操作系统的缓存。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;swap：显示交换活动：每秒有多少块正在被换入（从磁盘）和换出（到磁盘）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;io：显示了多少块从块设备读取（bi）和写出（bo）,通常反映了硬盘I/O。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;system：显示每秒中断(in)和上下文切换（cs）的数量。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;cpu：显示所有的cpu时间花费在各类操作的百分比，包括执行用户代码（非内核），执行系统代码（内核），空闲以及等待IO。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;内存不足的表现：free  memory 急剧减少，回收 buffer 和 cache 也无济于事，大量使用交换分区（swpd）,页面交换（swap）频繁，读写磁盘数量（io）增多，缺页中断（in）增多，上下文切换（cs）次数增多，等待IO的进程数（b）增多，大量CPU时间用于等待IO（wa）&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;iostat--用于报告中央处理器统计信息&#34;&gt;iostat&amp;ndash;用于报告中央处理器统计信息&lt;/h3&gt;
+&lt;p&gt;iostat 用于报告中央处理器（CPU）统计信息和整个系统、适配器、tty 设备、磁盘和 CD-ROM 的输入/输出统计信息，默认显示了与 vmstat 相同的 cpu 使用信息，使用以下命令显示扩展的设备统计：&lt;/p&gt;
+&lt;p&gt;iostat命令包含在sysstat中，所以首先要安装sysstat。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# iostat -dx 5
+Device            r/s     w/s     rkB/s     wkB/s   rrqm/s   wrqm/s  %rrqm  %wrqm r_await w_await aqu-sz rareq-sz wareq-sz  svctm  %util
+nvme0n1          0.20   13.60      0.80    182.40     0.00    17.20   0.00  55.84    0.00    0.06   0.09     4.00    13.41   6.84   9.44
+scd0             0.00    0.00      0.00      0.00     0.00     0.00   0.00   0.00    0.00    0.00   0.00     0.00     0.00   0.00   0.00
+sda              0.00    0.00      0.00      0.00     0.00     0.00   0.00   0.00    0.00    0.00   0.00     0.00     0.00   0.00   0.00
+sdb              0.00    0.00      0.00      0.00     0.00     0.00   0.00   0.00    0.00    0.00   0.00     0.00     0.00   0.00   0.00
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;第一行显示的是自系统启动以来的平均值，然后显示增量的平均值，每个设备一行。&lt;/p&gt;
+&lt;p&gt;常见 linux 的磁盘 IO 指标的缩写习惯：rq 是 request，r 是 read，w 是 write，qu 是 queue，sz 是 size，a 是verage，tm 是 time，svc 是 service。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;rrqm/s 和 wrqm/s：每秒合并的读和写请求，“合并的”意味着操作系统从队列中拿出多个逻辑请求合并为一个请求到实际磁盘。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;r/s和w/s：每秒发送到设备的读和写请求数。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;rsec/s和wsec/s：每秒读和写的扇区数。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;avgrq –sz：请求的扇区数。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;avgqu –sz：在设备队列中等待的请求数。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;await：每个IO请求花费的时间。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;svctm：实际请求（服务）时间。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;%util：至少有一个活跃请求所占时间的百分比。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;dstat--系统监控工具&#34;&gt;dstat&amp;ndash;系统监控工具&lt;/h3&gt;
+&lt;p&gt;dstat 显示了 cpu 使用情况，磁盘 io 情况，网络发包情况和换页情况，输出是彩色的，可读性较强，相对于 vmstat 和iostat 的输入更加详细且较为直观。在使用时，直接输入命令即可，当然也可以使用特定参数。&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# dstat –cdlmnpsy
+--total-cpu-usage-- -dsk/total- ---load-avg--- ------memory-usage----- -net/total- ---procs--- ----swap--- ---system--
+usr sys idl wai stl| read  writ| 1m   5m  15m | used  free  buff  cach| recv  send|run blk new| used  free| int   csw 
+ 13   3  83   1   0|2088k 1071k|4.61 4.94 4.87|4518M  232M  146M 2844M|   0     0 |3.0   0 5.9|  20M   11G|8498    17k
+  8   3  89   0   0|   0    80k|4.61 4.94 4.87|4519M  231M  146M 2844M|1422B  888B|  0   0 4.0|  20M   11G|3964  7113 
+  5   1  94   0   0|   0     0 |4.61 4.94 4.87|4519M  231M  146M 2844M| 410B  282B|1.0   0   0|  20M   11G|3542  6320 
+  7   2  91   0   0|   0     0 |4.61 4.94 4.87|4515M  235M  146M 2844M| 303B   54B|  0   0 2.0|  20M   11G|3882  6835
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;h3 id=&#34;iotop--linux进程实时监控工具&#34;&gt;iotop&amp;ndash;LINUX进程实时监控工具&lt;/h3&gt;
+&lt;p&gt;iotop命令是专门显示硬盘IO的命令，界面风格类似top命令，可以显示IO负载具体是由哪个进程产生的。是一个用来监视磁盘I/O使用状况的top类工具，具有与top相似的UI，其中包括PID、用户、I/O、进程等相关信息。&lt;/p&gt;
+&lt;p&gt;可以以非交互的方式使用：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# iotop –bod interval&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;查看每个进程的 I/O，可以使用&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# pidstat，pidstat –d instat&lt;/code&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;pidstat--监控系统资源情况&#34;&gt;pidstat&amp;ndash;监控系统资源情况&lt;/h3&gt;
+&lt;p&gt;pidstat 主要用于监控全部或指定进程占用系统资源的情况,如 CPU,内存、设备 IO、任务切换、线程等。&lt;/p&gt;
+&lt;p&gt;使用方法：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# pidstat –d interval&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;pidstat 还可以用以统计CPU使用信息：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# pidstat –u interval&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;统计内存信息：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# pidstat –r interval&lt;/code&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;top&#34;&gt;top&lt;/h3&gt;
+&lt;p&gt;top 命令的汇总区域显示了五个方面的系统性能信息：&lt;/p&gt;
+&lt;p&gt;负载：时间，登陆用户数，系统平均负载；&lt;/p&gt;
+&lt;p&gt;进程：运行，睡眠，停止，僵尸；&lt;/p&gt;
+&lt;p&gt;cpu:用户态，核心态，NICE,空闲，等待IO,中断等；&lt;/p&gt;
+&lt;p&gt;内存：总量，已用，空闲（系统角度），缓冲，缓存；&lt;/p&gt;
+&lt;p&gt;交换分区：总量，已用，空闲&lt;/p&gt;
+&lt;p&gt;任务区域默认显示：进程 ID，有效用户，进程优先级，NICE 值，进程使用的虚拟内存，物理内存和共享内存，进程状态，CPU 占用率，内存占用率，累计 CPU 时间，进程命令行信息。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;htop&#34;&gt;htop&lt;/h3&gt;
+&lt;p&gt;htop 是 Linux 系统中的一个互动的进程查看器,一个文本模式的应用程序(在控制台或者X终端中),需要 ncurses。&lt;/p&gt;
+&lt;p&gt;Htop 可让用户交互式操作，支持颜色主题，可横向或纵向滚动浏览进程列表，并支持鼠标操作。&lt;/p&gt;
+&lt;p&gt;与 top 相比，htop 有以下优点：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;可以横向或者纵向滚动浏览进程列表，以便看到所有的进程和完整的命令行。
+在启动上，比top更快。
+杀进程时不需要输入进程号。
+htop支持鼠标操作。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;mpstat&#34;&gt;mpstat&lt;/h3&gt;
+&lt;p&gt;mpstat 是 Multiprocessor Statistics的缩写，是实时系统监控工具。其报告CPU的一些统计信息，这些信息存放在 /proc/stat 文件中。在多 CPUs 系统里，其不但能查看所有 CPU 的平均状况信息，而且能够查看特定 CPU 的信息。常见用法：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# mpstat –P ALL interval times&lt;/code&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;netstat&#34;&gt;netstat&lt;/h3&gt;
+&lt;p&gt;netstat 用于显示与 IP、TCP、UDP和 ICMP 协议相关的统计数据，一般用于检验本机各端口的网络连接情况。&lt;/p&gt;
+&lt;p&gt;常见用法：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# netstat –npl   # 可以查看你要打开的端口是否已经打开。
+
+# netstat –rn    # 打印路由表信息。
+
+# netstat –in    # 提供系统上的接口信息，打印每个接口的MTU,输入分组数，输入错误，输出分组数，输出错误，冲突以及当前的输出队列的长度。
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;h3 id=&#34;ps--显示当前进程的状态&#34;&gt;ps&amp;ndash;显示当前进程的状态&lt;/h3&gt;
+&lt;p&gt;ps 参数太多，具体使用方法可以参考 man ps&lt;/p&gt;
+&lt;p&gt;常用的方法：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# ps  aux     
+
+# ps –ef |grep  
+杀掉某一程序的方法：
+
+# ps  aux | grep mysqld | grep –v grep | awk ‘{print $2 }’ xargs kill -9
+杀掉僵尸进程：
+
+# ps –eal | awk ‘{if ($2 == “Z”){print $4}}’ | xargs kill -9
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;h3 id=&#34;strace&#34;&gt;strace&lt;/h3&gt;
+&lt;p&gt;跟踪程序执行过程中产生的系统调用及接收到的信号，帮助分析程序或命令执行中遇到的异常情况。&lt;/p&gt;
+&lt;p&gt;举例：查看 mysqld 在 linux 上加载哪种配置文件，可以通过运行下面的命令：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;# strace –e stat64 mysqld –print –defaults &amp;gt; /dev/null&lt;/code&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;uptime&#34;&gt;uptime&lt;/h3&gt;
+&lt;p&gt;能够打印系统总共运行了多长时间和系统的平均负载，uptime 命令最后输出的三个数字的含义分别是 1分钟，5分钟，15分钟内系统的平均负荷。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;lsof&#34;&gt;lsof&lt;/h3&gt;
+&lt;p&gt;lsof（list open files）是一个列出当前系统打开文件的工具。通过 lsof 工具能够查看这个列表对系统检测及排错，常见的用法：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;查看文件系统阻塞
+# lsof /boot
+
+查看端口号被哪个进程占用
+# lsof  -i : 3306
+
+查看用户打开哪些文件
+# lsof –u username
+
+查看进程打开哪些文件
+# lsof –p  4838
+
+查看远程已打开的网络链接
+# lsof –i @192.168.34.128
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;h3 id=&#34;perf&#34;&gt;perf&lt;/h3&gt;
+&lt;p&gt;perf 是 Linux kernel 自带的系统性能优化工具。优势在于与 Linux Kernel 的紧密结合，它可以最先应用到加入 Kernel 的new feature，用于查看热点函数，查看 cashe miss 的比率，从而帮助开发者来优化程序性能。&lt;/p&gt;
+&lt;p&gt;性能调优工具如 perf，Oprofile 等的基本原理都是对被监测对象进行采样，最简单的情形是根据 tick 中断进行采样，即在 tick 中断内触发采样点，在采样点里判断程序当时的上下文。&lt;/p&gt;
+&lt;p&gt;假如一个程序 90% 的时间都花费在函数 foo() 上，那么 90% 的采样点都应该落在函数 foo() 的上下文中。运气不可捉摸，但我想只要采样频率足够高，采样时间足够长，那么以上推论就比较可靠。因此，通过 tick 触发采样，我们便可以了解程序中哪些地方最耗时间，从而重点分析。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;来源：https://rdc.hundsun.com/portal/article/731.html&lt;/p&gt;
+
+    </description>
+    </item>
+    
     <item>
     <title>Fsearch的安装及使用</title>
     <link>http://wiseai.cn/post/2023.01.27-fsearch%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8/</link>
