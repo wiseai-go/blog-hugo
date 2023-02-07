@@ -6,7 +6,31 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>陇ICP备15000157号</copyright>
-    <lastBuildDate>Mon, 30 Jan 2023 18:04:19 +0800</lastBuildDate><atom:link href="http://wiseai.cn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 07 Feb 2023 10:06:31 +0800</lastBuildDate><atom:link href="http://wiseai.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+    <title>PPTist在线演示文稿ppt</title>
+    <link>http://wiseai.cn/post/2023.02.07-pptist%E5%9C%A8%E7%BA%BF%E6%BC%94%E7%A4%BA%E6%96%87%E7%A8%BFppt/</link>
+    <pubDate>Tue, 07 Feb 2023 10:06:31 +0800</pubDate>
+    <author>wiseai</author>
+    <guid>http://wiseai.cn/post/2023.02.07-pptist%E5%9C%A8%E7%BA%BF%E6%BC%94%E7%A4%BA%E6%96%87%E7%A8%BFppt/</guid>
+    <description>
+        &lt;h2 id=&#34;简介&#34;&gt;简介：&lt;/h2&gt;
+&lt;p&gt;一个基于 Vue3.x + TypeScript 的在线演示文稿（幻灯片）应用，还原了大部分 Office PowerPoint 常用功能，支持 文字、图片、形状、线条、图表、表格、视频、音频、公式 几种最常用的元素类型，每一种元素都拥有高度可编辑能力，同时支持丰富的快捷键和右键菜单，支持导出本地 PPTX 文件，支持移动端基础编辑和预览，支持 PWA。&lt;/p&gt;
+&lt;h2 id=&#34;源码位置&#34;&gt;源码位置：&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/pipipi-pikachu/PPTist.git&#34;&gt;github: https://github.com/pipipi-pikachu/PPTist.git&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;https://gitee.com/mirrors/PPTist.git&#34;&gt;gitee: https://gitee.com/mirrors/PPTist.git&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;编译代码&#34;&gt;编译代码：&lt;/h2&gt;
+&lt;p&gt;首先，需要搭建node.js环境&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# git clone https://github.com/pipipi-pikachu/PPTist.git
+# npm install
+# npm run serve
+# npm run build //目录下会生成dist目录，这个就是可以发布的代码
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;注意：编译最新版本出现一个问题,“opensslErrorStack: [ ’error:03000086:digital envelope routines::initialization error’ ]&amp;quot;,出现这个错误是因为 node.js V17以上的版本中最近发布的OpenSSL3.0, 而OpenSSL3.0对允许算法和密钥大小增加了严格的限制，解决办法是:&lt;br&gt;
+&lt;code&gt;# export NODE_OPTIONS=--openssl-legacy-provider&lt;/code&gt;&lt;/p&gt;
+
+    </description>
+    </item>
+    
     <item>
     <title>Linux性能分析工具</title>
     <link>http://wiseai.cn/post/2023.01.30-linux%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7/</link>

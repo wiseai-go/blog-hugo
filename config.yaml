@@ -113,7 +113,7 @@ menu:
     - name: Github
       weight: 40
       url: "https://github.com/"
-    - name: OSCHINA
+    - name: OSCHINA开源中国
       weight: 50
       url: "https://www.oschina.net/"
     - name: the way to go
