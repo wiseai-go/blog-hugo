@@ -45,7 +45,7 @@ GOOS="darwin"
 GOROOT="/usr/local/go"
 GOTOOLDIR="/usr/local/go/pkg/tool/darwin_amd64"
 ```
-**注意里面两个重要的环境变量GOOS和GOARCH,其中GOOS指的是目标操作系统，它的可用值为：**
+**注意里面两个重要的环境变量GOOS和GOARCH,其中GOOS指的是目标操作系统，它的可用值为：**  
 1.  darwin
 2.  freebsd
 3.  linux
@@ -77,6 +77,14 @@ GOTOOLDIR="/usr/local/go/pkg/tool/darwin_amd64"
 
 前面两个赋值，是更改环境变量，这样的好处是只针对本次运行有效，不会更改我们默认的配置。
 
+**-ldflags参数的使用和gdb调试**  
+设置编译参数-ldflags "-w -s"  
+其中-w为去掉调试信息（无法使用gdb调试），-s为去掉符号表  
+`go build -ldflags "-w -s" ./hello.go`  
+`gdb ./main`  
+这样就可以进行gdb调试。
+
+查询所有build用法使用这个命令  
 `go help build`
 
 **CGO_ENABLED 环境变量**

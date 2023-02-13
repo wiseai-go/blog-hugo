@@ -124,7 +124,14 @@ GOTOOLDIR=&#34;/usr/local/go/pkg/tool/darwin_amd64&#34;
 <p>如果我们要生成不同平台架构的可执行程序，只要改变这两个环境变量就可以了，比如要生成Linux 64位的程序，命令如下：</p>
 <p><code>GOOS=linux GOARCH=amd64 go build flysnow.org/hello</code></p>
 <p>前面两个赋值，是更改环境变量，这样的好处是只针对本次运行有效，不会更改我们默认的配置。</p>
-<p><code>go help build</code></p>
+<p><strong>-ldflags参数的使用和gdb调试</strong><br>
+设置编译参数-ldflags &ldquo;-w -s&rdquo;<br>
+其中-w为去掉调试信息（无法使用gdb调试），-s为去掉符号表<br>
+<code>go build -ldflags &quot;-w -s&quot; ./hello.go</code><br>
+<code>gdb ./main</code><br>
+这样就可以进行gdb调试。</p>
+<p>查询所有build用法使用这个命令<br>
+<code>go help build</code></p>
 <p><strong>CGO_ENABLED 环境变量</strong></p>
 <p>系统默认为1，可以使用<code>go env</code>命令查看。</p>
 <p>当CGO_ENABLED=1，进行编译时会将文件中引用libc的库（比如常用的net包），以动态链接的方式生成目标文件。</p>

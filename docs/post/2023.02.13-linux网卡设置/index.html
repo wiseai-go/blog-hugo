@@ -9,7 +9,7 @@
 
     <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico" />
 
-    <title>Linux学习 | WiseAI的博客</title>
+    <title>Linux网卡设置 | WiseAI的博客</title>
 </head><body><div class="container-fluid">
     <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
         <div class="container-fluid">
@@ -56,74 +56,125 @@
 
 
 <div id="content">
+<div class="container article">
+	<h1>Linux网卡设置</h1>
+	<div class="post-meta">
+		<div>
+			
+			
+			By wiseai | 2023-02-13 | 1 minutes
+		</div>
+		<div class="tags">
+			
+			<a class="btn btn-light links btn-sm" href="/tags/linux/">Linux</a>
+			
+			<a class="btn btn-light links btn-sm" href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a>
+			
+		</div>
+	</div>
+	<div>
+		<div class="article-post">
+			<p>这里主要以树莓派的网卡设置为例，其它的linux发行版都差不多。<br>
+树莓派的raspi-config工具，是设置网络最方便的，下面主要说说手动设置的方法。</p>
+<ul>
+<li>有线网卡<br>
+树莓派建议一个网口设置两个ip，这样，在固定ip的网络也可以连接，在dhpc的网络也可以连接。</li>
+</ul>
+<pre tabindex="0"><code>auto eth0
+iface eth0 inet static
+        address 192.168.1.2
+        netmask 255.255.255.0
+        gateway 192.168.1.1
 
+auto eth0:1
+iface eth0:1 inet dhcp
+</code></pre><p>这个是我的配置文件，位置在/etc/network/interfaces.d/eth0，文件不存在建立一个就好.</p>
+<hr>
+<ul>
+<li>无线网卡<br>
+iwconfig 命令查看当前无线网卡状态<br>
+iwlist wlan0 scan 扫描周围无线网卡</li>
+</ul>
+<p>新建/etc/network/interfaces.d/wlan0</p>
+<pre tabindex="0"><code>auto wlan0  #或者allow-hotplug
+iface wlan0 inet dhcp
+wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+</code></pre><p>生成配置文件：</p>
+<pre tabindex="0"><code># wpa_passphrase &lt;yourAPssid&gt; &lt;yourpassphrase&gt; &gt;&gt; /etc/wpa_supplicant/wpa_supplicant.conf
+</code></pre><p><strong>注意:</strong>&quot;&raquo;&ldquo;是追加的意思，不要用&rdquo;&gt;&quot;。<br>
+修改/etc/wpa_supplicant/wpa_supplicant.conf</p>
+<pre tabindex="0"><code>network={
+    ssid=&#34;&lt;yourAPssid&gt;&#34;
+    #psk=&#34;&lt;yourpassphrase&gt;&#34;
+    psk=f7caf61012a3fe193ce790164b88c3648bd5fc16cd0f007c84cf154d728b4f2d
+}
+//这部分是命令生成的，psk是加密后的密码，修改后为：
+network={
+    ssid=&#34;&lt;yourAPssid&gt;&#34;
+    proto=RSN
+    key_mgmt=WPA-PSK
+    pairwise=CCMP TKIP
+    group=CCMP TKIP
+    scan_ssid=1
+    disabled=1
+    #psk=&#34;&lt;yourpassphrase&gt;&#34;
+    psk=f7caf61012a3fe193ce790164b88c3648bd5fc16cd0f007c84cf154d728b4f2d
+    priority=1
+}
+</code></pre><pre><code>ssid：无线网络名称。
 
+proto=RSN #Robust Security Network:强健安全网络，表示这个网络配置比WEP模式要更安全。
 
+key_mgmt=WPA-PSK #请无论你是使用WPA-PSK，WPA2-PSK，都请在这里输入 WPA-PSK。这在wpa_supplicant看来WPA-PSK，WPA2-PSK都是 WPA-PSK。企业路由是WPA-EAP。如果没有密码，需要配置为NONE
 
+pairwise=CCMP TKIP #关键点，wpa_supplicant目前还不认AES的加密标准
 
-<div class="container archive">
-	<h1>Linux学习</h1>
-	<p class="subtitle">
-		发布了<span class="count">46</span> 篇文章.
-	</p>
+group=CCMP TKIP #同上
+
+scan_ssid:如果ssid隐藏，这个参数必须配置
+
+disabled=1:禁用这个网络
+
+psk=7b271c9a7c8a6ac07d12403a1f0792d7d92b5957ff8dfd56481ced43ec6a6515 #wpa_supplicant算出来的加密密码。
+
+priority:优先连接那个wifi
+</code></pre>
+<ul>
+<li>添加网关的方法：</li>
+</ul>
+<pre tabindex="0"><code>//添加默认网关
+# route add default gw IP
+</code></pre><p>具体看route命令的使用</p>
+
+		</div>
+	</div>
 </div>
 
-<div class="container" id="articles-list">
-    
-    <div class="row">
-        <h2>2022</h2><hr>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/filebrowser%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/"><time>05-30</time>filebrowser的安装和使用</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/ftp%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9E%B6%E8%AE%BEvsftpd/"><time>05-30</time>FTP服务器架设（vsftpd）</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/linux%E5%AE%89%E8%A3%85hp%E6%89%93%E5%8D%B0%E6%9C%BA%E9%A9%B1%E5%8A%A8/"><time>05-30</time>Linux安装hp打印机驱动</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/linux%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E7%9A%84%E6%96%B9%E6%B3%95/"><time>05-30</time>Linux开机启动的方法</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/linux%E6%9B%B4%E6%8D%A2%E7%BD%91%E5%8D%A1%E5%90%8E%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E4%B8%8D%E8%83%BD%E5%90%AF%E5%8A%A8%E7%9A%84%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"><time>05-30</time>Linux更换网卡后网络服务不能启动的问题解决办法</a>
-        </div>
-        
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/iptables%E8%AE%BE%E7%BD%AEsh/"><time>05-30</time>通过iptables设置防火墙</a>
-        </div>
-        
-
-    </div>
-    
-</div>
 
 <div class="container">
+    
     <div class="row">
+        
         <div class="col-5">
-            <a class="page-link link-dark text-end dh" href="/categories/linux%E5%AD%A6%E4%B9%A0/page/4/">
-                <h5>前一页</h5>
+            <a class="page-link link-dark text-end dh" href="/post/2023.02.07-pptist%E5%9C%A8%E7%BA%BF%E6%BC%94%E7%A4%BA%E6%96%87%E7%A8%BFppt/">
+                <h5>前一篇</h5><br>
+                PPTist在线演示文稿ppt
             </a>            
         </div>
         
-
         <div class="col-2">
         </div>
+        
         <div class="col-5">
-            <a class="page-link link-dark text-start dh" href="">
-                <h5>没有了</h5>
+            <a class="page-link link-dark text-start dh" href="/post/2023.02.13-%E8%B7%AF%E7%94%B1%E8%AE%BE%E7%BD%AE%E5%92%8Croute%E5%91%BD%E4%BB%A4%E7%9A%84%E4%BD%BF%E7%94%A8/">
+                <h5>后一篇</h5><br>
+                路由设置和route命令的使用
             </a>            
         </div>
         
     </div>
+    
 </div>
-
-
-
 
         </div><br><br>
 <footer class="container">
