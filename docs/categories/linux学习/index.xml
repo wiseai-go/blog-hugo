@@ -366,12 +366,14 @@ PubkeyAcceptedKeyTypes PubkeyAcceptedKeyTypes 指定公钥认证允许的密钥�
       <pubDate>Mon, 20 Jun 2022 00:00:00 +0000</pubDate>
       
       <guid>http://wiseai.cn/post/%E4%BD%BF%E7%94%A8openssl%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6/</guid>
-      <description>下载安装OpenSSL，进入/bin/下面，执行命令（把ssl目录下的openssl.cnf 拷贝到bin目录下）
+      <description>openssl req -new -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out cert.pem -keyout key.pem
+这个命令就可以生成了,下面的是网上的,可以参考.
+下载安装OpenSSL，进入/bin/下面，执行命令（把ssl目录下的openssl.cnf 拷贝到bin目录下）
 1.首先要生成服务器端的私钥(key文件):
 openssl genrsa -des3 -out server.key 1024 [root@airwaySSL openssl]# cd ssl/ [root@airwaySSL ssl]# pwd /home/openssl/ssl [root@airwaySSL ssl]# ls certs man misc openssl.cnf private server.csr server.key 运行时会提示输入密码,此密码用于加密key文件(参数des3便是指加密算法,当然也可以选用其他你认为安全的算法.),以后每当需读取此文件(通过openssl提供的命令或API)都需输入口令.如果觉得不方便,也可以去除这个口令,但一定要采取其他的保护措施!
 去除key文件口令的命令:
 openssl rsa -in server.key -out server.key 2.openssl req -new -key server.key -out server.csr -config openssl.cnf
-[root@airwaySSL bin]# openssl req -new -key server.key -out server.csr -config openssl.cnf Enter pass phrase for server.key:12345 You are about to be asked to enter information that will be incorporated into your certificate request.</description>
+[root@airwaySSL bin]# openssl req -new -key server.key -out server.csr -config openssl.cnf Enter pass phrase for server.</description>
     </item>
     
     <item>
@@ -641,22 +643,19 @@ $ make build 注：开始编译，完成后在当前目录下filebrowser
       <pubDate>Mon, 30 May 2022 00:00:00 +0000</pubDate>
       
       <guid>http://wiseai.cn/post/ftp%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9E%B6%E8%AE%BEvsftpd/</guid>
-      <description>安装： # dnf install vsftpd
-**FTP主动模式：客户端从一个任意的非特权端口N（N&amp;gt;1024）连接到FTP服务器的port 21命令端口。然后客户端开始监听端口N+1，**并发送FTP命令&amp;quot;port N+1&amp;quot;到FTP服务器。接着服务器会从它自己的数据端口（20）连接到客户端指定的数据端口（N+1）。
-**FTP被动模式：客户端从一个任意的非特权端口N（N&amp;gt;1024）连接到FTP服务器的port 21命令端口。然后客户端开始监听端口N+1，**同时客户端提交 PASV命令。服务器会开启一个任意的非特权端口（P &amp;gt;1024），并发送PORT P命令给客户端。然后客户端发起从本地端口N+1到服务器的端口P的连接用来传送数据。
-端口： 主动模式：TCP 21（指令），20（数据）端口
-被动模式：TCP 21（指令），大于1024端口传输数据（可在配置文件中指定范围）
-生成证书：
-# openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout ftp.pem -out ftp.pem
-配置文件：
-/etc/vsftpd/vsftpd.conf
-严格来说,整个 vsftpd 的配置文件就只有这个档案!这个档案的设定是以 bash的变量设定相同的方式来处理的, 也就是『参数=设定值』来设定的,注意, 等号两边不能有空白喔!至于详细的 vsftpd.conf 可以使用 『 man 5 vsftpd.conf 』来详查。
-/etc/pam.d/vsftpd
-这个是 vsftpd 使用 PAM 模块时的相关配置文件。主要用来作为身份认证之用,还有一些用户身份的抵挡功能, 也是透过这个档案来达成的。
-/etc/vsftpd/ftpusers
-与上一个档案有关系,也就是 PAM 模块 (/etc/pam.d/vsftpd) 所指定的那个无法登入的用户配置文件啊! 这个档案的设定很简单,你只要将『不想让他登入FTP 的账号』写入这个档案即可。
-/etc/vsftpd/user_list
-这个档案是否能够生效与 vsftpd.conf 内的两个参数有关,分别是『 userlist_enable, userlist_deny 』。 如果说 /etc/vsftpd/ftpusers 是PAM 模块的抵挡设定项目,那么这个 /etc/vsftpd/user_list 则是 vsftpd 自定义的抵挡项目。事实上这个档案与 /etc/vsftpd/ftpusers 几乎一模一样, 在预设的情况下,你可以将不希望可登入 vsftpd 的账号写入这里。不过这个档案的功能会依据 vsftpd.</description>
+      <description>一、安装vsftpd及相关组件： # apt install vsftpd db-util
+注意：db-util如果不存在，那就找db5.3-util，所以用# apt list db*查找下再安装。
+二、修改FTP相关帐户： vsftpd服务的宿主用户
+vsftpd默认只能使用root用户运行。使用非root用户运行，需要在配置文件里设置run_as_launching_user=YES。 官方强烈不推荐使用这种方式启动，会带来安全问题，并且会导致无法使用chroot技术来限制文件访问。这一步现在可能不需要了，先放着。
+# useradd vsftpd -s /sbin/nologin
+vsftpd的虚拟宿主用户
+# useradd ftp -d /var/ftp/ -s /sbin/nologin
+# chown -R ftp:ftp /var/ftp/
+vsftpd的虚拟用户并不是系统用户，也就是说这些FTP的用户在系统中是不存在的。他们的总体权限其实是集中寄托在一个在系统中的某一个用户身上的，所谓vsftpd的虚拟宿主用户，就是这样一个支持着所有虚拟用户的宿主用户。由于他支撑了FTP的所有虚拟的用户，那么他本身的权限将会影响着这些虚拟的用户，因此，处于安全性的考虑，也要非分注意对该用户的权限的控制，该用户也绝对没有登陆系统的必要，这里也设定他为不能登陆系统的用户。ftp用户在安装vsftpd的时候就已经添加了，我们只需要将它家目录改为你需要的位置。
+三、vsftpd.conf基本配置： 配置 /etc/vsftpd/vsftpd.conf文件，这里我们只写有变动的地方，其它的保持默认。
+首先，生成证书：
+# openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout ftp.key -out ftp.pem
+#ssl加密传输 rsa_cert_file=/etc/ssl/certs/ftp.pem rsa_private_key_file=/etc/ssl/ftp.key ssl_enable=YES #被动ftp #listen_port=56880 #pasv_min_port=30000 #pasv_max_port=35000 #主动ftp，这个只需要打开20和21两个端口，在负载比较小的时候，不想开多个端口的时候，可以使用 pasv_enable=NO #这个地方一定要注意，这里的user_list里的用户是可以登陆的用户 userlist_enable=YES userlist_deny=NO userlist_file=/etc/vsftpd/user_list tcp_wrappers=YES chroot_local_user=YES chroot_list_file=/etc/vsftpd/chroot_list #虚拟用户 guest_enable=YES guest_username=ftp virtual_use_local_privs=YES pam_service_name=vsftpd #独立用户设置 user_config_dir=/etc/vsftpd/vsftpd_user_conf 四、生成vsftpd虚拟用户数据库文件： 建立虚拟用户名单文件：</description>
     </item>
     
     <item>

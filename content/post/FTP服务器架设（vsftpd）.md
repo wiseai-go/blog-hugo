@@ -9,6 +9,204 @@ categories:
 - Linux学习
 draft: false
 ---
+### 一、安装vsftpd及相关组件：
+`# apt install vsftpd db-util`  
+注意：db-util如果不存在，那就找db5.3-util，所以用`# apt list db*`查找下再安装。
+
+### 二、修改FTP相关帐户：
+
+1. vsftpd服务的宿主用户  
+vsftpd默认只能使用root用户运行。使用非root用户运行，需要在配置文件里设置run_as_launching_user=YES。
+官方强烈不推荐使用这种方式启动，会带来安全问题，并且会导致无法使用chroot技术来限制文件访问。这一步现在可能不需要了，先放着。  
+`# useradd vsftpd -s /sbin/nologin`  
+
+1. vsftpd的虚拟宿主用户  
+`# useradd ftp -d /var/ftp/ -s /sbin/nologin`  
+`# chown -R ftp:ftp /var/ftp/`  
+vsftpd的虚拟用户并不是系统用户，也就是说这些FTP的用户在系统中是不存在的。他们的总体权限其实是集中寄托在一个在系统中的某一个用户身上的，所谓vsftpd的虚拟宿主用户，就是这样一个支持着所有虚拟用户的宿主用户。由于他支撑了FTP的所有虚拟的用户，那么他本身的权限将会影响着这些虚拟的用户，因此，处于安全性的考虑，也要非分注意对该用户的权限的控制，该用户也绝对没有登陆系统的必要，这里也设定他为不能登陆系统的用户。ftp用户在安装vsftpd的时候就已经添加了，我们只需要将它家目录改为你需要的位置。
+
+### 三、vsftpd.conf基本配置：
+配置 /etc/vsftpd/vsftpd.conf文件，这里我们只写有变动的地方，其它的保持默认。  
+首先，生成证书：  
+`# openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout ftp.key -out ftp.pem`
+```
+#ssl加密传输
+rsa_cert_file=/etc/ssl/certs/ftp.pem
+rsa_private_key_file=/etc/ssl/ftp.key
+ssl_enable=YES
+
+#被动ftp
+#listen_port=56880
+#pasv_min_port=30000
+#pasv_max_port=35000
+
+#主动ftp，这个只需要打开20和21两个端口，在负载比较小的时候，不想开多个端口的时候，可以使用
+pasv_enable=NO
+
+#这个地方一定要注意，这里的user_list里的用户是可以登陆的用户
+userlist_enable=YES
+userlist_deny=NO
+userlist_file=/etc/vsftpd/user_list
+
+tcp_wrappers=YES
+
+chroot_local_user=YES
+chroot_list_file=/etc/vsftpd/chroot_list
+
+#虚拟用户
+guest_enable=YES
+guest_username=ftp
+virtual_use_local_privs=YES
+pam_service_name=vsftpd
+
+#独立用户设置
+user_config_dir=/etc/vsftpd/vsftpd_user_conf
+
+```
+### 四、生成vsftpd虚拟用户数据库文件：
+
+1. 建立虚拟用户名单文件：  
+ 	`# vim /etc/vsftpd/ftpuser.txt`  
+	内容如下：
+    ```
+	ftp1
+	1234
+	ftp2
+	5678
+    ```
+	格式很简单：“一行用户名，一行密码！”。  
+1. 生成虚拟用户数据文件：  
+`# db_load -T -t hash -f /etc/vsftpd/ftpuser.txt /etc/vsftpd/vsftpd_login.db  //注意5.3，安装那个版本就用那个版本号`  
+`# chmod 600 /etc/vsftpd/vsftpd_login.db  //修改文件权限`
+
+### 五、配置PAM验证文件：
+`# vim /etc/pam.d/vsftpd`
+将以下内容加入到文件最前面（在后面加入无效）：
+> 注意：pam_userdb.so这个文件可以搜索下位置写入，不同系统的文件位置不同
+
+1. 本地用户登陆
+	```
+	auth    required        pam_listfile.so item=user sense=deny file=/etc/vsftpd/ftpusers onerr=succeed
+	auth	required        pam_shells.so
+	#auth    required        pam_nologin.so
+	```
+	ftpusers的原位置在/etc/，移动ftpusers到/etc/vsftpd/，这里的ftpusers，是限制本地用户登陆的文件，在这个文件里的用户不能登陆。  
+	pam_shells.so和pam_nologin.so两个配置，如果你的用户是可以登陆系统的用pam_shells.so，如果是不能登陆系统的用pam_nologin.so
+
+1. 虚拟用户登陆
+	```
+	auth    required        /usr/lib/aarch64-linux-gnu/security/pam_userdb.so db=/etc/vsftpd/vsftpd_login
+	account required        /usr/lib/aarch64-linux-gnu/security/pam_userdb.so db=/etc/vsftpd/vsftpd_login
+	#auth    required        pam_listfile.so item=user sense=deny file=/etc/vsftpd/ftpusers onerr=succeed
+	auth    required        pam_nologin.so
+	```
+	经过测试，这样写也行：
+	```
+	auth    required        pam_userdb.so db=/etc/vsftpd/vsftpd_login
+	account required        pam_userdb.so db=/etc/vsftpd/vsftpd_login
+	#auth    required        pam_listfile.so item=user sense=deny file=/etc/vsftpd/ftpusers onerr=succeed
+	auth    required        pam_nologin.so
+	```
+	**注意：**  
+	第三行的auth一定要注释掉，否则虚拟用户不能登陆。  
+	上一步建立的数据库 vsftpd_login 在此处被使用，建立的虚拟用户将采用PAM进行验证，这是通过/etc/vsftpd/vsftpd.conf文件中的语句pam_service_name=vsftpd来启用的。
+
+### 六、vsftpd虚拟用户的独立配置：
+`# mkdir -p /etc/vsftpd/vsftpd_user_conf`  
+`# vim /etc/vsftpd/vsftpd_user_conf/（用户名）`
+
+配置如下：
+
+	allow_writeable_chroot=YES
+	write_enable=YES
+	local_root=/var/ftp/
+
+### 七、vsftpd服务器之间的站点对传：
+有时候可能需要开启vsftpd服务器之间的站点对传功能，只需在主配置文件 /etc/vsftpd/vsftpd.conf 里加入如下参数即可：
+
+	pasv_promiscuous=YES
+	port_promiscuous=YES
+
+说明：
+port_promiscuous=YES|NO
+默认值为NO。为YES时，取消PORT安全检查。该检查确保外出的数据只能连接到客户端上。小心打开此选项。
+
+pasv_promiscuous=YES|NO
+默认值为NO。为YES时，将关闭PASV模式的安全检查。该检查确保数据连接和控制连接是来自同一个IP地址。小心打开此选项。此选项唯一合理的用法是存在于由安全隧道方案构成的组织中。
+由于取消了数据包的安全检查，允许数据流向非客户端，所以站点对传成功。
+
+### 八、/etc/vsftpd/目录下的文件有：
+
+	chroot_list 
+	ftpuser.txt		//这个文件在生成数据库文件后删除 
+	ftpusers		//虚拟用户登陆的话这个文件就没用了  
+	user_list  
+	vsftpd_login.db  
+	vsftpd_user_conf  //这个是目录,下面是各个用户的配置文件
+### 配置修改完成后，重启vsftpd服务生效
+
+配置文件：
+
+* /etc/vsftpd/vsftpd.conf
+
+严格来说,整个 vsftpd 的配置文件就只有这个档案!这个档案的设定是以 bash的变量设定相同的方式来处理的, 也就是『参数=设定值』来设定的,注意, 等号两边不能有空白喔!至于详细的 vsftpd.conf 可以使用 『 man 5 vsftpd.conf 』来详查。
+
+* /etc/pam.d/vsftpd
+
+这个是 vsftpd 使用 PAM 模块时的相关配置文件。主要用来作为身份认证之用,还有一些用户身份的抵挡功能, 也是透过这个档案来达成的。
+
+* /etc/vsftpd/ftpusers
+
+与上一个档案有关系,也就是 PAM 模块 (/etc/pam.d/vsftpd) 所指定的那个无法登入的用户配置文件! 这个档案的设定很简单,你只要将『不想让他登入FTP 的账号』写入这个档案即可。
+
+* /etc/vsftpd/user_list
+
+这个档案是否能够生效与 vsftpd.conf 内的两个参数有关,分别是『 userlist_enable, userlist_deny 』。 如果说 /etc/vsftpd/ftpusers 是PAM 模块的抵挡设定项目,那么这个 /etc/vsftpd/user_list 则是 vsftpd 自定义的抵挡项目。事实上这个档案与 /etc/vsftpd/ftpusers 几乎一模一样, 在预设的情况下,你可以将不希望可登入 vsftpd 的账号写入这里。不过这个档案的功能会依据 vsftpd.conf 配置文件内的 serlist_deny={YES/NO} 而不同。  
+userlist_deny只有在userlist_enable为YES时为生效，userlist_deny为NO时为白名单，为YES时为黑名单。
+
+* /etc/vsftpd/chroot_list
+
+这个档案预设是不存在的,所以你必须要手动自行建立。这个档案的主要功能是可以将某些账号的使用者 chroot 在他们的家目录下!但这个档案要生效与vsftpd.conf 内的『 chroot_list_enable, chroot_list_file 』两个参数有关。如果你想要将某些实体用户限制在他们的家目录下而不许到其他目录去,可以启动这个设定项目。
+
+* /usr/sbin/vsftpd
+
+这就是 vsftpd 的主要执行档，vsftpd 只有这一个执行档。
+
+* /var/ftp/
+
+这个是 vsftpd 的预设匿名者登入的根目录，其实与 ftp 这个账号的家目录有关。local_root也可指定根目录，特别注意目录权限。
+
+* 控制用户是否允许切换到上级目录
+
+在默认配置下，本地用户登入FTP后可以使用cd命令切换到其他目录，这样会对系统带来安全隐患。可以通过以下三条配置文件来控制用户切换目录.
+
+chroot_list_enable=YES/NO（NO）
+
+设置是否启用chroot_list_file配置项指定的用户列表文件。默认值为NO。
+
+chroot_list_file=/etc/vsftpd.chroot_list
+
+用于指定用户列表文件，该文件用于控制哪些用户可以切换到用户家目录的上级目录。
+
+chroot_local_user=YES/NO（NO）
+
+用于指定用户列表文件中的用户是否允许切换到上级目录。默认值为NO。
+
+通过搭配能实现以下几种效果：
+
+①当chroot_list_enable=YES，chroot_local_user=YES时，在/etc/vsftpd.chroot_list文件中列出的用户，可以切换到其他目录；未在文件中列出的用户，不能切换到其他目录。
+
+②当chroot_list_enable=YES，chroot_local_user=NO时，在/etc/vsftpd.chroot_list文件中列出的用户，不能切换到其他目录；未在文件中列出的用户，可以切换到其他目录。
+
+③当chroot_list_enable=NO，chroot_local_user=YES时，所有的用户均不能切换到其他目录。
+
+④当chroot_list_enable=NO，chroot_local_user=NO时，所有的用户均可以切换到其他目录。
+
+[chroot_local_user=YES/NO ,特别注意当等于YES时，因为FTP不能切换目录，有些FTP客户端会在FTP目标目录里再新建一个目标目录，如 upload/upload  造成应用调试困扰]
+
+### 后面是一些网上收集的资料：
+
+![vsftpd配置](/post/vsftpd.png)
 
 安装：
 --
@@ -25,7 +223,7 @@ draft: false
 
 生成证书：
 
-`# openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout ftp.pem -out ftp.pem`
+`# openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -key out ftp.key -out ftp.pem`
 
 配置文件：
 
@@ -187,134 +385,7 @@ rsa_cert_file=/etc/vsftpd/vsftpd.pem
 ```
 
 
-网上一个详细的教程，值得参考
-==
 
-### 一、安装vsftpd及相关组件：
-`# yum -y install vsftpd db5.3-util`
-注意：这里的db5.3在系统更新的时候可以会变名字，所以用`apt list db*`查找下再安装。
-
-### 二、修改FTP相关帐户：
-
-1. vsftpd服务的宿主用户
-`# useradd vsftpd -s /sbin/nologin`
-默认的vsftpd的服务宿主用户是root，但是这不符合安全性的需要。这里建立名字为vsftpd的用户，用他来作为支持vsftpd的服务宿主用户。由于该用户仅用来支持vsftpd服务用，因此没有许可他登陆系统的必要，并设定他为不能登陆系统的用户。
-这一步现在可能不需要了，先放着。
-
-1. vsftpd的虚拟宿主用户
-`# useradd ftp -d /var/www/html/ -s /sbin/nologin`
-`# chown -R ftp:ftp /var/www/html/`
-vsftpd的虚拟用户并不是系统用户，也就是说这些FTP的用户在系统中是不存在的。他们的总体权限其实是集中寄托在一个在系统中的某一个用户身上的，所谓vsftpd的虚拟宿主用户，就是这样一个支持着所有虚拟用户的宿主用户。由于他支撑了FTP的所有虚拟的用户，那么他本身的权限将会影响着这些虚拟的用户，因此，处于安全性的考虑，也要非分注意对该用户的权限的控制，该用户也绝对没有登陆系统的必要，这里也设定他为不能登陆系统的用户。ftp用户在安装vsftpd的时候就已经添加了，我们只需要将它
-
-三、vsftpd.conf基本配置：
-配置 /etc/vsftpd/vsftpd.conf文件，这里我们只写有变动的地方，其它的保持默认。
-
-```
-#ssl加密传输
-rsa_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
-rsa_private_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
-ssl_enable=YES
-
-#被动ftp
-#listen_port=56880
-#pasv_min_port=30000
-#pasv_max_port=35000
-
-#主动ftp，这个只需要打开20和21两个端口，在负载比较小的时候，不想开多个端口的时候，可以使用
-pasv_enable=NO
-
-#这个地方一定要注意，被卡这儿好久
-userlist_enable=YES
-userlist_deny=NO
-userlist_file=/etc/vsftpd/user_list
-
-tcp_wrappers=YES
-
-chroot_local_user=YES
-chroot_list_file=/etc/vsftpd/chroot_list
-
-#虚拟用户
-guest_enable=YES
-guest_username=ftp
-virtual_use_local_privs=YES
-pam_service_name=vsftpd
-
-#独立用户设置
-user_config_dir=/etc/vsftpd/vsftpd_user_conf
-
-```
-### 四、生成vsftpd虚拟用户数据库文件：
-
-1. 建立虚拟用户名单文件：
-`# vim /etc/vsftpd/ftpuser.txt`
-内容如下：
-ftp1
-1234
-ftp2
-5678
-格式很简单：“一行用户名，一行密码！”。
-
-1. 生成虚拟用户数据文件：
-`# db_load -T -t hash -f /etc/vsftpd/ftpuser.txt /etc/vsftpd/vsftpd_login.db`
-`# chmod 600 /etc/vsftpd/vsftpd_login.db`这一步可以省略，文件权限就是这个
-
-### 五、配置PAM验证文件：
-`# vim /etc/pam.d/vsftpd`
-将以下内容加入到文件最前面（在后面加入无效）：
-> 注意：pam_userdb.so这个文件可以搜索下位置写入，不同系统的文件位置不同
-
-```
-auth    required        /usr/lib/aarch64-linux-gnu/security/pam_userdb.so db=/etc/vsftpd/vsftpd_login
-account required        /usr/lib/aarch64-linux-gnu/security/pam_userdb.so db=/etc/vsftpd/vsftpd_login
-auth    required        pam_listfile.so item=user sense=deny file=/etc/vsftpd/ftpusers onerr=succeed
-```
-经过测试，这样写也行：
-```
-auth    required        pam_userdb.so db=/etc/vsftpd/vsftpd_login
-account required        pam_userdb.so db=/etc/vsftpd/vsftpd_login
-auth    required        pam_listfile.so item=user sense=deny file=/etc/vsftpd/ftpusers onerr=succeed
-```
-ftpusers的原位置在/etc/下，移动ftpusers到/etc/vsftpd/下，这个文件中的用户是不能登陆ftp的。
-上一步建立的数据库 vsftpd_login 在此处被使用，建立的虚拟用户将采用PAM进行验证，这是通过/etc/vsftpd/vsftpd.conf文件中的语句pam_service_name=vsftpd来启用的。
-
-### 六、vsftpd虚拟用户的独立配置：
-`# mkdir -p /etc/vsftpd/vsftpd_user_conf`
-`# vim /etc/vsftpd/vsftpd_user_conf/用户名`
-
-配置如下：
-	allow_writeable_chroot=YES
-	anon_world_readable_only=NO
-	write_enable=YES
-	anon_upload_enable=YES
-	anon_mkdir_write_enable=YES
-	anon_other_write_enable=YES
-	local_root=/var/ftp/
-
-### 七、vsftpd服务器之间的站点对传：
-有时候可能需要开启vsftpd服务器之间的站点对传功能，只需在主配置文件 /etc/vsftpd/vsftpd.conf 里加入如下参数即可：
-
-	pasv_promiscuous=YES
-	port_promiscuous=YES
-
-说明：
-port_promiscuous=YES|NO
-默认值为NO。为YES时，取消PORT安全检查。该检查确保外出的数据只能连接到客户端上。小心打开此选项。
-
-pasv_promiscuous=YES|NO
-默认值为NO。为YES时，将关闭PASV模式的安全检查。该检查确保数据连接和控制连接是来自同一个IP地址。小心打开此选项。此选项唯一合理的用法是存在于由安全隧道方案构成的组织中。
-由于取消了数据包的安全检查，允许数据流向非客户端，所以站点对传成功。
-
-### 八、/etc/vsftpd/目录下的文件有：
-chroot_list 
-ftpuser.txt   
-ftpusers  
-user_list  
-vsftpd_login.db  
-vsftpd_user_conf这个是目录下面是各个用户的配置文件
-### 配置修改完成后，重启vsftpd服务生效：
-## 结束
-
-![vsftpd配置](post/vsftpd.png)
 
 vsftpd配置文件详解
 --

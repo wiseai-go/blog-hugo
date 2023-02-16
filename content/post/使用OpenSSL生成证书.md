@@ -11,7 +11,10 @@ categories:
 draft: false
 ---
 
+`openssl req -new -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out cert.pem -keyout key.pem`  
+这个命令就可以生成了,下面的是网上的,可以参考.
 
+---
 下载安装OpenSSL，进入/bin/下面，执行命令（把ssl目录下的openssl.cnf 拷贝到bin目录下）
 
 1.首先要生成服务器端的私钥(key文件):
