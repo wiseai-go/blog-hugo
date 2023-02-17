@@ -149,6 +149,14 @@ ftp2
 <li>
 <p>本地用户登陆</p>
 <pre tabindex="0"><code>auth    required        pam_listfile.so item=user sense=deny file=/etc/vsftpd/ftpusers onerr=succeed
+
+# Note: vsftpd handles anonymous logins on its own. Do not enable pam_ftp.so.
+
+# Standard pam includes
+@include common-account
+@include common-session
+@include common-auth
+
 auth	required        pam_shells.so
 #auth    required        pam_nologin.so
 </code></pre><p>ftpusers的原位置在/etc/，移动ftpusers到/etc/vsftpd/，这里的ftpusers，是限制本地用户登陆的文件，在这个文件里的用户不能登陆。<br>

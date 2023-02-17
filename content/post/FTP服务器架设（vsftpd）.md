@@ -87,6 +87,14 @@ user_config_dir=/etc/vsftpd/vsftpd_user_conf
 1. 本地用户登陆
 	```
 	auth    required        pam_listfile.so item=user sense=deny file=/etc/vsftpd/ftpusers onerr=succeed
+
+	# Note: vsftpd handles anonymous logins on its own. Do not enable pam_ftp.so.
+
+	# Standard pam includes
+	@include common-account
+	@include common-session
+	@include common-auth
+	
 	auth	required        pam_shells.so
 	#auth    required        pam_nologin.so
 	```
