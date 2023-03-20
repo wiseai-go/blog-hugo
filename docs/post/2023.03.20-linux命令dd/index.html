@@ -9,7 +9,7 @@
 
     <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico" />
 
-    <title>404 Page not found | WiseAI的博客</title>
+    <title>dd命令 | WiseAI的博客</title>
 </head><body><div class="container-fluid">
     <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark">
         <div class="container-fluid">
@@ -56,67 +56,124 @@
 
 
 <div id="content">
+<div class="container article">
+	<h1>dd命令</h1>
+	<div class="post-meta">
+		<div>
+			
+			
+			By wiseai | 2023-03-20 | 1 minutes
+		</div>
+		<div class="tags">
+			
+			<a class="btn btn-light links btn-sm" href="/tags/%E5%A4%87%E4%BB%BD/">备份</a>
+			
+		</div>
+	</div>
+	<div>
+		<div class="article-post">
+			<p>dd：用指定大小的块拷贝一个文件，并在拷贝的同时进行指定的转换。<br>
+注意：指定数字的地方若以下列字符结尾，则乘以相应的数字：b=512；c=1；k=1024；w=2<br>
+参数注释：</p>
+<pre><code>1. if=文件名：输入文件名，缺省为标准输入。即指定源文件。&lt; if=input file &gt;  
+2. of=文件名：输出文件名，缺省为标准输出。即指定目的文件。&lt; of=output file &gt;
+3. ibs=bytes：一次读入bytes个字节，即指定一个块大小为bytes个字节。
+4. obs=bytes：一次输出bytes个字节，即指定一个块大小为bytes个字节。
+5. bs=bytes：同时设置读入/输出的块大小为bytes个字节。
+6. cbs=bytes：一次转换bytes个字节，即指定转换缓冲区大小。
+7. skip=blocks：从输入文件开头跳过blocks个块后再开始复制。
+8. seek=blocks：从输出文件开头跳过blocks个块后再开始复制。
+   注意：通常只用当输出文件是磁盘或磁带时才有效，即备份到磁盘或磁带时才有效。
+9. count=blocks：仅拷贝blocks个块，块大小等于ibs指定的字节数。
+10. conv=conversion：用指定的参数转换文件。
+    ascii：转换ebcdic为ascii
+    ebcdic：转换ascii为ebcdic
+    ibm：转换ascii为alternate ebcdic
+    block：把每一行转换为长度为cbs，不足部分用空格填充
+    unblock：使每一行的长度都为cbs，不足部分用空格填充
+    lcase：把大写字符转换为小写字符
+    ucase：把小写字符转换为大写字符
+    swab：交换输入的每对字节
+    noerror：出错时不停止
+    notrunc：不截短输出文件
+    sync：将每个输入块填充到ibs个字节，不足部分用空（NUL）字符补齐。
+</code></pre>
+<h1 id="例子">例子：</h1>
+<ol>
+<li>将本地的/dev/sda整盘备份到/dev/sdb
+<code># dd if=/dev/sda of=/dev/sdb</code></li>
+<li>将/dev/sda全盘数据备份到指定路径的image文件
+<code># dd if=/dev/sda of=/root/image</code></li>
+<li>将备份文件恢复到指定盘
+<code># dd if=/root/image of=/dev/sda</code></li>
+<li>备份/dev/hdb全盘数据，并利用gzip工具进行压缩，保存到指定路径
+<code># dd if=/dev/sda | gzip &gt; /root/image.gz</code></li>
+<li>将压缩的备份文件恢复到指定盘
+<code># gzip -dc /root/image.gz | dd of=/dev/sda</code></li>
+<li>备份与恢复MBR
+备份：磁盘开始的512个字节大小的MBR信息到指定文件：
+<code># dd if=/dev/sda of=/root/image count=1 bs=512</code>
+count=1指仅拷贝一个块；bs=512指块大小为512个字节。
+恢复：
+<code># dd if=/root/image of=/dev/sda</code></li>
+<li>制作光盘镜像
+<code># dd if=/dev/cdrom of=/root/cd.iso</code></li>
+<li>增加swap分区文件大小
+第一步：创建一个大小为256M的文件
+<code># dd if=/dev/zero of=/swapfile bs=1024k count=256</code>
+第二步：把这个文件变成swap文件：
+<code># mkswap /swapfile</code>
+第三步：启用这个swap文件：
+<code># swapon /swapfile</code>
+第四步：编辑/etc/fstab文件，使在每次开机时自动加载swap文件：
+<code># /swapfile swap swap default 0 0</code></li>
+<li>销毁磁盘数据
+<code># dd if=/dev/urandom of=/dev/hda1</code></li>
+<li>测试硬盘的读写速度
+<code># dd if=/dev/zero bs=1024 count=1000000 of=/root/1Gb.file</code>
+<code># dd if=/root/1Gb.file bs=64k | dd of=/dev/null</code>
+通过以上两个命令输出的命令执行时间，可以计算出硬盘的读、写速度。</li>
+<li>确定硬盘的最佳块大小：</li>
+</ol>
+<pre tabindex="0"><code># dd if=/dev/zero bs=1024 count=1000000 of=/root/1Gb.file
+# dd if=/dev/zero bs=2048 count=500000 of=/root/1Gb.file
+# dd if=/dev/zero bs=4096 count=250000 of=/root/1Gb.file
+# dd if=/dev/zero bs=8192 count=125000 of=/root/1Gb.file
+</code></pre><ol start="12">
+<li>修复硬盘
+<code># dd if=/dev/sda of=/dev/sda 或dd if=/dev/sdb of=/dev/sdb</code>
+当硬盘较长时间(一年以上)放置不使用后，磁盘上会产生magnetic flux point，当磁头读到这些区域时会遇到困难，并可能导致I/O错误。当这种情况影响到硬盘的第一个扇区时，可能导致硬盘报废。上边的命令有可能使这些数 据起死回生。并且这个过程是安全、高效的。</li>
+</ol>
+<p><a href="https://www.cnblogs.com/ginvip/p/6370836.html">https://www.cnblogs.com/ginvip/p/6370836.html</a></p>
 
-<div class="container">
-<img src="/img/404.jpg" class="img-fluid" alt="找不到了！！！">
+		</div>
+	</div>
 </div>
 
 
-
-
-
 <div class="container">
-<h1>希望下面的内容可以帮到你：</h1><hr>
+    
     <div class="row">
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/2023.03.20-linux%E5%91%BD%E4%BB%A4dd/"><time>2023-03-20</time>dd命令</a>
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-end dh" href="/post/2023.02.27-%E5%AD%97%E4%BD%93%E4%B8%8B%E8%BD%BD%E7%BD%91%E7%AB%99/">
+                <h5>前一篇</h5><br>
+                字体下载网站
+            </a>            
         </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/2023.02.27-%E5%AD%97%E4%BD%93%E4%B8%8B%E8%BD%BD%E7%BD%91%E7%AB%99/"><time>2023-02-27</time>字体下载网站</a>
+        
+        <div class="col-2">
         </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/2023.02.13-%E8%B7%AF%E7%94%B1%E8%AE%BE%E7%BD%AE%E5%92%8Croute%E5%91%BD%E4%BB%A4%E7%9A%84%E4%BD%BF%E7%94%A8/"><time>2023-02-13</time>路由设置和route命令的使用</a>
-        </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/2023.02.13-linux%E7%BD%91%E5%8D%A1%E8%AE%BE%E7%BD%AE/"><time>2023-02-13</time>Linux网卡设置</a>
-        </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/2023.02.07-pptist%E5%9C%A8%E7%BA%BF%E6%BC%94%E7%A4%BA%E6%96%87%E7%A8%BFppt/"><time>2023-02-07</time>PPTist在线演示文稿ppt</a>
-        </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/2023.01.30-linux%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7/"><time>2023-01-30</time>Linux性能分析工具</a>
-        </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/2023.01.27-fsearch%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8/"><time>2023-01-27</time>Fsearch的安装及使用</a>
-        </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/2022.12.23-goframe%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7gf%E7%9A%84%E4%BD%BF%E7%94%A8/"><time>2022-12-23</time>Goframe开发工具gf的使用</a>
-        </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/2022.12.22-systemd%E5%BB%B6%E6%97%B6%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1/"><time>2022-12-22</time>systemd延时启动服务</a>
-        </div>
-                
-        <div class="col-12 post text-truncate">
-            <a class="link-dark links" href="/post/2022.12.21-syncthing%E7%9A%84%E4%BD%BF%E7%94%A8/"><time>2022-12-21</time>文件同步Syncthing的使用</a>
+        
+        <div class="col-5">
+            <a class="page-link link-dark text-start dh" href="">
+                <h5>没有了</h5><br>
+            </a>            
         </div>
         
     </div>
-    <h2><span class="badge bg-light">
-        
-        <a class="link-dark links" href="/articles/">查看所有文章</a>
-        
-    </span></h2>
+    
 </div>
-
 
         </div><br><br>
 <footer class="container">
